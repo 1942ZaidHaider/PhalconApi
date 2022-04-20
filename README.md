@@ -5,18 +5,21 @@ Api in phalcon
 
 ## Api endpoints:
 /products/search/{keyword} : to search for products  
-  method : GET  
-  Parameters : none  
+&ensp;&ensp;method : GET  
+&ensp;&ensp;Parameters : none  
   
 /products/get : to list all products  
-  method : GET  
-  Query Parameters (optional) : page : page number  
-                                per_page: number of items per page  
+&ensp;&ensp;method : GET  
+&ensp;&ensp;Query Parameters (optional) :  
+&ensp;&ensp;&ensp;&ensp;page : page number  
+&ensp;&ensp;&ensp;&ensp;per_page: number of items per page  
+  
 /insert : to add new product   
-  method : POST  
-  Body / Form Parameters (required) : name : Product name  
-                                      price : Product price  
-                                      
+  &ensp;&ensp;method : POST  
+  &ensp;&ensp;Body / Form Parameters (required) :  
+  &ensp;&ensp;&ensp;&ensp;name : Product name  
+  &ensp;&ensp;&ensp;&ensp;price : Product price  
+               
 /auth : to generate access_token (valid for 1 day)  
-  method : POST  
-  Params : none  
+  &ensp;&ensp;method : POST  
+  &ensp;&ensp;Params : none  
