@@ -31,7 +31,7 @@ class Handler extends Controller
         $search = urldecode($search);
         $terms = explode(" ", $search);
         foreach ($terms as $k => $v) {
-            $terms[$k] = ['name' => new Regex('.*' . $v . '.*')];
+            $terms[$k] = ['name' => new Regex('.*' . $v . '.*',"i")];
         }
         $find = ['$or' => $terms];
         //return json_encode($find);

@@ -36,7 +36,7 @@ $container->set(
     function () {
         $key = "raxacoricofallapatorian";
         $currentTime = time();
-        $expiry = $currentTime + (60);//(24 * 3600);
+        $expiry = $currentTime + (24 * 3600);
         $payload = [
             "iss" => '/',
             "aud" => '/',
@@ -53,9 +53,9 @@ $handler = new Handler();
 $handler->initialize();
 $api->before(
     function () use ($api) {
-        $url=explode("/",ltrim($_SERVER['REQUEST_URI'],"/"));
+        $url=explode("/",$_SERVER['REQUEST_URI']);
         $key="raxacoricofallapatorian";
-        return (new EventListener())->beforeExecuteRoute($api,$url[0]=="auth",$key);
+        return (new EventListener())->beforeExecuteRoute($api,$url[1]=="auth",$key);
     }
 );
 $api->get(

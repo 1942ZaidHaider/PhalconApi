@@ -3,7 +3,7 @@ Api in phalcon
 
 **All endpoints except /auth require a 'access_token' query parameter with a valid access token**
 
-##Api endpoints:
+## Api endpoints:
 /products/search/{keyword} : to search for products
   method : GET
   Parameters : none
