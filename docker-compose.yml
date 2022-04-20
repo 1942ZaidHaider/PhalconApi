@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  web-server:
+    build:
+      dockerfile: php.Dockerfile
+      context: .
+    restart: always
+    volumes:
+      - "./src/:/var/www/html/"
+    ports:
+      - "8080:80"
+  mongo:
+      container_name: mongo
+      image: mongo:4.4
+      restart: "no"
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: secret
+      ports:
+        - "27017:27017"
+      volumes:
+        - "./mongodata:/data/db"
