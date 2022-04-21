@@ -6,13 +6,15 @@ use Phalcon\Mvc\Micro;
 use Phalcon\Mvc\Micro\Exception as MicroException;
 use Phalcon\Config;
 use MongoDB\Client;
-use Firebase\JWT\JWT;
 use Phalcon\Mvc\View\Simple;
+use Phalcon\Session\Manager;
+use Phalcon\Session\Adapter\Stream;
 
 $config = new Config([]);
 
 define('BASE_PATH', dirname(__DIR__));
-require_once BASE_PATH . "/vendor/autoload.php";
+define('ROOT_PATH', dirname(dirname(__DIR__)));
+require_once ROOT_PATH . "/vendor/autoload.php";
 $loader = new Loader();
 $loader->registerDirs(
     [
@@ -29,7 +31,7 @@ $container->set(
     "mongo",
     function () {
         $client = new Client("mongodb://root:secret@mongo");
-        return $client->table;
+        return $client->api;
     }
 );
 
@@ -39,10 +41,30 @@ $container->set('view', function () {
     return $view;
 }, true);
 
+$container->set(
+    "session",
+    function () {
+        $session = new Manager();
+        $files = new Stream(
+            [
+                'savePath' => '/tmp',
+            ]
+        );
+        $session->setAdapter($files);
+        $session->start();
+        return $session;
+    }
+);
+
+
 // Handling requests
 
-$handler = new Handler();
-$handler->initialize();
+$prodHandler = new ProductHandler();
+$orderHandler = new OrderHandler();
+$authHandler = new AuthHandler();
+$prodHandler->initialize();
+$orderHandler->initialize();
+
 $api->before(
     function () use ($api) {
         $url = explode("/", $_SERVER['REQUEST_URI']);
@@ -53,69 +75,106 @@ $api->before(
         ];
         $auth = 0;
         foreach ($exempt as $e) {
-            if ($url[1] == $e) {
+            if (str_contains($url[2], $e)) {
                 $auth = 1;
                 break;
             }
         }
-        $auth = ($url[1] == "auth" || count($url));
+        //$auth = ($url[2] == "auth" || (!count($url)));
         return (new EventListener())->beforeExecuteRoute($api, $auth, $key);
     }
 );
+/**
+ * HELP ENDPOINT
+ */
 $api->get(
-    "/",
+    "/api/",
     [
-        $handler,
+        $prodHandler,
         "index"
     ]
 );
-
+/**
+ * Product endpoints
+ */
 $api->post(
-    "/insert",
+    "/api/insert",
     [
-        $handler,
+        $prodHandler,
         "insert"
     ]
 );
 $api->get(
-    "/products/search/{search}",
+    "/api/products/search/{search}",
     [
-        $handler,
+        $prodHandler,
         "search"
     ]
 );
 $api->get(
-    "/products/search",
+    "/api/products/search",
     [
-        $handler,
+        $prodHandler,
         "search"
     ]
 );
 $api->get(
-    "/products/get",
+    "/api/products/get",
     [
-        $handler,
+        $prodHandler,
         "get"
     ]
 );
-
+/**
+ * Authorization endpoints
+ */
 $api->post(
-    "/auth",
+    "/api/auth",
     [
-        $handler,
+        $authHandler,
         "auth"
     ]
 );
 
 $api->get(
-    "/register",
+    "/api/register",
     [
-        $handler,
+        $authHandler,
         "register"
     ]
 );
+$api->get(
+    "/api/user/email",
+    [
+        $authHandler,
+        "email"
+    ]
+);
+/**
+ * Order endpoints
+ */
+$api->get(
+    "/api/orders/get",
+    [
+        $orderHandler,
+        "get"
+    ]
+);
+$api->post(
+    "/api/orders/create",
+    [
+        $orderHandler,
+        "create"
+    ]
+);
 
-
+$api->put(
+    "/api/orders/update",
+    [
+        $orderHandler,
+        "update"
+    ]
+);
 
 try {
     // Handle the request

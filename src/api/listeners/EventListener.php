@@ -15,7 +15,8 @@ class EventListener
                 die("Forbidden");
             } else {
                 try {
-                    JWT::decode($token, new Key($key, 'HS256'));
+                    $token=JWT::decode($token, new Key($key, 'HS256'));
+                    $app->session->email=$token->email;
                 } catch( ExpiredException $e){
                     $app->response->setStatusCode(403, "Token Expired");
                     $app->response->setContent("Token Expired");                    
