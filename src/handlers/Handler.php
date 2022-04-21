@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Controller;
+use Firebase\JWT\JWT;
 use MongoDB\BSON\Regex;
 
 class Handler extends Controller
@@ -11,7 +12,18 @@ class Handler extends Controller
     }
     public function index()
     {
-        echo "Welcome to the api";
+        echo "<a href='https://github.com/1942ZaidHaider/PhalconApi#readme'>GITHUB</a><hr>";
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_URL, "https://raw.githubusercontent.com/1942ZaidHaider/PhalconApi/master/README.md");
+        $data = curl_exec($curl);
+        // $data= str_replace("    ","  ",$data);
+        $data = str_replace("&ensp;", "&nbsp;", $data);
+        $data = str_replace("\n/", "<hr>/", $data);
+        $data = str_replace("\n", "<br>", $data);
+        $data = str_replace("<br>**", "<br><b>", $data);
+        $data = str_replace("**<br>", "</b><br>", $data);
+        return $data;
     }
     public function insert()
     {
@@ -26,12 +38,12 @@ class Handler extends Controller
         $this->response->setStatusCode(400, 'Missing data');
         return "missing data";
     }
-    public function search($search)
+    public function search($search = null)
     {
-        $search = urldecode($search);
+        $search = $search ? urldecode($search) : "";
         $terms = explode(" ", $search);
         foreach ($terms as $k => $v) {
-            $terms[$k] = ['name' => new Regex('.*' . $v . '.*',"i")];
+            $terms[$k] = ['name' => new Regex('.*' . $v . '.*', "i")];
         }
         $find = ['$or' => $terms];
         //return json_encode($find);
@@ -60,9 +72,35 @@ class Handler extends Controller
         if ($this->request->isPost()) {
             $post = $this->request->getPost();
             $this->response->setStatusCode(200, "OK");
-            return $this->jwt;
+            $key = "raxacoricofallapatorian";
+            $currentTime = time();
+            $expiry = $currentTime + (24 * 3600);
+            $payload = [
+                "iss" => '/',
+                "aud" => '/',
+                "iat" => $currentTime,
+                "exp" => $expiry,
+                "seed" => rand(99, 999),
+            ];
+            $token=JWT::encode($payload, $key, 'HS256');
+            return $this->response->redirect($post['callback']."?access_token=".$token);
+        } else {
+            $this->response->setStatusCode(400, 'Missing data');
+            return "missing data";
         }
-        $this->response->setStatusCode(400, 'Missing data');
-        return "missing data";
+    }
+    public function register()
+    {
+        $callbackUrl = $this->request->getQuery("callback");
+        if (!$callbackUrl) {
+            $this->response->setStatusCode(400, "Missing Data");
+            $this->response->setContent("Missing callback url");
+            $this->response->send();
+            die;
+        }
+        $data = [
+            "callback" => $callbackUrl,
+        ];
+        return $this->view->render('register', $data);
     }
 }

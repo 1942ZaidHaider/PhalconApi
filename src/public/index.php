@@ -3,9 +3,11 @@
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Loader;
 use Phalcon\Mvc\Micro;
+use Phalcon\Mvc\Micro\Exception as MicroException;
 use Phalcon\Config;
 use MongoDB\Client;
 use Firebase\JWT\JWT;
+use Phalcon\Mvc\View\Simple;
 
 $config = new Config([]);
 
@@ -31,35 +33,37 @@ $container->set(
     }
 );
 
-$container->set(
-    "jwt",
-    function () {
-        $key = "raxacoricofallapatorian";
-        $currentTime = time();
-        $expiry = $currentTime + (24 * 3600);
-        $payload = [
-            "iss" => '/',
-            "aud" => '/',
-            "iat" => $currentTime,
-            "exp" => $expiry,
-            "seed" => rand(99, 999),
-        ];
-        return JWT::encode($payload, $key, 'HS256');
-    }
-);
+$container->set('view', function () {
+    $view = new Simple();
+    $view->setViewsDir(BASE_PATH . '/views/');
+    return $view;
+}, true);
+
 // Handling requests
 
 $handler = new Handler();
 $handler->initialize();
 $api->before(
     function () use ($api) {
-        $url=explode("/",$_SERVER['REQUEST_URI']);
-        $key="raxacoricofallapatorian";
-        return (new EventListener())->beforeExecuteRoute($api,$url[1]=="auth",$key);
+        $url = explode("/", $_SERVER['REQUEST_URI']);
+        $key = "raxacoricofallapatorian";
+        $exempt = [
+            "auth",
+            "register"
+        ];
+        $auth = 0;
+        foreach ($exempt as $e) {
+            if ($url[1] == $e) {
+                $auth = 1;
+                break;
+            }
+        }
+        $auth = ($url[1] == "auth" || count($url));
+        return (new EventListener())->beforeExecuteRoute($api, $auth, $key);
     }
 );
 $api->get(
-    "/index",
+    "/",
     [
         $handler,
         "index"
@@ -81,6 +85,13 @@ $api->get(
     ]
 );
 $api->get(
+    "/products/search",
+    [
+        $handler,
+        "search"
+    ]
+);
+$api->get(
     "/products/get",
     [
         $handler,
@@ -96,11 +107,28 @@ $api->post(
     ]
 );
 
+$api->get(
+    "/register",
+    [
+        $handler,
+        "register"
+    ]
+);
+
+
+
 try {
     // Handle the request
     $api->handle(
         $_SERVER["REQUEST_URI"]
     );
+} catch (MicroException $e) {
+    $api->response->setStatusCode(404, "Not Found");
+    echo json_encode([
+        "status" => $api->response->getStatusCode(),
+        "message" => "URL not found"
+    ]);
+    $api->response->send();
 } catch (\Exception $e) {
     echo 'Exception: ', $e->getMessage();
 }
