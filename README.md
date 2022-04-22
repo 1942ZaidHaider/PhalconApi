@@ -8,13 +8,13 @@ Api in phalcon
 &ensp;&ensp;method : GET  
 &ensp;&ensp;Parameters : none  
   
-/api/products/get : to list all products 
+/api/products/get : to list all products  
 &ensp;&ensp;method : GET  
 &ensp;&ensp;Query Parameters (optional) :  
 &ensp;&ensp;&ensp;&ensp;page : page number  
 &ensp;&ensp;&ensp;&ensp;per_page: number of items per page  
   
-/api/products/get/{product_id} : to fetch product by id 
+/api/products/get/{product_id} : to fetch product by id  
 &ensp;&ensp;method : GET  
 &ensp;&ensp;Query Parameters : none  
   
