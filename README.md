@@ -17,6 +17,7 @@ Api in phalcon
 /api/products/get/{product_id} : to fetch product by id 
 &ensp;&ensp;method : GET  
 &ensp;&ensp;Query Parameters : none  
+  
 /api/insert : to add new product   
   &ensp;&ensp;method : POST  
   &ensp;&ensp;Body / Form Parameters (required) :  
