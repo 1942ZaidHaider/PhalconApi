@@ -8,10 +8,10 @@ class AuthHandler extends Controller
 {
     public function index()
     {
-        echo "<a href='https://github.com/1942ZaidHaider/PhalconApi#readme'>GITHUB</a><hr>";
+        echo "<a href='https://github.com/1942ZaidHaider/PhalconApi/tree/part2#readme'>GITHUB</a><hr>";
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_URL, "https://raw.githubusercontent.com/1942ZaidHaider/PhalconApi/master/README.md");
+        curl_setopt($curl, CURLOPT_URL, "https://raw.githubusercontent.com/1942ZaidHaider/PhalconApi/part2/README.md");
         $data = curl_exec($curl);
         // $data= str_replace("    ","  ",$data);
         $data = str_replace("&ensp;", "&nbsp;", $data);

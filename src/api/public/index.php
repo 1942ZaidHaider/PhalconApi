@@ -74,13 +74,16 @@ $api->before(
             "register"
         ];
         $auth = 0;
-        foreach ($exempt as $e) {
-            if (str_contains($url[2], $e)) {
-                $auth = 1;
-                break;
+        if ($url[1] != 'api') {
+            foreach ($exempt as $e) {
+                if (str_contains($url[2], $e)) {
+                    $auth = 1;
+                    break;
+                }
             }
+        } else {
+            $auth = 1;
         }
-        //$auth = ($url[2] == "auth" || (!count($url)));
         return (new EventListener())->beforeExecuteRoute($api, $auth, $key);
     }
 );
@@ -88,9 +91,9 @@ $api->before(
  * HELP ENDPOINT
  */
 $api->get(
-    "/api/",
+    "/api",
     [
-        $prodHandler,
+        $authHandler,
         "index"
     ]
 );
@@ -120,6 +123,13 @@ $api->get(
 );
 $api->get(
     "/api/products/get",
+    [
+        $prodHandler,
+        "get"
+    ]
+);
+$api->get(
+    "/api/products/get/{id}",
     [
         $prodHandler,
         "get"
