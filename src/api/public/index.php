@@ -153,13 +153,6 @@ $api->get(
         "register"
     ]
 );
-$api->get(
-    "/api/user/email",
-    [
-        $authHandler,
-        "email"
-    ]
-);
 /**
  * Order endpoints
  */

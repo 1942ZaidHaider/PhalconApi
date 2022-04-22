@@ -1,7 +1,13 @@
 # PhalconApi
 Api in phalcon
 
-**All endpoints except /auth require a 'access_token' query parameter with a valid access token**
+**All endpoints except /register require a 'access_token' query parameter with a valid access token**
+
+## Auth code flow:  
+  &ensp;&ensp;redirect to the /register endpoint with callback url in the query parameters with the key 'callback'  
+  &ensp;&ensp;Example :  
+  &ensp;&ensp;&ensp;&ensp;/register?callback=http%3A%2F%2Flocalhost%3A8080  
+  &ensp;&ensp;After this you will be redirected to the callback url provided with the access token in the query parameters in the key 'access_token'
 
 ## Api endpoints:
 /api/products/search/{keyword} : to search for products  
@@ -40,8 +46,4 @@ Api in phalcon
   &ensp;&ensp;method : GET  
   &ensp;&ensp;Params : None    
 
-## Auth code flow:  
-  &ensp;&ensp;redirect to the /register endpoint with callback url in the query parameters with the key 'callback'  
-  &ensp;&ensp;Example :  
-  &ensp;&ensp;&ensp;&ensp;/register?callback=http%3A%2F%2Flocalhost%3A8080  
-  &ensp;&ensp;After this you will be redirected to the callback url provided with the access token in the query parameters in the key 'access_token'
+

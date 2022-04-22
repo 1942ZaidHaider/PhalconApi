@@ -16,6 +16,8 @@ define('ROOT_PATH', dirname(dirname(__DIR__)));
 define('BASE_PATH', ROOT_PATH . "/app");
 define('APP_PATH', BASE_PATH . '/main');
 
+require_once ROOT_PATH."/vendor/autoload.php";
+
 // Register an autoloader
 $loader = new Loader();
 
@@ -51,7 +53,7 @@ $container->set(
 $container->set(
     "mongo",
     function () {
-        $client = new Client("mongodb://root:secret@mongo");
+        $client = new MongoDB\Client("mongodb://root:secret@mongo");
         return $client->app;
     }
 );

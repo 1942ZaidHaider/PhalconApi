@@ -44,7 +44,7 @@ class ProductHandler extends Controller
         $arr = $res->toArray();
         return json_encode($arr);
     }
-    public function get($id)
+    public function get($id=null)
     {
         $query = [];
         if ($id) {

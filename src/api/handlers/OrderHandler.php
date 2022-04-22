@@ -24,6 +24,7 @@ class OrderHandler extends Controller
         if ($this->request->isPost() && ($this->request->getPost('product_id') && $this->request->getPost('qty'))) {
             $post = $this->request->getPost();
             $post['status'] = 'paid';
+            $post['email'] = $this->session->email;
             $response = $this->table->insertOne($post);
             if ($response->getInsertedCount()) {
                 $this->response->setStatusCode("200", "Success");

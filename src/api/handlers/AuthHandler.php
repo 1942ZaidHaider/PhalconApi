@@ -57,8 +57,4 @@ class AuthHandler extends Controller
         ];
         return $this->view->render('register', $data);
     }
-    public function email()
-    {
-        return $this->session->email;
-    }
 }

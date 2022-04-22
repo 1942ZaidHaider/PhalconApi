@@ -7,13 +7,27 @@ class IndexController extends Controller
     public function indexAction()
     {
         if ($this->request->isPost()) {
-            return $this->response->redirect("/index/list");
+            $post = $this->request->getPost();
+            switch ($post['action']) {
+                case "login":
+                    $resp = $this->mongo->users->findOne(['email' => $post['email'], 'password' => $post['password']]);
+                    if ($resp) {
+                        return $this->response->redirect("/index/list");
+                    } else {
+                        $this->view->message="<p class='alert alert-danger'>Invalid credentials or email not registered</p>";
+                    }
+                    break;
+                case 'signup':
+                    unset($post['action']);
+                    $this->mongo->users->insertOne($post);
+                    break;
+            }
         }
     }
     public function listAction()
     {
         $token = $this->session->token;
-        $ip='192.168.2.6'; //server ip address
+        $ip = '192.168.2.6'; //server ip address
         //
         // curl to get orders;
         //
@@ -30,8 +44,8 @@ class IndexController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $email = curl_exec($curl);
         curl_close($curl);
-        $this->view->orders=json_decode($data,1);
-        $this->view->email=$email;
+        $this->view->orders = json_decode($data, 1);
+        $this->view->email = $email;
     }
     public function tokenAction()
     {
