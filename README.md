@@ -7,7 +7,7 @@ Api in phalcon
   &ensp;&ensp;redirect to the /register endpoint with callback url in the query parameters with the key 'callback'  
   &ensp;&ensp;Example :  
   &ensp;&ensp;&ensp;&ensp;/register?callback=http%3A%2F%2Flocalhost%3A8080  
-  &ensp;&ensp;After this you will be redirected to the callback url provided with the access token in the query parameters in the key 'access_token'
+  &ensp;&ensp;After this you will be redirected to the callback url provided with the access token in 'access_token' query parameter  
 
 ## Api endpoints:
 /api/products/search/{keyword} : to search for products  
