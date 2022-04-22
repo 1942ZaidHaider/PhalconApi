@@ -57,13 +57,13 @@ class ProductHandler extends Controller
         $arr = $res->toArray();
         return json_encode($arr);
     }
-    /**
-     * Get all products or single product by id
-     *
-     * @param [type] $id
-     * @return void
-     */
-    public function get($id=null)
+   /**
+    * Get all products or single product by id
+    *
+    * @param String|null $id
+    * @return void
+    */
+    public function get(String $id=null)
     {
         $query = [];
         if ($id) {
