@@ -22,6 +22,9 @@ $loader->registerDirs(
         BASE_PATH . "/listeners/",
     ]
 );
+$loader->registerNamespaces([
+    "Api\Utils"=>BASE_PATH . "/utils/",
+]);
 $loader->register();
 
 $container = new FactoryDefault();
@@ -55,6 +58,8 @@ $container->set(
         return $session;
     }
 );
+
+$container->set("escaper",new Api\Utils\Escaper());
 
 
 // Handling requests

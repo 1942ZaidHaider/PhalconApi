@@ -2,10 +2,17 @@
 
 use Phalcon\Mvc\Controller;
 use Firebase\JWT\JWT;
-use MongoDB\BSON\Regex;
 
+/**
+ * Authorization handler
+ */
 class AuthHandler extends Controller
 {
+    /**
+     * Help block
+     *
+     * @return void
+     */
     public function index()
     {
         echo "<a href='https://github.com/1942ZaidHaider/PhalconApi/tree/part2#readme'>GITHUB</a><hr>";
@@ -21,10 +28,15 @@ class AuthHandler extends Controller
         $data = str_replace("**<br>", "</b><br>", $data);
         return $data;
     }
+    /**
+     * Generate access token
+     *
+     * @return void
+     */
     public function auth()
     {
         if ($this->request->isPost()) {
-            $post = $this->request->getPost();
+            $post = $this->escaper->escapeArray($this->request->getPost());
             $this->response->setStatusCode(200, "OK");
             $key = "raxacoricofallapatorian";
             $currentTime = time();
@@ -36,25 +48,31 @@ class AuthHandler extends Controller
                 "exp" => $expiry,
                 "email" => $post['email'],
             ];
-            $token=JWT::encode($payload, $key, 'HS256');
-            return $this->response->redirect("http://localhost:8080".$post['callback']."?access_token=".$token);
+            $token = JWT::encode($payload, $key, 'HS256');
+            return $this->response->redirect("http://localhost:8080" . $post['callback'] . "?access_token=" . $token);
         } else {
             $this->response->setStatusCode(400, 'Missing data');
             return "missing data";
         }
     }
+    /**
+     * Generate view for requesting user email
+     *
+     * @return void
+     */
     public function register()
     {
         $callbackUrl = $this->request->getQuery("callback");
         if (!$callbackUrl) {
             $this->response->setStatusCode(400, "Missing Data");
             $this->response->setContent("Missing callback url");
-            $this->response->send();
-            die;
+            return $this->response->send();
+        } else {
+            $callbackUrl=$this->escaper->escape($callbackUrl);
+            $data = [
+                "callback" => $callbackUrl,
+            ];
+            return $this->view->render('register', $data);
         }
-        $data = [
-            "callback" => $callbackUrl,
-        ];
-        return $this->view->render('register', $data);
     }
 }

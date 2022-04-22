@@ -3,7 +3,9 @@
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Firebase\JWT\ExpiredException;
-
+/**
+ * Handler for Middleware
+ */
 class EventListener
 {
     public function beforeExecuteRoute($app, $isAuth, $key)

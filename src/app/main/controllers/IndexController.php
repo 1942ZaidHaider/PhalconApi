@@ -1,9 +1,16 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-
+/**
+ * Index Controller
+ */
 class IndexController extends Controller
 {
+    /**
+     * Admin Login/Signup
+     *
+     * @return void
+     */
     public function indexAction()
     {
         if ($this->request->isPost()) {
@@ -24,6 +31,11 @@ class IndexController extends Controller
             }
         }
     }
+    /**
+     * List all orders
+     *
+     * @return void
+     */
     public function listAction()
     {
         $token = $this->session->token;
@@ -36,16 +48,7 @@ class IndexController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $data = curl_exec($curl);
         curl_close($curl);
-        //
-        // curl to get user email
-        //
-        $url = "http://$ip:8080/api/user/email?access_token=$token";
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $email = curl_exec($curl);
-        curl_close($curl);
         $this->view->orders = json_decode($data, 1);
-        $this->view->email = $email;
     }
     public function tokenAction()
     {

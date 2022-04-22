@@ -1,20 +1,27 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-use Firebase\JWT\JWT;
 use MongoDB\BSON\Regex;
 use MongoDB\BSON\ObjectId;
 
+/**
+ * Product Cru
+ */
 class ProductHandler extends Controller
 {
     public function initialize()
     {
         $this->table = $this->mongo->products;
     }
+    /**
+     * Add new Product
+     *
+     * @return void
+     */
     public function insert()
     {
         if ($this->request->isPost()) {
-            $post = $this->request->getPost();
+            $post =  $this->escaper->escapeArray($this->request->getPost());
             if (isset($post['name']) && isset($post['price'])) {
                 $response = $this->table->insertOne($post);
                 if ($response->getInsertedCount()) {
@@ -32,6 +39,12 @@ class ProductHandler extends Controller
             return "missing data";
         }
     }
+    /**
+     * Search product by name
+     *
+     * @param [type] $search
+     * @return void
+     */
     public function search($search = null)
     {
         $search = $search ? urldecode($search) : "";
@@ -44,6 +57,12 @@ class ProductHandler extends Controller
         $arr = $res->toArray();
         return json_encode($arr);
     }
+    /**
+     * Get all products or single product by id
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function get($id=null)
     {
         $query = [];

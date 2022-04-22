@@ -2,27 +2,35 @@
 
 use Phalcon\Mvc\Controller;
 use MongoDB\BSON\ObjectId;
-
+/**
+ * Order Cru
+ */
 class OrderHandler extends Controller
 {
     public function initialize()
     {
         $this->table = $this->mongo->orders;
     }
-    public function index()
-    {
-        return "order handler";
-    }
+    /**
+     * Get all orders
+     *
+     * @return void
+     */
     public function get()
     {
         $data = $this->table->find();
         $arr = $data->toArray();
         return json_encode($arr);
     }
+    /**
+     * Create new order
+     *
+     * @return void
+     */
     public function create()
     {
         if ($this->request->isPost() && ($this->request->getPost('product_id') && $this->request->getPost('qty'))) {
-            $post = $this->request->getPost();
+            $post = $this->escaper->escapeArray($this->request->getPost());
             $post['status'] = 'paid';
             $post['email'] = $this->session->email;
             $response = $this->table->insertOne($post);
@@ -41,10 +49,15 @@ class OrderHandler extends Controller
             return $this->response->send();
         }
     }
+    /**
+     * Update Order
+     *
+     * @return void
+     */
     public function update()
     {
         if ($this->request->isPut() && ($this->request->getPut('order_id') && $this->request->getPut('status'))) {
-            $put = $this->request->getPut();
+            $put =  $this->escaper->escapeArray($this->request->getPut());
             try {
                 $response = $this->table->updateOne(["_id" => new ObjectId($put['order_id'])], ['$set' => ['status' => $put['status']]]);
             } catch (InvalidArgumentException $e) {
