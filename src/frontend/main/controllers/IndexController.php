@@ -1,0 +1,43 @@
+<?php
+
+use Phalcon\Mvc\Controller;
+
+/**
+ * Index Controller
+ */
+class IndexController extends Controller
+{
+    /**
+     * User Login/Signup
+     *
+     * @return void
+     */
+    public function indexAction()
+    {
+        if ($this->request->isPost()) {
+            $post = $this->request->getPost();
+            switch ($post['action']) {
+                case "login":
+                    $resp = $this->mongo->users->findOne(['email' => $post['email'], 'password' => $post['password']]);
+                    if ($resp) {
+                        $this->session->email=$post['email'];
+                        $callback = urlencode('/frontend/index/callback');
+                        return $this->response->redirect("/api/register?callback=$callback");
+                    } else {
+                        $this->view->message = "<p class='alert alert-danger'>Invalid credentials or email not registered</p>";
+                    }
+                    break;
+                case 'signup':
+                    unset($post['action']);
+                    $this->mongo->users->insertOne($post);
+                    break;
+            }
+        }
+    }
+    public function callbackAction()
+    {
+        $this->session->token=$this->request->getQuery("access_token");
+        // die($this->session->token);
+        return $this->response->redirect("/frontend/product");
+    }
+}

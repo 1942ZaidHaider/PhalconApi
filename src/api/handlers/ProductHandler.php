@@ -25,6 +25,8 @@ class ProductHandler extends Controller
             if (isset($post['name']) && isset($post['price'])) {
                 $response = $this->table->insertOne($post);
                 if ($response->getInsertedCount()) {
+                    $response = $this->table->findOne(["_id"=>new ObjectId($response->getInsertedId())]);
+                    $this->events->fire("Updates:productInsert", $this, $response);
                     $this->response->setStatusCode("200", "Success");
                     $this->response->setContent("Success");
                     return $this->response->send();
@@ -37,6 +39,29 @@ class ProductHandler extends Controller
         } else {
             $this->response->setStatusCode(400, 'Bad Request');
             return "missing data";
+        }
+    }
+    /**
+     * Update Product details
+     *
+     * @return void
+     */
+    public function update($id)
+    {
+        if ($this->request->isPost()) {
+            $post =  $this->escaper->escapeArray($this->request->getPost());
+            $response = $this->table->updateOne(["_id"=>new ObjectId($id)],['$set'=>$post],['upsert'=>true]);
+            if ($response->getModifiedCount()) {
+                $response = $this->table->findOne(["_id"=>new ObjectId($id)]);
+                $this->events->fire("Updates:productUpdate", $this, $response);
+                $this->response->setStatusCode("200", "Success");
+                $this->response->setContent("Success");
+                return $this->response->send();
+            } else {
+                $this->response->setStatusCode("500", "Internal server error");
+                $this->response->setContent("Database malfunction");
+                return $this->response->send();
+            }
         }
     }
     /**
@@ -57,13 +82,13 @@ class ProductHandler extends Controller
         $arr = $res->toArray();
         return json_encode($arr);
     }
-   /**
-    * Get all products or single product by id
-    *
-    * @param String|null $id
-    * @return void
-    */
-    public function get(String $id=null)
+    /**
+     * Get all products or single product by id
+     *
+     * @param String|null $id
+     * @return void
+     */
+    public function get(String $id = null)
     {
         $query = [];
         if ($id) {

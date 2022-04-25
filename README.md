@@ -35,6 +35,7 @@ Api in phalcon
   &ensp;&ensp;Body / Form Parameters (required) :  
   &ensp;&ensp;&ensp;&ensp;product_id : Product ID  
   &ensp;&ensp;&ensp;&ensp;qty : Product Quantity  
+  &ensp;&ensp;&ensp;&ensp;email : User Email  
   
 /api/orders/create : to update order status   
   &ensp;&ensp;method : PUT  

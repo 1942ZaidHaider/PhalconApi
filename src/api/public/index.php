@@ -6,9 +6,8 @@ use Phalcon\Mvc\Micro;
 use Phalcon\Mvc\Micro\Exception as MicroException;
 use Phalcon\Config;
 use MongoDB\Client;
-use Phalcon\Mvc\View\Simple;
-use Phalcon\Session\Manager;
-use Phalcon\Session\Adapter\Stream;
+use Phalcon\Mvc\View\Simple;;
+use Phalcon\Events\Manager as EventsManager;
 
 $config = new Config([]);
 
@@ -37,6 +36,16 @@ $container->set(
         return $client->api;
     }
 );
+/**
+ *   For accessing registered webhooks
+ */
+$container->set(
+    "webhookStore",
+    function () {
+        $client = new MongoDB\Client("mongodb://root:secret@mongo");
+        return $client->webhooks;
+    }
+);
 
 $container->set('view', function () {
     $view = new Simple();
@@ -44,23 +53,15 @@ $container->set('view', function () {
     return $view;
 }, true);
 
-$container->set(
-    "session",
-    function () {
-        $session = new Manager();
-        $files = new Stream(
-            [
-                'savePath' => '/tmp',
-            ]
-        );
-        $session->setAdapter($files);
-        $session->start();
-        return $session;
-    }
-);
-
 $container->set("escaper",new Api\Utils\Escaper());
 
+$eventsManager = new EventsManager();
+$eventsManager->attach(
+    "Updates",
+    new UpdatesListener()
+);
+
+$container->set("events",$eventsManager);
 
 // Handling requests
 
@@ -106,7 +107,7 @@ $api->get(
  * Product endpoints
  */
 $api->post(
-    "/api/insert",
+    "/api/products/insert",
     [
         $prodHandler,
         "insert"
@@ -131,6 +132,13 @@ $api->get(
     [
         $prodHandler,
         "get"
+    ]
+);
+$api->post(
+    "/api/products/update/{id}",
+    [
+        $prodHandler,
+        "update"
     ]
 );
 $api->get(

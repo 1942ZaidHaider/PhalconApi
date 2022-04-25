@@ -13,7 +13,7 @@ $config = new Config([]);
 
 // Define some absolute path constants to aid in locating resources
 define('ROOT_PATH', dirname(dirname(__DIR__)));
-define('BASE_PATH', ROOT_PATH . "/app");
+define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/main');
 
 require_once ROOT_PATH."/vendor/autoload.php";
@@ -54,17 +54,9 @@ $container->set(
     "mongo",
     function () {
         $client = new MongoDB\Client("mongodb://root:secret@mongo");
-        return $client->app;
+        return $client->frontend;
     }
-);
-$container->set(
-    "webhookStore",
-    function () {
-        $client = new MongoDB\Client("mongodb://root:secret@mongo");
-        return $client->webhooks;
-    }
-);
-
+); 
 
 $container->set(
     "session",
@@ -85,7 +77,7 @@ $container->set(
 try {
     // Handle the request
     $response = $application->handle(
-        str_replace("/app/","/",$_SERVER["REQUEST_URI"])
+        str_replace("/frontend/","/",$_SERVER["REQUEST_URI"])
     );
 
     $response->send();

@@ -2,6 +2,7 @@
 
 use Phalcon\Mvc\Controller;
 use MongoDB\BSON\ObjectId;
+
 /**
  * Order Cru
  */
@@ -29,12 +30,18 @@ class OrderHandler extends Controller
      */
     public function create()
     {
-        if ($this->request->isPost() && ($this->request->getPost('product_id') && $this->request->getPost('qty'))) {
+        if (
+            $this->request->isPost() &&
+            $this->request->getPost('product_id') &&
+            $this->request->getPost('qty') &&
+            $this->request->getPost('email') 
+        ) {
             $post = $this->escaper->escapeArray($this->request->getPost());
             $post['status'] = 'paid';
-            $post['email'] = $this->session->email;
             $response = $this->table->insertOne($post);
             if ($response->getInsertedCount()) {
+                $order=$this->table->findOne(["_id" => new ObjectId($response->getInsertedId())]);
+                $this->events->fire("Updates:orderCreate",$this,$order);
                 $this->response->setStatusCode("200", "Success");
                 $this->response->setContent("Success");
                 return $this->response->send();
@@ -60,6 +67,8 @@ class OrderHandler extends Controller
             $put =  $this->escaper->escapeArray($this->request->getPut());
             try {
                 $response = $this->table->updateOne(["_id" => new ObjectId($put['order_id'])], ['$set' => ['status' => $put['status']]]);
+                $order=$this->table->findOne(["_id" => new ObjectId($put['order_id'])]);
+                $this->events->fire("Updates:orderUpdate",$this,$order);
             } catch (InvalidArgumentException $e) {
                 $this->response->setStatusCode("400", "Bad Request");
                 $this->response->setContent('Malformed order_id');
