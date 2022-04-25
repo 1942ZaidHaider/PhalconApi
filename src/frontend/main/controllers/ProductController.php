@@ -4,7 +4,7 @@ use Phalcon\Mvc\Controller;
 use MongoDB\BSON\ObjectId;
 
 /**
- * Index Controller
+ * Product Controller
  */
 class ProductController extends Controller
 {

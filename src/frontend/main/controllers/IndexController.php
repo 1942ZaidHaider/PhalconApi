@@ -34,10 +34,14 @@ class IndexController extends Controller
             }
         }
     }
+    /**
+     * Callback for token generation
+     *
+     * @return void
+     */
     public function callbackAction()
     {
         $this->session->token=$this->request->getQuery("access_token");
-        // die($this->session->token);
         return $this->response->redirect("/frontend/product");
     }
 }
