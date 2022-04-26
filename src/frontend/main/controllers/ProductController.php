@@ -62,11 +62,11 @@ class ProductController extends Controller
     public function importAction()
     {
         $token = $this->session->token;
-        $ip = '192.168.2.6'; //server ip address
+        $ip = $this->config->ip; //server ip address
         //
         // curl to get products;
         //
-        $url = "http://$ip:8080/api/products/get?access_token=$token&page=1&per_page=1000";
+        $url = "http://$ip/api/products/get?access_token=$token&page=1&per_page=1000";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $data = json_decode(curl_exec($curl),1);
@@ -90,11 +90,11 @@ class ProductController extends Controller
     public function buyAction(string $id)
     {
         $token = $this->session->token;
-        $ip = '192.168.2.6'; //server ip address
+        $ip = $this->config->ip; //server ip address
         //
         // curl to get orders;
         //
-        $url = "http://$ip:8080/api/orders/create?access_token=$token&page=1&per_page=100";
+        $url = "http://$ip/api/orders/create?access_token=$token&page=1&per_page=100";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_POST, 1);

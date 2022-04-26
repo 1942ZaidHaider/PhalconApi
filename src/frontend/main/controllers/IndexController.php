@@ -7,6 +7,10 @@ use Phalcon\Mvc\Controller;
  */
 class IndexController extends Controller
 {
+    public function initialize()
+    {
+        $this->ip = $this->config->ip;
+    }
     /**
      * User Login/Signup
      *
@@ -20,8 +24,8 @@ class IndexController extends Controller
                 case "login":
                     $resp = $this->mongo->users->findOne(['email' => $post['email'], 'password' => $post['password']]);
                     if ($resp) {
-                        $this->session->email=$post['email'];
-                        $callback = urlencode('http://192.168.2.6:8080/frontend/index/callback');
+                        $this->session->email = $post['email'];
+                        $callback = urlencode('http://'.$this->ip.'/frontend/index/callback');
                         return $this->response->redirect("/api/register?callback=$callback");
                     } else {
                         $this->view->message = "<p class='alert alert-danger'>Invalid credentials or email not registered</p>";
@@ -41,7 +45,7 @@ class IndexController extends Controller
      */
     public function callbackAction()
     {
-        $this->session->token=$this->request->getQuery("access_token");
+        $this->session->token = $this->request->getQuery("access_token");
         return $this->response->redirect("/frontend/product");
     }
 }

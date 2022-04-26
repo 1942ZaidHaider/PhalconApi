@@ -46,7 +46,7 @@ class IndexController extends Controller
                 case "login":
                     $resp = $this->mongo->admins->findOne(['email' => $post['email'], 'password' => $post['password']]);
                     if ($resp) {
-                        $url = urlencode("/app/index/callback");
+                        $url = urlencode("http://".$this->config->ip."/app/index/callback");
                         return $this->response->redirect("/api/register?callback=$url");
                     } else {
                         $this->view->message = "<p class='alert alert-danger'>Invalid credentials or email not registered</p>";
@@ -67,11 +67,11 @@ class IndexController extends Controller
     public function listOrdersAction()
     {
         $token = $this->session->token;
-        $ip = '192.168.2.6'; //server ip address
+        $ip = $this->config->ip; //server ip address
         //
         // curl to get orders;
         //
-        $url = "http://$ip:8080/api/orders/get?access_token=$token";
+        $url = "http://$ip/api/orders/get?access_token=$token";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $data = curl_exec($curl);
@@ -86,11 +86,12 @@ class IndexController extends Controller
     public function listProductsAction()
     {
         $token = $this->session->token;
-        $ip = '192.168.2.6'; //server ip address
+        $ip = $this->config->ip; //server ip address
+        //die($ip);
         //
         // curl to get orders;
         //
-        $url = "http://$ip:8080/api/products/get?access_token=$token&per_page=100";
+        $url = "http://$ip/api/products/get?access_token=$token&per_page=100";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $data = curl_exec($curl);
@@ -100,9 +101,9 @@ class IndexController extends Controller
     public function newProductAction($id = null)
     {
         $token = $this->session->token;
-        $ip = '192.168.2.6'; //server ip address
+        $ip = $this->config->ip; //server ip address
         if ($id) {
-            $url = "http://$ip:8080/api/products/get/$id?access_token=$token";
+            $url = "http://$ip/api/products/get/$id?access_token=$token";
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
             $data = curl_exec($curl);
@@ -123,7 +124,7 @@ class IndexController extends Controller
         } else {
             if ($this->request->isPost()) {
                 $post=$this->request->getPost();
-                $url = "http://$ip:8080/api/products/insert?access_token=$token";
+                $url = "http://$ip/api/products/insert?access_token=$token";
                 $curl = curl_init($url);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl, CURLOPT_POST, 1);

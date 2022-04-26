@@ -23,6 +23,7 @@ class ProductHandler extends Controller
         if ($this->request->isPost()) {
             $post =  $this->escaper->escapeArray($this->request->getPost());
             if (isset($post['name']) && isset($post['price'])) {
+                $post['stock']=intval($post['stock']??1);
                 $response = $this->table->insertOne($post);
                 if ($response->getInsertedCount()) {
                     $response = $this->table->findOne(["_id"=>new ObjectId($response->getInsertedId())]);

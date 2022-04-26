@@ -27,7 +27,9 @@ require_once ROOT_PATH . "/vendor/autoload.php";
 $profiler = new Profiler();
 
 //donfig
-$config = new Config([]);
+$config = new Config([
+    "ip"=>"192.168.2.6:8080"
+]);
 
 
 // Register an autoloader
@@ -59,6 +61,7 @@ $loader->registerDirs(
 
 //$container->setShared('profiler', $profiler);
 $container->setShared('toolbar', $toolbar);
+$container->set('config', $config);
 
 $container->set(
     'view',
