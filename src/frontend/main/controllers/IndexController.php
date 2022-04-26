@@ -21,7 +21,7 @@ class IndexController extends Controller
                     $resp = $this->mongo->users->findOne(['email' => $post['email'], 'password' => $post['password']]);
                     if ($resp) {
                         $this->session->email=$post['email'];
-                        $callback = urlencode('/frontend/index/callback');
+                        $callback = urlencode('http://192.168.2.6:8080/frontend/index/callback');
                         return $this->response->redirect("/api/register?callback=$callback");
                     } else {
                         $this->view->message = "<p class='alert alert-danger'>Invalid credentials or email not registered</p>";

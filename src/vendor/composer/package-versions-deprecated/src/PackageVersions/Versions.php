@@ -34,11 +34,13 @@ final class Versions
      */
     const VERSIONS          = array (
   'composer/package-versions-deprecated' => '1.11.99.5@b4f54f74ef3453349c24a845d22392cd31e65f1d',
+  'fabfuel/prophiler' => '1.6.0@3b8cbc54b6181844abeeba57a44e0b2b2ea3da9c',
   'firebase/php-jwt' => 'v6.1.1@e67638d067a537731e3f9c03e097c7c1b1f31fe8',
   'jean85/pretty-package-versions' => '1.6.0@1e0104b46f045868f11942aea058cd7186d6c303',
   'mongodb/mongodb' => '1.12.0@e4a7594ac4b31635fa77455c4038a7013024ba28',
+  'psr/log' => '1.1.4@d49695b909c3b7628b6289db5479a1c204601f11',
   'symfony/polyfill-php80' => 'v1.25.0@4407588e0d3f1f52efb65fbe92babe41f37fe50c',
-  '__root__' => 'No version set (parsed as 1.0.0)@',
+  '__root__' => 'dev-web_hooks@395342cec353ba52d9d901b1a957ebc4e2ea5cc9',
 );
 
     private function __construct()

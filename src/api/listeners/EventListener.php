@@ -21,8 +21,7 @@ class EventListener
                 } catch( ExpiredException $e){
                     $app->response->setStatusCode(403, "Token Expired");
                     $app->response->setContent("Token Expired");                    
-                    $app->response->send();                    
-                    die;
+                    return $app->response->send();
                 }
             }
         }

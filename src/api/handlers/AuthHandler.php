@@ -49,7 +49,7 @@ class AuthHandler extends Controller
                 "email" => $post['email'],
             ];
             $token = JWT::encode($payload, $key, 'HS256');
-            return $this->response->redirect("http://localhost:8080" . $post['callback'] . "?access_token=" . $token);
+            return $this->response->redirect($post['callback'] . "?access_token=" . $token);
         } else {
             $this->response->setStatusCode(400, 'Missing data');
             return "missing data";

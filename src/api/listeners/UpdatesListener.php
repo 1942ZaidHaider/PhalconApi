@@ -28,8 +28,6 @@ class UpdatesListener extends Phalcon\Di\Injectable
             curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
             $responses[]=curl_exec($curl);
         }
-        var_dump($responses);
-        die;
     }
     public function orderCreate($event,$context)
     {
