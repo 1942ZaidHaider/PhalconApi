@@ -1,6 +1,6 @@
 <?php
 
-(new \Phalcon\Debug())->listen(1, 0);
+(new \Phalcon\Debug())->listen(1, 1);
 
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Loader;
@@ -10,7 +10,6 @@ use Phalcon\Url;
 use Phalcon\Config;
 use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Stream;
-use Phalcon\Db\Adapter\Pdo\Mysql;
 
 //Profiler Imports
 use Fabfuel\Prophiler\Profiler;
@@ -78,10 +77,6 @@ $container->set(
         return $client->frontend;
     }
 );
-
-
-
-
 $container->set(
     "session",
     function () {

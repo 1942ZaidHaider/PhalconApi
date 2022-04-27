@@ -110,7 +110,7 @@ class IndexController extends Controller
             curl_close($curl);
             if ($this->request->isPost()) {
                 $post=$this->request->getPost();
-                $url = "http://$ip:8080/api/products/update/$id?access_token=$token";
+                $url = "http://$ip/api/products/update/$id?access_token=$token";
                 $curl = curl_init($url);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl, CURLOPT_POST, 1);
