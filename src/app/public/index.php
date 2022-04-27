@@ -9,7 +9,6 @@ use Phalcon\Config;
 use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Stream;
 
-
 // Define some absolute path constants to aid in locating resources
 define('ROOT_PATH', dirname(dirname(__DIR__)));
 define('BASE_PATH', ROOT_PATH . "/app");

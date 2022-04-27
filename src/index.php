@@ -9,14 +9,15 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oldenburg&display=swap');
         body {
-            background: url("https://get.wallhere.com/photo/trees-illustration-digital-art-video-games-abstract-minimalism-artwork-low-poly-green-The-Legend-of-Zelda-pixelated-jungle-tunnel-path-ART-screenshot-1920x1080-px-510791.png") no-repeat center fixed;
-            background-size: cover;
+            background: url("https://i.pinimg.com/originals/b9/80/cb/b980cb9c44216082799dfc463c0c50d5.jpg");
+            background-repeat: repeat;
         }
 
         #main {
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(2px);
             width: 50%;
-            background-color: rgba(127, 127, 127, 0.5);
+            background-color: rgba(64, 100, 127, 0.5);
+            border: solid 2px #00e0ff;
             border-radius: 10px;
             padding: 1em;
             color: white;
@@ -30,11 +31,13 @@
         }
 
         div.link {
+            backdrop-filter: blur(10px);
             display: inline-block;
             margin: 0.5em;
             padding: 10px;
+            border: outset 2px #00e0ff;
             border-radius: 5px;
-            background-color: #222222;
+            /* background-color: #222222; */
         }
 
         @media (max-width: 1080px) {
