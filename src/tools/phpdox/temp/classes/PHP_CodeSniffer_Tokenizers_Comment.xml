@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Tokenizers\Comment" namespace="PHP_CodeSniffer\Tokenizers" name="Comment" abstract="false" final="false" start="14" end="277">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Tokenizers" file="Comment.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Tokenizers/Comment.php" size="8795" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="723bfc021595e609144a0ec17fafa1b4bce269dc" relative="vendor/squizlabs/php_codesniffer/src/Tokenizers/Comment.php"/>
+  <method name="tokenizeString" start="30" end="163" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Creates an array of tokens when given some PHP code.">Starts by using token_get_all() but does a lot of extra processing
+to insert information about the context of the token.</description>
+      <param description="The string to tokenize." type="string" variable="$string"/>
+      <param description="The EOL character to use for splitting strings." type="string" variable="$eolChar"/>
+      <param description="The position of the first token in the file." type="int" variable="$stackPtr"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="string" byreference="false" type="{unknown}"/>
+    <parameter name="eolChar" byreference="false" type="{unknown}"/>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Doc block comments start with /*, but typically contain an" line="39"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="extra star when they are used for function and class comments." line="40"/>
+      <comment value="Strip off the close tag so it doesn't interfere with any" line="63"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="of our comment line processing. The token will be added to the" line="64"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="stack just before we return it." line="65"/>
+      <comment value="Process each line of the comment." line="82"/>
+      <comment value="end foreach" line="148"/>
+    </inline>
+  </method>
+  <method name="processLine" start="176" end="239" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Process a single line of a comment."/>
+      <param description="The comment string being tokenized." type="string" variable="$string"/>
+      <param description="The EOL character to use for splitting strings." type="string" variable="$eolChar"/>
+      <param description="The position in the string to start processing." type="int" variable="$start"/>
+      <param description="The position in the string to end processing." type="int" variable="$end"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="string" byreference="false" type="{unknown}"/>
+    <parameter name="eolChar" byreference="false" type="{unknown}"/>
+    <parameter name="start" byreference="false" type="{unknown}"/>
+    <parameter name="end" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Collect content padding." line="180"/>
+      <comment value="end if" line="213"/>
+      <comment value="Process the rest of the line." line="215"/>
+    </inline>
+  </method>
+  <method name="collectWhitespace" start="251" end="274" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Collect consecutive whitespace into a single token."/>
+      <param description="The comment string being tokenized." type="string" variable="$string"/>
+      <param description="The position in the string to start processing." type="int" variable="$start"/>
+      <param description="The position in the string to end processing." type="int" variable="$end"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tokenizers\array|null" namespace="PHP_CodeSniffer\Tokenizers" name="array|null"/>
+      </return>
+    </docblock>
+    <parameter name="string" byreference="false" type="{unknown}"/>
+    <parameter name="start" byreference="false" type="{unknown}"/>
+    <parameter name="end" byreference="false" type="{unknown}"/>
+  </method>
+</class>

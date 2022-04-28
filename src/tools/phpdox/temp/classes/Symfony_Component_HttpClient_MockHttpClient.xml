@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\MockHttpClient" namespace="Symfony\Component\HttpClient" name="MockHttpClient" abstract="false" final="false" start="27" end="124">
+  <file path="../vendor/symfony/http-client" file="MockHttpClient.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/MockHttpClient.php" size="4260" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="bddf919cac16d26b149c29f3985d24da3af38988" relative="vendor/symfony/http-client/MockHttpClient.php"/>
+  <docblock>
+    <description compact="A test-friendly HttpClient that doesn't make actual HTTP requests."/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <implements full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+  <implements full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface"/>
+  <uses full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait" start="29" end="29"/>
+  <member name="responseFactory" visibility="private" static="false" line="31"/>
+  <member name="requestsCount" default="0" type="integer" visibility="private" static="false" line="32"/>
+  <member name="defaultOptions" default="" type="array" visibility="private" static="false" line="33"/>
+  <constructor name="__construct" start="38" end="42" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="array" variable="$responseFactory" of="object">
+        <type full="Symfony\Component\HttpClient\callable|callable[]|ResponseInterface|ResponseInterface[]|iterable|nu" namespace="Symfony\Component\HttpClient" name="callable|callable[]|ResponseInterface|ResponseInterface[]|iterable|nu"/>
+      </param>
+    </docblock>
+    <parameter name="responseFactory" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="baseUri" byreference="false" nullable="true" type="string" default="'https://example.com'"/>
+  </constructor>
+  <method name="setResponseFactory" start="47" end="60" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="array" variable="$responseFactory" of="object">
+        <type full="Symfony\Component\HttpClient\callable|callable[]|ResponseInterface|ResponseInterface[]|iterable|nu" namespace="Symfony\Component\HttpClient" name="callable|callable[]|ResponseInterface|ResponseInterface[]|iterable|nu"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="responseFactory" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="request" start="65" end="88" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </return>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="url" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="stream" start="93" end="102" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseStreamInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseStreamInterface"/>
+    </return>
+    <parameter name="responses" byreference="false" type="{unknown}"/>
+    <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+  </method>
+  <method name="getRequestsCount" start="104" end="107" abstract="false" final="false" static="false" visibility="public">
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="withOptions" start="112" end="118" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\HttpClient\MockHttpClient" namespace="Symfony\Component\HttpClient" name="MockHttpClient"/>
+    </return>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <method name="reset" start="120" end="123" abstract="false" final="false" static="false" visibility="public"/>
+  <interface full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface">
+    <constant type="{unknown}" name="OPTIONS_DEFAULTS" value=""/>
+    <method name="request" start="86" end="86" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Requests an HTTP resource.">Responses MUST be lazy, but their status code MUST be
+checked even if none of their public methods are called.
+
+Implementations are not required to support all options described above; they can also
+support more custom options; but in any case, they MUST throw a TransportExceptionInterface
+when an unsupported option is passed.</description>
+        <throws description="When an unsupported option is passed" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+      </return>
+      <parameter name="method" byreference="false" type="string"/>
+      <parameter name="url" byreference="false" type="string"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+    </method>
+    <method name="stream" start="94" end="94" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Yields responses chunk by chunk as they complete."/>
+        <param description="ResponseInterface&gt; $responses One or more responses created by the current HTTP client" type="object">
+          <type full="Symfony\Contracts\HttpClient\ResponseInterface|iterable&lt;array-key" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface|iterable&lt;array-key"/>
+        </param>
+        <param description="The idle timeout before yielding timeout chunks" type="object" variable="$timeout">
+          <type full="Symfony\Contracts\HttpClient\float|null" namespace="Symfony\Contracts\HttpClient" name="float|null"/>
+        </param>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Contracts\HttpClient\ResponseStreamInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseStreamInterface"/>
+      </return>
+      <parameter name="responses" byreference="false" type="{unknown}"/>
+      <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+    </method>
+  </interface>
+  <interface full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface">
+    <method name="reset" start="29" end="29" abstract="false" final="false" static="false" visibility="public"/>
+  </interface>
+  <trait full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait">
+    <method name="withOptions" start="31" end="37" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait"/>
+      </return>
+      <parameter name="options" byreference="false" type="array"/>
+    </method>
+  </trait>
+</class>

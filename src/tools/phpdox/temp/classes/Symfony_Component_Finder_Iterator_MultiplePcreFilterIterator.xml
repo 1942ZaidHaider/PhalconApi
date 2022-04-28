@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator" namespace="Symfony\Component\Finder\Iterator" name="MultiplePcreFilterIterator" abstract="true" final="false" start="24" end="117">
+  <file path="../vendor/symfony/finder/Iterator" file="MultiplePcreFilterIterator.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/finder/Iterator/MultiplePcreFilterIterator.php" size="3245" time="2022-04-15T08:07:45+00:00" unixtime="1650010065" sha1="e79ab4d2f3bdafa9824a1597e7c968e2df7a6671" relative="vendor/symfony/finder/Iterator/MultiplePcreFilterIterator.php"/>
+  <docblock>
+    <description compact="MultiplePcreFilterIterator filters files using patterns (regexps, globs or strings)."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+    <template value="-covariant TKey"/>
+    <template value="-covariant TValue"/>
+    <extends value="\FilterIterator&lt;TKey, TValue&gt;"/>
+  </docblock>
+  <extends full="FilterIterator" namespace="" name="FilterIterator"/>
+  <member name="matchRegexps" default="" type="array" visibility="protected" static="false" line="26"/>
+  <member name="noMatchRegexps" default="" type="array" visibility="protected" static="false" line="27"/>
+  <constructor name="__construct" start="34" end="45" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The Iterator to filter" type="object" variable="$iterator">
+        <type full="\Iterator" namespace="" name="Iterator"/>
+      </param>
+      <param description="An array of patterns that need to match" type="array" variable="$matchPatterns" of="object">
+        <type full="Symfony\Component\Finder\Iterator\string" namespace="Symfony\Component\Finder\Iterator" name="string"/>
+      </param>
+      <param description="An array of patterns that need to not match" type="array" variable="$noMatchPatterns" of="object">
+        <type full="Symfony\Component\Finder\Iterator\string" namespace="Symfony\Component\Finder\Iterator" name="string"/>
+      </param>
+    </docblock>
+    <parameter name="iterator" byreference="false" type="object">
+      <type full="Iterator" namespace="" name="Iterator"/>
+    </parameter>
+    <parameter name="matchPatterns" byreference="false" type="array"/>
+    <parameter name="noMatchPatterns" byreference="false" type="array"/>
+  </constructor>
+  <method name="isAccepted" start="56" end="78" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Checks whether the string is accepted by the regex filters.">If there is no regexps defined in the class, this method will accept the string.
+Such case can be handled by child classes before calling the method if they want to
+apply a different behavior.</description>
+      <return type="object">
+        <type full="Symfony\Component\Finder\Iterator\bool" namespace="Symfony\Component\Finder\Iterator" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="string" byreference="false" type="string"/>
+    <inline>
+      <comment value="should at least not match one rule to exclude" line="58"/>
+      <comment value="should at least match one rule" line="65"/>
+      <comment value="If there is no match rules, the file is accepted" line="76"/>
+    </inline>
+  </method>
+  <method name="isRegex" start="85" end="109" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Checks whether the string is a regex."/>
+      <return type="object">
+        <type full="Symfony\Component\Finder\Iterator\bool" namespace="Symfony\Component\Finder\Iterator" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="str" byreference="false" type="string"/>
+  </method>
+  <method name="toRegex" start="116" end="116" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Converts string into regexp."/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="str" byreference="false" type="string"/>
+  </method>
+  <extenders>
+    <extender full="Symfony\Component\Finder\Iterator\FilecontentFilterIterator" namespace="Symfony\Component\Finder\Iterator" name="FilecontentFilterIterator"/>
+    <extender full="Symfony\Component\Finder\Iterator\FilenameFilterIterator" namespace="Symfony\Component\Finder\Iterator" name="FilenameFilterIterator"/>
+    <extender full="Symfony\Component\Finder\Iterator\PathFilterIterator" namespace="Symfony\Component\Finder\Iterator" name="PathFilterIterator"/>
+  </extenders>
+  <parent full="FilterIterator" namespace="" name="FilterIterator">
+    <implements full="OuterIterator" namespace="" name="OuterIterator"/>
+    <method name="accept" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Check whether the current element of the iterator is acceptable"/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+    <constructor name="__construct" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Construct a filterIterator"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="iterator" optional="false" byreference="false" type="object" class="Iterator"/>
+  </constructor>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Get the current element value"/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="getInnerIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Get the inner iterator"/>
+      <return type="Iterator"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Get the current key"/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Move the iterator forward"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Rewind the iterator"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Check whether the current element is valid"/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+  </parent>
+  <interface full="OuterIterator" namespace="" name="OuterIterator">
+    <extends full="Iterator" namespace="" name="Iterator"/>
+    <method name="getInnerIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Returns the inner iterator for the current entry"/>
+      <return type="Iterator"/>
+    </docblock>
+  </method>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="scalar"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+  </interface>
+</class>

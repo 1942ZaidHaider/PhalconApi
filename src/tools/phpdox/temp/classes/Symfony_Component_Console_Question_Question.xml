@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question" abstract="false" final="false" start="22" end="299">
+  <file path="../vendor/symfony/console/Question" file="Question.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/console/Question/Question.php" size="6999" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="2bd0aa349e8e0e1a80785716a86a52809a1ce77d" relative="vendor/symfony/console/Question/Question.php"/>
+  <docblock>
+    <description compact="Represents a Question."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+  </docblock>
+  <member name="question" visibility="private" static="false" line="24"/>
+  <member name="attempts" visibility="private" static="false" line="25"/>
+  <member name="hidden" default="false" type="boolean" visibility="private" static="false" line="26"/>
+  <member name="hiddenFallback" default="true" type="boolean" visibility="private" static="false" line="27"/>
+  <member name="autocompleterCallback" visibility="private" static="false" line="28"/>
+  <member name="validator" visibility="private" static="false" line="29"/>
+  <member name="default" visibility="private" static="false" line="30"/>
+  <member name="normalizer" visibility="private" static="false" line="31"/>
+  <member name="trimmable" default="true" type="boolean" visibility="private" static="false" line="32"/>
+  <member name="multiline" default="false" type="boolean" visibility="private" static="false" line="33"/>
+  <constructor name="__construct" start="39" end="43" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The question to ask to the user" type="string" variable="$question"/>
+      <param description="The default answer to return if the user enters nothing" type="object" variable="$default">
+        <type full="Symfony\Component\Console\Question\string|bool|int|float|null" namespace="Symfony\Component\Console\Question" name="string|bool|int|float|null"/>
+      </param>
+    </docblock>
+    <parameter name="question" byreference="false" type="string"/>
+    <parameter name="default" byreference="false" type="{unknown}" default="NULL"/>
+  </constructor>
+  <method name="getQuestion" start="50" end="53" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the question."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getDefault" start="60" end="63" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the default answer."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\string|bool|int|float|null" namespace="Symfony\Component\Console\Question" name="string|bool|int|float|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isMultiline" start="68" end="71" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns whether the user response accepts newline characters."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="setMultiline" start="78" end="83" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets whether the user response should accept newline characters."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\$this" namespace="Symfony\Component\Console\Question" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </return>
+    <parameter name="multiline" byreference="false" type="bool"/>
+  </method>
+  <method name="isHidden" start="90" end="93" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns whether the user response must be hidden."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\bool" namespace="Symfony\Component\Console\Question" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setHidden" start="102" end="111" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets whether the user response must be hidden or not."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\$this" namespace="Symfony\Component\Console\Question" name="$this"/>
+      </return>
+      <throws description="In case the autocompleter is also used" type="object">
+        <type full="Symfony\Component\Console\Exception\LogicException" namespace="Symfony\Component\Console\Exception" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="hidden" byreference="false" type="bool"/>
+  </method>
+  <method name="isHiddenFallback" start="118" end="121" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="In case the response cannot be hidden, whether to fallback on non-hidden question or not."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\bool" namespace="Symfony\Component\Console\Question" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setHiddenFallback" start="128" end="133" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets whether to fallback on non-hidden question if the response cannot be hidden."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\$this" namespace="Symfony\Component\Console\Question" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="fallback" byreference="false" type="bool"/>
+  </method>
+  <method name="getAutocompleterValues" start="140" end="145" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets values for the autocompleter."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\iterable|null" namespace="Symfony\Component\Console\Question" name="iterable|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setAutocompleterValues" start="154" end="172" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets values for the autocompleter."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\$this" namespace="Symfony\Component\Console\Question" name="$this"/>
+      </return>
+      <throws type="object">
+        <type full="Symfony\Component\Console\Exception\LogicException" namespace="Symfony\Component\Console\Exception" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="values" byreference="false" nullable="true" type="object">
+      <type full="Symfony\Component\Console\Question\iterable" namespace="Symfony\Component\Console\Question" name="iterable"/>
+    </parameter>
+  </method>
+  <method name="getAutocompleterCallback" start="177" end="180" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the callback function used for the autocompleter."/>
+    </docblock>
+    <return type="callable" nullable="true"/>
+  </method>
+  <method name="setAutocompleterCallback" start="189" end="198" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the callback function used for the autocompleter.">The callback is passed the user input as argument and should return an iterable of corresponding suggestions.</description>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\$this" namespace="Symfony\Component\Console\Question" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </return>
+    <parameter name="callback" byreference="false" type="callable" default="NULL"/>
+  </method>
+  <method name="setValidator" start="205" end="210" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets a validator for the question."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\$this" namespace="Symfony\Component\Console\Question" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="validator" byreference="false" type="callable" default="NULL"/>
+  </method>
+  <method name="getValidator" start="217" end="220" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the validator for the question."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\callable|null" namespace="Symfony\Component\Console\Question" name="callable|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setMaxAttempts" start="231" end="240" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the maximum number of attempts.">Null means an unlimited number of attempts.</description>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\$this" namespace="Symfony\Component\Console\Question" name="$this"/>
+      </return>
+      <throws description="in case the number of attempts is invalid" type="object">
+        <type full="Symfony\Component\Console\Exception\InvalidArgumentException" namespace="Symfony\Component\Console\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="attempts" byreference="false" nullable="true" type="int"/>
+  </method>
+  <method name="getMaxAttempts" start="249" end="252" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the maximum number of attempts.">Null means an unlimited number of attempts.</description>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\int|null" namespace="Symfony\Component\Console\Question" name="int|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setNormalizer" start="261" end="266" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets a normalizer for the response.">The normalizer can be a callable (a string), a closure or a class implementing __invoke.</description>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\$this" namespace="Symfony\Component\Console\Question" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="normalizer" byreference="false" type="callable"/>
+  </method>
+  <method name="getNormalizer" start="275" end="278" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the normalizer for the response.">The normalizer can ba a callable (a string), a closure or a class implementing __invoke.</description>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\callable|null" namespace="Symfony\Component\Console\Question" name="callable|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isAssoc" start="280" end="283" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="array" byreference="false" type="array"/>
+  </method>
+  <method name="isTrimmable" start="285" end="288" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="setTrimmable" start="293" end="298" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Question\$this" namespace="Symfony\Component\Console\Question" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </return>
+    <parameter name="trimmable" byreference="false" type="bool"/>
+  </method>
+  <extenders>
+    <extender full="Composer\Question\StrictConfirmationQuestion" namespace="Composer\Question" name="StrictConfirmationQuestion"/>
+    <extender full="Symfony\Component\Console\Question\ConfirmationQuestion" namespace="Symfony\Component\Console\Question" name="ConfirmationQuestion"/>
+    <extender full="Symfony\Component\Console\Question\ChoiceQuestion" namespace="Symfony\Component\Console\Question" name="ChoiceQuestion"/>
+  </extenders>
+</class>

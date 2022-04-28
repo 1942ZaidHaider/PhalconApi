@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\GridFS\StreamWrapper" namespace="MongoDB\GridFS" name="StreamWrapper" abstract="false" final="false" start="43" end="328">
+  <file path="../vendor/mongodb/mongodb/src/GridFS" file="StreamWrapper.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/GridFS/StreamWrapper.php" size="8842" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="a426bc89821aae5ec4d91267a664751a5917e275" relative="vendor/mongodb/mongodb/src/GridFS/StreamWrapper.php"/>
+  <docblock>
+    <description compact="Stream wrapper for reading and writing a GridFS file."/>
+    <internal/>
+    <see value="Bucket::openUploadStream()"/>
+    <see value="Bucket::openDownloadStream()"/>
+  </docblock>
+  <member name="context" visibility="public" static="false" line="46">
+    <docblock>
+      <var description="Stream context (set by PHP)" type="object">
+        <type full="MongoDB\GridFS\resource|null" namespace="MongoDB\GridFS" name="resource|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="mode" visibility="private" static="false" line="49">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\GridFS\string|null" namespace="MongoDB\GridFS" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="protocol" visibility="private" static="false" line="52">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\GridFS\string|null" namespace="MongoDB\GridFS" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="stream" visibility="private" static="false" line="55">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\GridFS\ReadableStream|WritableStream|null" namespace="MongoDB\GridFS" name="ReadableStream|WritableStream|null"/>
+      </var>
+    </docblock>
+  </member>
+  <destructor name="__destruct" start="57" end="63" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="This destructor is a workaround for PHP trying to use the stream well" line="59"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="after all objects have been destructed. This can cause autoloading" line="60"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* issues and possibly segmentation faults during PHP shutdown." line="61"/>
+    </inline>
+  </destructor>
+  <method name="getFile" start="70" end="73" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the stream's file document."/>
+      <return type="object">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="register" start="80" end="87" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Register the GridFS stream wrapper."/>
+      <param description="Protocol to use for stream_wrapper_register()" type="string" variable="$protocol"/>
+    </docblock>
+    <parameter name="protocol" byreference="false" type="string" default="'gridfs'"/>
+  </method>
+  <method name="stream_close" start="94" end="101" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Closes the stream."/>
+      <see value="http://php.net/manual/en/streamwrapper.stream-close.php"/>
+    </docblock>
+  </method>
+  <method name="stream_eof" start="109" end="116" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns whether the file pointer is at the end of the stream."/>
+      <see value="http://php.net/manual/en/streamwrapper.stream-eof.php"/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+  <method name="stream_open" start="128" end="142" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Opens the stream."/>
+      <see value="http://php.net/manual/en/streamwrapper.stream-open.php"/>
+      <param description="Path to the file resource" type="string" variable="$path"/>
+      <param description="Mode used to open the file (only &quot;r&quot; and &quot;w&quot; are supported)" type="string" variable="$mode"/>
+      <param description="Additional flags set by the streams API" type="integer" variable="$options"/>
+      <param description="Not used" type="string" variable="$openedPath"/>
+      <return type="boolean"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="mode" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="{unknown}"/>
+    <parameter name="openedPath" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="stream_read" start="154" end="161" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Read bytes from the stream.">Note: this method may return a string smaller than the requested length
+if data is not available to be read.</description>
+      <see value="http://php.net/manual/en/streamwrapper.stream-read.php"/>
+      <param description="Number of bytes to read" type="integer" variable="$length"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="length" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="stream_seek" start="171" end="195" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the current position of the stream."/>
+      <see value="http://php.net/manual/en/streamwrapper.stream-seek.php"/>
+      <param description="Stream offset to seek to" type="integer" variable="$offset"/>
+      <param description="One of SEEK_SET, SEEK_CUR, or SEEK_END" type="integer" variable="$whence"/>
+      <return description="True if the position was updated and false otherwise" type="boolean"/>
+    </docblock>
+    <parameter name="offset" byreference="false" type="{unknown}"/>
+    <parameter name="whence" byreference="false" type="{unknown}" default="" constant="SEEK_SET"/>
+    <inline>
+      <comment value="WritableStreams are always positioned at the end of the stream" line="183"/>
+    </inline>
+  </method>
+  <method name="stream_stat" start="203" end="225" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return information about the stream."/>
+      <see value="http://php.net/manual/en/streamwrapper.stream-stat.php"/>
+      <return type="array"/>
+    </docblock>
+    <inline>
+      <comment value="S_IFREG &amp; S_IWUSR &amp; S_IWGRP &amp; S_IWOTH" line="209"/>
+    </inline>
+  </method>
+  <method name="stream_tell" start="233" end="236" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the current position of the stream."/>
+      <see value="http://php.net/manual/en/streamwrapper.stream-tell.php"/>
+      <return description="The current position of the stream" type="integer"/>
+    </docblock>
+  </method>
+  <method name="stream_write" start="245" end="252" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Write bytes to the stream."/>
+      <see value="http://php.net/manual/en/streamwrapper.stream-write.php"/>
+      <param description="Data to write" type="string" variable="$data"/>
+      <return description="The number of bytes written" type="integer"/>
+    </docblock>
+    <parameter name="data" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getStatTemplate" start="259" end="278" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns a stat template with default values."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="initProtocol" start="286" end="290" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Initialize the protocol from the given path."/>
+      <see value="StreamWrapper::stream_open()"/>
+      <param type="string" variable="$path"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="initReadableStream" start="298" end="308" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Initialize the internal stream for reading."/>
+      <see value="StreamWrapper::stream_open()"/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+  <method name="initWritableStream" start="316" end="327" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Initialize the internal stream for writing."/>
+      <see value="StreamWrapper::stream_open()"/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+</class>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\InsertManyResult" namespace="MongoDB" name="InsertManyResult" abstract="false" final="false" start="26" end="94">
+  <file path="../vendor/mongodb/mongodb/src" file="InsertManyResult.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/InsertManyResult.php" size="2711" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="a31be4a99bedfe76616bdb00087d80200031f56d" relative="vendor/mongodb/mongodb/src/InsertManyResult.php"/>
+  <docblock>
+    <description compact="Result class for a multi-document insert operation."/>
+  </docblock>
+  <member name="writeResult" visibility="private" static="false" line="29">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\WriteResult" namespace="MongoDB\Driver" name="WriteResult"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="insertedIds" visibility="private" static="false" line="32">
+    <docblock>
+      <var type="array" of="object">
+        <type full="MongoDB\mixed" namespace="MongoDB" name="mixed"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="isAcknowledged" visibility="private" static="false" line="35">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="41" end="46" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$writeResult">
+        <type full="MongoDB\Driver\WriteResult" namespace="MongoDB\Driver" name="WriteResult"/>
+      </param>
+      <param type="array" variable="$insertedIds" of="object">
+        <type full="MongoDB\mixed" namespace="MongoDB" name="mixed"/>
+      </param>
+    </docblock>
+    <parameter name="writeResult" byreference="false" type="object">
+      <type full="MongoDB\Driver\WriteResult" namespace="MongoDB\Driver" name="WriteResult"/>
+    </parameter>
+    <parameter name="insertedIds" byreference="false" type="array"/>
+  </constructor>
+  <method name="getInsertedCount" start="57" end="64" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the number of documents that were inserted.">This method should only be called if the write was acknowledged.</description>
+      <see value="InsertManyResult::isAcknowledged()"/>
+      <return type="integer"/>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getInsertedIds" start="77" end="80" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return a map of the inserted documents' IDs.">The index of each ID in the map corresponds to each document's position
+in the bulk operation. If a document had an ID prior to inserting (i.e.
+the driver did not generate an ID), the index will contain its "_id"
+field value. Any driver-generated ID will be a MongoDB\BSON\ObjectId
+instance.</description>
+      <return type="array" of="object">
+        <type full="MongoDB\mixed" namespace="MongoDB" name="mixed"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isAcknowledged" start="90" end="93" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return whether this insert result was acknowledged by the server.">If the insert was not acknowledged, other fields from the WriteResult
+(e.g. insertedCount) will be undefined.</description>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+</class>

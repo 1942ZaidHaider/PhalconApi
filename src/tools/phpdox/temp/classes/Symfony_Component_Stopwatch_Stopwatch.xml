@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Stopwatch\Stopwatch" namespace="Symfony\Component\Stopwatch" name="Stopwatch" abstract="false" final="false" start="24" end="166">
+  <file path="../vendor/symfony/stopwatch" file="Stopwatch.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/stopwatch/Stopwatch.php" size="3975" time="2022-02-18T16:06:09+00:00" unixtime="1645200369" sha1="5a51aa2e15a9c331ffed2b7506deedddd195e5d4" relative="vendor/symfony/stopwatch/Stopwatch.php"/>
+  <docblock>
+    <description compact="Stopwatch provides a way to profile code."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+  </docblock>
+  <implements full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface"/>
+  <member name="morePrecision" visibility="private" static="false" line="29">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Symfony\Component\Stopwatch\bool" namespace="Symfony\Component\Stopwatch" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="sections" visibility="private" static="false" line="34">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\Section" namespace="Symfony\Component\Stopwatch" name="Section"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="activeSections" visibility="private" static="false" line="39">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\Section" namespace="Symfony\Component\Stopwatch" name="Section"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="44" end="48" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="If true, time is stored as float to keep the original microsecond precision" type="object" variable="$morePrecision">
+        <type full="Symfony\Component\Stopwatch\bool" namespace="Symfony\Component\Stopwatch" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="morePrecision" byreference="false" type="boolean" default="false"/>
+  </constructor>
+  <method name="getSections" start="53" end="56" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\Section" namespace="Symfony\Component\Stopwatch" name="Section"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="openSection" start="65" end="76" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Creates a new section or re-opens an existing section."/>
+      <param description="The id of the session to re-open, null to create a new one" type="object" variable="$id">
+        <type full="Symfony\Component\Stopwatch\string|null" namespace="Symfony\Component\Stopwatch" name="string|null"/>
+      </param>
+      <throws description="When the section to re-open is not reachable" type="object">
+        <type full="\LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="id" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="stopSection" start="87" end="97" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stops the last started section.">The id parameter is used to retrieve the events from this section.</description>
+      <see value="getSectionEvents()"/>
+      <throws description="When there's no started section to be stopped" type="object">
+        <type full="\LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="id" byreference="false" type="string"/>
+  </method>
+  <method name="start" start="104" end="107" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Starts an event."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+    <parameter name="category" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="isStarted" start="114" end="117" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if the event was started."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\bool" namespace="Symfony\Component\Stopwatch" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="stop" start="124" end="127" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stops an event."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="lap" start="134" end="137" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stops then restarts an event."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="getEvent" start="144" end="147" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns a specific event by name."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="getSectionEvents" start="154" end="157" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets all events for a given section."/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+    </docblock>
+    <parameter name="id" byreference="false" type="string"/>
+  </method>
+  <method name="reset" start="162" end="165" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Resets the stopwatch to its original state."/>
+    </docblock>
+  </method>
+  <interface full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface">
+    <method name="reset" start="29" end="29" abstract="false" final="false" static="false" visibility="public"/>
+  </interface>
+</class>

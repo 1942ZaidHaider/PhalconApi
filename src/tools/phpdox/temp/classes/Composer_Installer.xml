@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Installer" namespace="Composer" name="Installer" abstract="false" final="false" start="60" end="1876">
+  <file path="../vendor/composer/composer/src/Composer" file="Installer.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Installer.php" size="73086" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="533a2ae3a6bb08ff5955bb38e767602fec0a87bf" relative="vendor/composer/composer/src/Composer/Installer.php"/>
+  <docblock>
+    <description/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+    <author value="Beau Simensen &lt;beau@dflydev.com&gt;"/>
+    <author value="Konstantin Kudryashov &lt;ever.zet@gmail.com&gt;"/>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+  </docblock>
+  <member name="io" visibility="protected" static="false" line="65">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="config" visibility="protected" static="false" line="70">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="package" visibility="protected" static="false" line="75">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Package\RootPackageInterface" namespace="Composer\Package" name="RootPackageInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="downloadManager" visibility="protected" static="false" line="80">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="repositoryManager" visibility="protected" static="false" line="85">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="locker" visibility="protected" static="false" line="90">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Package\Locker" namespace="Composer\Package" name="Locker"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="installationManager" visibility="protected" static="false" line="95">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="eventDispatcher" visibility="protected" static="false" line="100">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="autoloadGenerator" visibility="protected" static="false" line="105">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Autoload\AutoloadGenerator" namespace="Composer\Autoload" name="AutoloadGenerator"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="preferSource" default="false" type="boolean" visibility="protected" static="false" line="107"/>
+  <member name="preferDist" default="false" type="boolean" visibility="protected" static="false" line="108"/>
+  <member name="optimizeAutoloader" default="false" type="boolean" visibility="protected" static="false" line="109"/>
+  <member name="classMapAuthoritative" default="false" type="boolean" visibility="protected" static="false" line="110"/>
+  <member name="apcuAutoloader" default="false" type="boolean" visibility="protected" static="false" line="111"/>
+  <member name="devMode" default="false" type="boolean" visibility="protected" static="false" line="112"/>
+  <member name="dryRun" default="false" type="boolean" visibility="protected" static="false" line="113"/>
+  <member name="verbose" default="false" type="boolean" visibility="protected" static="false" line="114"/>
+  <member name="update" default="false" type="boolean" visibility="protected" static="false" line="115"/>
+  <member name="dumpAutoloader" default="true" type="boolean" visibility="protected" static="false" line="116"/>
+  <member name="runScripts" default="true" type="boolean" visibility="protected" static="false" line="117"/>
+  <member name="ignorePlatformReqs" default="false" type="boolean" visibility="protected" static="false" line="118"/>
+  <member name="preferStable" default="false" type="boolean" visibility="protected" static="false" line="119"/>
+  <member name="preferLowest" default="false" type="boolean" visibility="protected" static="false" line="120"/>
+  <member name="skipSuggest" default="false" type="boolean" visibility="protected" static="false" line="121"/>
+  <member name="writeLock" visibility="protected" static="false" line="122"/>
+  <member name="executeOperations" default="true" type="boolean" visibility="protected" static="false" line="123"/>
+  <member name="updateWhitelist" default="NULL" visibility="protected" static="false" line="130">
+    <docblock>
+      <description compact="Array of package names/globs flagged for update"/>
+      <var type="object">
+        <type full="Composer\array|null" namespace="Composer" name="array|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="whitelistDependencies" default="false" type="boolean" visibility="protected" static="false" line="131"/>
+  <member name="whitelistAllDependencies" default="false" type="boolean" visibility="protected" static="false" line="132"/>
+  <member name="suggestedPackagesReporter" visibility="protected" static="false" line="137">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Installer\SuggestedPackagesReporter" namespace="Composer\Installer" name="SuggestedPackagesReporter"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="additionalInstalledRepository" visibility="protected" static="false" line="142">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="157" end="170" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructor"/>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param type="object" variable="$config">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </param>
+      <param type="object" variable="$package">
+        <type full="Composer\Package\RootPackageInterface" namespace="Composer\Package" name="RootPackageInterface"/>
+      </param>
+      <param type="object" variable="$downloadManager">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </param>
+      <param type="object" variable="$repositoryManager">
+        <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+      </param>
+      <param type="object" variable="$locker">
+        <type full="Composer\Package\Locker" namespace="Composer\Package" name="Locker"/>
+      </param>
+      <param type="object" variable="$installationManager">
+        <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+      </param>
+      <param type="object" variable="$eventDispatcher">
+        <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+      </param>
+      <param type="object" variable="$autoloadGenerator">
+        <type full="Composer\Autoload\AutoloadGenerator" namespace="Composer\Autoload" name="AutoloadGenerator"/>
+      </param>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\RootPackageInterface" namespace="Composer\Package" name="RootPackageInterface"/>
+    </parameter>
+    <parameter name="downloadManager" byreference="false" type="object">
+      <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+    </parameter>
+    <parameter name="repositoryManager" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+    </parameter>
+    <parameter name="locker" byreference="false" type="object">
+      <type full="Composer\Package\Locker" namespace="Composer\Package" name="Locker"/>
+    </parameter>
+    <parameter name="installationManager" byreference="false" type="object">
+      <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+    </parameter>
+    <parameter name="eventDispatcher" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+    </parameter>
+    <parameter name="autoloadGenerator" byreference="false" type="object">
+      <type full="Composer\Autoload\AutoloadGenerator" namespace="Composer\Autoload" name="AutoloadGenerator"/>
+    </parameter>
+  </constructor>
+  <method name="run" start="178" end="347" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Run installation (or update)"/>
+      <throws type="object">
+        <type full="\Exception" namespace="" name="Exception"/>
+      </throws>
+      <return description="0 on success or a positive error code on failure" type="int"/>
+    </docblock>
+    <inline>
+      <comment value="Disable GC to save CPU cycles, as the dependency solver can create hundreds of thousands" line="180"/>
+      <comment value="of PHP objects, the GC can spend quite some time walking the tree of references looking" line="181"/>
+      <comment value="for stuff to collect while there is nothing to collect. This slows things down dramatically" line="182"/>
+      <comment value="and turning it off results in much better performance. Do not try this at home however." line="183"/>
+      <comment value="Force update if there is no lock file present" line="187"/>
+      <comment value="create installed repo, this contains all local packages + platform packages (php &amp; extensions)" line="214"/>
+      <comment value="output suggestions if we're in dev mode" line="247"/>
+      <comment value="Find abandoned packages and warn user" line="252"/>
+      <comment value="write lock" line="271"/>
+      <comment value="re-enable GC except on HHVM which triggers a warning here" line="341"/>
+    </inline>
+  </method>
+  <method name="doInstall" start="356" end="657" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="object" variable="$localRepo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param type="object" variable="$installedRepo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param type="object" variable="$platformRepo">
+        <type full="Composer\Repository\PlatformRepository" namespace="Composer\Repository" name="PlatformRepository"/>
+      </param>
+      <param type="array" variable="$aliases"/>
+      <return description="[int, PackageInterfaces[]|null] with the exit code and an array of dev packages on update, or null on install" type="array"/>
+    </docblock>
+    <parameter name="localRepo" byreference="false" type="{unknown}"/>
+    <parameter name="installedRepo" byreference="false" type="{unknown}"/>
+    <parameter name="platformRepo" byreference="false" type="{unknown}"/>
+    <parameter name="aliases" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="init vars" line="358"/>
+      <comment value="initialize locked repo if we are installing from lock or in a partial update" line="362"/>
+      <comment value="and a lock file is present as we need to force install non-allowed lock file" line="363"/>
+      <comment value="packages in that case" line="364"/>
+      <comment value="creating repository pool" line="386"/>
+      <comment value="Add the locked repository after the others in case we are doing a" line="396"/>
+      <comment value="partial update so missing packages can be found there still." line="397"/>
+      <comment value="For installs from lock it's the only one added so it is first" line="398"/>
+      <comment value="creating requirements request" line="403"/>
+      <comment value="force dev packages to have the latest links if we update or install from a (potentially new) lock" line="482"/>
+      <comment value="solve dependencies" line="485"/>
+      <comment value="force dev packages to be updated if we update or install from a (potentially new) lock" line="502"/>
+      <comment value="execute operations" line="510"/>
+      <comment value="extract dev packages and mark them to be skipped if it's a --no-dev install or update" line="518"/>
+      <comment value="we also force them to be uninstalled if they are present in the local repo" line="519"/>
+      <comment value="see https://github.com/composer/composer/issues/2764" line="646"/>
+    </inline>
+  </method>
+  <method name="extractDevPackages" start="669" end="740" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Extracts the dev packages out of the localRepo">This works by faking the operations so we can see what the dev packages
+would be at the end of the operation execution. This lets us then remove
+the dev packages from the list of operations accordingly if we are in a
+--no-dev install or update.</description>
+      <return type="array"/>
+    </docblock>
+    <parameter name="operations" byreference="false" type="array"/>
+    <parameter name="localRepo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="platformRepo" byreference="false" type="object">
+      <type full="Composer\Repository\PlatformRepository" namespace="Composer\Repository" name="PlatformRepository"/>
+    </parameter>
+    <parameter name="aliases" byreference="false" type="array"/>
+    <inline>
+      <comment value="fake-apply all operations to this clone of the local repo so we see the complete set of package we would end up with" line="675"/>
+      <comment value="we have to reload the local repo to handle aliases properly" line="703"/>
+      <comment value="but as it is not persisted on disk we use a loader/dumper" line="704"/>
+      <comment value="to reload it in memory" line="705"/>
+      <comment value="creating requirements request without dev requirements" line="719"/>
+      <comment value="solve deps to see which get removed" line="726"/>
+    </inline>
+  </method>
+  <method name="filterDevPackageOperations" start="745" end="771" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return description="filtered operations, dev packages are uninstalled and all operations on them ignored" type="array" of="object">
+        <type full="Composer\OperationInterface" namespace="Composer" name="OperationInterface"/>
+      </return>
+    </docblock>
+    <parameter name="devPackages" byreference="false" type="array"/>
+    <parameter name="operations" byreference="false" type="array"/>
+    <parameter name="localRepo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <inline>
+      <comment value="skip operations applied on dev packages" line="760"/>
+    </inline>
+  </method>
+  <method name="movePluginsToFront" start="786" end="827" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Workaround: if your packages depend on plugins, we must be sure that those are installed / updated first; else it would lead to packages being installed multiple times in different folders, when running Composer twice.">While this does not fix the root-causes of https://github.com/composer/composer/issues/1147,
+it at least fixes the symptoms and makes usage of composer possible (again)
+in such scenarios.</description>
+      <param type="array" variable="$operations" of="object">
+        <type full="Composer\OperationInterface" namespace="Composer" name="OperationInterface"/>
+      </param>
+      <return description="reordered operation list" type="array" of="object">
+        <type full="Composer\OperationInterface" namespace="Composer" name="OperationInterface"/>
+      </return>
+    </docblock>
+    <parameter name="operations" byreference="false" type="array"/>
+  </method>
+  <method name="moveUninstallsToFront" start="836" end="847" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Removals of packages should be executed before installations in case two packages resolve to the same path (due to custom installers)"/>
+      <param type="array" variable="$operations" of="object">
+        <type full="Composer\OperationInterface" namespace="Composer" name="OperationInterface"/>
+      </param>
+      <return description="reordered operation list" type="array" of="object">
+        <type full="Composer\OperationInterface" namespace="Composer" name="OperationInterface"/>
+      </return>
+    </docblock>
+    <parameter name="operations" byreference="false" type="array"/>
+  </method>
+  <method name="createInstalledRepo" start="852" end="872" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </return>
+    </docblock>
+    <parameter name="localRepo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="platformRepo" byreference="false" type="object">
+      <type full="Composer\Repository\PlatformRepository" namespace="Composer\Repository" name="PlatformRepository"/>
+    </parameter>
+    <inline>
+      <comment value="clone root package to have one in the installed repo that does not require anything" line="854"/>
+      <comment value="we don't want it to be uninstallable, but its requirements should not conflict" line="855"/>
+      <comment value="with the lock file for example" line="856"/>
+    </inline>
+  </method>
+  <method name="createPool" start="878" end="911" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$lockedRepository">
+        <type full="Composer\RepositoryInterface|null" namespace="Composer" name="RepositoryInterface|null"/>
+      </param>
+      <return type="object">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </return>
+    </docblock>
+    <parameter name="lockedRepository" byreference="false" type="object" default="NULL">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+  </method>
+  <method name="createPolicy" start="916" end="934" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Composer\DependencyResolver\DefaultPolicy" namespace="Composer\DependencyResolver" name="DefaultPolicy"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="old lock file without prefer stable/lowest will return null" line="924"/>
+      <comment value="so in this case we use the composer.json info" line="925"/>
+    </inline>
+  </method>
+  <method name="createRequest" start="941" end="972" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$rootPackage">
+        <type full="Composer\Package\RootPackageInterface" namespace="Composer\Package" name="RootPackageInterface"/>
+      </param>
+      <param type="object" variable="$platformRepo">
+        <type full="Composer\Repository\PlatformRepository" namespace="Composer\Repository" name="PlatformRepository"/>
+      </param>
+      <return type="object">
+        <type full="Composer\DependencyResolver\Request" namespace="Composer\DependencyResolver" name="Request"/>
+      </return>
+    </docblock>
+    <parameter name="rootPackage" byreference="false" type="object">
+      <type full="Composer\Package\RootPackageInterface" namespace="Composer\Package" name="RootPackageInterface"/>
+    </parameter>
+    <parameter name="platformRepo" byreference="false" type="object">
+      <type full="Composer\Repository\PlatformRepository" namespace="Composer\Repository" name="PlatformRepository"/>
+    </parameter>
+    <inline>
+      <comment value="fix the version of all platform packages + additionally installed packages" line="955"/>
+      <comment value="to prevent the solver trying to remove or update those" line="956"/>
+    </inline>
+  </method>
+  <method name="processDevPackages" start="985" end="1115" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$localRepo">
+        <type full="Composer\Repository\WritableRepositoryInterface" namespace="Composer\Repository" name="WritableRepositoryInterface"/>
+      </param>
+      <param type="object" variable="$pool">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </param>
+      <param type="object" variable="$policy">
+        <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+      </param>
+      <param type="array" variable="$repositories"/>
+      <param type="object" variable="$installedRepo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param type="object" variable="$lockedRepository">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param type="string" variable="$task"/>
+      <param type="object" variable="$operations">
+        <type full="Composer\array|null" namespace="Composer" name="array|null"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="localRepo" byreference="false" type="{unknown}"/>
+    <parameter name="pool" byreference="false" type="{unknown}"/>
+    <parameter name="policy" byreference="false" type="{unknown}"/>
+    <parameter name="repositories" byreference="false" type="{unknown}"/>
+    <parameter name="installedRepo" byreference="false" type="{unknown}"/>
+    <parameter name="lockedRepository" byreference="false" type="{unknown}"/>
+    <parameter name="task" byreference="false" type="{unknown}"/>
+    <parameter name="operations" byreference="false" type="array" default="NULL"/>
+  </method>
+  <method name="getCurrentPackages" start="1122" end="1134" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Loads the most &quot;current&quot; list of packages that are installed meaning from lock ideally or from installed repo as fallback"/>
+      <param type="object" variable="$installedRepo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="installedRepo" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getRootAliases" start="1139" end="1157" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="processPackageUrls" start="1165" end="1216" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$pool">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </param>
+      <param type="object" variable="$policy">
+        <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+      </param>
+      <param type="object" variable="$localRepo">
+        <type full="Composer\Repository\WritableRepositoryInterface" namespace="Composer\Repository" name="WritableRepositoryInterface"/>
+      </param>
+      <param type="array" variable="$repositories"/>
+    </docblock>
+    <parameter name="pool" byreference="false" type="{unknown}"/>
+    <parameter name="policy" byreference="false" type="{unknown}"/>
+    <parameter name="localRepo" byreference="false" type="{unknown}"/>
+    <parameter name="repositories" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="updatePackageUrl" start="1218" end="1240" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="sourceUrl" byreference="false" type="{unknown}"/>
+    <parameter name="sourceType" byreference="false" type="{unknown}"/>
+    <parameter name="sourceReference" byreference="false" type="{unknown}"/>
+    <parameter name="distUrl" byreference="false" type="{unknown}"/>
+    <parameter name="distType" byreference="false" type="{unknown}"/>
+    <parameter name="distShaSum" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="only update dist url for github/bitbucket/gitlab dists as they use a combination of dist url + dist reference to install" line="1228"/>
+      <comment value="but for other urls this is ambiguous and could result in bad outcomes" line="1229"/>
+    </inline>
+  </method>
+  <method name="updateInstallReferences" start="1242" end="1256" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="reference" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="aliasPlatformPackages" start="1262" end="1274" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$platformRepo">
+        <type full="Composer\Repository\PlatformRepository" namespace="Composer\Repository" name="PlatformRepository"/>
+      </param>
+      <param type="array" variable="$aliases"/>
+    </docblock>
+    <parameter name="platformRepo" byreference="false" type="object">
+      <type full="Composer\Repository\PlatformRepository" namespace="Composer\Repository" name="PlatformRepository"/>
+    </parameter>
+    <parameter name="aliases" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isUpdateable" start="1280" end="1294" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return type="object">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="extractPlatformRequirements" start="1300" end="1310" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$links"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="links" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="allowListUpdateDependencies" start="1325" end="1416" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Adds all dependencies of the update allow list to the allow list, too.">Packages which are listed as requirements in the root package will be
+skipped including their dependencies, unless they are listed in the
+update allow list themselves or $whitelistAllDependencies is true.</description>
+      <param description="Use the locked repo if available, otherwise installed repo will do" type="object" variable="$localOrLockRepo">As we want the most accurate package list to work with, and installed
+                                            repo might be empty but locked repo will always be current.<type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/></param>
+      <param description="An array of links to packages in require of the root package" type="array" variable="$rootRequires"/>
+      <param description="An array of links to packages in require-dev of the root package" type="array" variable="$rootDevRequires"/>
+    </docblock>
+    <parameter name="localOrLockRepo" byreference="false" type="{unknown}"/>
+    <parameter name="rootRequires" byreference="false" type="array"/>
+    <parameter name="rootDevRequires" byreference="false" type="array"/>
+  </method>
+  <method name="mockLocalRepositories" start="1425" end="1440" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Replace local repositories with InstalledArrayRepository instances">This is to prevent any accidental modification of the existing repos on disk</description>
+      <param type="object" variable="$rm">
+        <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+      </param>
+    </docblock>
+    <parameter name="rm" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+    </parameter>
+  </method>
+  <method name="create" start="1449" end="1462" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Create Installer"/>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param type="object" variable="$composer">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="composer" byreference="false" type="object">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+  </method>
+  <method name="setAdditionalInstalledRepository" start="1468" end="1473" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$additionalInstalledRepository">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <return type="object">
+        <type full="Composer\$this" namespace="Composer" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="additionalInstalledRepository" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+  </method>
+  <method name="setDryRun" start="1481" end="1486" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Whether to run in drymode or not"/>
+      <param type="object" variable="$dryRun">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="dryRun" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="isDryRun" start="1493" end="1496" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks, if this is a dry run (simulation mode)."/>
+      <return type="object">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setPreferSource" start="1504" end="1509" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="prefer source installation"/>
+      <param type="object" variable="$preferSource">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="preferSource" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setPreferDist" start="1517" end="1522" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="prefer dist installation"/>
+      <param type="object" variable="$preferDist">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="preferDist" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setOptimizeAutoloader" start="1530" end="1540" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Whether or not generated autoloader are optimized"/>
+      <param type="object" variable="$optimizeAutoloader">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="optimizeAutoloader" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="setClassMapAuthoritative" start="1549" end="1558" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Whether or not generated autoloader considers the class map authoritative."/>
+      <param type="object" variable="$classMapAuthoritative">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="classMapAuthoritative" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="setApcuAutoloader" start="1566" end="1571" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Whether or not generated autoloader considers APCu caching."/>
+      <param type="object" variable="$apcuAutoloader">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="apcuAutoloader" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="setUpdate" start="1579" end="1584" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="update packages"/>
+      <param type="object" variable="$update">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="update" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setDevMode" start="1592" end="1597" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="enables dev packages"/>
+      <param type="object" variable="$devMode">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="devMode" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setDumpAutoloader" start="1607" end="1612" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="set whether to run autoloader or not">This is disabled implicitly when enabling dryRun</description>
+      <param type="object" variable="$dumpAutoloader">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="dumpAutoloader" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setRunScripts" start="1622" end="1627" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="set whether to run scripts or not">This is disabled implicitly when enabling dryRun</description>
+      <param type="object" variable="$runScripts">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="runScripts" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setConfig" start="1635" end="1640" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="set the config instance"/>
+      <param type="object" variable="$config">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+  </method>
+  <method name="setVerbose" start="1648" end="1653" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="run in verbose mode"/>
+      <param type="object" variable="$verbose">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="verbose" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="isVerbose" start="1660" end="1663" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks, if running in verbose mode."/>
+      <return type="object">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setIgnorePlatformRequirements" start="1671" end="1676" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="set ignore Platform Package requirements"/>
+      <param type="object" variable="$ignorePlatformReqs">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="ignorePlatformReqs" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="setUpdateWhitelist" start="1687" end="1692" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="restrict the update operation to a few packages, all other packages that are already installed will be kept at their current version"/>
+      <deprecated value="use setUpdateAllowList instead"/>
+      <param type="array" variable="$packages"/>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="packages" byreference="false" type="array"/>
+  </method>
+  <method name="setUpdateAllowList" start="1701" end="1705" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="restrict the update operation to a few packages, all other packages that are already installed will be kept at their current version"/>
+      <param type="array" variable="$packages"/>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="packages" byreference="false" type="array"/>
+    <inline>
+      <comment value="call original method for BC" line="1703"/>
+    </inline>
+  </method>
+  <method name="setWhitelistDependencies" start="1710" end="1713" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <deprecated value="use setAllowListTransitiveDependencies instead"/>
+    </docblock>
+    <parameter name="updateDependencies" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setWhitelistTransitiveDependencies" start="1726" end="1731" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should dependencies of allowed packages (but not direct dependencies) be updated?">This will NOT allow list any dependencies that are also directly defined
+in the root package.</description>
+      <deprecated value="use setAllowListTransitiveDependencies instead"/>
+      <param type="object" variable="$updateTransitiveDependencies">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="updateTransitiveDependencies" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setAllowListTransitiveDependencies" start="1742" end="1746" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should dependencies of allowed packages (but not direct dependencies) be updated?">This will NOT allow list any dependencies that are also directly defined
+in the root package.</description>
+      <param type="object" variable="$updateTransitiveDependencies">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="updateTransitiveDependencies" byreference="false" type="boolean" default="true"/>
+    <inline>
+      <comment value="call original method for BC" line="1744"/>
+    </inline>
+  </method>
+  <method name="setWhitelistAllDependencies" start="1759" end="1764" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should all dependencies of allowed packages be updated recursively?">This will allow list any dependencies of the allow listed packages, including
+those defined in the root package.</description>
+      <deprecated value="use setAllowListAllDependencies instead"/>
+      <param type="object" variable="$updateAllDependencies">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="updateAllDependencies" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setAllowListAllDependencies" start="1775" end="1779" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should all dependencies of allowed packages be updated recursively?">This will allow list any dependencies of the allow listed packages, including
+those defined in the root package.</description>
+      <param type="object" variable="$updateAllDependencies">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="updateAllDependencies" byreference="false" type="boolean" default="true"/>
+    <inline>
+      <comment value="call original method for BC" line="1777"/>
+    </inline>
+  </method>
+  <method name="setPreferStable" start="1787" end="1792" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should packages be preferred in a stable version when updating?"/>
+      <param type="object" variable="$preferStable">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="preferStable" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setPreferLowest" start="1800" end="1805" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should packages be preferred in a lowest version when updating?"/>
+      <param type="object" variable="$preferLowest">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="preferLowest" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setWriteLock" start="1815" end="1820" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should the lock file be updated when updating?">This is disabled implicitly when enabling dryRun</description>
+      <param type="object" variable="$writeLock">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="writeLock" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setExecuteOperations" start="1830" end="1835" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should the operations (package install, update and removal) be executed on disk?">This is disabled implicitly when enabling dryRun</description>
+      <param type="object" variable="$executeOperations">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="executeOperations" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setSkipSuggest" start="1843" end="1848" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should suggestions be skipped?"/>
+      <param type="object" variable="$skipSuggest">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="skipSuggest" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="disablePlugins" start="1859" end="1864" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Disables plugins.">Call this if you want to ensure that third-party code never gets
+executed. The default is to automatically install, and execute
+custom third-party installers.</description>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setSuggestedPackagesReporter" start="1870" end="1875" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$suggestedPackagesReporter">
+        <type full="Composer\Installer\SuggestedPackagesReporter" namespace="Composer\Installer" name="SuggestedPackagesReporter"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer" namespace="Composer" name="Installer"/>
+      </return>
+    </docblock>
+    <parameter name="suggestedPackagesReporter" byreference="false" type="object">
+      <type full="Composer\Installer\SuggestedPackagesReporter" namespace="Composer\Installer" name="SuggestedPackagesReporter"/>
+    </parameter>
+  </method>
+</class>

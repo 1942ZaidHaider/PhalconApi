@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Nette\Iterators\CachingIterator" namespace="Nette\Iterators" name="CachingIterator" abstract="false" final="false" start="27" end="167">
+  <file path="../vendor/nette/utils/src/Iterators" file="CachingIterator.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/nette/utils/src/Iterators/CachingIterator.php" size="3097" time="2022-01-24T11:29:14+00:00" unixtime="1643023754" sha1="497a56e6ee76f13a21d66d82f646c0a3725f2d15" relative="vendor/nette/utils/src/Iterators/CachingIterator.php"/>
+  <docblock>
+    <description compact="Smarter caching iterator."/>
+    <property value="-read bool $first"/>
+    <property value="-read bool $last"/>
+    <property value="-read bool $empty"/>
+    <property value="-read bool $odd"/>
+    <property value="-read bool $even"/>
+    <property value="-read int $counter"/>
+    <property value="-read mixed $nextKey"/>
+    <property value="-read mixed $nextValue"/>
+  </docblock>
+  <extends full="CachingIterator" namespace="" name="CachingIterator"/>
+  <implements full="Countable" namespace="" name="Countable"/>
+  <uses full="Nette\SmartObject" namespace="Nette" name="SmartObject" start="29" end="29"/>
+  <member name="counter" default="0" type="integer" visibility="private" static="false" line="32">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="35" end="55" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="iterator" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="isFirst" start="61" end="64" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Is the current element the first one?"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="gridWidth" byreference="false" nullable="true" type="int" default="NULL"/>
+  </method>
+  <method name="isLast" start="70" end="73" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Is the current element the last one?"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="gridWidth" byreference="false" nullable="true" type="int" default="NULL"/>
+  </method>
+  <method name="isEmpty" start="79" end="82" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Is the iterator empty?"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isOdd" start="88" end="91" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Is the counter odd?"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isEven" start="97" end="100" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Is the counter even?"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="getCounter" start="106" end="109" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the counter."/>
+    </docblock>
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="count" start="115" end="124" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the count of elements."/>
+    </docblock>
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="next" start="130" end="136" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Forwards to the next element."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="rewind" start="142" end="146" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Rewinds the Iterator."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="getNextKey" start="153" end="156" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the next key."/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+  <method name="getNextValue" start="163" end="166" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the next element."/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+  <parent full="CachingIterator" namespace="" name="CachingIterator">
+    <implements full="OuterIterator" namespace="" name="OuterIterator"/>
+    <constant name="CALL_TOSTRING" value="1" type="{unknown}">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </constant>
+    <constant name="CATCH_GET_CHILD" value="16" type="{unknown}">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </constant>
+    <constant name="TOSTRING_USE_KEY" value="2" type="{unknown}">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </constant>
+    <constant name="TOSTRING_USE_CURRENT" value="4" type="{unknown}">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </constant>
+    <constant name="TOSTRING_USE_INNER" value="8" type="{unknown}">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </constant>
+    <constant name="FULL_CACHE" value="256" type="{unknown}">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </constant>
+    <constructor name="__construct" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Construct a new CachingIterator object for the iterator"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="iterator" optional="false" byreference="false" type="object" class="Iterator"/>
+    <parameter name="flags" optional="true" byreference="false" type="int"/>
+  </constructor>
+    <method name="count" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="The number of elements in the iterator"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Return the current element"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="getCache" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Retrieve the contents of the cache">Retrieve the contents of the cache.</description>
+      <return type="array"/>
+    </docblock>
+  </method>
+    <method name="getFlags" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Get flags used"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+    <method name="getInnerIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Returns the inner iterator"/>
+      <return type="Iterator"/>
+    </docblock>
+  </method>
+    <method name="hasNext" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Check whether the inner iterator has a valid next element"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Return the key for the current element"/>
+      <return type="scalar"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Move the iterator forward"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="offsetExists" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="The offsetExists purpose"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="index" optional="false" byreference="false" type="object" class="mixed"/>
+  </method>
+    <method name="offsetGet" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="The offsetGet purpose"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="index" optional="false" byreference="false" type="string"/>
+  </method>
+    <method name="offsetSet" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="The offsetSet purpose"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="index" optional="false" byreference="false" type="object" class="mixed"/>
+    <parameter name="newval" optional="false" byreference="false" type="object" class="mixed"/>
+  </method>
+    <method name="offsetUnset" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="The offsetUnset purpose"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="index" optional="false" byreference="false" type="string"/>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Rewind the iterator"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="setFlags" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="The setFlags purpose"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="flags" optional="false" byreference="false" type="int"/>
+  </method>
+    <method name="__toString" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Return the string representation of the current element"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Check whether the current element is valid"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+  </parent>
+  <interface full="OuterIterator" namespace="" name="OuterIterator">
+    <extends full="Iterator" namespace="" name="Iterator"/>
+    <method name="getInnerIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Returns the inner iterator for the current entry"/>
+      <return type="Iterator"/>
+    </docblock>
+  </method>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="scalar"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+  </interface>
+  <interface full="Countable" namespace="" name="Countable">
+    <method name="count" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Count elements of an object"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  </interface>
+  <trait full="Nette\SmartObject" namespace="Nette" name="SmartObject">
+    <method name="__call" start="27" end="43" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <throws type="object">
+          <type full="Nette\MemberAccessException" namespace="Nette" name="MemberAccessException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+      <parameter name="args" byreference="false" type="array"/>
+    </method>
+    <method name="__callStatic" start="49" end="52" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description/>
+        <throws type="object">
+          <type full="Nette\MemberAccessException" namespace="Nette" name="MemberAccessException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+      <parameter name="args" byreference="false" type="array"/>
+    </method>
+    <method name="__get" start="59" end="86" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return type="mixed"/>
+        <throws description="if the property is not defined." type="object">
+          <type full="Nette\MemberAccessException" namespace="Nette" name="MemberAccessException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+    </method>
+    <method name="__set" start="94" end="120" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param type="mixed" variable="$value"/>
+        <return type="object">
+          <type full="Nette\void" namespace="Nette" name="void"/>
+        </return>
+        <throws description="if the property is not defined or is read-only" type="object">
+          <type full="Nette\MemberAccessException" namespace="Nette" name="MemberAccessException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+      <parameter name="value" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="__unset" start="127" end="133" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return type="object">
+          <type full="Nette\void" namespace="Nette" name="void"/>
+        </return>
+        <throws type="object">
+          <type full="Nette\MemberAccessException" namespace="Nette" name="MemberAccessException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+    </method>
+    <method name="__isset" start="136" end="139" abstract="false" final="false" static="false" visibility="public">
+      <return type="bool" nullable="false"/>
+      <parameter name="name" byreference="false" type="string"/>
+    </method>
+  </trait>
+</class>

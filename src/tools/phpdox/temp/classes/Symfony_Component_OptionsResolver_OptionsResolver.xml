@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\OptionsResolver\OptionsResolver" namespace="Symfony\Component\OptionsResolver" name="OptionsResolver" abstract="false" final="false" start="28" end="1347">
+  <file path="../vendor/symfony/options-resolver" file="OptionsResolver.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/options-resolver/OptionsResolver.php" size="46182" time="2022-01-02T09:53:40+00:00" unixtime="1641117220" sha1="db0c7ee029b02cf5b14908495cf7bd3d4cbc54ca" relative="vendor/symfony/options-resolver/OptionsResolver.php"/>
+  <docblock>
+    <description compact="Validates options and merges them with default values."/>
+    <author value="Bernhard Schussek &lt;bschussek@gmail.com&gt;"/>
+    <author value="Tobias Schultze &lt;http://tobion.de&gt;"/>
+  </docblock>
+  <implements full="Symfony\Component\OptionsResolver\Options" namespace="Symfony\Component\OptionsResolver" name="Options"/>
+  <constant type="array" name="VALIDATION_FUNCTIONS" value=""/>
+  <member name="defined" default="" type="array" visibility="private" static="false" line="53">
+    <docblock>
+      <description compact="The names of all defined options."/>
+    </docblock>
+  </member>
+  <member name="defaults" default="" type="array" visibility="private" static="false" line="58">
+    <docblock>
+      <description compact="The default option values."/>
+    </docblock>
+  </member>
+  <member name="nested" default="" type="array" visibility="private" static="false" line="65">
+    <docblock>
+      <description compact="A list of closure for nested options."/>
+      <var type="array" of="object">
+        <type full="\Closure[]" namespace="" name="Closure[]"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="required" default="" type="array" visibility="private" static="false" line="70">
+    <docblock>
+      <description compact="The names of required options."/>
+    </docblock>
+  </member>
+  <member name="resolved" default="" type="array" visibility="private" static="false" line="75">
+    <docblock>
+      <description compact="The resolved option values."/>
+    </docblock>
+  </member>
+  <member name="normalizers" default="" type="array" visibility="private" static="false" line="82">
+    <docblock>
+      <description compact="A list of normalizer closures."/>
+      <var type="array" of="object">
+        <type full="\Closure[]" namespace="" name="Closure[]"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="allowedValues" default="" type="array" visibility="private" static="false" line="87">
+    <docblock>
+      <description compact="A list of accepted values for each option."/>
+    </docblock>
+  </member>
+  <member name="allowedTypes" default="" type="array" visibility="private" static="false" line="92">
+    <docblock>
+      <description compact="A list of accepted types for each option."/>
+    </docblock>
+  </member>
+  <member name="info" default="" type="array" visibility="private" static="false" line="97">
+    <docblock>
+      <description compact="A list of info messages for each option."/>
+    </docblock>
+  </member>
+  <member name="lazy" default="" type="array" visibility="private" static="false" line="102">
+    <docblock>
+      <description compact="A list of closures for evaluating lazy options."/>
+    </docblock>
+  </member>
+  <member name="calling" default="" type="array" visibility="private" static="false" line="109">
+    <docblock>
+      <description compact="A list of lazy options whose closure is currently being called.">This list helps detecting circular dependencies between lazy options.</description>
+    </docblock>
+  </member>
+  <member name="deprecated" default="" type="array" visibility="private" static="false" line="114">
+    <docblock>
+      <description compact="A list of deprecated options."/>
+    </docblock>
+  </member>
+  <member name="given" default="" type="array" visibility="private" static="false" line="119">
+    <docblock>
+      <description compact="The list of options provided by the user."/>
+    </docblock>
+  </member>
+  <member name="locked" default="false" type="boolean" visibility="private" static="false" line="129">
+    <docblock>
+      <description compact="Whether the instance is locked for reading.">Once locked, the options cannot be changed anymore. This is
+necessary in order to avoid inconsistencies during the resolving
+process. If any option is changed after being read, all evaluated
+lazy options that depend on this option would become invalid.</description>
+    </docblock>
+  </member>
+  <member name="parentsOptions" default="" type="array" visibility="private" static="false" line="131"/>
+  <member name="prototype" visibility="private" static="false" line="136">
+    <docblock>
+      <description compact="Whether the whole options definition is marked as array prototype."/>
+    </docblock>
+  </member>
+  <member name="prototypeIndex" visibility="private" static="false" line="141">
+    <docblock>
+      <description compact="The prototype array's index that is being read."/>
+    </docblock>
+  </member>
+  <method name="setDefault" start="197" end="261" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the default value of a given option.">If the default value should be set based on other options, you can pass
+a closure with the following signature:
+    function (Options $options) {
+        // ...
+    }
+The closure will be evaluated when <link xmlns="http://xml.phpdox.net/src" value="resolve()"/> is called. The
+closure has access to the resolved values of other options through the
+passed <link xmlns="http://xml.phpdox.net/src" value="Options} instance:&#10;&#10;    function (Options $options) {&#10;        if (isset($options['port'])) {&#10;            // ...&#10;        }&#10;    }&#10;&#10;If you want to access the previously set default value, add a second&#10;argument to the closure's signature:&#10;&#10;    $options-&gt;setDefault('name', 'Default Name');&#10;&#10;    $options-&gt;setDefault('name', function (Options $options, $previousValue) {&#10;        // 'Default Name' === $previousValue"/>);
+This is mostly useful if the configuration of the <link xmlns="http://xml.phpdox.net/src" value="Options} object&#10;is spread across different locations of your code, such as base and&#10;sub-classes.&#10;&#10;If you want to define nested options, you can pass a closure with the&#10;following signature:&#10;&#10;    $options-&gt;setDefault('database', function (OptionsResolver $resolver) {&#10;        $resolver-&gt;setDefined(['dbname', 'host', 'port', 'user', 'pass']);&#10;    }&#10;&#10;To get access to the parent options, add a second argument to the closure's&#10;signature:&#10;&#10;    function (OptionsResolver $resolver, Options $parent) {&#10;        // 'default' === $parent['connection']"/></description>
+      <param description="The name of the option" type="string" variable="$option"/>
+      <param description="The default value of the option" type="mixed" variable="$value"/>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Setting is not possible once resolving starts, because then lazy" line="199"/>
+      <comment value="options could manipulate the state of the object, leading to" line="200"/>
+      <comment value="inconsistent results." line="201"/>
+      <comment value="If an option is a closure that should be evaluated lazily, store it" line="206"/>
+      <comment value="in the &quot;lazy&quot; property." line="207"/>
+      <comment value="This option is not lazy nor nested anymore" line="246"/>
+      <comment value="Yet undefined options can be marked as resolved, because we only need" line="249"/>
+      <comment value="to resolve options with lazy closures, normalizers or validation" line="250"/>
+      <comment value="rules, none of which can exist for undefined options" line="251"/>
+      <comment value="If the option was resolved before, update the resolved value" line="252"/>
+    </inline>
+  </method>
+  <method name="setDefaults" start="268" end="275" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="defaults" byreference="false" type="array"/>
+  </method>
+  <method name="hasDefault" start="285" end="288" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns whether a default value is set for an option.">Returns true if <link xmlns="http://xml.phpdox.net/src" value="setDefault()"/> was called for this option.
+An option is also considered set if it was set to null.
+</description>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\bool" namespace="Symfony\Component\OptionsResolver" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+  </method>
+  <method name="setRequired" start="299" end="311" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Marks one or more options as required."/>
+      <param description="One or more option names" type="array" variable="$optionNames" of="object">
+        <type full="Symfony\Component\OptionsResolver\string|string" namespace="Symfony\Component\OptionsResolver" name="string|string"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="optionNames" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isRequired" start="320" end="323" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns whether an option is required.">An option is required if it was passed to <link xmlns="http://xml.phpdox.net/src" value="setRequired()"/>.
+</description>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\bool" namespace="Symfony\Component\OptionsResolver" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+  </method>
+  <method name="getRequiredOptions" start="332" end="335" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the names of all required options."/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\OptionsResolver\string" namespace="Symfony\Component\OptionsResolver" name="string"/>
+      </return>
+      <see value="isRequired()"/>
+    </docblock>
+  </method>
+  <method name="isMissing" start="346" end="349" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns whether an option is missing a default value.">An option is missing if it was passed to <link xmlns="http://xml.phpdox.net/src" value="setRequired()"/>, but not
+to <link xmlns="http://xml.phpdox.net/src" value="setDefault()"/>. This option must be passed explicitly to
+<link xmlns="http://xml.phpdox.net/src" value="resolve()"/>, otherwise an exception will be thrown.
+</description>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\bool" namespace="Symfony\Component\OptionsResolver" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+  </method>
+  <method name="getMissingOptions" start="356" end="359" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the names of all options missing a default value."/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\OptionsResolver\string" namespace="Symfony\Component\OptionsResolver" name="string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setDefined" start="374" end="385" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Defines a valid option name.">Defines an option name without setting a default value. The option will
+be accepted when passed to <link xmlns="http://xml.phpdox.net/src" value="resolve()"/>. When not passed, the
+option will not be included in the resolved options.
+</description>
+      <param description="One or more option names" type="array" variable="$optionNames" of="object">
+        <type full="Symfony\Component\OptionsResolver\string|string" namespace="Symfony\Component\OptionsResolver" name="string|string"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="optionNames" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isDefined" start="395" end="398" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns whether an option is defined.">Returns true for any option passed to <link xmlns="http://xml.phpdox.net/src" value="setDefault()"/>,
+<link xmlns="http://xml.phpdox.net/src" value="setRequired()"/> or <link xmlns="http://xml.phpdox.net/src" value="setDefined()"/>.
+</description>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\bool" namespace="Symfony\Component\OptionsResolver" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+  </method>
+  <method name="getDefinedOptions" start="407" end="410" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the names of all defined options."/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\OptionsResolver\string" namespace="Symfony\Component\OptionsResolver" name="string"/>
+      </return>
+      <see value="isDefined()"/>
+    </docblock>
+  </method>
+  <method name="isNested" start="412" end="415" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="option" byreference="false" type="string"/>
+  </method>
+  <method name="setDeprecated" start="440" end="482" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Deprecates an option, allowed types or values.">Instead of passing the message, you may also pass a closure with the
+following signature:
+    function (Options $options, $value): string {
+        // ...
+    }
+The closure receives the value as argument and should return a string.
+Return an empty string to ignore the option deprecation.
+The closure is invoked when <link xmlns="http://xml.phpdox.net/src" value="resolve()"/> is called. The parameter
+passed to the closure is the value of the option after validating it
+and before normalizing it.
+</description>
+      <param description="The name of the composer package that is triggering the deprecation" type="string" variable="$package"/>
+      <param description="The version of the package that introduced the deprecation" type="string" variable="$version"/>
+      <param description="The deprecation message to use" type="object" variable="$message">
+        <type full="Symfony\Component\OptionsResolver\string|\Closure" namespace="Symfony\Component\OptionsResolver\string|" name="Closure"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\OptionsResolver\OptionsResolver" namespace="Symfony\Component\OptionsResolver" name="OptionsResolver"/>
+    </return>
+    <parameter name="option" byreference="false" type="string"/>
+    <inline>
+      <comment value="ignore if empty string" line="467"/>
+      <comment value="Make sure the option is processed" line="478"/>
+    </inline>
+  </method>
+  <method name="isDeprecated" start="484" end="487" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="option" byreference="false" type="string"/>
+  </method>
+  <method name="setNormalizer" start="512" end="528" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the normalizer for an option.">The normalizer should be a closure with the following signature:
+    function (Options $options, $value) {
+        // ...
+    }
+The closure is invoked when <link xmlns="http://xml.phpdox.net/src" value="resolve()"/> is called. The closure
+has access to the resolved values of other options through the passed
+<link xmlns="http://xml.phpdox.net/src" value="Options"/> instance.
+The second parameter passed to the closure is the value of
+the option.
+The resolved option value is set to the return value of the closure.
+</description>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If the option is undefined" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="UndefinedOptionsException"/>
+      </throws>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+    <parameter name="normalizer" byreference="false" type="object">
+      <type full="Closure" namespace="" name="Closure"/>
+    </parameter>
+    <inline>
+      <comment value="Make sure the option is processed" line="524"/>
+    </inline>
+  </method>
+  <method name="addNormalizer" start="553" end="574" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds a normalizer for an option.">The normalizer should be a closure with the following signature:
+    function (Options $options, $value): mixed {
+        // ...
+    }
+The closure is invoked when <link xmlns="http://xml.phpdox.net/src" value="resolve()"/> is called. The closure
+has access to the resolved values of other options through the passed
+<link xmlns="http://xml.phpdox.net/src" value="Options"/> instance.
+The second parameter passed to the closure is the value of
+the option.
+The resolved option value is set to the return value of the closure.
+</description>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If the option is undefined" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="UndefinedOptionsException"/>
+      </throws>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\OptionsResolver\OptionsResolver" namespace="Symfony\Component\OptionsResolver" name="OptionsResolver"/>
+    </return>
+    <parameter name="option" byreference="false" type="string"/>
+    <parameter name="normalizer" byreference="false" type="object">
+      <type full="Closure" namespace="" name="Closure"/>
+    </parameter>
+    <parameter name="forcePrepend" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Make sure the option is processed" line="570"/>
+    </inline>
+  </method>
+  <method name="setAllowedValues" start="597" end="613" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets allowed values for an option.">Instead of passing values, you may also pass a closures with the
+following signature:
+
+    function ($value) {
+        // return true or false
+    }
+
+The closure receives the value as argument and should return true to
+accept the value and false to reject the value.</description>
+      <param description="The option name" type="string" variable="$option"/>
+      <param description="One or more acceptable values/closures" type="mixed" variable="$allowedValues"/>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If the option is undefined" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="UndefinedOptionsException"/>
+      </throws>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+    <parameter name="allowedValues" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Make sure the option is processed" line="609"/>
+    </inline>
+  </method>
+  <method name="addAllowedValues" start="638" end="662" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds allowed values for an option.">The values are merged with the allowed values defined previously.
+
+Instead of passing values, you may also pass a closures with the
+following signature:
+
+    function ($value) {
+        // return true or false
+    }
+
+The closure receives the value as argument and should return true to
+accept the value and false to reject the value.</description>
+      <param description="The option name" type="string" variable="$option"/>
+      <param description="One or more acceptable values/closures" type="mixed" variable="$allowedValues"/>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If the option is undefined" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="UndefinedOptionsException"/>
+      </throws>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+    <parameter name="allowedValues" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Make sure the option is processed" line="658"/>
+    </inline>
+  </method>
+  <method name="setAllowedTypes" start="678" end="694" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets allowed types for an option.">Any type for which a corresponding is_&lt;type&gt;() function exists is
+acceptable. Additionally, fully-qualified class or interface names may
+be passed.</description>
+      <param description="One or more accepted types" type="array" variable="$allowedTypes" of="object">
+        <type full="Symfony\Component\OptionsResolver\string|string" namespace="Symfony\Component\OptionsResolver" name="string|string"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If the option is undefined" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="UndefinedOptionsException"/>
+      </throws>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+    <parameter name="allowedTypes" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Make sure the option is processed" line="690"/>
+    </inline>
+  </method>
+  <method name="addAllowedTypes" start="712" end="732" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds allowed types for an option.">The types are merged with the allowed types defined previously.
+
+Any type for which a corresponding is_&lt;type&gt;() function exists is
+acceptable. Additionally, fully-qualified class or interface names may
+be passed.</description>
+      <param description="One or more accepted types" type="array" variable="$allowedTypes" of="object">
+        <type full="Symfony\Component\OptionsResolver\string|string" namespace="Symfony\Component\OptionsResolver" name="string|string"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If the option is undefined" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="UndefinedOptionsException"/>
+      </throws>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="option" byreference="false" type="string"/>
+    <parameter name="allowedTypes" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Make sure the option is processed" line="728"/>
+    </inline>
+  </method>
+  <method name="define" start="737" end="744" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Defines an option configurator with the given name."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\OptionsResolver\OptionConfigurator" namespace="Symfony\Component\OptionsResolver" name="OptionConfigurator"/>
+    </return>
+    <parameter name="option" byreference="false" type="string"/>
+  </method>
+  <method name="setInfo" start="754" end="767" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets an info message for an option."/>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If the option is undefined" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="UndefinedOptionsException"/>
+      </throws>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\OptionsResolver\OptionsResolver" namespace="Symfony\Component\OptionsResolver" name="OptionsResolver"/>
+    </return>
+    <parameter name="option" byreference="false" type="string"/>
+    <parameter name="info" byreference="false" type="string"/>
+  </method>
+  <method name="getInfo" start="772" end="779" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the info message for an option."/>
+    </docblock>
+    <return type="string" nullable="true"/>
+    <parameter name="option" byreference="false" type="string"/>
+  </method>
+  <method name="setPrototype" start="788" end="801" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Marks the whole options definition as array prototype."/>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If called from a lazy option, a normalizer or a root definition" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\OptionsResolver\OptionsResolver" namespace="Symfony\Component\OptionsResolver" name="OptionsResolver"/>
+    </return>
+    <parameter name="prototype" byreference="false" type="bool"/>
+  </method>
+  <method name="isPrototype" start="803" end="806" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="remove" start="819" end="831" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Removes the option with the given name.">Undefined options are ignored.</description>
+      <param description="One or more option names" type="array" variable="$optionNames" of="object">
+        <type full="Symfony\Component\OptionsResolver\string|string" namespace="Symfony\Component\OptionsResolver" name="string|string"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="optionNames" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="clear" start="840" end="859" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Removes all options."/>
+      <return type="object">
+        <type full="Symfony\Component\OptionsResolver\$this" namespace="Symfony\Component\OptionsResolver" name="$this"/>
+      </return>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="resolve" start="883" end="928" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Merges options with the default values stored in the container and validates them.">Exceptions are thrown if:
+
+ - Undefined options are passed;
+ - Required options are missing;
+ - Options have invalid types;
+ - Options have invalid values.</description>
+      <return type="array"/>
+      <throws description="If an option name is undefined" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="UndefinedOptionsException"/>
+      </throws>
+      <throws description="If an option doesn't fulfill the" type="object">specified validation rules<type full="Symfony\Component\OptionsResolver\Exception\InvalidOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="InvalidOptionsException"/></throws>
+      <throws description="If a required option is missing" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\MissingOptionsException" namespace="Symfony\Component\OptionsResolver\Exception" name="MissingOptionsException"/>
+      </throws>
+      <throws description="If there is a cyclic dependency between" type="object">lazy options and/or normalizers<type full="Symfony\Component\OptionsResolver\Exception\OptionDefinitionException" namespace="Symfony\Component\OptionsResolver\Exception" name="OptionDefinitionException"/></throws>
+      <throws description="If a lazy option reads an unavailable option" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\NoSuchOptionException" namespace="Symfony\Component\OptionsResolver\Exception" name="NoSuchOptionException"/>
+      </throws>
+      <throws description="If called from a lazy option or normalizer" type="object">
+        <type full="Symfony\Component\OptionsResolver\Exception\AccessException" namespace="Symfony\Component\OptionsResolver\Exception" name="AccessException"/>
+      </throws>
+    </docblock>
+    <parameter name="options" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="Allow this method to be called multiple times" line="889"/>
+      <comment value="Make sure that no unknown options are passed" line="892"/>
+      <comment value="Override options set by the user" line="902"/>
+      <comment value="Check whether any required option is missing" line="909"/>
+      <comment value="Lock the container" line="918"/>
+      <comment value="Now process the individual options. Use offsetGet(), which resolves" line="921"/>
+      <comment value="the option itself and any options that the option depends on" line="922"/>
+    </inline>
+  </method>
+  <method name="offsetGet" start="946" end="1164" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="option" byreference="false" type="{unknown}"/>
+    <parameter name="triggerDeprecation" byreference="false" type="boolean" default="true"/>
+    <inline>
+      <comment value="Shortcut for resolved options" line="952"/>
+      <comment value="Check whether the option is set at all" line="961"/>
+      <comment value="Resolve the option if it is a nested definition" line="972"/>
+      <comment value="Resolve the option if the default value is lazily evaluated" line="1014"/>
+      <comment value="Validate the type of the resolved option" line="1037"/>
+      <comment value="Validate the value of the resolved option" line="1064"/>
+      <comment value="Check whether the option is deprecated" line="1110"/>
+      <comment value="and it is provided by the user or is being called from a lazy evaluation" line="1111"/>
+      <comment value="Normalize the validated option" line="1137"/>
+      <comment value="Mark as resolved" line="1160"/>
+    </inline>
+  </method>
+  <method name="verifyTypes" start="1166" end="1190" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="type" byreference="false" type="string"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <parameter name="invalidTypes" byreference="true" type="array"/>
+    <parameter name="level" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="offsetExists" start="1204" end="1211" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="option" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="offsetSet" start="1221" end="1224" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="option" byreference="false" type="{unknown}"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="offsetUnset" start="1234" end="1237" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="option" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="count" start="1251" end="1258" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="formatValue" start="1269" end="1300" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns a string representation of the value.">This method returns the equivalent PHP tokens for most scalar types
+(i.e. "false" for false, "1" for 1 etc.). Strings are always wrapped
+in double quotes (").</description>
+      <param description="The value to format as string" type="mixed" variable="$value"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="formatValues" start="1310" end="1317" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns a string representation of a list of values.">Each of the values is converted to a string using
+{@link formatValue()}. The values are then concatenated with commas.</description>
+      <see value="formatValue()"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="values" byreference="false" type="array"/>
+  </method>
+  <method name="formatOptions" start="1319" end="1337" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <method name="getParameterClassName" start="1339" end="1346" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="true"/>
+    <parameter name="parameter" byreference="false" type="object">
+      <type full="ReflectionParameter" namespace="" name="ReflectionParameter"/>
+    </parameter>
+  </method>
+  <interface full="Symfony\Component\OptionsResolver\Options" namespace="Symfony\Component\OptionsResolver" name="Options">
+    <extends full="ArrayAccess" namespace="" name="ArrayAccess"/>
+    <extends full="Countable" namespace="" name="Countable"/>
+  </interface>
+</class>

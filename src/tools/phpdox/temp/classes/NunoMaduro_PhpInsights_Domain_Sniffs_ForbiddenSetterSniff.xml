@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="NunoMaduro\PhpInsights\Domain\Sniffs\ForbiddenSetterSniff" namespace="NunoMaduro\PhpInsights\Domain\Sniffs" name="ForbiddenSetterSniff" abstract="false" final="true" start="14" end="116">
+  <file path="../vendor/nunomaduro/phpinsights/src/Domain/Sniffs" file="ForbiddenSetterSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/nunomaduro/phpinsights/src/Domain/Sniffs/ForbiddenSetterSniff.php" size="2670" time="2021-01-27T19:08:59+00:00" unixtime="1611774539" sha1="7be261c872ba34a5619d6d466126e99999c14d0b" relative="vendor/nunomaduro/phpinsights/src/Domain/Sniffs/ForbiddenSetterSniff.php"/>
+  <docblock>
+    <description compact="This sniff disallows setter methods."/>
+  </docblock>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="ERROR_MESSAGE" value=""/>
+  <constant type="string" name="SETTER_REGEX" value="'#^set[A-Z0-9]#'"/>
+  <member name="allowedMethodRegex" visibility="public" static="false" line="25">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="NunoMaduro\PhpInsights\Domain\Sniffs\array&lt;string&gt;" namespace="NunoMaduro\PhpInsights\Domain\Sniffs" name="array&lt;string&gt;"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="register" start="27" end="30" abstract="false" final="false" static="false" visibility="public">
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="38" end="58" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Runs the sniff on a file."/>
+      <param type="object" variable="$file">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$position"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="position" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check if method should be skipped." line="47"/>
+      <comment value="Check if method is a setter" line="52"/>
+    </inline>
+  </method>
+  <method name="getClassName" start="67" end="82" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Returns the class name from the file."/>
+      <param type="object" variable="$file">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <return type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <inline>
+      <comment value="anonymous class" line="71"/>
+    </inline>
+  </method>
+  <method name="shouldSkip" start="93" end="107" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Checks if we should skip this method based on either the method name or the class name."/>
+      <param type="string" variable="$methodName"/>
+      <param type="string" variable="$className"/>
+      <return type="object">
+        <type full="NunoMaduro\PhpInsights\Domain\Sniffs\bool" namespace="NunoMaduro\PhpInsights\Domain\Sniffs" name="bool"/>
+      </return>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="methodName" byreference="false" type="string"/>
+    <parameter name="className" byreference="false" type="string"/>
+    <inline>
+      <comment value="Skip setUp method as often used in test classes" line="95"/>
+    </inline>
+  </method>
+  <method name="getAllowedMethodRegex" start="112" end="115" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="NunoMaduro\PhpInsights\Domain\Sniffs\array&lt;string&gt;" namespace="NunoMaduro\PhpInsights\Domain\Sniffs" name="array&lt;string&gt;"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="SlevomatCodingStandard\Sniffs\Classes\ClassStructureSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="ClassStructureSniff" abstract="false" final="false" start="43" end="679">
+  <file path="../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Classes" file="ClassStructureSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Classes/ClassStructureSniff.php" size="22392" time="2020-10-05T12:39:37+00:00" unixtime="1601901577" sha1="b300a891f2e7332b7eab12af922ce116f907e666" relative="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Classes/ClassStructureSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="CODE_INCORRECT_GROUP_ORDER" value="'IncorrectGroupOrder'"/>
+  <constant type="string" name="GROUP_USES" value="'uses'"/>
+  <constant type="string" name="GROUP_PUBLIC_CONSTANTS" value="'public constants'"/>
+  <constant type="string" name="GROUP_PROTECTED_CONSTANTS" value="'protected constants'"/>
+  <constant type="string" name="GROUP_PRIVATE_CONSTANTS" value="'private constants'"/>
+  <constant type="string" name="GROUP_PUBLIC_PROPERTIES" value="'public properties'"/>
+  <constant type="string" name="GROUP_PUBLIC_STATIC_PROPERTIES" value="'public static properties'"/>
+  <constant type="string" name="GROUP_PROTECTED_PROPERTIES" value="'protected properties'"/>
+  <constant type="string" name="GROUP_PROTECTED_STATIC_PROPERTIES" value="'protected static properties'"/>
+  <constant type="string" name="GROUP_PRIVATE_PROPERTIES" value="'private properties'"/>
+  <constant type="string" name="GROUP_PRIVATE_STATIC_PROPERTIES" value="'private static properties'"/>
+  <constant type="string" name="GROUP_CONSTRUCTOR" value="'constructor'"/>
+  <constant type="string" name="GROUP_STATIC_CONSTRUCTORS" value="'static constructors'"/>
+  <constant type="string" name="GROUP_DESTRUCTOR" value="'destructor'"/>
+  <constant type="string" name="GROUP_MAGIC_METHODS" value="'magic methods'"/>
+  <constant type="string" name="GROUP_PUBLIC_METHODS" value="'public methods'"/>
+  <constant type="string" name="GROUP_PUBLIC_ABSTRACT_METHODS" value="'public abstract methods'"/>
+  <constant type="string" name="GROUP_PUBLIC_FINAL_METHODS" value="'public final methods'"/>
+  <constant type="string" name="GROUP_PUBLIC_STATIC_METHODS" value="'public static methods'"/>
+  <constant type="string" name="GROUP_PUBLIC_STATIC_ABSTRACT_METHODS" value="'public static abstract methods'"/>
+  <constant type="string" name="GROUP_PUBLIC_STATIC_FINAL_METHODS" value="'public static final methods'"/>
+  <constant type="string" name="GROUP_PROTECTED_METHODS" value="'protected methods'"/>
+  <constant type="string" name="GROUP_PROTECTED_ABSTRACT_METHODS" value="'protected abstract methods'"/>
+  <constant type="string" name="GROUP_PROTECTED_FINAL_METHODS" value="'protected final methods'"/>
+  <constant type="string" name="GROUP_PROTECTED_STATIC_METHODS" value="'protected static methods'"/>
+  <constant type="string" name="GROUP_PROTECTED_STATIC_ABSTRACT_METHODS" value="'protected static abstract methods'"/>
+  <constant type="string" name="GROUP_PROTECTED_STATIC_FINAL_METHODS" value="'protected static final methods'"/>
+  <constant type="string" name="GROUP_PRIVATE_METHODS" value="'private methods'"/>
+  <constant type="string" name="GROUP_PRIVATE_STATIC_METHODS" value="'private static methods'"/>
+  <constant type="string" name="GROUP_SHORTCUT_CONSTANTS" value="'constants'"/>
+  <constant type="string" name="GROUP_SHORTCUT_PROPERTIES" value="'properties'"/>
+  <constant type="string" name="GROUP_SHORTCUT_STATIC_PROPERTIES" value="'static properties'"/>
+  <constant type="string" name="GROUP_SHORTCUT_METHODS" value="'methods'"/>
+  <constant type="string" name="GROUP_SHORTCUT_PUBLIC_METHODS" value="'all public methods'"/>
+  <constant type="string" name="GROUP_SHORTCUT_PROTECTED_METHODS" value="'all protected methods'"/>
+  <constant type="string" name="GROUP_SHORTCUT_PRIVATE_METHODS" value="'all private methods'"/>
+  <constant type="string" name="GROUP_SHORTCUT_STATIC_METHODS" value="'static methods'"/>
+  <constant type="string" name="GROUP_SHORTCUT_ABSTRACT_METHODS" value="'abstract methods'"/>
+  <constant type="string" name="GROUP_SHORTCUT_FINAL_METHODS" value="'final methods'"/>
+  <constant type="array" name="SHORTCUTS" value=""/>
+  <constant type="array" name="SPECIAL_METHODS" value=""/>
+  <member name="groups" default="" type="array" visibility="public" static="false" line="179">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\string" namespace="SlevomatCodingStandard\Sniffs\Classes" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="enableFinalMethods" default="false" type="boolean" visibility="public" static="false" line="182">
+    <docblock>
+      <var type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\bool" namespace="SlevomatCodingStandard\Sniffs\Classes" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="normalizedGroups" visibility="private" static="false" line="185">
+    <docblock>
+      <var description="int&gt;|null" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\Classes" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="register" start="190" end="193" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="(int|string)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\Classes" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="201" end="260" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <phpcssuppress value="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$pointer"/>
+      <return type="int"/>
+    </docblock>
+    <return type="int" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="findNextGroup" start="268" end="317" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$pointer"/>
+      <param description="int level: int} $rootScopeToken" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\array{scope_closer:" namespace="SlevomatCodingStandard\Sniffs\Classes" name="array{scope_closer:"/>
+      </param>
+      <return description="int, string}|null" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\array{int" namespace="SlevomatCodingStandard\Sniffs\Classes" name="array{int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="true"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="int"/>
+    <parameter name="rootScopeToken" byreference="false" type="array"/>
+  </method>
+  <method name="getGroupForToken" start="319" end="388" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="int"/>
+  </method>
+  <method name="getVisibilityForToken" start="390" end="405" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="int"/>
+  </method>
+  <method name="isMemberStatic" start="407" end="415" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="int"/>
+  </method>
+  <method name="isMethodFinal" start="417" end="425" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="int"/>
+  </method>
+  <method name="isMethodAbstract" start="427" end="435" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="int"/>
+  </method>
+  <method name="isStaticConstructor" start="437" end="452" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="int"/>
+  </method>
+  <method name="getParentClassName" start="454" end="460" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="int"/>
+  </method>
+  <method name="fixIncorrectGroupOrder" start="462" end="492" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="groupFirstMemberPointer" byreference="false" type="int"/>
+    <parameter name="groupLastMemberPointer" byreference="false" type="int"/>
+    <parameter name="nextGroupMemberPointer" byreference="false" type="int"/>
+  </method>
+  <method name="findPreviousMemberEndPointer" start="494" end="501" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="memberPointer" byreference="false" type="int"/>
+  </method>
+  <method name="findGroupStartPointer" start="503" end="518" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="memberPointer" byreference="false" type="int"/>
+    <parameter name="previousMemberEndPointer" byreference="false" nullable="true" type="int" default="NULL"/>
+  </method>
+  <method name="findGroupEndPointer" start="520" end="532" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="memberPointer" byreference="false" type="int"/>
+  </method>
+  <method name="removeBlankLinesAfterMember" start="534" end="551" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="memberEndPointer" byreference="false" type="int"/>
+    <parameter name="endPointer" byreference="false" type="int"/>
+  </method>
+  <method name="getNormalizedGroups" start="556" end="652" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return description="int&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\Classes" name="array&lt;string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="unpackShortcut" start="659" end="677" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$shortcut"/>
+      <param description="string&gt; $supportedGroups" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\Classes" name="array&lt;int"/>
+      </param>
+      <return description="string&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\Classes" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="shortcut" byreference="false" type="string"/>
+    <parameter name="supportedGroups" byreference="false" type="array"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

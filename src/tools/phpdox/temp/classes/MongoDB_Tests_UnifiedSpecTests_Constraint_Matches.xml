@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\UnifiedSpecTests\Constraint\Matches" namespace="MongoDB\Tests\UnifiedSpecTests\Constraint" name="Matches" abstract="false" final="false" start="50" end="458">
+  <file path="../vendor/mongodb/mongodb/tests/UnifiedSpecTests/Constraint" file="Matches.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/UnifiedSpecTests/Constraint/Matches.php" size="15698" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="4bd0c24bef0bb69490d121d7ebf40718bd9e15e5" relative="vendor/mongodb/mongodb/tests/UnifiedSpecTests/Constraint/Matches.php"/>
+  <docblock>
+    <description compact="Constraint that checks if one value matches another.">The expected value is passed in the constructor. An EntityMap may be supplied
+for resolving operators (e.g. $$matchesEntity). Behavior for allowing extra
+keys in root documents and processing operators is also configurable.</description>
+  </docblock>
+  <extends full="PHPUnit\Framework\Constraint\Constraint" namespace="PHPUnit\Framework\Constraint" name="Constraint" unresolved="true"/>
+  <uses full="Symfony\Bridge\PhpUnit\ConstraintTrait" namespace="Symfony\Bridge\PhpUnit" name="ConstraintTrait" start="52" end="52" unresolved="true"/>
+  <member name="entityMap" visibility="private" static="false" line="55">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\EntityMap" namespace="MongoDB\Tests\UnifiedSpecTests" name="EntityMap"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="value" visibility="private" static="false" line="58">
+    <docblock>
+      <var type="mixed"/>
+    </docblock>
+  </member>
+  <member name="allowExtraRootKeys" visibility="private" static="false" line="61">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\Constraint\bool" namespace="MongoDB\Tests\UnifiedSpecTests\Constraint" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="allowOperators" visibility="private" static="false" line="64">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\Constraint\bool" namespace="MongoDB\Tests\UnifiedSpecTests\Constraint" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="lastFailure" visibility="private" static="false" line="67">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\Constraint\ComparisonFailure|null" namespace="MongoDB\Tests\UnifiedSpecTests\Constraint" name="ComparisonFailure|null"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="69" end="76" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <parameter name="entityMap" byreference="false" nullable="true" type="object" default="NULL">
+      <type full="MongoDB\Tests\UnifiedSpecTests\EntityMap" namespace="MongoDB\Tests\UnifiedSpecTests" name="EntityMap"/>
+    </parameter>
+    <parameter name="allowExtraRootKeys" byreference="false" type="boolean" default="true"/>
+    <parameter name="allowOperators" byreference="false" type="boolean" default="true"/>
+  </constructor>
+  <method name="doEvaluate" start="78" end="113" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="other" byreference="false" type="{unknown}"/>
+    <parameter name="description" byreference="false" type="string" default="''"/>
+    <parameter name="returnResult" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="assertEquals" start="115" end="134" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="expected" byreference="false" type="{unknown}"/>
+    <parameter name="actual" byreference="false" type="{unknown}"/>
+    <parameter name="keyPath" byreference="false" type="string"/>
+    <inline>
+      <comment value="Early check to work around ObjectComparator printing the entire value" line="120"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="for a failed type comparison. Avoid doing this if either value is" line="121"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* numeric to allow for flexible numeric comparisons (e.g. 1 == 1.0)." line="122"/>
+    </inline>
+  </method>
+  <method name="assertMatches" start="136" end="151" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="expected" byreference="false" type="{unknown}"/>
+    <parameter name="actual" byreference="false" type="{unknown}"/>
+    <parameter name="keyPath" byreference="false" type="string" default="''"/>
+  </method>
+  <method name="assertMatchesArray" start="153" end="171" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="expected" byreference="false" type="object">
+      <type full="MongoDB\Model\BSONArray" namespace="MongoDB\Model" name="BSONArray"/>
+    </parameter>
+    <parameter name="actual" byreference="false" type="{unknown}"/>
+    <parameter name="keyPath" byreference="false" type="string"/>
+  </method>
+  <method name="assertMatchesDocument" start="173" end="237" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="expected" byreference="false" type="object">
+      <type full="MongoDB\Model\BSONDocument" namespace="MongoDB\Model" name="BSONDocument"/>
+    </parameter>
+    <parameter name="actual" byreference="false" type="{unknown}"/>
+    <parameter name="keyPath" byreference="false" type="string"/>
+    <inline>
+      <comment value="Ignore extra keys in root documents" line="226"/>
+      <comment value="phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps" line="231"/>
+    </inline>
+  </method>
+  <method name="assertMatchesOperator" start="239" end="315" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="operator" byreference="false" type="object">
+      <type full="MongoDB\Model\BSONDocument" namespace="MongoDB\Model" name="BSONDocument"/>
+    </parameter>
+    <parameter name="actual" byreference="false" type="{unknown}"/>
+    <parameter name="keyPath" byreference="false" type="string"/>
+  </method>
+  <method name="doAdditionalFailureDescription" start="318" end="325" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <see value="ConstraintTrait"/>
+    </docblock>
+    <parameter name="other" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="doFailureDescription" start="328" end="331" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <see value="ConstraintTrait"/>
+    </docblock>
+    <parameter name="other" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="doMatches" start="334" end="345" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <see value="ConstraintTrait"/>
+    </docblock>
+    <parameter name="other" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="doToString" start="348" end="351" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <see value="ConstraintTrait"/>
+    </docblock>
+  </method>
+  <method name="failAt" start="353" end="358" abstract="false" final="false" static="true" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="message" byreference="false" type="string"/>
+    <parameter name="keyPath" byreference="false" type="string"/>
+  </method>
+  <method name="getOperatorName" start="360" end="370" abstract="false" final="false" static="true" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="document" byreference="false" type="object">
+      <type full="MongoDB\Model\BSONDocument" namespace="MongoDB\Model" name="BSONDocument"/>
+    </parameter>
+    <inline>
+      <comment value="phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps" line="362"/>
+    </inline>
+  </method>
+  <method name="isNumeric" start="372" end="375" abstract="false" final="false" static="true" visibility="private">
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isOperator" start="377" end="389" abstract="false" final="false" static="true" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="document" byreference="false" type="object">
+      <type full="MongoDB\Model\BSONDocument" namespace="MongoDB\Model" name="BSONDocument"/>
+    </parameter>
+    <inline>
+      <comment value="phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps" line="383"/>
+    </inline>
+  </method>
+  <method name="prepare" start="403" end="448" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Prepare a value for comparison.">If the value is an array or object, it will be converted to a BSONArray
+or BSONDocument. If $value is an array and $isRoot is true, it will be
+converted to a BSONDocument; otherwise, it will be converted to a
+BSONArray or BSONDocument based on its keys. Each value within an array
+or document will then be prepared recursively.</description>
+      <param type="mixed" variable="$bson"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="bson" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Convert Int64 objects to integers on 64-bit platforms for" line="409"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* compatibility reasons." line="410"/>
+      <todo value="Convert Int64 objects to integers on 32-bit platforms if they" line="415"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="can be expressed as such. This is necessary to handle flexible" line="416"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="numeric comparisons if the server returns 32-bit value as a 64-bit" line="417"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* integer (e.g. cursor ID)." line="418"/>
+      <comment value="Serializable can produce an array or object, so recurse on its output" line="420"/>
+      <comment value="Serializable has already been handled, so any remaining instances of" line="425"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* Type will not serialize as BSON arrays or objects" line="426"/>
+    </inline>
+  </method>
+  <method name="isArrayEmptyOrIndexed" start="450" end="457" abstract="false" final="false" static="true" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="a" byreference="false" type="array"/>
+  </method>
+</class>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="PropertyTypeHintSniff" abstract="false" final="false" start="48" end="552">
+  <file path="../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints" file="PropertyTypeHintSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints/PropertyTypeHintSniff.php" size="16034" time="2020-10-05T12:39:37+00:00" unixtime="1601901577" sha1="e6e42b99d1bac0dff18bc3fab725475b5aeeb612" relative="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints/PropertyTypeHintSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="CODE_MISSING_ANY_TYPE_HINT" value="'MissingAnyTypeHint'"/>
+  <constant type="string" name="CODE_MISSING_NATIVE_TYPE_HINT" value="'MissingNativeTypeHint'"/>
+  <constant type="string" name="CODE_MISSING_TRAVERSABLE_TYPE_HINT_SPECIFICATION" value="'MissingTraversableTypeHintSpecification'"/>
+  <constant type="string" name="CODE_USELESS_ANNOTATION" value="'UselessAnnotation'"/>
+  <constant type="string" name="NAME" value="'SlevomatCodingStandard.TypeHints.PropertyTypeHint'"/>
+  <member name="enableNativeTypeHint" default="NULL" visibility="public" static="false" line="62">
+    <docblock>
+      <var type="object">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\bool|null" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="bool|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="traversableTypeHints" default="" type="array" visibility="public" static="false" line="65">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\string" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="normalizedTraversableTypeHints" visibility="private" static="false" line="68">
+    <docblock>
+      <var description="string&gt;|null" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="array&lt;int"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="register" start="73" end="81" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="(int|string)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="88" end="129" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <phpcssuppress value="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$visibilityPointer"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="visibilityPointer" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="checkTypeHint" start="138" end="315" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$propertyPointer"/>
+      <param type="object" variable="$propertyTypeHint">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHint|null" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="PropertyTypeHint|null"/>
+      </param>
+      <param type="object" variable="$propertyAnnotation">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\VariableAnnotation|null" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="VariableAnnotation|null"/>
+      </param>
+      <param type="array" variable="$prefixedPropertyAnnotations" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\VariableAnnotation" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="VariableAnnotation"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="propertyPointer" byreference="false" type="int"/>
+    <parameter name="propertyTypeHint" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\PropertyTypeHint" namespace="SlevomatCodingStandard\Helpers" name="PropertyTypeHint"/>
+    </parameter>
+    <parameter name="propertyAnnotation" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\Annotation\VariableAnnotation" namespace="SlevomatCodingStandard\Helpers\Annotation" name="VariableAnnotation"/>
+    </parameter>
+    <parameter name="prefixedPropertyAnnotations" byreference="false" type="array"/>
+  </method>
+  <method name="checkTraversableTypeHintSpecification" start="324" end="390" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$propertyPointer"/>
+      <param type="object" variable="$propertyTypeHint">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHint|null" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="PropertyTypeHint|null"/>
+      </param>
+      <param type="object" variable="$propertyAnnotation">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\VariableAnnotation|null" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="VariableAnnotation|null"/>
+      </param>
+      <param type="array" variable="$prefixedPropertyAnnotations" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\VariableAnnotation" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="VariableAnnotation"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="propertyPointer" byreference="false" type="int"/>
+    <parameter name="propertyTypeHint" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\PropertyTypeHint" namespace="SlevomatCodingStandard\Helpers" name="PropertyTypeHint"/>
+    </parameter>
+    <parameter name="propertyAnnotation" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\Annotation\VariableAnnotation" namespace="SlevomatCodingStandard\Helpers\Annotation" name="VariableAnnotation"/>
+    </parameter>
+    <parameter name="prefixedPropertyAnnotations" byreference="false" type="array"/>
+  </method>
+  <method name="checkUselessAnnotation" start="392" end="461" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="propertyPointer" byreference="false" type="int"/>
+    <parameter name="propertyTypeHint" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\PropertyTypeHint" namespace="SlevomatCodingStandard\Helpers" name="PropertyTypeHint"/>
+    </parameter>
+    <parameter name="propertyAnnotation" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\Annotation\VariableAnnotation" namespace="SlevomatCodingStandard\Helpers\Annotation" name="VariableAnnotation"/>
+    </parameter>
+  </method>
+  <method name="isDocCommentUseless" start="463" end="473" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="propertyPointer" byreference="false" type="int"/>
+  </method>
+  <method name="getSniffName" start="475" end="478" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="sniffName" byreference="false" type="string"/>
+  </method>
+  <method name="getTraversableTypeHints" start="483" end="495" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return description="string&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="hasAnnotation" start="497" end="500" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="propertyAnnotation" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\Annotation\VariableAnnotation" namespace="SlevomatCodingStandard\Helpers\Annotation" name="VariableAnnotation"/>
+    </parameter>
+  </method>
+  <method name="hasTraversableTypeHint" start="502" end="527" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="propertyPointer" byreference="false" type="int"/>
+    <parameter name="propertyTypeHint" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\PropertyTypeHint" namespace="SlevomatCodingStandard\Helpers" name="PropertyTypeHint"/>
+    </parameter>
+    <parameter name="propertyAnnotation" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\Annotation\VariableAnnotation" namespace="SlevomatCodingStandard\Helpers\Annotation" name="VariableAnnotation"/>
+    </parameter>
+  </method>
+  <method name="getValidPrefixedAnnotations" start="534" end="550" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$propertyPointer"/>
+      <return type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\TypeHints\VariableAnnotation" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="VariableAnnotation"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="propertyPointer" byreference="false" type="int"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

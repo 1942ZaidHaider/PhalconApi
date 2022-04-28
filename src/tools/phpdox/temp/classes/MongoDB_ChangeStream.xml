@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\ChangeStream" namespace="MongoDB" name="ChangeStream" abstract="false" final="false" start="39" end="281">
+  <file path="../vendor/mongodb/mongodb/src" file="ChangeStream.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/ChangeStream.php" size="7766" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="5fa21ec45e269c2ec7a31b65db2d2b6451f7777e" relative="vendor/mongodb/mongodb/src/ChangeStream.php"/>
+  <docblock>
+    <description compact="Iterator for a change stream."/>
+    <api/>
+    <see value="\MongoDB\Collection::watch()"/>
+    <see value="http://docs.mongodb.org/manual/reference/command/changeStream/"/>
+  </docblock>
+  <implements full="Iterator" namespace="" name="Iterator"/>
+  <constant type="integer" name="CURSOR_NOT_FOUND" value="43">
+    <docblock>
+      <description/>
+      <deprecated value="1.4"/>
+      <todo value="Remove this in 2.0 (see: PHPLIB-360)"/>
+    </docblock>
+  </constant>
+  <member name="cursorNotFound" default="43" type="integer" visibility="private" static="true" line="48">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="resumableErrorCodes" default="" type="array" visibility="private" static="true" line="51">
+    <docblock>
+      <var type="array" of="object">
+        <type full="MongoDB\int" namespace="MongoDB" name="int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="wireVersionForResumableChangeStreamError" default="9" type="integer" visibility="private" static="true" line="72">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="resumeCallable" visibility="private" static="false" line="75">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\callable" namespace="MongoDB" name="callable"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="iterator" visibility="private" static="false" line="78">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Model\ChangeStreamIterator" namespace="MongoDB\Model" name="ChangeStreamIterator"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="key" default="0" type="integer" visibility="private" static="false" line="81">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="hasAdvanced" default="false" type="boolean" visibility="private" static="false" line="89">
+    <docblock>
+      <description compact="Whether the change stream has advanced to its first result. This is used to determine whether $key should be incremented after an iteration event."/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="96" end="100" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <internal/>
+      <param type="object" variable="$iterator">
+        <type full="MongoDB\Model\ChangeStreamIterator" namespace="MongoDB\Model" name="ChangeStreamIterator"/>
+      </param>
+      <param type="object" variable="$resumeCallable">
+        <type full="MongoDB\callable" namespace="MongoDB" name="callable"/>
+      </param>
+    </docblock>
+    <parameter name="iterator" byreference="false" type="object">
+      <type full="MongoDB\Model\ChangeStreamIterator" namespace="MongoDB\Model" name="ChangeStreamIterator"/>
+    </parameter>
+    <parameter name="resumeCallable" byreference="false" type="callable"/>
+  </constructor>
+  <method name="current" start="107" end="110" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getCursorId" start="115" end="118" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="MongoDB\Driver\CursorId" namespace="MongoDB\Driver" name="CursorId"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getResumeToken" start="129" end="132" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the resume token for the iterator's current position.">Null may be returned if no change documents have been iterated and the
+server did not include a postBatchResumeToken in its aggregate or getMore
+command response.</description>
+      <return type="object">
+        <type full="MongoDB\array|object|null" namespace="MongoDB" name="array|object|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="key" start="139" end="146" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="next" start="154" end="162" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="rewind" start="170" end="181" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="valid" start="188" end="191" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="isResumableError" start="200" end="219" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Determines if an exception is a resumable error."/>
+      <see value="https://github.com/mongodb/specifications/blob/master/source/change-streams/change-streams.rst#resumable-error"/>
+      <param type="object" variable="$exception">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </param>
+      <return type="boolean"/>
+    </docblock>
+    <parameter name="exception" byreference="false" type="object">
+      <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+    </parameter>
+  </method>
+  <method name="onIteration" start="227" end="250" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Perform housekeeping after an iteration event."/>
+      <param description="Increment $key if there is a current result" type="boolean" variable="$incrementKey"/>
+      <throws type="object">
+        <type full="MongoDB\Exception\ResumeTokenException" namespace="MongoDB\Exception" name="ResumeTokenException"/>
+      </throws>
+    </docblock>
+    <parameter name="incrementKey" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="If the cursorId is 0, the server has invalidated the cursor and we" line="229"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="will never perform another getMore nor need to resume since any" line="230"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="remaining results (up to and including the invalidate event) will" line="231"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="have been received in the last response. Therefore, we can unset the" line="232"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="resumeCallable. This will free any reference to Watch as well as the" line="233"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* only reference to any implicit session created therein." line="234"/>
+      <comment value="Return early if there is not a current result. Avoid any attempt to" line="239"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* increment the iterator's key." line="240"/>
+    </inline>
+  </method>
+  <method name="resume" start="257" end="263" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Recreates the ChangeStreamIterator after a resumable server error."/>
+      <return type="object">
+        <type full="MongoDB\void" namespace="MongoDB" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="resumeOrThrow" start="271" end="280" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Either resumes after a resumable error or re-throws the exception."/>
+      <param type="object" variable="$exception">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </param>
+      <throws type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="exception" byreference="false" type="object">
+      <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+    </parameter>
+  </method>
+  <interface full="Iterator" namespace="" name="Iterator">
+    <extends full="Traversable" namespace="" name="Traversable"/>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Return the current element"/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Return the key of the current element"/>
+      <return type="scalar"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Move forward to next element">Moves the current position to the next element.</description>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Rewind the Iterator to the first element">Rewinds back to the first element of the Iterator.</description>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Checks if current position is valid"/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+  </interface>
+</class>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\Retry\RetryStrategyInterface" namespace="Symfony\Component\HttpClient\Retry" name="RetryStrategyInterface" abstract="false" final="false" start="21" end="36">
+  <file path="../vendor/symfony/http-client/Retry" file="RetryStrategyInterface.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/Retry/RetryStrategyInterface.php" size="1136" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="20c17d421c0ba9f706c4547176de67addb4470f9" relative="vendor/symfony/http-client/Retry/RetryStrategyInterface.php"/>
+  <docblock>
+    <description/>
+    <author value="Jérémy Derussé &lt;jeremy@derusse.com&gt;"/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <method name="shouldRetry" start="30" end="30" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns whether the request should be retried."/>
+      <param description="Null is passed when the body did not arrive yet" type="object" variable="$responseContent">
+        <type full="Symfony\Component\HttpClient\Retry\?string" namespace="Symfony\Component\HttpClient\Retry" name="?string"/>
+      </param>
+      <return description="Returns null to signal that the body is required to take a decision" type="object">
+        <type full="Symfony\Component\HttpClient\Retry\bool|null" namespace="Symfony\Component\HttpClient\Retry" name="bool|null"/>
+      </return>
+    </docblock>
+    <return type="bool" nullable="true"/>
+    <parameter name="context" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\AsyncContext" namespace="Symfony\Component\HttpClient\Response" name="AsyncContext"/>
+    </parameter>
+    <parameter name="responseContent" byreference="false" nullable="true" type="string"/>
+    <parameter name="exception" byreference="false" nullable="true" type="object">
+      <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+    </parameter>
+  </method>
+  <method name="getDelay" start="35" end="35" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the time to wait in milliseconds."/>
+    </docblock>
+    <return type="int" nullable="false"/>
+    <parameter name="context" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\AsyncContext" namespace="Symfony\Component\HttpClient\Response" name="AsyncContext"/>
+    </parameter>
+    <parameter name="responseContent" byreference="false" nullable="true" type="string"/>
+    <parameter name="exception" byreference="false" nullable="true" type="object">
+      <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+    </parameter>
+  </method>
+  <implementors>
+    <class full="Symfony\Component\HttpClient\Retry\GenericRetryStrategy" namespace="Symfony\Component\HttpClient\Retry" name="GenericRetryStrategy"/>
+  </implementors>
+</interface>

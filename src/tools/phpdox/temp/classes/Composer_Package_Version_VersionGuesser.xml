@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Package\Version\VersionGuesser" namespace="Composer\Package\Version" name="VersionGuesser" abstract="false" final="false" start="29" end="345">
+  <file path="../vendor/composer/composer/src/Composer/Package/Version" file="VersionGuesser.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Package/Version/VersionGuesser.php" size="14073" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="db6467abeb93f00027ee25d78bb085b86c134d0b" relative="vendor/composer/composer/src/Composer/Package/Version/VersionGuesser.php"/>
+  <docblock>
+    <description compact="Try to guess the current version number based on different VCS configuration."/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+    <author value="Samuel Roze &lt;samuel.roze@gmail.com&gt;"/>
+  </docblock>
+  <member name="config" visibility="private" static="false" line="34">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="process" visibility="private" static="false" line="39">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="versionParser" visibility="private" static="false" line="44">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Semver\VersionParser" namespace="Composer\Semver" name="VersionParser"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="51" end="56" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$config">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </param>
+      <param type="object" variable="$process">
+        <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+      </param>
+      <param type="object" variable="$versionParser">
+        <type full="Composer\Semver\VersionParser" namespace="Composer\Semver" name="VersionParser"/>
+      </param>
+    </docblock>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="process" byreference="false" type="object">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+    <parameter name="versionParser" byreference="false" type="object">
+      <type full="Composer\Semver\VersionParser" namespace="Composer\Semver" name="VersionParser"/>
+    </parameter>
+  </constructor>
+  <method name="guessVersion" start="64" end="91" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="array" variable="$packageConfig"/>
+      <param description="Path to guess into" type="string" variable="$path"/>
+      <return description="versionData, 'version', 'pretty_version' and 'commit' keys, if the version is a feature branch, 'feature_version' and 'feature_pretty_version' keys may also be returned" type="object">
+        <type full="Composer\Package\Version\null|array" namespace="Composer\Package\Version" name="null|array"/>
+      </return>
+    </docblock>
+    <parameter name="packageConfig" byreference="false" type="array"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="postprocess" start="93" end="108" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="versionData" byreference="false" type="array"/>
+  </method>
+  <method name="guessGitVersion" start="110" end="183" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="packageConfig" byreference="false" type="array"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="try to fetch current version from git branch" line="120"/>
+    </inline>
+  </method>
+  <method name="versionFromGitTags" start="185" end="198" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="try to fetch current version from git tags" line="187"/>
+    </inline>
+  </method>
+  <method name="guessHgVersion" start="200" end="228" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="packageConfig" byreference="false" type="array"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="try to fetch current version from hg branch" line="202"/>
+    </inline>
+  </method>
+  <method name="guessFeatureVersion" start="230" end="291" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="packageConfig" byreference="false" type="array"/>
+    <parameter name="version" byreference="false" type="{unknown}"/>
+    <parameter name="branches" byreference="false" type="array"/>
+    <parameter name="scmCmdline" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="ignore feature branches if they have no branch-alias or self.version is used" line="234"/>
+      <comment value="and find the branch they came from to use as a version instead" line="235"/>
+    </inline>
+  </method>
+  <method name="guessFossilVersion" start="293" end="315" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="packageConfig" byreference="false" type="array"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="try to fetch current version from fossil" line="298"/>
+      <comment value="try to fetch current version from fossil tags" line="305"/>
+    </inline>
+  </method>
+  <method name="guessSvnVersion" start="317" end="344" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="packageConfig" byreference="false" type="array"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="try to fetch current version from svn" line="321"/>
+    </inline>
+  </method>
+</class>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\UnifiedSpecTests\EventCollector" namespace="MongoDB\Tests\UnifiedSpecTests" name="EventCollector" abstract="false" final="true" start="30" end="177">
+  <file path="../vendor/mongodb/mongodb/tests/UnifiedSpecTests" file="EventCollector.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/UnifiedSpecTests/EventCollector.php" size="5635" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="356d81320c2112557ae417fa92e451faf9ccfe79" relative="vendor/mongodb/mongodb/tests/UnifiedSpecTests/EventCollector.php"/>
+  <docblock>
+    <description compact="EventCollector handles &quot;storeEventsAsEntities&quot; for client entities.">Unlike EventObserver, this does not support ignoring command monitoring
+events for specific commands. That said, internal/security commands that
+bypass command monitoring will still be ignored.</description>
+  </docblock>
+  <implements full="MongoDB\Driver\Monitoring\CommandSubscriber" namespace="MongoDB\Driver\Monitoring" name="CommandSubscriber"/>
+  <member name="supportedEvents" default="" type="array" visibility="private" static="true" line="33">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="clientId" visibility="private" static="false" line="51">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="context" visibility="private" static="false" line="54">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\Context" namespace="MongoDB\Tests\UnifiedSpecTests" name="Context"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="collectEvents" default="" type="array" visibility="private" static="false" line="57">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="eventList" visibility="private" static="false" line="60">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Model\BSONArray" namespace="MongoDB\Model" name="BSONArray"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="62" end="81" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="eventList" byreference="false" type="object">
+      <type full="MongoDB\Model\BSONArray" namespace="MongoDB\Model" name="BSONArray"/>
+    </parameter>
+    <parameter name="collectEvents" byreference="false" type="array"/>
+    <parameter name="clientId" byreference="false" type="string"/>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\UnifiedSpecTests\Context" namespace="MongoDB\Tests\UnifiedSpecTests" name="Context"/>
+    </parameter>
+  </constructor>
+  <method name="commandFailed" start="86" end="89" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <see value="https://www.php.net/manual/en/mongodb-driver-monitoring-commandsubscriber.commandfailed.php"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandFailedEvent" namespace="MongoDB\Driver\Monitoring" name="CommandFailedEvent"/>
+    </parameter>
+  </method>
+  <method name="commandStarted" start="94" end="97" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <see value="https://www.php.net/manual/en/mongodb-driver-monitoring-commandsubscriber.commandstarted.php"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandStartedEvent" namespace="MongoDB\Driver\Monitoring" name="CommandStartedEvent"/>
+    </parameter>
+  </method>
+  <method name="commandSucceeded" start="102" end="105" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <see value="https://www.php.net/manual/en/mongodb-driver-monitoring-commandsubscriber.commandsucceeded.php"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandSucceededEvent" namespace="MongoDB\Driver\Monitoring" name="CommandSucceededEvent"/>
+    </parameter>
+  </method>
+  <method name="start" start="107" end="110" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="stop" start="112" end="115" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="handleCommandMonitoringEvent" start="118" end="156" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <param type="object" variable="$event">
+        <type full="MongoDB\Tests\UnifiedSpecTests\CommandStartedEvent|CommandSucceededEvent|CommandFailedEvent" namespace="MongoDB\Tests\UnifiedSpecTests" name="CommandStartedEvent|CommandSucceededEvent|CommandFailedEvent"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="event" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Note: CommandStartedEvent.command and CommandSucceededEvent.reply can" line="139"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* be omitted from logged events." line="140"/>
+    </inline>
+  </method>
+  <method name="getConnectionId" start="159" end="164" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <param type="object" variable="$event">
+        <type full="MongoDB\Tests\UnifiedSpecTests\CommandStartedEvent|CommandSucceededEvent|CommandFailedEvent" namespace="MongoDB\Tests\UnifiedSpecTests" name="CommandStartedEvent|CommandSucceededEvent|CommandFailedEvent"/>
+      </param>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="event" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getEventName" start="167" end="176" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <param type="object" variable="$event"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="event" byreference="false" type="{unknown}"/>
+  </method>
+  <interface full="MongoDB\Driver\Monitoring\CommandSubscriber" namespace="MongoDB\Driver\Monitoring" name="CommandSubscriber">
+    <implements full="MongoDB\Driver\Monitoring\Subscriber" namespace="MongoDB\Driver\Monitoring" name="Subscriber"/>
+    <method name="commandFailed" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a failed command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandFailedEvent"/>
+  </method>
+    <method name="commandStarted" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a started command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandStartedEvent"/>
+  </method>
+    <method name="commandSucceeded" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a successful command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandSucceededEvent"/>
+  </method>
+  </interface>
+  <parent full="MongoDB\Driver\Monitoring\Subscriber" namespace="MongoDB\Driver\Monitoring" name="Subscriber"/>
+</class>

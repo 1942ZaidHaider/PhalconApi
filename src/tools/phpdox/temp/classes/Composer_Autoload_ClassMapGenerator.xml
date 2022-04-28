@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Autoload\ClassMapGenerator" namespace="Composer\Autoload" name="ClassMapGenerator" abstract="false" final="false" start="31" end="312">
+  <file path="../vendor/composer/composer/src/Composer/Autoload" file="ClassMapGenerator.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Autoload/ClassMapGenerator.php" size="13415" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="fd3658401866bddf5dcff2eee081de36a207c30c" relative="vendor/composer/composer/src/Composer/Autoload/ClassMapGenerator.php"/>
+  <docblock>
+    <description compact="ClassMapGenerator"/>
+    <author value="Gyula Sallai &lt;salla016@gmail.com&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <method name="dump" start="39" end="48" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Generate a class map file"/>
+      <param description="Directories or a single path to search in" type="object" variable="$dirs">
+        <type full="\Traversable" namespace="" name="Traversable"/>
+      </param>
+      <param description="The name of the class map file" type="string" variable="$file"/>
+    </docblock>
+    <parameter name="dirs" byreference="false" type="{unknown}"/>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="createMap" start="62" end="146" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Iterate over all files in the given directory searching for classes"/>
+      <param description="The path to search in or an iterator" type="object" variable="$path">
+        <type full="\Iterator|string" namespace="" name="Iterator|string"/>
+      </param>
+      <param description="Regex that matches file paths to be excluded from the classmap" type="string" variable="$excluded"/>
+      <param description="IO object" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param description="Optional namespace prefix to filter by" type="string" variable="$namespace"/>
+      <param description="psr-0|psr-4 Optional autoload standard to use mapping rules" type="string" variable="$autoloadType"/>
+      <throws description="When the path is neither an existing file nor directory" type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return description="A class map array" type="array"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="excluded" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="io" byreference="false" type="object" default="NULL">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="namespace" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="autoloadType" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="scannedFiles" byreference="true" type="array" default=""/>
+  </method>
+  <method name="filterByNamespace" start="159" end="212" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Remove classes which could not have been loaded by namespace autoloaders"/>
+      <param description="found classes in given file" type="array" variable="$classes"/>
+      <param description="current file" type="string" variable="$filePath"/>
+      <param description="prefix of given autoload mapping" type="string" variable="$baseNamespace"/>
+      <param description="psr-0|psr-4" type="string" variable="$namespaceType"/>
+      <param description="root directory of given autoload mapping" type="string" variable="$basePath"/>
+      <param description="IO object" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <return description="valid classes" type="array"/>
+    </docblock>
+    <parameter name="classes" byreference="false" type="{unknown}"/>
+    <parameter name="filePath" byreference="false" type="{unknown}"/>
+    <parameter name="baseNamespace" byreference="false" type="{unknown}"/>
+    <parameter name="namespaceType" byreference="false" type="{unknown}"/>
+    <parameter name="basePath" byreference="false" type="{unknown}"/>
+    <parameter name="io" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="warn only if no valid classes, else silently skip invalid" line="196"/>
+      <todo value="enable in Composer 2.0 &amp; unskip test in AutoloadGeneratorTest::testPSRToClassMapIgnoresNonPSRClasses" line="209"/>
+      <comment value="return $validClasses;" line="210"/>
+    </inline>
+  </method>
+  <method name="findClasses" start="221" end="311" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Extract the classes in the given file"/>
+      <param description="The file to check" type="string" variable="$path"/>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return description="The found classes" type="array"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Use @ here instead of Silencer to actively suppress 'unhelpful' output" line="228"/>
+      <comment value="@link https://github.com/composer/composer/pull/4886" line="229"/>
+      <comment value="return early if there is no chance of matching anything in this file" line="249"/>
+      <comment value="strip heredocs/nowdocs" line="254"/>
+      <comment value="strip strings" line="256"/>
+      <comment value="strip leading non-php code if needed" line="258"/>
+      <comment value="strip non-php blocks in the file" line="265"/>
+      <comment value="strip trailing non-php code if needed" line="267"/>
+      <comment value="strip comments if short open tags are in the file" line="272"/>
+    </inline>
+  </method>
+</class>

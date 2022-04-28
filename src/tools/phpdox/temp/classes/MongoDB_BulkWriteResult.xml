@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\BulkWriteResult" namespace="MongoDB" name="BulkWriteResult" abstract="false" final="false" start="26" end="192">
+  <file path="../vendor/mongodb/mongodb/src" file="BulkWriteResult.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/BulkWriteResult.php" size="5848" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="13c27161b1c68256cf3acad2934be05fd6b33c67" relative="vendor/mongodb/mongodb/src/BulkWriteResult.php"/>
+  <docblock>
+    <description compact="Result class for a bulk write operation."/>
+  </docblock>
+  <member name="writeResult" visibility="private" static="false" line="29">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\WriteResult" namespace="MongoDB\Driver" name="WriteResult"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="insertedIds" visibility="private" static="false" line="32">
+    <docblock>
+      <var type="array" of="object">
+        <type full="MongoDB\mixed" namespace="MongoDB" name="mixed"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="isAcknowledged" visibility="private" static="false" line="35">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="41" end="46" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$writeResult">
+        <type full="MongoDB\Driver\WriteResult" namespace="MongoDB\Driver" name="WriteResult"/>
+      </param>
+      <param type="array" variable="$insertedIds" of="object">
+        <type full="MongoDB\mixed" namespace="MongoDB" name="mixed"/>
+      </param>
+    </docblock>
+    <parameter name="writeResult" byreference="false" type="object">
+      <type full="MongoDB\Driver\WriteResult" namespace="MongoDB\Driver" name="WriteResult"/>
+    </parameter>
+    <parameter name="insertedIds" byreference="false" type="array"/>
+  </constructor>
+  <method name="getDeletedCount" start="57" end="64" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the number of documents that were deleted.">This method should only be called if the write was acknowledged.</description>
+      <see value="BulkWriteResult::isAcknowledged()"/>
+      <return type="integer"/>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getInsertedCount" start="75" end="82" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the number of documents that were inserted.">This method should only be called if the write was acknowledged.</description>
+      <see value="BulkWriteResult::isAcknowledged()"/>
+      <return type="integer"/>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getInsertedIds" start="95" end="98" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return a map of the inserted documents' IDs.">The index of each ID in the map corresponds to each document's position
+in the bulk operation. If a document had an ID prior to inserting (i.e.
+the driver did not generate an ID), the index will contain its "_id"
+field value. Any driver-generated ID will be a MongoDB\BSON\ObjectId
+instance.</description>
+      <return type="array" of="object">
+        <type full="MongoDB\mixed" namespace="MongoDB" name="mixed"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getMatchedCount" start="109" end="116" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the number of documents that were matched by the filter.">This method should only be called if the write was acknowledged.</description>
+      <see value="BulkWriteResult::isAcknowledged()"/>
+      <return type="integer"/>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getModifiedCount" start="130" end="137" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the number of documents that were modified.">This value is undefined (i.e. null) if the write executed as a legacy
+operation instead of command.
+
+This method should only be called if the write was acknowledged.</description>
+      <see value="BulkWriteResult::isAcknowledged()"/>
+      <return type="object">
+        <type full="MongoDB\integer|null" namespace="MongoDB" name="integer|null"/>
+      </return>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getUpsertedCount" start="148" end="155" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the number of documents that were upserted.">This method should only be called if the write was acknowledged.</description>
+      <see value="BulkWriteResult::isAcknowledged()"/>
+      <return type="integer"/>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getUpsertedIds" start="171" end="178" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return a map of the upserted documents' IDs.">The index of each ID in the map corresponds to each document's position
+in bulk operation. If a document had an ID prior to upserting (i.e. the
+server did not need to generate an ID), this will contain its "_id". Any
+server-generated ID will be a MongoDB\BSON\ObjectId instance.
+
+This method should only be called if the write was acknowledged.</description>
+      <see value="BulkWriteResult::isAcknowledged()"/>
+      <return type="array" of="object">
+        <type full="MongoDB\mixed" namespace="MongoDB" name="mixed"/>
+      </return>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="isAcknowledged" start="188" end="191" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return whether this update was acknowledged by the server.">If the update was not acknowledged, other fields from the WriteResult
+(e.g. matchedCount) will be undefined.</description>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+</class>

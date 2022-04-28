@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\FindOne" namespace="MongoDB\Operation" name="FindOne" abstract="false" final="false" start="35" end="138">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="FindOne.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/FindOne.php" size="4871" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="af50cd89990610c3595ee258c69976c5543ff697" relative="vendor/mongodb/mongodb/src/Operation/FindOne.php"/>
+  <docblock>
+    <description compact="Operation for finding a single document with the find command."/>
+    <api/>
+    <see value="\MongoDB\Collection::findOne()"/>
+    <see value="http://docs.mongodb.org/manual/tutorial/query-documents/"/>
+    <see value="http://docs.mongodb.org/manual/reference/operator/query-modifier/"/>
+  </docblock>
+  <implements full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+  <implements full="MongoDB\Operation\Explainable" namespace="MongoDB\Operation" name="Explainable"/>
+  <member name="find" visibility="private" static="false" line="38">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\Find" namespace="MongoDB\Operation" name="Find"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="100" end="108" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a find command for finding a single document.">Supported options:
+
+ * collation (document): Collation specification.
+
+ * comment (string): Attaches a comment to the query. If "$comment" also
+   exists in the modifiers document, this option will take precedence.
+
+ * hint (string|document): The index to use. Specify either the index
+   name as a string or the index key pattern as a document. If specified,
+   then the query system will only consider plans using the hinted index.
+
+ * max (document): The exclusive upper bound for a specific index.
+
+ * maxScan (integer): Maximum number of documents or index keys to scan
+   when executing the query.
+
+   This option has been deprecated since version 1.4.
+
+ * maxTimeMS (integer): The maximum amount of time to allow the query to
+   run. If "$maxTimeMS" also exists in the modifiers document, this
+   option will take precedence.
+
+ * min (document): The inclusive upper bound for a specific index.
+
+ * modifiers (document): Meta-operators modifying the output or behavior
+   of a query.
+
+ * projection (document): Limits the fields to return for the matching
+   document.
+
+ * readConcern (MongoDB\Driver\ReadConcern): Read concern.
+
+ * readPreference (MongoDB\Driver\ReadPreference): Read preference.
+
+ * returnKey (boolean): If true, returns only the index keys in the
+   resulting documents.
+
+ * session (MongoDB\Driver\Session): Client session.
+
+ * showRecordId (boolean): Determines whether to return the record
+   identifier for each document. If true, adds a field $recordId to the
+   returned documents.
+
+ * skip (integer): The number of documents to skip before returning.
+
+ * sort (document): The order in which to return matching documents. If
+   "$orderby" also exists in the modifiers document, this option will
+   take precedence.
+
+ * typeMap (array): Type map for BSON deserialization.</description>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Collection name" type="string" variable="$collectionName"/>
+      <param description="Query by which to filter documents" type="object" variable="$filter">
+        <type full="MongoDB\Operation\array|object" namespace="MongoDB\Operation" name="array|object"/>
+      </param>
+      <param description="Command options" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="filter" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="execute" start="119" end="125" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation."/>
+      <see value="Executable::execute()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\Operation\array|object|null" namespace="MongoDB\Operation" name="array|object|null"/>
+      </return>
+      <throws description="if collation or read concern is used and unsupported" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="getCommandDocument" start="134" end="137" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the command document for this operation."/>
+      <see value="Explainable::getCommandDocument()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <interface full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable">
+    <method name="execute" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Execute the operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+  <interface full="MongoDB\Operation\Explainable" namespace="MongoDB\Operation" name="Explainable">
+    <extends full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+    <method name="getCommandDocument" start="36" end="36" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the command document for this operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="array"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+</class>

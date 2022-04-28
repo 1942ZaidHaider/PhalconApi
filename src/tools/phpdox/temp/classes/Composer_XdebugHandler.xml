@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\XdebugHandler" namespace="Composer" name="XdebugHandler" abstract="false" final="false" start="22" end="31">
+  <file path="../vendor/composer/composer/src/Composer" file="XdebugHandler.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/XdebugHandler.php" size="845" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="61357500124cf8045ffd5631debc573f64a0f99f" relative="vendor/composer/composer/src/Composer/XdebugHandler.php"/>
+  <docblock>
+    <description/>
+    <deprecated value="use Composer\XdebugHandler\XdebugHandler instead"/>
+  </docblock>
+  <extends full="Composer\XdebugHandler\XdebugHandler" namespace="Composer\XdebugHandler" name="XdebugHandler"/>
+  <constant type="string" name="ENV_ALLOW" value="'COMPOSER_ALLOW_XDEBUG'"/>
+  <constant type="string" name="ENV_VERSION" value="'COMPOSER_XDEBUG_VERSION'"/>
+  <constructor name="__construct" start="27" end="30" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+  </constructor>
+  <parent full="Composer\XdebugHandler\XdebugHandler" namespace="Composer\XdebugHandler" name="XdebugHandler">
+    <constant type="{unknown}" name="SUFFIX_ALLOW" value="'_ALLOW_XDEBUG'"/>
+    <constant type="{unknown}" name="SUFFIX_INIS" value="'_ORIGINAL_INIS'"/>
+    <constant type="{unknown}" name="RESTART_ID" value="'internal'"/>
+    <constant type="{unknown}" name="RESTART_SETTINGS" value="'XDEBUG_HANDLER_SETTINGS'"/>
+    <constant type="{unknown}" name="DEBUG" value="'XDEBUG_HANDLER_DEBUG'"/>
+    <member name="tmpIni" visibility="protected" static="false" line="28">
+      <docblock>
+        <var type="object">
+          <type full="Composer\XdebugHandler\string|null" namespace="Composer\XdebugHandler" name="string|null"/>
+        </var>
+      </docblock>
+    </member>
+    <constructor name="__construct" start="56" end="78" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Constructor">The $envPrefix is used to create distinct environment variables. It is
+uppercased and prepended to the default base values. For example 'myapp'
+would result in MYAPP_ALLOW_XDEBUG and MYAPP_ORIGINAL_INIS.</description>
+        <param description="Value used in environment variables" type="string" variable="$envPrefix"/>
+        <param description="Command-line long option to force color output" type="string" variable="$colorOption"/>
+        <throws description="If a parameter is invalid" type="object">
+          <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+        </throws>
+      </docblock>
+      <parameter name="envPrefix" byreference="false" type="{unknown}"/>
+      <parameter name="colorOption" byreference="false" type="string" default="''"/>
+    </constructor>
+    <method name="setLogger" start="87" end="91" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Activates status message output to a PSR3 logger"/>
+        <param type="object" variable="$logger">
+          <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+        </param>
+        <return type="object">
+          <type full="Composer\XdebugHandler\$this" namespace="Composer\XdebugHandler" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="logger" byreference="false" type="object">
+        <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+      </parameter>
+    </method>
+    <method name="setMainScript" start="100" end="104" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the main script location if it cannot be called from argv"/>
+        <param type="string" variable="$script"/>
+        <return type="object">
+          <type full="Composer\XdebugHandler\$this" namespace="Composer\XdebugHandler" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="script" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="setPersistent" start="111" end="115" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Persist the settings to keep Xdebug out of sub-processes"/>
+        <return type="object">
+          <type full="Composer\XdebugHandler\$this" namespace="Composer\XdebugHandler" name="$this"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="check" start="124" end="165" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks if Xdebug is loaded and the process needs to be restarted">This behaviour can be disabled by setting the MYAPP_ALLOW_XDEBUG
+environment variable to 1. This variable is used internally so that
+the restarted process is created only once.</description>
+      </docblock>
+    </method>
+    <method name="getAllIniFiles" start="175" end="192" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns an array of php.ini locations with at least one entry">The equivalent of calling php_ini_loaded_file then php_ini_scanned_files.
+The loaded ini location is the first entry and may be empty.</description>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="getRestartSettings" start="202" end="219" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns an array of restart settings or null">Settings will be available if the current process was restarted, or
+called with the settings from an existing restart.</description>
+        <return type="object">
+          <type full="Composer\XdebugHandler\array|null" namespace="Composer\XdebugHandler" name="array|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getSkippedVersion" start="226" end="229" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns the Xdebug version that triggered a successful restart"/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="requiresRestart" start="238" end="241" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Returns true if Xdebug is loaded, or as directed by an extending class"/>
+        <param description="Whether Xdebug is loaded" type="object" variable="$isLoaded">
+          <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+        </param>
+        <return type="object">
+          <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="isLoaded" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="restart" start="248" end="251" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Allows an extending class to access the tmpIni"/>
+        <param type="string" variable="$command"/>
+      </docblock>
+      <parameter name="command" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+</class>

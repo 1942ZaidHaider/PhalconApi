@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="League\Container\Container" namespace="League\Container" name="Container" abstract="false" final="false" start="15" end="248">
+  <file path="../vendor/league/container/src" file="Container.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/league/container/src/Container.php" size="6601" time="2021-07-09T08:23:52+00:00" unixtime="1625819032" sha1="3a275dd5e79fc59e822fa455bd73e3a04733d4e5" relative="vendor/league/container/src/Container.php"/>
+  <implements full="Psr\Container\ContainerInterface" namespace="Psr\Container" name="ContainerInterface"/>
+  <member name="defaultToShared" default="false" type="boolean" visibility="protected" static="false" line="20">
+    <docblock>
+      <description/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="definitions" visibility="protected" static="false" line="25">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="DefinitionAggregateInterface" namespace="" name="DefinitionAggregateInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="providers" visibility="protected" static="false" line="30">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="ServiceProviderAggregateInterface" namespace="" name="ServiceProviderAggregateInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="inflectors" visibility="protected" static="false" line="35">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="InflectorAggregateInterface" namespace="" name="InflectorAggregateInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="delegates" default="" type="array" visibility="protected" static="false" line="40">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="League\Container\ContainerInterface" namespace="League\Container" name="ContainerInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="49" end="69" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Construct."/>
+      <param type="object" variable="$definitions">
+        <type full="League\Container\DefinitionAggregateInterface|null" namespace="League\Container" name="DefinitionAggregateInterface|null"/>
+      </param>
+      <param type="object" variable="$providers">
+        <type full="League\Container\ServiceProviderAggregateInterface|null" namespace="League\Container" name="ServiceProviderAggregateInterface|null"/>
+      </param>
+      <param type="object" variable="$inflectors">
+        <type full="League\Container\InflectorAggregateInterface|null" namespace="League\Container" name="InflectorAggregateInterface|null"/>
+      </param>
+    </docblock>
+    <parameter name="definitions" byreference="false" type="object" default="NULL">
+      <type full="League\Container\Definition\DefinitionAggregateInterface" namespace="League\Container\Definition" name="DefinitionAggregateInterface"/>
+    </parameter>
+    <parameter name="providers" byreference="false" type="object" default="NULL">
+      <type full="League\Container\ServiceProvider\ServiceProviderAggregateInterface" namespace="League\Container\ServiceProvider" name="ServiceProviderAggregateInterface"/>
+    </parameter>
+    <parameter name="inflectors" byreference="false" type="object" default="NULL">
+      <type full="League\Container\Inflector\InflectorAggregateInterface" namespace="League\Container\Inflector" name="InflectorAggregateInterface"/>
+    </parameter>
+  </constructor>
+  <method name="add" start="80" end="86" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Add an item to the container."/>
+      <param type="string" variable="$id"/>
+      <param type="mixed" variable="$concrete"/>
+      <param type="boolean" variable="$shared"/>
+      <return type="object">
+        <type full="DefinitionInterface" namespace="" name="DefinitionInterface"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="League\Container\Definition\DefinitionInterface" namespace="League\Container\Definition" name="DefinitionInterface"/>
+    </return>
+    <parameter name="id" byreference="false" type="string"/>
+    <parameter name="concrete" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="shared" byreference="false" type="bool" default="NULL"/>
+  </method>
+  <method name="share" start="96" end="99" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Proxy to add with shared as true."/>
+      <param type="string" variable="$id"/>
+      <param type="mixed" variable="$concrete"/>
+      <return type="object">
+        <type full="DefinitionInterface" namespace="" name="DefinitionInterface"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="League\Container\Definition\DefinitionInterface" namespace="League\Container\Definition" name="DefinitionInterface"/>
+    </return>
+    <parameter name="id" byreference="false" type="string"/>
+    <parameter name="concrete" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="defaultToShared" start="108" end="113" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Whether the container should default to defining shared definitions."/>
+      <param type="boolean" variable="$shared"/>
+      <return resolution="self" type="object">
+        <type full="League\Container\Container" namespace="League\Container" name="Container"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Psr\Container\ContainerInterface" namespace="Psr\Container" name="ContainerInterface"/>
+    </return>
+    <parameter name="shared" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="extend" start="122" end="135" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get a definition to extend."/>
+      <param description="[description]" type="string" variable="$id"/>
+      <return type="object">
+        <type full="DefinitionInterface" namespace="" name="DefinitionInterface"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="League\Container\Definition\DefinitionInterface" namespace="League\Container\Definition" name="DefinitionInterface"/>
+    </return>
+    <parameter name="id" byreference="false" type="string"/>
+  </method>
+  <method name="addServiceProvider" start="144" end="149" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Add a service provider."/>
+      <param type="object" variable="$provider">
+        <type full="League\Container\ServiceProviderInterface|string" namespace="League\Container" name="ServiceProviderInterface|string"/>
+      </param>
+      <return resolution="self" type="object">
+        <type full="League\Container\Container" namespace="League\Container" name="Container"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="League\Container\Container" namespace="League\Container" name="Container"/>
+    </return>
+    <parameter name="provider" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="get" start="154" end="189" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+    <parameter name="new" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="has" start="194" end="215" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="inflector" start="225" end="228" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Allows for manipulation of specific types on resolution."/>
+      <param type="string" variable="$type"/>
+      <param type="object" variable="$callback">
+        <type full="League\Container\callable|null" namespace="League\Container" name="callable|null"/>
+      </param>
+      <return type="object">
+        <type full="InflectorInterface" namespace="" name="InflectorInterface"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="League\Container\Inflector\InflectorInterface" namespace="League\Container\Inflector" name="InflectorInterface"/>
+    </return>
+    <parameter name="type" byreference="false" type="string"/>
+    <parameter name="callback" byreference="false" type="callable" default="NULL"/>
+  </method>
+  <method name="delegate" start="238" end="247" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Delegate a backup container to be checked for services if it cannot be resolved via this container."/>
+      <param type="object" variable="$container">
+        <type full="Psr\Container\ContainerInterface" namespace="Psr\Container" name="ContainerInterface"/>
+      </param>
+      <return resolution="self" type="object">
+        <type full="League\Container\Container" namespace="League\Container" name="Container"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="League\Container\Container" namespace="League\Container" name="Container"/>
+    </return>
+    <parameter name="container" byreference="false" type="object">
+      <type full="Psr\Container\ContainerInterface" namespace="Psr\Container" name="ContainerInterface"/>
+    </parameter>
+  </method>
+  <interface full="Psr\Container\ContainerInterface" namespace="Psr\Container" name="ContainerInterface">
+    <method name="get" start="22" end="22" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Finds an entry of the container by its identifier and returns it."/>
+        <param description="Identifier of the entry to look for." type="string" variable="$id"/>
+        <throws description="No entry was found for **this** identifier." type="object">
+          <type full="Psr\Container\NotFoundExceptionInterface" namespace="Psr\Container" name="NotFoundExceptionInterface"/>
+        </throws>
+        <throws description="Error while retrieving the entry." type="object">
+          <type full="Psr\Container\ContainerExceptionInterface" namespace="Psr\Container" name="ContainerExceptionInterface"/>
+        </throws>
+        <return description="Entry." type="mixed"/>
+      </docblock>
+      <parameter name="id" byreference="false" type="string"/>
+    </method>
+    <method name="has" start="35" end="35" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns true if the container can return an entry for the given identifier.">Returns false otherwise.
+
+`has($id)` returning true does not mean that `get($id)` will not throw an exception.
+It does however mean that `get($id)` will not throw a `NotFoundExceptionInterface`.</description>
+        <param description="Identifier of the entry to look for." type="string" variable="$id"/>
+        <return type="object">
+          <type full="Psr\Container\bool" namespace="Psr\Container" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="id" byreference="false" type="string"/>
+    </method>
+  </interface>
+</class>

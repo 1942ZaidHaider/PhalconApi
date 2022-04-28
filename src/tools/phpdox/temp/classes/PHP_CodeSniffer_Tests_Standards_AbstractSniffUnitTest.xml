@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest" namespace="PHP_CodeSniffer\Tests\Standards" name="AbstractSniffUnitTest" abstract="true" final="false" start="23" end="461">
+  <file path="../vendor/squizlabs/php_codesniffer/tests/Standards" file="AbstractSniffUnitTest.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/tests/Standards/AbstractSniffUnitTest.php" size="16266" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="9c7b47e7232430c2c3534ad052d317c5cac21ca7" relative="vendor/squizlabs/php_codesniffer/tests/Standards/AbstractSniffUnitTest.php"/>
+  <extends full="PHPUnit\Framework\TestCase" namespace="PHPUnit\Framework" name="TestCase" unresolved="true"/>
+  <member name="backupGlobals" default="false" type="boolean" visibility="protected" static="false" line="33">
+    <docblock>
+      <description compact="Enable or disable the backup and restoration of the $GLOBALS array.">Overwrite this attribute in a child class of TestCase.
+Setting this attribute in setUp() has no effect!</description>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="standardsDir" default="NULL" visibility="public" static="false" line="40">
+    <docblock>
+      <description compact="The path to the standard's main directory."/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="testsDir" default="NULL" visibility="public" static="false" line="47">
+    <docblock>
+      <description compact="The path to the standard's test directory."/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <method name="setUp" start="55" end="61" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Sets up this unit test."/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tests\Standards\void" namespace="PHP_CodeSniffer\Tests\Standards" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getTestFiles" start="74" end="95" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Get a list of all test files to check.">These will have the same base as the sniff name but different extensions.
+We ignore the .php file as it is the class.</description>
+      <param description="The base path that the unit tests files will have." type="string" variable="$testFileBase"/>
+      <return type="array" of="object">
+        <type full="PHP_CodeSniffer\Tests\Standards\string" namespace="PHP_CodeSniffer\Tests\Standards" name="string"/>
+      </return>
+    </docblock>
+    <parameter name="testFileBase" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Put them in order." line="90"/>
+    </inline>
+  </method>
+  <method name="shouldSkipTest" start="103" end="107" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Should this test be skipped for some reason."/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+  <method name="testSniff" start="116" end="209" abstract="false" final="true" static="false" visibility="public">
+    <docblock>
+      <description compact="Tests the extending classes Sniff class."/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tests\Standards\void" namespace="PHP_CodeSniffer\Tests\Standards" name="void"/>
+      </return>
+      <throws type="object">
+        <type full="\PHPUnit\Framework\Exception" namespace="\PHPUnit\Framework" name="Exception"/>
+      </throws>
+    </docblock>
+    <inline>
+      <comment value="Skip this test if we can't run in this environment." line="118"/>
+      <comment value="Get a list of all test files to check." line="128"/>
+      <comment value="end foreach" line="203"/>
+    </inline>
+  </method>
+  <method name="generateFailureMessages" start="220" end="421" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Generate a list of test failures for a given sniffed file."/>
+      <param description="The file being tested." type="object" variable="$file">
+        <type full="\PHP_CodeSniffer\Files\LocalFile" namespace="\PHP_CodeSniffer\Files" name="LocalFile"/>
+      </param>
+      <return type="array"/>
+      <throws type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\RuntimeException" namespace="\PHP_CodeSniffer\Exceptions" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="file" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\LocalFile" namespace="PHP_CodeSniffer\Files" name="LocalFile"/>
+    </parameter>
+    <inline>
+      <comment value="We merge errors and warnings together to make it easier" line="237"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="to iterate over them and produce the errors string. In this way," line="238"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="we can report on errors and warnings in the same line even though" line="239"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="it's not really structured to allow that." line="240"/>
+      <comment value="end foreach" line="289"/>
+      <comment value="end foreach" line="346"/>
+      <comment value="Order the messages by line number." line="361"/>
+      <comment value="end foreach" line="417"/>
+    </inline>
+  </method>
+  <method name="setCliValues" start="432" end="436" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get a list of CLI values to set before the file is tested."/>
+      <param description="The name of the file being tested." type="string" variable="$filename"/>
+      <param description="The config data for the run." type="object" variable="$config">
+        <type full="\PHP_CodeSniffer\Config" namespace="\PHP_CodeSniffer" name="Config"/>
+      </param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tests\Standards\void" namespace="PHP_CodeSniffer\Tests\Standards" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+    <parameter name="config" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getErrorList" start="447" end="447" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns the lines where errors should occur.">The key of the array should represent the line number and the value
+should represent the number of errors that should occur on that line.</description>
+      <return description="int&gt;" type="object">
+        <type full="PHP_CodeSniffer\Tests\Standards\array&lt;int" namespace="PHP_CodeSniffer\Tests\Standards" name="array&lt;int"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getWarningList" start="458" end="458" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns the lines where warnings should occur.">The key of the array should represent the line number and the value
+should represent the number of warnings that should occur on that line.</description>
+      <return description="int&gt;" type="object">
+        <type full="PHP_CodeSniffer\Tests\Standards\array&lt;int" namespace="PHP_CodeSniffer\Tests\Standards" name="array&lt;int"/>
+      </return>
+    </docblock>
+  </method>
+  <extenders>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\ControlStructures\ControlSignatureUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\ControlStructures" name="ControlSignatureUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\ControlStructures\MultiLineConditionUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\ControlStructures" name="MultiLineConditionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Functions\FunctionDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Functions" name="FunctionDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Functions\FunctionCallSignatureUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Functions" name="FunctionCallSignatureUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Functions\ValidDefaultValueUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Functions" name="ValidDefaultValueUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Commenting\InlineCommentUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Commenting" name="InlineCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Commenting\FunctionCommentUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Commenting" name="FunctionCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Commenting\FileCommentUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Commenting" name="FileCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Commenting\ClassCommentUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Commenting" name="ClassCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\NamingConventions\ValidFunctionNameUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\NamingConventions" name="ValidFunctionNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\NamingConventions\ValidVariableNameUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\NamingConventions" name="ValidVariableNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\NamingConventions\ValidClassNameUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\NamingConventions" name="ValidClassNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Classes\ClassDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Classes" name="ClassDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Formatting\MultiLineAssignmentUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Formatting" name="MultiLineAssignmentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\Files\IncludingFileUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\Files" name="IncludingFileUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\WhiteSpace\ScopeClosingBraceUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\WhiteSpace" name="ScopeClosingBraceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\WhiteSpace\ObjectOperatorIndentUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\WhiteSpace" name="ObjectOperatorIndentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Tests\WhiteSpace\ScopeIndentUnitTest" namespace="PHP_CodeSniffer\Standards\PEAR\Tests\WhiteSpace" name="ScopeIndentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR1\Tests\Methods\CamelCapsMethodNameUnitTest" namespace="PHP_CodeSniffer\Standards\PSR1\Tests\Methods" name="CamelCapsMethodNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR1\Tests\Classes\ClassDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR1\Tests\Classes" name="ClassDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR1\Tests\Files\SideEffectsUnitTest" namespace="PHP_CodeSniffer\Standards\PSR1\Tests\Files" name="SideEffectsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Zend\Tests\NamingConventions\ValidVariableNameUnitTest" namespace="PHP_CodeSniffer\Standards\Zend\Tests\NamingConventions" name="ValidVariableNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Zend\Tests\Debug\CodeAnalyzerUnitTest" namespace="PHP_CodeSniffer\Standards\Zend\Tests\Debug" name="CodeAnalyzerUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Zend\Tests\Files\ClosingTagUnitTest" namespace="PHP_CodeSniffer\Standards\Zend\Tests\Files" name="ClosingTagUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\ControlStructures\DisallowYodaConditionsUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\ControlStructures" name="DisallowYodaConditionsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\ControlStructures\InlineControlStructureUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\ControlStructures" name="InlineControlStructureUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Functions\CallTimePassByReferenceUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Functions" name="CallTimePassByReferenceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Functions\OpeningFunctionBraceBsdAllmanUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Functions" name="OpeningFunctionBraceBsdAllmanUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Functions\OpeningFunctionBraceKernighanRitchieUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Functions" name="OpeningFunctionBraceKernighanRitchieUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Functions\FunctionCallArgumentSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Functions" name="FunctionCallArgumentSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Commenting\TodoUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Commenting" name="TodoUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Commenting\FixmeUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Commenting" name="FixmeUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Commenting\DocCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Commenting" name="DocCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions\InterfaceNameSuffixUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions" name="InterfaceNameSuffixUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions\TraitNameSuffixUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions" name="TraitNameSuffixUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions\CamelCapsFunctionNameUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions" name="CamelCapsFunctionNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions\AbstractClassNamePrefixUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions" name="AbstractClassNamePrefixUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions\ConstructorNameUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions" name="ConstructorNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions\UpperCaseConstantNameUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\NamingConventions" name="UpperCaseConstantNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Arrays\DisallowShortArraySyntaxUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Arrays" name="DisallowShortArraySyntaxUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Arrays\DisallowLongArraySyntaxUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Arrays" name="DisallowLongArraySyntaxUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Arrays\ArrayIndentUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Arrays" name="ArrayIndentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\EmptyPHPStatementUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="EmptyPHPStatementUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\JumbledIncrementerUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="JumbledIncrementerUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\UnconditionalIfStatementUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="UnconditionalIfStatementUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\UnnecessaryFinalModifierUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="UnnecessaryFinalModifierUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\ForLoopWithTestFunctionCallUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="ForLoopWithTestFunctionCallUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\AssignmentInConditionUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="AssignmentInConditionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\ForLoopShouldBeWhileLoopUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="ForLoopShouldBeWhileLoopUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\UnusedFunctionParameterUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="UnusedFunctionParameterUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\UselessOverridingMethodUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="UselessOverridingMethodUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis\EmptyStatementUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis" name="EmptyStatementUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Classes\OpeningBraceSameLineUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Classes" name="OpeningBraceSameLineUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Classes\DuplicateClassNameUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Classes" name="DuplicateClassNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Formatting\NoSpaceAfterCastUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Formatting" name="NoSpaceAfterCastUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Formatting\SpaceAfterCastUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Formatting" name="SpaceAfterCastUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Formatting\MultipleStatementAlignmentUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Formatting" name="MultipleStatementAlignmentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Formatting\DisallowMultipleStatementsUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Formatting" name="DisallowMultipleStatementsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Formatting\SpaceBeforeCastUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Formatting" name="SpaceBeforeCastUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Formatting\SpaceAfterNotUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Formatting" name="SpaceAfterNotUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\DisallowShortOpenTagUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="DisallowShortOpenTagUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\DisallowRequestSuperglobalUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="DisallowRequestSuperglobalUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\DisallowAlternativePHPTagsUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="DisallowAlternativePHPTagsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\NoSilencedErrorsUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="NoSilencedErrorsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\LowerCaseConstantUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="LowerCaseConstantUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\LowerCaseKeywordUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="LowerCaseKeywordUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\CharacterBeforePHPOpeningTagUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="CharacterBeforePHPOpeningTagUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\BacktickOperatorUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="BacktickOperatorUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\SAPIUsageUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="SAPIUsageUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\UpperCaseConstantUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="UpperCaseConstantUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\ForbiddenFunctionsUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="ForbiddenFunctionsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\ClosingPHPTagUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="ClosingPHPTagUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\DeprecatedFunctionsUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="DeprecatedFunctionsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\SyntaxUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="SyntaxUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\RequireStrictTypesUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="RequireStrictTypesUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\DiscourageGotoUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="DiscourageGotoUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\PHP\LowerCaseTypeUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\PHP" name="LowerCaseTypeUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Debug\ESLintUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Debug" name="ESLintUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Debug\ClosureLinterUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Debug" name="ClosureLinterUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Debug\CSSLintUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Debug" name="CSSLintUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Debug\JSHintUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Debug" name="JSHintUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\EndFileNewlineUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="EndFileNewlineUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\OneObjectStructurePerFileUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="OneObjectStructurePerFileUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\OneInterfacePerFileUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="OneInterfacePerFileUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\ByteOrderMarkUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="ByteOrderMarkUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\OneTraitPerFileUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="OneTraitPerFileUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\LineEndingsUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="LineEndingsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\InlineHTMLUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="InlineHTMLUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\ExecutableFileUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="ExecutableFileUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\OneClassPerFileUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="OneClassPerFileUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\LineLengthUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="LineLengthUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\LowercasedFilenameUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="LowercasedFilenameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Files\EndFileNoNewlineUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Files" name="EndFileNoNewlineUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Metrics\CyclomaticComplexityUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Metrics" name="CyclomaticComplexityUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Metrics\NestingLevelUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Metrics" name="NestingLevelUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\Strings\UnnecessaryStringConcatUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\Strings" name="UnnecessaryStringConcatUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\VersionControl\SubversionPropertiesUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\VersionControl" name="SubversionPropertiesUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\VersionControl\GitMergeConflictUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\VersionControl" name="GitMergeConflictUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace\DisallowTabIndentUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace" name="DisallowTabIndentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace\LanguageConstructSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace" name="LanguageConstructSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace\DisallowSpaceIndentUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace" name="DisallowSpaceIndentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace\ArbitraryParenthesesSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace" name="ArbitraryParenthesesSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace\ScopeIndentUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace" name="ScopeIndentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace\IncrementDecrementSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace" name="IncrementDecrementSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace\SpreadOperatorSpacingAfterUnitTest" namespace="PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace" name="SpreadOperatorSpacingAfterUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\ControlStructures\ControlStructureSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\ControlStructures" name="ControlStructureSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\ControlStructures\SwitchDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\ControlStructures" name="SwitchDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\ControlStructures\ElseIfDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\ControlStructures" name="ElseIfDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\Methods\FunctionCallSignatureUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\Methods" name="FunctionCallSignatureUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\Methods\MethodDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\Methods" name="MethodDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\Methods\FunctionClosingBraceUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\Methods" name="FunctionClosingBraceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\Classes\ClassDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\Classes" name="ClassDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\Classes\PropertyDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\Classes" name="PropertyDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\Namespaces\UseDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\Namespaces" name="UseDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\Namespaces\NamespaceDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\Namespaces" name="NamespaceDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\Files\EndFileNewlineUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\Files" name="EndFileNewlineUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Tests\Files\ClosingTagUnitTest" namespace="PHP_CodeSniffer\Standards\PSR2\Tests\Files" name="ClosingTagUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures\ControlSignatureUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures" name="ControlSignatureUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures\ForEachLoopDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures" name="ForEachLoopDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures\InlineIfDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures" name="InlineIfDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures\ForLoopDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures" name="ForLoopDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures\LowercaseDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures" name="LowercaseDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures\SwitchDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures" name="SwitchDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures\ElseIfDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures" name="ElseIfDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Functions\FunctionDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Functions" name="FunctionDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Functions\FunctionDuplicateArgumentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Functions" name="FunctionDuplicateArgumentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Functions\FunctionDeclarationArgumentSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Functions" name="FunctionDeclarationArgumentSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Functions\LowercaseFunctionKeywordsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Functions" name="LowercaseFunctionKeywordsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Functions\GlobalFunctionUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Functions" name="GlobalFunctionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Functions\MultiLineFunctionDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Functions" name="MultiLineFunctionDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\InlineCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="InlineCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\LongConditionClosingCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="LongConditionClosingCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\FunctionCommentThrowTagUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="FunctionCommentThrowTagUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\PostStatementCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="PostStatementCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\DocCommentAlignmentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="DocCommentAlignmentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\EmptyCatchCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="EmptyCatchCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\ClosingDeclarationCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="ClosingDeclarationCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\BlockCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="BlockCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\FunctionCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="FunctionCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\FileCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="FileCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\VariableCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="VariableCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting\ClassCommentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Commenting" name="ClassCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\NamingConventions\ValidFunctionNameUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\NamingConventions" name="ValidFunctionNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\NamingConventions\ValidVariableNameUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\NamingConventions" name="ValidVariableNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Arrays\ArrayBracketSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Arrays" name="ArrayBracketSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Arrays\ArrayDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Arrays" name="ArrayDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Objects\ObjectMemberCommaUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Objects" name="ObjectMemberCommaUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Objects\DisallowObjectStringIndexUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Objects" name="DisallowObjectStringIndexUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Objects\ObjectInstantiationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Objects" name="ObjectInstantiationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Scope\StaticThisUsageUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Scope" name="StaticThisUsageUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Scope\MemberVarScopeUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Scope" name="MemberVarScopeUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Scope\MethodScopeUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Scope" name="MethodScopeUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Classes\ClassFileNameUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Classes" name="ClassFileNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Classes\LowercaseClassKeywordsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Classes" name="LowercaseClassKeywordsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Classes\DuplicatePropertyUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Classes" name="DuplicatePropertyUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Classes\ClassDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Classes" name="ClassDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Classes\ValidClassNameUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Classes" name="ValidClassNameUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Classes\SelfMemberReferenceUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Classes" name="SelfMemberReferenceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Formatting\OperatorBracketUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Formatting" name="OperatorBracketUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\ClassDefinitionClosingBraceSpaceUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="ClassDefinitionClosingBraceSpaceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\NamedColoursUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="NamedColoursUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\IndentationUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="IndentationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\ClassDefinitionOpeningBraceSpaceUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="ClassDefinitionOpeningBraceSpaceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\EmptyStyleDefinitionUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="EmptyStyleDefinitionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\SemicolonSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="SemicolonSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\LowercaseStyleDefinitionUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="LowercaseStyleDefinitionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\EmptyClassDefinitionUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="EmptyClassDefinitionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\ColourDefinitionUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="ColourDefinitionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\DuplicateStyleDefinitionUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="DuplicateStyleDefinitionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\OpacityUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="OpacityUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\ColonSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="ColonSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\DisallowMultipleStyleDefinitionsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="DisallowMultipleStyleDefinitionsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\ShorthandSizeUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="ShorthandSizeUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\DuplicateClassDefinitionUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="DuplicateClassDefinitionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\ClassDefinitionNameSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="ClassDefinitionNameSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\ForbiddenStylesUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="ForbiddenStylesUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\CSS\MissingColonUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\CSS" name="MissingColonUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\EmbeddedPhpUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="EmbeddedPhpUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\HeredocUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="HeredocUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\DiscouragedFunctionsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="DiscouragedFunctionsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\DisallowComparisonAssignmentUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="DisallowComparisonAssignmentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\DisallowInlineIfUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="DisallowInlineIfUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\GlobalKeywordUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="GlobalKeywordUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\DisallowSizeFunctionsInLoopsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="DisallowSizeFunctionsInLoopsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\DisallowMultipleAssignmentsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="DisallowMultipleAssignmentsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\CommentedOutCodeUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="CommentedOutCodeUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\InnerFunctionsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="InnerFunctionsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\LowercasePHPFunctionsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="LowercasePHPFunctionsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\DisallowBooleanStatementUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="DisallowBooleanStatementUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\NonExecutableCodeUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="NonExecutableCodeUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\PHP\EvalUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\PHP" name="EvalUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Debug\JavaScriptLintUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Debug" name="JavaScriptLintUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Debug\JSLintUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Debug" name="JSLintUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Files\FileExtensionUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Files" name="FileExtensionUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Strings\EchoedStringsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Strings" name="EchoedStringsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Strings\ConcatenationSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Strings" name="ConcatenationSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Strings\DoubleQuoteUsageUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Strings" name="DoubleQuoteUsageUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Operators\ValidLogicalOperatorsUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Operators" name="ValidLogicalOperatorsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Operators\ComparisonOperatorUsageUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Operators" name="ComparisonOperatorUsageUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\Operators\IncrementDecrementUsageUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\Operators" name="IncrementDecrementUsageUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\PropertyLabelSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="PropertyLabelSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\ScopeClosingBraceUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="ScopeClosingBraceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\SuperfluousWhitespaceUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="SuperfluousWhitespaceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\FunctionOpeningBraceSpaceUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="FunctionOpeningBraceSpaceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\ControlStructureSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="ControlStructureSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\LanguageConstructSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="LanguageConstructSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\CastSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="CastSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\SemicolonSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="SemicolonSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\LogicalOperatorSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="LogicalOperatorSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\FunctionSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="FunctionSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\FunctionClosingBraceSpaceUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="FunctionClosingBraceSpaceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\OperatorSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="OperatorSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\ScopeKeywordSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="ScopeKeywordSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\ObjectOperatorSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="ObjectOperatorSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace\MemberVarSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace" name="MemberVarSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Commenting\FunctionCommentUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Commenting" name="FunctionCommentUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Channels\DisallowSelfActionsUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Channels" name="DisallowSelfActionsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Channels\IncludeSystemUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Channels" name="IncludeSystemUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Channels\UnusedSystemUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Channels" name="UnusedSystemUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Objects\CreateWidgetTypeCallbackUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Objects" name="CreateWidgetTypeCallbackUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Objects\AssignThisUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Objects" name="AssignThisUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Objects\DisallowNewWidgetUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Objects" name="DisallowNewWidgetUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\CSS\BrowserSpecificStylesUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\CSS" name="BrowserSpecificStylesUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\PHP\EvalObjectFactoryUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\PHP" name="EvalObjectFactoryUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\PHP\AjaxNullComparisonUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\PHP" name="AjaxNullComparisonUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\PHP\ReturnFunctionValueUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\PHP" name="ReturnFunctionValueUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\PHP\GetRequestDataUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\PHP" name="GetRequestDataUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Debug\DebugCodeUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Debug" name="DebugCodeUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Debug\FirebugConsoleUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Debug" name="FirebugConsoleUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Tests\Strings\JoinStringsUnitTest" namespace="PHP_CodeSniffer\Standards\MySource\Tests\Strings" name="JoinStringsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\ControlStructures\ControlStructureSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\ControlStructures" name="ControlStructureSpacingUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\ControlStructures\BooleanOperatorPlacementUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\ControlStructures" name="BooleanOperatorPlacementUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Properties\ConstantVisibilityUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Properties" name="ConstantVisibilityUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Functions\NullableTypeDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Functions" name="NullableTypeDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Functions\ReturnTypeDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Functions" name="ReturnTypeDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Classes\OpeningBraceSpaceUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Classes" name="OpeningBraceSpaceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Classes\ClassInstantiationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Classes" name="ClassInstantiationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Classes\AnonClassDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Classes" name="AnonClassDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Classes\ClosingBraceUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Classes" name="ClosingBraceUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Namespaces\CompoundNamespaceDepthUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Namespaces" name="CompoundNamespaceDepthUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Traits\UseDeclarationUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Traits" name="UseDeclarationUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Keywords\ShortFormTypeKeywordsUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Keywords" name="ShortFormTypeKeywordsUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Files\DeclareStatementUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Files" name="DeclareStatementUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Files\OpenTagUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Files" name="OpenTagUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Files\ImportStatementUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Files" name="ImportStatementUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Files\FileHeaderUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Files" name="FileHeaderUnitTest"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Tests\Operators\OperatorSpacingUnitTest" namespace="PHP_CodeSniffer\Standards\PSR12\Tests\Operators" name="OperatorSpacingUnitTest"/>
+  </extenders>
+</class>

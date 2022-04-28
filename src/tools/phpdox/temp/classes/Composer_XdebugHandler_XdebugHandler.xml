@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\XdebugHandler\XdebugHandler" namespace="Composer\XdebugHandler" name="XdebugHandler" abstract="false" final="false" start="19" end="620">
+  <file path="../vendor/composer/xdebug-handler/src" file="XdebugHandler.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/xdebug-handler/src/XdebugHandler.php" size="18804" time="2021-03-25T17:01:18+00:00" unixtime="1616691678" sha1="d3f3fb01b7020128892f9066a4118d555bea5c81" relative="vendor/composer/xdebug-handler/src/XdebugHandler.php"/>
+  <docblock>
+    <description/>
+    <author value="John Stevenson &lt;john-stevenson@blueyonder.co.uk&gt;"/>
+  </docblock>
+  <constant type="{unknown}" name="SUFFIX_ALLOW" value="'_ALLOW_XDEBUG'"/>
+  <constant type="{unknown}" name="SUFFIX_INIS" value="'_ORIGINAL_INIS'"/>
+  <constant type="{unknown}" name="RESTART_ID" value="'internal'"/>
+  <constant type="{unknown}" name="RESTART_SETTINGS" value="'XDEBUG_HANDLER_SETTINGS'"/>
+  <constant type="{unknown}" name="DEBUG" value="'XDEBUG_HANDLER_DEBUG'"/>
+  <member name="tmpIni" visibility="protected" static="false" line="28">
+    <docblock>
+      <var type="object">
+        <type full="Composer\XdebugHandler\string|null" namespace="Composer\XdebugHandler" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="inRestart" visibility="private" static="true" line="30"/>
+  <member name="name" visibility="private" static="true" line="31"/>
+  <member name="skipped" visibility="private" static="true" line="32"/>
+  <member name="cli" visibility="private" static="false" line="34"/>
+  <member name="colorOption" visibility="private" static="false" line="35"/>
+  <member name="debug" visibility="private" static="false" line="36"/>
+  <member name="envAllowXdebug" visibility="private" static="false" line="37"/>
+  <member name="envOriginalInis" visibility="private" static="false" line="38"/>
+  <member name="loaded" visibility="private" static="false" line="39"/>
+  <member name="persistent" visibility="private" static="false" line="40"/>
+  <member name="script" visibility="private" static="false" line="41"/>
+  <member name="statusWriter" visibility="private" static="false" line="43">
+    <docblock>
+      <var type="object">
+        <type full="Composer\XdebugHandler\Status|null" namespace="Composer\XdebugHandler" name="Status|null"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="56" end="78" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructor">The $envPrefix is used to create distinct environment variables. It is
+uppercased and prepended to the default base values. For example 'myapp'
+would result in MYAPP_ALLOW_XDEBUG and MYAPP_ORIGINAL_INIS.</description>
+      <param description="Value used in environment variables" type="string" variable="$envPrefix"/>
+      <param description="Command-line long option to force color output" type="string" variable="$colorOption"/>
+      <throws description="If a parameter is invalid" type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="envPrefix" byreference="false" type="{unknown}"/>
+    <parameter name="colorOption" byreference="false" type="string" default="''"/>
+  </constructor>
+  <method name="setLogger" start="87" end="91" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Activates status message output to a PSR3 logger"/>
+      <param type="object" variable="$logger">
+        <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+      </param>
+      <return type="object">
+        <type full="Composer\XdebugHandler\$this" namespace="Composer\XdebugHandler" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="logger" byreference="false" type="object">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+  </method>
+  <method name="setMainScript" start="100" end="104" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the main script location if it cannot be called from argv"/>
+      <param type="string" variable="$script"/>
+      <return type="object">
+        <type full="Composer\XdebugHandler\$this" namespace="Composer\XdebugHandler" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="script" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setPersistent" start="111" end="115" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Persist the settings to keep Xdebug out of sub-processes"/>
+      <return type="object">
+        <type full="Composer\XdebugHandler\$this" namespace="Composer\XdebugHandler" name="$this"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="check" start="124" end="165" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if Xdebug is loaded and the process needs to be restarted">This behaviour can be disabled by setting the MYAPP_ALLOW_XDEBUG
+environment variable to 1. This variable is used internally so that
+the restarted process is created only once.</description>
+    </docblock>
+  </method>
+  <method name="getAllIniFiles" start="175" end="192" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns an array of php.ini locations with at least one entry">The equivalent of calling php_ini_loaded_file then php_ini_scanned_files.
+The loaded ini location is the first entry and may be empty.</description>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="getRestartSettings" start="202" end="219" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns an array of restart settings or null">Settings will be available if the current process was restarted, or
+called with the settings from an existing restart.</description>
+      <return type="object">
+        <type full="Composer\XdebugHandler\array|null" namespace="Composer\XdebugHandler" name="array|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getSkippedVersion" start="226" end="229" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the Xdebug version that triggered a successful restart"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="requiresRestart" start="238" end="241" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns true if Xdebug is loaded, or as directed by an extending class"/>
+      <param description="Whether Xdebug is loaded" type="object" variable="$isLoaded">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="isLoaded" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="restart" start="248" end="251" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Allows an extending class to access the tmpIni"/>
+      <param type="string" variable="$command"/>
+    </docblock>
+    <parameter name="command" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="doRestart" start="258" end="291" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Executes the restarted command then deletes the tmp ini"/>
+      <param type="string" variable="$command"/>
+    </docblock>
+    <parameter name="command" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Prefer proc_open to keep fds intact, because passthru pipes to stdout" line="263"/>
+    </inline>
+  </method>
+  <method name="prepareRestart" start="303" end="331" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns true if everything was written for the restart">If any of the following fails (however unlikely) we must return false to
+stop potential recursion:
+  - tmp ini file creation
+  - environment variable creation</description>
+      <return type="object">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="writeTmpIni" start="342" end="375" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns true if the tmp ini file was written"/>
+      <param description="All ini files used in the current process" type="array" variable="$iniFiles"/>
+      <param description="The system temporary directory" type="string" variable="$tmpDir"/>
+      <param description="Set by method if ini file cannot be read" type="string" variable="$error"/>
+      <return type="object">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="iniFiles" byreference="false" type="array"/>
+    <parameter name="tmpDir" byreference="false" type="{unknown}"/>
+    <parameter name="error" byreference="true" type="{unknown}"/>
+    <inline>
+      <comment value="$iniFiles has at least one item and it may be empty" line="348"/>
+      <comment value="Merge loaded settings into our ini content, if it is valid" line="365"/>
+      <comment value="Work-around for https://bugs.php.net/bug.php?id=75932" line="371"/>
+    </inline>
+  </method>
+  <method name="getCommand" start="382" end="404" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns the restart command line"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="setEnvironment" start="416" end="443" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns true if the restart environment variables were set">No need to update $_SERVER since this is set in the restarted process.</description>
+      <param description="Whether there were scanned ini files" type="object" variable="$scannedInis">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </param>
+      <param description="All ini files used in the current process" type="array" variable="$iniFiles"/>
+      <return type="object">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="scannedInis" byreference="false" type="{unknown}"/>
+    <parameter name="iniFiles" byreference="false" type="array"/>
+    <inline>
+      <comment value="Make original inis available to restarted process" line="421"/>
+      <comment value="Flag restarted process and save values for it to use" line="433"/>
+    </inline>
+  </method>
+  <method name="notify" start="451" end="454" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Logs status messages"/>
+      <param description="Status handler constant" type="string" variable="$op"/>
+      <param description="Optional data" type="object" variable="$data">
+        <type full="Composer\XdebugHandler\null|string" namespace="Composer\XdebugHandler" name="null|string"/>
+      </param>
+    </docblock>
+    <parameter name="op" byreference="false" type="{unknown}"/>
+    <parameter name="data" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mergeLoadedConfig" start="464" end="483" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns default, changed and command-line ini settings"/>
+      <param description="All current ini settings" type="array" variable="$loadedConfig"/>
+      <param description="Settings from user ini files" type="array" variable="$iniConfig"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="loadedConfig" byreference="false" type="array"/>
+    <parameter name="iniConfig" byreference="false" type="array"/>
+  </method>
+  <method name="checkMainScript" start="490" end="510" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns true if the script name can be used"/>
+      <return type="object">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="Use a backtrace to resolve Phar and chdir issues" line="501"/>
+    </inline>
+  </method>
+  <method name="setEnvRestartSettings" start="517" end="529" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Adds restart settings to the environment"/>
+      <param type="array" variable="$envArgs" of="object">
+        <type full="Composer\XdebugHandler\string" namespace="Composer\XdebugHandler" name="string"/>
+      </param>
+    </docblock>
+    <parameter name="envArgs" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="syncSettings" start="536" end="545" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Syncs settings and the environment if called with existing settings"/>
+      <param type="array" variable="$settings"/>
+    </docblock>
+    <parameter name="settings" byreference="false" type="array"/>
+  </method>
+  <method name="checkScanDirConfig" start="555" end="561" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns true if there are scanned inis and PHP is able to report them">php_ini_scanned_files will fail when PHP_CONFIG_FILE_SCAN_DIR is empty.
+Fixed in 7.1.13 and 7.2.1</description>
+      <return type="object">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="checkConfiguration" start="569" end="587" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns true if there are no known configuration issues"/>
+      <param description="Set by method" type="string" variable="$info"/>
+      <return type="object">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="info" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="tryEnableSignals" start="594" end="619" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Enables async signals and control interrupts in the restarted process">Available on Unix PHP 7.1+ with the pcntl extension and Windows PHP 7.4+.</description>
+    </docblock>
+  </method>
+  <extenders>
+    <extender full="Composer\XdebugHandler" namespace="Composer" name="XdebugHandler"/>
+  </extenders>
+</class>

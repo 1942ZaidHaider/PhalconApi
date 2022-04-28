@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="SlevomatCodingStandard\Sniffs\ControlStructures\EarlyExitSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="EarlyExitSniff" abstract="false" final="false" start="34" end="490">
+  <file path="../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/ControlStructures" file="EarlyExitSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/ControlStructures/EarlyExitSniff.php" size="14188" time="2020-10-05T12:39:37+00:00" unixtime="1601901577" sha1="d794a005cb8bb6f2be4f32ce5ccaec8af38cc56b" relative="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/ControlStructures/EarlyExitSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="CODE_EARLY_EXIT_NOT_USED" value="'EarlyExitNotUsed'"/>
+  <constant type="string" name="CODE_USELESS_ELSEIF" value="'UselessElseIf'"/>
+  <constant type="string" name="CODE_USELESS_ELSE" value="'UselessElse'"/>
+  <member name="ignoreStandaloneIfInScope" default="false" type="boolean" visibility="public" static="false" line="42">
+    <docblock>
+      <var type="object">
+        <type full="SlevomatCodingStandard\Sniffs\ControlStructures\bool" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ignoreOneLineTrailingIf" default="false" type="boolean" visibility="public" static="false" line="45">
+    <docblock>
+      <var type="object">
+        <type full="SlevomatCodingStandard\Sniffs\ControlStructures\bool" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ignoreTrailingIfWithOneInstruction" default="false" type="boolean" visibility="public" static="false" line="48">
+    <docblock>
+      <var type="object">
+        <type full="SlevomatCodingStandard\Sniffs\ControlStructures\bool" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="register" start="53" end="60" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="(int|string)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\ControlStructures\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="67" end="78" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <phpcssuppress value="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$pointer"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="pointer" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="processElse" start="80" end="210" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="elsePointer" byreference="false" type="int"/>
+  </method>
+  <method name="processElseIf" start="212" end="263" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="elseIfPointer" byreference="false" type="int"/>
+  </method>
+  <method name="processIf" start="265" end="365" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="ifPointer" byreference="false" type="int"/>
+  </method>
+  <method name="getScopeCode" start="367" end="371" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="scopePointer" byreference="false" type="int"/>
+  </method>
+  <method name="getScopeCodePointers" start="378" end="382" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$scopePointer"/>
+      <return type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\ControlStructures\int" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="scopePointer" byreference="false" type="int"/>
+  </method>
+  <method name="getEarlyExitCode" start="388" end="395" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$code">
+        <type full="SlevomatCodingStandard\Sniffs\ControlStructures\string|int" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="string|int"/>
+      </param>
+      <return type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="code" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="findEarlyExitInScope" start="397" end="425" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="true"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="startPointer" byreference="false" type="int"/>
+    <parameter name="endPointer" byreference="false" type="int"/>
+  </method>
+  <method name="isEarlyExitInScope" start="427" end="430" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="startPointer" byreference="false" type="int"/>
+    <parameter name="endPointer" byreference="false" type="int"/>
+  </method>
+  <method name="getAllConditionsPointers" start="437" end="488" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$conditionPointer"/>
+      <return type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\ControlStructures\int" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="conditionPointer" byreference="false" type="int"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

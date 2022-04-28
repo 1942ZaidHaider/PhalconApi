@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Runner" namespace="PHP_CodeSniffer" name="Runner" abstract="false" final="false" start="24" end="890">
+  <file path="../vendor/squizlabs/php_codesniffer/src" file="Runner.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Runner.php" size="32149" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="e3d46e235551463f3bbddcf5dddb8336238c5475" relative="vendor/squizlabs/php_codesniffer/src/Runner.php"/>
+  <member name="config" default="NULL" visibility="public" static="false" line="32">
+    <docblock>
+      <description compact="The config data for the run."/>
+      <var type="object">
+        <type full="\PHP_CodeSniffer\Config" namespace="\PHP_CodeSniffer" name="Config"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ruleset" default="NULL" visibility="public" static="false" line="39">
+    <docblock>
+      <description compact="The ruleset used for the run."/>
+      <var type="object">
+        <type full="\PHP_CodeSniffer\Ruleset" namespace="\PHP_CodeSniffer" name="Ruleset"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="reporter" default="NULL" visibility="public" static="false" line="46">
+    <docblock>
+      <description compact="The reporter used for generating reports after the run."/>
+      <var type="object">
+        <type full="\PHP_CodeSniffer\Reporter" namespace="\PHP_CodeSniffer" name="Reporter"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="runPHPCS" start="54" end="146" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Run the PHPCS script."/>
+      <return type="array"/>
+    </docblock>
+    <inline>
+      <comment value="end try" line="133"/>
+    </inline>
+  </method>
+  <method name="runPHPCBF" start="154" end="229" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Run the PHPCBF script."/>
+      <return type="array"/>
+    </docblock>
+    <inline>
+      <comment value="end try" line="208"/>
+      <comment value="PHPCBF fixed some fixable errors, but others failed to fix." line="226"/>
+    </inline>
+  </method>
+  <method name="checkRequirements" start="238" end="277" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Exits if the minimum requirements of PHP_CodeSniffer are not met."/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+      <throws description="If the requirements are not met." type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\DeepExitException" namespace="\PHP_CodeSniffer\Exceptions" name="DeepExitException"/>
+      </throws>
+    </docblock>
+    <inline>
+      <comment value="Check the PHP version." line="240"/>
+    </inline>
+  </method>
+  <method name="init" start="286" end="339" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Init the rulesets and other high-level settings."/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+      <throws description="If a referenced standard is not installed." type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\DeepExitException" namespace="\PHP_CodeSniffer\Exceptions" name="DeepExitException"/>
+      </throws>
+    </docblock>
+    <inline>
+      <comment value="Ensure this option is enabled or else line endings will not always" line="292"/>
+      <comment value="be detected properly for files created on a Mac with the /r line ending." line="293"/>
+      <comment value="Disable the PCRE JIT as this caused issues with parallel running." line="296"/>
+      <comment value="Check that the standards are valid." line="299"/>
+      <comment value="Saves passing the Config object into other objects that only need" line="313"/>
+      <comment value="the verbosity flag for debug output." line="314"/>
+      <comment value="Create this class so it is autoloaded and sets up a bunch" line="319"/>
+      <comment value="of PHP_CodeSniffer-specific token type constants." line="320"/>
+      <comment value="Allow autoloading of custom files inside installed standards." line="323"/>
+      <comment value="The ruleset contains all the information about how the files" line="329"/>
+      <comment value="should be checked and/or fixed." line="330"/>
+    </inline>
+  </method>
+  <method name="run" start="349" end="582" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Performs the run."/>
+      <return description="The number of errors and warnings found." type="int"/>
+      <throws type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\DeepExitException" namespace="\PHP_CodeSniffer\Exceptions" name="DeepExitException"/>
+      </throws>
+      <throws type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\RuntimeException" namespace="\PHP_CodeSniffer\Exceptions" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <inline>
+      <comment value="The class that manages all reporters for the run." line="351"/>
+      <comment value="Include bootstrap files." line="354"/>
+      <comment value="end if" line="401"/>
+      <comment value="Turn all sniff errors into exceptions." line="403"/>
+      <comment value="If verbosity is too high, turn off parallelism so the" line="406"/>
+      <comment value="debug output is clean." line="407"/>
+      <comment value="If the PCNTL extension isn't installed, we can't fork." line="412"/>
+      <comment value="end if" line="547"/>
+    </inline>
+  </method>
+  <method name="handleErrors" start="600" end="609" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Converts all PHP errors into exceptions.">This method forces a sniff to stop processing if it is not
+able to handle a specific piece of code, instead of continuing
+and potentially getting into a loop.</description>
+      <param description="The level of error raised." type="int" variable="$code"/>
+      <param description="The error message." type="string" variable="$message"/>
+      <param description="The path of the file that raised the error." type="string" variable="$file"/>
+      <param description="The line number the error was raised at." type="int" variable="$line"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+      <throws type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\RuntimeException" namespace="\PHP_CodeSniffer\Exceptions" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="code" byreference="false" type="{unknown}"/>
+    <parameter name="message" byreference="false" type="{unknown}"/>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="line" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="processFile" start="620" end="701" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes a single file, including checking and fixing."/>
+      <param description="The file to be processed." type="object" variable="$file">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+      <throws type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\DeepExitException" namespace="\PHP_CodeSniffer\Exceptions" name="DeepExitException"/>
+      </throws>
+    </docblock>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end try" line="655"/>
+      <comment value="end if" line="696"/>
+      <comment value="Clean up the file to save (a lot of) memory." line="698"/>
+    </inline>
+  </method>
+  <method name="processChildProcs" start="714" end="774" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Waits for child processes to complete and cleans up after them.">The reporting information returned by each child process is merged
+into the main reporter class.</description>
+      <param description="An array of child processes to wait for." type="array" variable="$childProcs"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="childProcs" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end while" line="770"/>
+    </inline>
+  </method>
+  <method name="printProgress" start="787" end="887" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Print progress information for a single processed file."/>
+      <param description="The file that was processed." type="object" variable="$file">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The total number of files to process." type="int" variable="$numFiles"/>
+      <param description="The number of files that have been processed," type="int" variable="$numProcessed">including this one.</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="file" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="numFiles" byreference="false" type="{unknown}"/>
+    <parameter name="numProcessed" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Show progress information." line="795"/>
+      <comment value="end if" line="869"/>
+    </inline>
+  </method>
+</class>

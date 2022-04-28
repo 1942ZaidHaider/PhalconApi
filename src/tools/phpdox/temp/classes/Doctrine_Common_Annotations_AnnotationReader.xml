@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Doctrine\Common\Annotations\AnnotationReader" namespace="Doctrine\Common\Annotations" name="AnnotationReader" abstract="false" final="false" start="20" end="389">
+  <file path="../vendor/doctrine/annotations/lib/Doctrine/Common/Annotations" file="AnnotationReader.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php" size="11513" time="2021-08-05T19:00:23+00:00" unixtime="1628190023" sha1="132795e0a6f3ce2ab5cfb6603d72daeae08da384" relative="vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php"/>
+  <docblock>
+    <description compact="A reader for docblock annotations."/>
+  </docblock>
+  <implements full="Doctrine\Common\Annotations\Reader" namespace="Doctrine\Common\Annotations" name="Reader"/>
+  <member name="globalImports" default="" type="array" visibility="private" static="true" line="27">
+    <docblock>
+      <description compact="Global map for imports."/>
+      <var description="class-string&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="globalIgnoredNames" default="" type="{unknown}" constant="ImplicitlyIgnoredAnnotationNames::LIST" visibility="private" static="true" line="38">
+    <docblock>
+      <description compact="A list with annotations that are not causing exceptions when not resolved to an annotation class.">The names are case sensitive.</description>
+      <var description="true&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="globalIgnoredNamespaces" default="" type="array" visibility="private" static="true" line="47">
+    <docblock>
+      <description compact="A list with annotations that are not causing exceptions when not resolved to an annotation class.">The names are case sensitive.</description>
+      <var description="true&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="addGlobalIgnoredName" start="54" end="57" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Add a new annotation to the globally ignored annotation names with regard to exception handling."/>
+      <param type="string" variable="$name"/>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addGlobalIgnoredNamespace" start="64" end="67" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Add a new annotation to the globally ignored annotation namespaces with regard to exception handling."/>
+      <param type="string" variable="$namespace"/>
+    </docblock>
+    <parameter name="namespace" byreference="false" type="{unknown}"/>
+  </method>
+  <member name="parser" visibility="private" static="false" line="74">
+    <docblock>
+      <description compact="Annotations parser."/>
+      <var type="object">
+        <type full="Doctrine\Common\Annotations\DocParser" namespace="Doctrine\Common\Annotations" name="DocParser"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="preParser" visibility="private" static="false" line="81">
+    <docblock>
+      <description compact="Annotations parser used to collect parsing metadata."/>
+      <var type="object">
+        <type full="Doctrine\Common\Annotations\DocParser" namespace="Doctrine\Common\Annotations" name="DocParser"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="phpParser" visibility="private" static="false" line="88">
+    <docblock>
+      <description compact="PHP parser used to collect imports."/>
+      <var type="object">
+        <type full="Doctrine\Common\Annotations\PhpParser" namespace="Doctrine\Common\Annotations" name="PhpParser"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="imports" default="" type="array" visibility="private" static="false" line="95">
+    <docblock>
+      <description compact="In-memory cache mechanism to store imported annotations per class."/>
+      <psalm value="-var array&lt;'class'|'function', array&lt;string, array&lt;string, class-string&gt;&gt;&gt;"/>
+    </docblock>
+  </member>
+  <member name="ignoredAnnotationNames" default="" type="array" visibility="private" static="false" line="102">
+    <docblock>
+      <description compact="In-memory cache mechanism to store ignored annotations per class."/>
+      <psalm value="-var array&lt;'class'|'function', array&lt;string, array&lt;string, true&gt;&gt;&gt;"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="109" end="134" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initializes a new AnnotationReader."/>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+    </docblock>
+    <parameter name="parser" byreference="false" nullable="true" type="object" default="NULL">
+      <type full="Doctrine\Common\Annotations\DocParser" namespace="Doctrine\Common\Annotations" name="DocParser"/>
+    </parameter>
+    <inline>
+      <comment value="Make sure that the IgnoreAnnotation annotation is loaded" line="122"/>
+    </inline>
+  </constructor>
+  <method name="getClassAnnotations" start="139" end="147" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="class" byreference="false" type="object">
+      <type full="ReflectionClass" namespace="" name="ReflectionClass"/>
+    </parameter>
+  </method>
+  <method name="getClassAnnotation" start="152" end="163" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="class" byreference="false" type="object">
+      <type full="ReflectionClass" namespace="" name="ReflectionClass"/>
+    </parameter>
+    <parameter name="annotationName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getPropertyAnnotations" start="168" end="179" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="property" byreference="false" type="object">
+      <type full="ReflectionProperty" namespace="" name="ReflectionProperty"/>
+    </parameter>
+  </method>
+  <method name="getPropertyAnnotation" start="184" end="195" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="property" byreference="false" type="object">
+      <type full="ReflectionProperty" namespace="" name="ReflectionProperty"/>
+    </parameter>
+    <parameter name="annotationName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getMethodAnnotations" start="200" end="211" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="method" byreference="false" type="object">
+      <type full="ReflectionMethod" namespace="" name="ReflectionMethod"/>
+    </parameter>
+  </method>
+  <method name="getMethodAnnotation" start="216" end="227" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="method" byreference="false" type="object">
+      <type full="ReflectionMethod" namespace="" name="ReflectionMethod"/>
+    </parameter>
+    <parameter name="annotationName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getFunctionAnnotations" start="234" end="244" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the annotations applied to a function."/>
+      <phpstan value="-return list&lt;object&gt; An array of Annotations."/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="function" byreference="false" type="object">
+      <type full="ReflectionFunction" namespace="" name="ReflectionFunction"/>
+    </parameter>
+  </method>
+  <method name="getFunctionAnnotation" start="251" end="262" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets a function annotation."/>
+      <return description="The Annotation or NULL, if the requested annotation does not exist." type="object">
+        <type full="Doctrine\Common\Annotations\object|null" namespace="Doctrine\Common\Annotations" name="object|null"/>
+      </return>
+    </docblock>
+    <parameter name="function" byreference="false" type="object">
+      <type full="ReflectionFunction" namespace="" name="ReflectionFunction"/>
+    </parameter>
+    <parameter name="annotationName" byreference="false" type="string"/>
+  </method>
+  <method name="getIgnoredAnnotationNames" start="271" end="283" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns the ignored annotations for the given class or function."/>
+      <param type="object" variable="$reflection">
+        <type full="Doctrine\Common\Annotations\ReflectionClass|ReflectionFunction" namespace="Doctrine\Common\Annotations" name="ReflectionClass|ReflectionFunction"/>
+      </param>
+      <return description="true&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="reflection" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getImports" start="292" end="304" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Retrieves imports for a class or a function."/>
+      <param type="object" variable="$reflection">
+        <type full="Doctrine\Common\Annotations\ReflectionClass|ReflectionFunction" namespace="Doctrine\Common\Annotations" name="ReflectionClass|ReflectionFunction"/>
+      </param>
+      <return description="class-string&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="reflection" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getMethodImports" start="311" end="330" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Retrieves imports for methods."/>
+      <return description="class-string&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </return>
+    </docblock>
+    <parameter name="method" byreference="false" type="object">
+      <type full="ReflectionMethod" namespace="" name="ReflectionMethod"/>
+    </parameter>
+  </method>
+  <method name="getPropertyImports" start="337" end="353" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Retrieves imports for properties."/>
+      <return description="class-string&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </return>
+    </docblock>
+    <parameter name="property" byreference="false" type="object">
+      <type full="ReflectionProperty" namespace="" name="ReflectionProperty"/>
+    </parameter>
+  </method>
+  <method name="collectParsingMetadata" start="360" end="388" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Collects parsing metadata for a given class or function."/>
+      <param type="object" variable="$reflection">
+        <type full="Doctrine\Common\Annotations\ReflectionClass|ReflectionFunction" namespace="Doctrine\Common\Annotations" name="ReflectionClass|ReflectionFunction"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="reflection" byreference="false" type="{unknown}"/>
+  </method>
+  <interface full="Doctrine\Common\Annotations\Reader" namespace="Doctrine\Common\Annotations" name="Reader">
+    <method name="getClassAnnotations" start="22" end="22" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the annotations applied to a class."/>
+        <param description="The ReflectionClass of the class from which" type="object" variable="$class">the class annotations should be read.<type full="ReflectionClass" namespace="" name="ReflectionClass"/></param>
+        <return description="An array of Annotations." type="object">
+          <type full="Doctrine\Common\Annotations\array&lt;object&gt;" namespace="Doctrine\Common\Annotations" name="array&lt;object&gt;"/>
+        </return>
+      </docblock>
+      <parameter name="class" byreference="false" type="object">
+        <type full="ReflectionClass" namespace="" name="ReflectionClass"/>
+      </parameter>
+    </method>
+    <method name="getClassAnnotation" start="35" end="35" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets a class annotation."/>
+        <param description="The ReflectionClass of the class from which" type="object" variable="$class">the class annotations should be read.<type full="ReflectionClass" namespace="" name="ReflectionClass"/></param>
+        <param description="The name of the annotation." type="object" variable="$annotationName">
+          <type full="Doctrine\Common\Annotations\class-string&lt;T&gt;" namespace="Doctrine\Common\Annotations" name="class-string&lt;T&gt;"/>
+        </param>
+        <return description="The Annotation or NULL, if the requested annotation does not exist." type="object">
+          <type full="Doctrine\Common\Annotations\T|null" namespace="Doctrine\Common\Annotations" name="T|null"/>
+        </return>
+        <template value="T"/>
+      </docblock>
+      <parameter name="class" byreference="false" type="object">
+        <type full="ReflectionClass" namespace="" name="ReflectionClass"/>
+      </parameter>
+      <parameter name="annotationName" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getMethodAnnotations" start="45" end="45" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the annotations applied to a method."/>
+        <param description="The ReflectionMethod of the method from which" type="object" variable="$method">the annotations should be read.<type full="ReflectionMethod" namespace="" name="ReflectionMethod"/></param>
+        <return description="An array of Annotations." type="object">
+          <type full="Doctrine\Common\Annotations\array&lt;object&gt;" namespace="Doctrine\Common\Annotations" name="array&lt;object&gt;"/>
+        </return>
+      </docblock>
+      <parameter name="method" byreference="false" type="object">
+        <type full="ReflectionMethod" namespace="" name="ReflectionMethod"/>
+      </parameter>
+    </method>
+    <method name="getMethodAnnotation" start="57" end="57" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets a method annotation."/>
+        <param description="The ReflectionMethod to read the annotations from." type="object" variable="$method">
+          <type full="ReflectionMethod" namespace="" name="ReflectionMethod"/>
+        </param>
+        <param description="The name of the annotation." type="object" variable="$annotationName">
+          <type full="Doctrine\Common\Annotations\class-string&lt;T&gt;" namespace="Doctrine\Common\Annotations" name="class-string&lt;T&gt;"/>
+        </param>
+        <return description="The Annotation or NULL, if the requested annotation does not exist." type="object">
+          <type full="Doctrine\Common\Annotations\T|null" namespace="Doctrine\Common\Annotations" name="T|null"/>
+        </return>
+        <template value="T"/>
+      </docblock>
+      <parameter name="method" byreference="false" type="object">
+        <type full="ReflectionMethod" namespace="" name="ReflectionMethod"/>
+      </parameter>
+      <parameter name="annotationName" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getPropertyAnnotations" start="67" end="67" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the annotations applied to a property."/>
+        <param description="The ReflectionProperty of the property" type="object" variable="$property">from which the annotations should be read.<type full="ReflectionProperty" namespace="" name="ReflectionProperty"/></param>
+        <return description="An array of Annotations." type="object">
+          <type full="Doctrine\Common\Annotations\array&lt;object&gt;" namespace="Doctrine\Common\Annotations" name="array&lt;object&gt;"/>
+        </return>
+      </docblock>
+      <parameter name="property" byreference="false" type="object">
+        <type full="ReflectionProperty" namespace="" name="ReflectionProperty"/>
+      </parameter>
+    </method>
+    <method name="getPropertyAnnotation" start="79" end="79" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets a property annotation."/>
+        <param description="The ReflectionProperty to read the annotations from." type="object" variable="$property">
+          <type full="ReflectionProperty" namespace="" name="ReflectionProperty"/>
+        </param>
+        <param description="The name of the annotation." type="object" variable="$annotationName">
+          <type full="Doctrine\Common\Annotations\class-string&lt;T&gt;" namespace="Doctrine\Common\Annotations" name="class-string&lt;T&gt;"/>
+        </param>
+        <return description="The Annotation or NULL, if the requested annotation does not exist." type="object">
+          <type full="Doctrine\Common\Annotations\T|null" namespace="Doctrine\Common\Annotations" name="T|null"/>
+        </return>
+        <template value="T"/>
+      </docblock>
+      <parameter name="property" byreference="false" type="object">
+        <type full="ReflectionProperty" namespace="" name="ReflectionProperty"/>
+      </parameter>
+      <parameter name="annotationName" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\UnifiedSpecTests\ExpectedError" namespace="MongoDB\Tests\UnifiedSpecTests" name="ExpectedError" abstract="false" final="true" start="33" end="216">
+  <file path="../vendor/mongodb/mongodb/tests/UnifiedSpecTests" file="ExpectedError.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/UnifiedSpecTests/ExpectedError.php" size="6675" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="96ad0ce692264cafca67e95884cc681cca3bb4b8" relative="vendor/mongodb/mongodb/tests/UnifiedSpecTests/ExpectedError.php"/>
+  <member name="codeNameMap" default="" type="array" visibility="private" static="true" line="39">
+    <docblock>
+      <description/>
+      <see value="https://github.com/mongodb/mongo/blob/master/src/mongo/base/error_codes.err"/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="isError" default="false" type="boolean" visibility="private" static="false" line="48">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\bool" namespace="MongoDB\Tests\UnifiedSpecTests" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="isClientError" visibility="private" static="false" line="51">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\bool|null" namespace="MongoDB\Tests\UnifiedSpecTests" name="bool|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="messageContains" visibility="private" static="false" line="54">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\string|null" namespace="MongoDB\Tests\UnifiedSpecTests" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="code" visibility="private" static="false" line="57">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\int|null" namespace="MongoDB\Tests\UnifiedSpecTests" name="int|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="codeName" visibility="private" static="false" line="60">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\string|null" namespace="MongoDB\Tests\UnifiedSpecTests" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="includedLabels" default="" type="array" visibility="private" static="false" line="63">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="excludedLabels" default="" type="array" visibility="private" static="false" line="66">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="expectedResult" visibility="private" static="false" line="69">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\ExpectedResult|null" namespace="MongoDB\Tests\UnifiedSpecTests" name="ExpectedResult|null"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="71" end="118" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="o" byreference="false" nullable="true" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="entityMap" byreference="false" type="object">
+      <type full="MongoDB\Tests\UnifiedSpecTests\EntityMap" namespace="MongoDB\Tests\UnifiedSpecTests" name="EntityMap"/>
+    </parameter>
+  </constructor>
+  <method name="assert" start="125" end="173" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Assert the outcome of an operation."/>
+      <param description="Exception (if any) from executing an operation" type="object" variable="$e">
+        <type full="MongoDB\Tests\UnifiedSpecTests\Throwable|null" namespace="MongoDB\Tests\UnifiedSpecTests" name="Throwable|null"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="e" byreference="false" nullable="true" type="object" default="NULL">
+      <type full="Throwable" namespace="" name="Throwable"/>
+    </parameter>
+  </method>
+  <method name="assertIsClientError" start="175" end="188" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="e" byreference="false" type="object">
+      <type full="Throwable" namespace="" name="Throwable"/>
+    </parameter>
+    <inline>
+      <comment value="Note: BulkWriteException may proxy a previous exception. Unwrap it" line="177"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* to check the original error." line="178"/>
+    </inline>
+  </method>
+  <method name="assertCodeName" start="190" end="215" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="e" byreference="false" type="object">
+      <type full="MongoDB\Driver\Exception\ServerException" namespace="MongoDB\Driver\Exception" name="ServerException"/>
+    </parameter>
+    <inline>
+      <comment value="BulkWriteException and ExecutionTimeoutException do not expose" line="192"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="codeName. Work around this by translating it to a numeric code." line="193"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* TODO: Remove this once PHPC-1386 is resolved." line="194"/>
+    </inline>
+  </method>
+</class>

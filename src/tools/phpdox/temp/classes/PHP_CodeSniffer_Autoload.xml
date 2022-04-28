@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Autoload" namespace="PHP_CodeSniffer" name="Autoload" abstract="false" final="false" start="20" end="336">
+  <file path="../vendor/squizlabs/php_codesniffer" file="autoload.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/autoload.php" size="11887" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="7f1cc23fe5378f95f974e7e737c9faba3155797d" relative="vendor/squizlabs/php_codesniffer/autoload.php"/>
+  <member name="composerAutoloader" default="NULL" visibility="private" static="true" line="28">
+    <docblock>
+      <description compact="The composer autoloader."/>
+      <var type="object">
+        <type full="\Composer\Autoload\ClassLoader" namespace="\Composer\Autoload" name="ClassLoader"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="loadedClasses" default="" type="array" visibility="private" static="true" line="35">
+    <docblock>
+      <description compact="A mapping of file names to class names."/>
+      <var description="string&gt;" type="object">
+        <type full="PHP_CodeSniffer\array&lt;string" namespace="PHP_CodeSniffer" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="loadedFiles" default="" type="array" visibility="private" static="true" line="42">
+    <docblock>
+      <description compact="A mapping of class names to file names."/>
+      <var description="string&gt;" type="object">
+        <type full="PHP_CodeSniffer\array&lt;string" namespace="PHP_CodeSniffer" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="searchPaths" default="" type="array" visibility="private" static="true" line="51">
+    <docblock>
+      <description compact="A list of additional directories to search during autoloading.">This is typically a list of coding standard directories.</description>
+      <var type="array" of="object">
+        <type full="PHP_CodeSniffer\string" namespace="PHP_CodeSniffer" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="load" start="64" end="140" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Loads a class.">This method only loads classes that exist in the PHP_CodeSniffer namespace.
+All other classes are ignored and loaded by subsequent autoloaders.</description>
+      <param description="The name of the class to load." type="string" variable="$class"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="class" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Include the composer autoloader if there is one, but re-register it" line="66"/>
+      <comment value="so this autoloader runs before the composer one as we need to include" line="67"/>
+      <comment value="all files so we can figure out what the class/interface/trait name is." line="68"/>
+      <comment value="end if" line="91"/>
+      <comment value="See if the composer autoloader knows where the class is." line="111"/>
+      <comment value="See if the class is inside one of our alternate search paths." line="116"/>
+    </inline>
+  </method>
+  <method name="loadFile" start="150" end="183" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Includes a file and tracks what class or interface was loaded as a result."/>
+      <param description="The path of the file to load." type="string" variable="$path"/>
+      <return description="The fully qualified name of the class in the loaded file." type="string"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="determineLoadedClass" start="194" end="244" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Determine which class was loaded based on the before and after lists of loaded classes."/>
+      <param description="The classes/interfaces/traits before the file was included." type="array" variable="$classesBeforeLoad"/>
+      <param description="The classes/interfaces/traits after the file was included." type="array" variable="$classesAfterLoad"/>
+      <return description="The fully qualified name of the class in the loaded file." type="string"/>
+    </docblock>
+    <parameter name="classesBeforeLoad" byreference="false" type="{unknown}"/>
+    <parameter name="classesAfterLoad" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Since PHP 7.4 get_declared_classes() does not guarantee any order, making" line="203"/>
+      <comment value="it impossible to use order to determine which is the parent an which is the child." line="204"/>
+      <comment value="Let's reduce the list of candidates by removing all the classes known to be &quot;parents&quot;." line="205"/>
+      <comment value="That way, at the end, only the &quot;main&quot; class just included will remain." line="206"/>
+    </inline>
+  </method>
+  <method name="addSearchPath" start="255" end="259" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Adds a directory to search during autoloading."/>
+      <param description="The path to the directory to search." type="string" variable="$path"/>
+      <param description="The namespace prefix used by files under this path." type="string" variable="$nsPrefix"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="nsPrefix" byreference="false" type="string" default="''"/>
+  </method>
+  <method name="getSearchPaths" start="267" end="271" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Retrieve the namespaces and paths registered by external standards."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="getLoadedClassName" start="282" end="290" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Gets the class name for the given file path."/>
+      <param description="The name of the file." type="string" variable="$path"/>
+      <throws description="If the file path has not been loaded." type="object">
+        <type full="\Exception" namespace="" name="Exception"/>
+      </throws>
+      <return type="string"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getLoadedFileName" start="301" end="309" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Gets the file path for the given class name."/>
+      <param description="The name of the class." type="string" variable="$class"/>
+      <throws description="If the class name has not been loaded" type="object">
+        <type full="\Exception" namespace="" name="Exception"/>
+      </throws>
+      <return type="string"/>
+    </docblock>
+    <parameter name="class" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getLoadedClasses" start="317" end="321" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Gets the mapping of file names to class names."/>
+      <return description="string&gt;" type="object">
+        <type full="PHP_CodeSniffer\array&lt;string" namespace="PHP_CodeSniffer" name="array&lt;string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getLoadedFiles" start="329" end="333" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Gets the mapping of class names to file names."/>
+      <return description="string&gt;" type="object">
+        <type full="PHP_CodeSniffer\array&lt;string" namespace="PHP_CodeSniffer" name="array&lt;string"/>
+      </return>
+    </docblock>
+  </method>
+</class>

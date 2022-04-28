@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Diff\v2_0\Differ" namespace="PhpCsFixer\Diff\v2_0" name="Differ" abstract="false" final="true" start="19" end="321">
+  <file path="../vendor/php-cs-fixer/diff/src/v2_0" file="Differ.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/php-cs-fixer/diff/src/v2_0/Differ.php" size="9163" time="2020-10-14T08:39:05+00:00" unixtime="1602664745" sha1="3109f433b40543daf3449a84d8c7dc4058571436" relative="vendor/php-cs-fixer/diff/src/v2_0/Differ.php"/>
+  <docblock>
+    <description compact="Diff implementation."/>
+  </docblock>
+  <member name="outputBuilder" visibility="private" static="false" line="24">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Diff\v2_0\Output\DiffOutputBuilderInterface" namespace="PhpCsFixer\Diff\v2_0\Output" name="DiffOutputBuilderInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="31" end="50" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$outputBuilder">
+        <type full="PhpCsFixer\Diff\v2_0\Output\DiffOutputBuilderInterface" namespace="PhpCsFixer\Diff\v2_0\Output" name="DiffOutputBuilderInterface"/>
+      </param>
+      <throws type="object">
+        <type full="PhpCsFixer\Diff\v2_0\InvalidArgumentException" namespace="PhpCsFixer\Diff\v2_0" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="outputBuilder" byreference="false" type="{unknown}" default="NULL"/>
+  </constructor>
+  <method name="diff" start="61" end="68" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the diff between two arrays or strings as string."/>
+      <param type="object" variable="$from">
+        <type full="PhpCsFixer\Diff\v2_0\array|string" namespace="PhpCsFixer\Diff\v2_0" name="array|string"/>
+      </param>
+      <param type="object" variable="$to">
+        <type full="PhpCsFixer\Diff\v2_0\array|string" namespace="PhpCsFixer\Diff\v2_0" name="array|string"/>
+      </param>
+      <param type="object" variable="$lcs">
+        <type full="PhpCsFixer\Diff\v2_0\LongestCommonSubsequenceCalculator|null" namespace="PhpCsFixer\Diff\v2_0" name="LongestCommonSubsequenceCalculator|null"/>
+      </param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="from" byreference="false" type="{unknown}"/>
+    <parameter name="to" byreference="false" type="{unknown}"/>
+    <parameter name="lcs" byreference="false" type="object" default="NULL">
+      <type full="PhpCsFixer\Diff\v2_0\LongestCommonSubsequenceCalculator" namespace="PhpCsFixer\Diff\v2_0" name="LongestCommonSubsequenceCalculator"/>
+    </parameter>
+  </method>
+  <method name="validateDiffInput" start="77" end="84" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Casts variable to string if it is not a string or array."/>
+      <param type="mixed" variable="$input"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="diffToArray" start="103" end="165" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the diff between two arrays or strings as array.">Each array element contains two elements:
+  - [0] =&gt; mixed $token
+  - [1] =&gt; 2|1|0
+
+- 2: REMOVED: $token was removed from $from
+- 1: ADDED: $token was added to $from
+- 0: OLD: $token is not changed in $to</description>
+      <param type="object" variable="$from">
+        <type full="PhpCsFixer\Diff\v2_0\array|string" namespace="PhpCsFixer\Diff\v2_0" name="array|string"/>
+      </param>
+      <param type="object" variable="$to">
+        <type full="PhpCsFixer\Diff\v2_0\array|string" namespace="PhpCsFixer\Diff\v2_0" name="array|string"/>
+      </param>
+      <param type="object" variable="$lcs">
+        <type full="PhpCsFixer\Diff\v2_0\LongestCommonSubsequenceCalculator" namespace="PhpCsFixer\Diff\v2_0" name="LongestCommonSubsequenceCalculator"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="from" byreference="false" type="{unknown}"/>
+    <parameter name="to" byreference="false" type="{unknown}"/>
+    <parameter name="lcs" byreference="false" type="object" default="NULL">
+      <type full="PhpCsFixer\Diff\v2_0\LongestCommonSubsequenceCalculator" namespace="PhpCsFixer\Diff\v2_0" name="LongestCommonSubsequenceCalculator"/>
+    </parameter>
+  </method>
+  <method name="splitStringByLines" start="174" end="177" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Checks if input is string, if so it will split it line-by-line."/>
+      <param type="string" variable="$input"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="selectLcsImplementation" start="185" end="198" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$from"/>
+      <param type="array" variable="$to"/>
+      <return type="object">
+        <type full="PhpCsFixer\Diff\v2_0\LongestCommonSubsequenceCalculator" namespace="PhpCsFixer\Diff\v2_0" name="LongestCommonSubsequenceCalculator"/>
+      </return>
+    </docblock>
+    <parameter name="from" byreference="false" type="array"/>
+    <parameter name="to" byreference="false" type="array"/>
+    <inline>
+      <comment value="We do not want to use the time-efficient implementation if its memory" line="187"/>
+      <comment value="footprint will probably exceed this value. Note that the footprint" line="188"/>
+      <comment value="calculation is only an estimation for the matrix and the LCS method" line="189"/>
+      <comment value="will typically allocate a bit more memory than this." line="190"/>
+    </inline>
+  </method>
+  <method name="calculateEstimatedFootprint" start="208" end="213" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Calculates the estimated memory footprint for the DP-based method."/>
+      <param type="array" variable="$from"/>
+      <param type="array" variable="$to"/>
+      <return type="object">
+        <type full="PhpCsFixer\Diff\v2_0\int|float" namespace="PhpCsFixer\Diff\v2_0" name="int|float"/>
+      </return>
+    </docblock>
+    <parameter name="from" byreference="false" type="array"/>
+    <parameter name="to" byreference="false" type="array"/>
+  </method>
+  <method name="detectUnmatchedLineEndings" start="222" end="258" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns true if line ends don't match in a diff."/>
+      <param type="array" variable="$diff"/>
+      <return type="object">
+        <type full="PhpCsFixer\Diff\v2_0\bool" namespace="PhpCsFixer\Diff\v2_0" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="diff" byreference="false" type="array"/>
+    <inline>
+      <comment value="if either input or output is a single line without breaks than no warning should be raised" line="239"/>
+      <comment value="two way compare" line="244"/>
+    </inline>
+  </method>
+  <method name="getLinebreak" start="260" end="280" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="line" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getArrayDiffParted" start="282" end="320" abstract="false" final="false" static="true" visibility="private">
+    <parameter name="from" byreference="true" type="array"/>
+    <parameter name="to" byreference="true" type="array"/>
+  </method>
+</class>

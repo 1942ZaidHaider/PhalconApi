@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\Operation\WatchFunctionalTest" namespace="MongoDB\Tests\Operation" name="WatchFunctionalTest" abstract="false" final="false" start="39" end="1639">
+  <file path="../vendor/mongodb/mongodb/tests/Operation" file="WatchFunctionalTest.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/Operation/WatchFunctionalTest.php" size="66387" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="788a235355cacb4cda077338786736a52efd0bb3" relative="vendor/mongodb/mongodb/tests/Operation/WatchFunctionalTest.php"/>
+  <docblock>
+    <description/>
+    <group value="matrix-testing-exclude-server-4.2-driver-4.0-topology-sharded_cluster"/>
+    <group value="matrix-testing-exclude-server-4.4-driver-4.0-topology-sharded_cluster"/>
+    <group value="matrix-testing-exclude-server-5.0-driver-4.0-topology-sharded_cluster"/>
+  </docblock>
+  <extends full="MongoDB\Tests\Operation\FunctionalTestCase" namespace="MongoDB\Tests\Operation" name="FunctionalTestCase"/>
+  <constant type="integer" name="INTERRUPTED" value="11601"/>
+  <constant type="integer" name="NOT_PRIMARY" value="10107"/>
+  <member name="wireVersionForStartAtOperationTime" default="7" type="integer" visibility="private" static="true" line="45">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="defaultOptions" default="" type="array" visibility="private" static="false" line="48">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <method name="setUp" start="50" end="56" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testGetResumeToken" start="62" end="89" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 1: &quot;ChangeStream must continuously track the last seen resumeToken&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testGetResumeTokenWithPostBatchResumeToken" start="109" end="158" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 1: &quot;ChangeStream must continuously track the last seen resumeToken&quot;">Prose test 11:
+For a ChangeStream under these conditions:
+ - Running against a server &gt;=4.0.7.
+ - The batch is empty or has been iterated to the last document.
+Expected result: getResumeToken must return the postBatchResumeToken from
+the current command response.
+
+Prose test 13:
+For a ChangeStream under these conditions:
+ - The batch is not empty.
+ - The batch has been iterated up to but not including the last element.
+Expected result: getResumeToken must return the _id of the previous
+document returned.</description>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testNextResumesAfterConnectionException" start="160" end="205" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="In order to trigger a dropped connection, we'll use a new client with" line="164"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="a socket timeout that is less than the change stream's maxAwaitTimeMS" line="165"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* option." line="166"/>
+    </inline>
+  </method>
+  <method name="testResumeBeforeReceivingAnyResultsIncludesPostBatchResumeToken" start="207" end="262" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Original cursor is freed immediately after the change stream resumes" line="257"/>
+    </inline>
+  </method>
+  <method name="assertResumeAfter" start="264" end="272" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="expectedResumeToken" byreference="false" type="{unknown}"/>
+    <parameter name="command" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="testResumeBeforeReceivingAnyResultsIncludesStartAtOperationTime" start="279" end="341" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 9: &quot;$changeStream stage for ChangeStream against a server &gt;=4.0 and &lt;4.0.7 that has not received any results yet MUST include a startAtOperationTime option when resuming a changestream.&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Original cursor is freed immediately after the change stream resumes" line="336"/>
+    </inline>
+  </method>
+  <method name="assertStartAtOperationTime" start="343" end="351" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="expectedOperationTime" byreference="false" type="object">
+      <type full="MongoDB\BSON\TimestampInterface" namespace="MongoDB\BSON" name="TimestampInterface"/>
+    </parameter>
+    <parameter name="command" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="testRewindMultipleTimesWithResults" start="353" end="400" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Subsequent rewind does not change iterator state" line="370"/>
+      <comment value="Rewinding when the iterator is still at its first element is a NOP." line="383"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* Note: PHPLIB-448 may see rewind() throw after any call to next()" line="384"/>
+      <comment value="Rewinding after advancing the iterator is an error" line="397"/>
+    </inline>
+  </method>
+  <method name="testRewindMultipleTimesWithNoResults" start="402" end="435" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Subsequent rewind does not change iterator state" line="414"/>
+      <comment value="Rewinding when the iterator hasn't advanced to an element is a NOP." line="427"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* Note: PHPLIB-448 may see rewind() throw after any call to next()" line="428"/>
+    </inline>
+  </method>
+  <method name="testNoChangeAfterResumeBeforeInsert" start="437" end="479" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testResumeMultipleTimesInSuccession" start="481" end="600" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Forcing a resume when there are no results will test that neither" line="488"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="the initial rewind() nor a resume attempt via next() increment the" line="489"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* key." line="490"/>
+      <comment value="A consecutive resume attempt should still not increment the key" line="505"/>
+      <comment value="Insert a document and advance the change stream to ensure we capture" line="513"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="a resume token. This is necessary when startAtOperationTime is not" line="514"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* supported (i.e. 3.6 server version)." line="515"/>
+      <comment value="Insert another document and force a resume. ChangeStream::next()" line="532"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* should resume and pick up the last insert." line="533"/>
+      <comment value="Insert another document and kill the cursor. It is technically" line="551"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="permissable to call ChangeStream::rewind() since the previous call to" line="552"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="next() will have left the cursor positioned at its first and only" line="553"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="result. Assert that rewind() does not execute a getMore nor does it" line="554"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="modify the iterator's state." line="555"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* Note: PHPLIB-448 may require rewind() to throw an exception here." line="556"/>
+      <comment value="ChangeStream::next() should resume and pick up the last insert" line="568"/>
+      <comment value="Test one final, consecutive resume via ChangeStream::next()" line="583"/>
+    </inline>
+  </method>
+  <method name="testKey" start="602" end="639" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testNonEmptyPipeline" start="641" end="661" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testInitialCursorIsNotClosed" start="668" end="693" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 7: &quot;Ensure that a cursor returned from an aggregate command with a cursor id and an initial empty batch is not closed on the driver side.&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="The spec requests that we assert that the cursor returned from the" line="673"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="aggregate command is not closed on the driver side. We will verify" line="674"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="this by checking that the cursor ID is non-zero and that libmongoc" line="675"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="reports the cursor as alive. While the cursor ID is easily accessed" line="676"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="through ChangeStream, we'll need to use reflection to access the" line="677"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* internal Cursor and call isDead()." line="678"/>
+    </inline>
+  </method>
+  <method name="testResumeTokenNotFoundClientSideError" start="700" end="721" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 2: &quot;ChangeStream will throw an exception if the server response is missing the resume token (if wire version is &lt; 8, this is a driver-side error; for 8+, this is a server-side error)&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Insert two documents to ensure the client does not ignore the first" line="713"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* document's resume token in favor of a postBatchResumeToken" line="714"/>
+    </inline>
+  </method>
+  <method name="testResumeTokenNotFoundServerSideError" start="728" end="744" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 2: &quot;ChangeStream will throw an exception if the server response is missing the resume token (if wire version is &lt; 8, this is a driver-side error; for 8+, this is a server-side error)&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testResumeTokenInvalidTypeClientSideError" start="751" end="772" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 2: &quot;ChangeStream will throw an exception if the server response is missing the resume token (if wire version is &lt; 8, this is a driver-side error; for 8+, this is a server-side error)&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Insert two documents to ensure the client does not ignore the first" line="764"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* document's resume token in favor of a postBatchResumeToken" line="765"/>
+    </inline>
+  </method>
+  <method name="testResumeTokenInvalidTypeServerSideError" start="779" end="795" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 2: &quot;ChangeStream will throw an exception if the server response is missing the resume token (if wire version is &lt; 8, this is a driver-side error; for 8+, this is a server-side error)&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testMaxAwaitTimeMS" start="797" end="861" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="On average, an acknowledged write takes about 20 ms to appear in a" line="799"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="change stream on the server so we'll use a higher maxAwaitTimeMS to" line="800"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* ensure we see the write." line="801"/>
+      <comment value="Calculate an approximate pivot to use for time assertions. We will" line="804"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="assert that the duration of blocking responses is greater than this" line="805"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* value, and vice versa." line="806"/>
+      <comment value="Calculate an approximate upper bound to use for time assertions. We" line="809"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="will assert that the duration of blocking responses is less than this" line="810"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* value." line="811"/>
+      <comment value="Rewinding does not issue a getMore, so we should not expect a delay." line="817"/>
+      <comment value="Advancing again on a change stream will issue a getMore, so we should" line="825"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="expect a delay. Expect to wait at least maxAwaitTimeMS, since no new" line="826"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="documents will be inserted to wake up the server's query thread. Also" line="827"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* ensure we don't wait too long (server default is one second)." line="828"/>
+      <comment value="Advancing the change stream again will issue a getMore, but the" line="839"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="server should not block since a document has been inserted." line="840"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="For sharded clusters, we have to repeat the getMore iteration until" line="841"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="the cursor is valid since the first getMore commands after an insert" line="842"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="may not return any data. Only the time of the last getMore command is" line="843"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* taken." line="844"/>
+    </inline>
+  </method>
+  <method name="testRewindExtractsResumeTokenAndNextResumes" start="863" end="921" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Obtain a resume token for the first insert. This will allow us to" line="872"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="start a change stream from that point and ensure aggregate returns" line="873"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="the second insert in its first batch, which in turn will serve as a" line="874"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* resume token for rewind() to extract." line="875"/>
+    </inline>
+  </method>
+  <method name="testResumeAfterOption" start="923" end="963" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testStartAfterOption" start="965" end="1009" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testTypeMapOption" start="1014" end="1027" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <dataprovider value="provideTypeMapOptionsAndExpectedChangeDocument"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="typeMap" byreference="false" type="array"/>
+    <parameter name="expectedChangeDocument" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="provideTypeMapOptionsAndExpectedChangeDocument" start="1029" end="1061" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="Note: the &quot;_id&quot; and &quot;ns&quot; fields are purposefully omitted because the" line="1031"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="resume token's value cannot be anticipated and the collection name," line="1032"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="which is generated from the test name, is not available in the data" line="1033"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* provider, respectively." line="1034"/>
+    </inline>
+  </method>
+  <method name="testNextAdvancesKey" start="1063" end="1080" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Note: we intentionally do not start iteration with rewind() to ensure" line="1071"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* that next() behaves identically when called without rewind()." line="1072"/>
+    </inline>
+  </method>
+  <method name="testResumeTokenNotFoundDoesNotAdvanceKey" start="1082" end="1118" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testSessionPersistsAfterResume" start="1120" end="1177" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="We want to ensure that the lsid of the initial aggregate matches the" line="1129"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="lsid of any aggregates after the change stream resumes. After" line="1130"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="PHPC-1152 is complete, we will ensure that the lsid of the initial" line="1131"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="aggregate matches the lsid of any subsequent aggregates and getMores." line="1132"/>
+    </inline>
+  </method>
+  <method name="testSessionFreed" start="1179" end="1200" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Invalidate the cursor to verify that resumeCallable is unset when the cursor is exhausted." line="1194"/>
+    </inline>
+  </method>
+  <method name="testResumeRepeatsOriginalPipelineAndOptions" start="1207" end="1281" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 3: &quot;ChangeStream will automatically resume one time on a resumable error (including not primary) with the initial pipeline and options, except for the addition/update of a resumeToken.&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Ensure options in original and resuming aggregate command match" line="1279"/>
+    </inline>
+  </method>
+  <method name="testErrorDuringAggregateCommandDoesNotCauseResume" start="1287" end="1315" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 4: &quot;ChangeStream will not attempt to resume on any error encountered while executing an aggregate command.&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testOriginalReadPreferenceIsPreservedOnResume" start="1321" end="1354" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 6: &quot;ChangeStream will perform server selection before attempting to resume, using initial readPreference&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testGetResumeTokenReturnsOriginalResumeTokenOnEmptyBatch" start="1366" end="1389" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 12 For a ChangeStream under these conditions: - Running against a server &lt;4.0.7.">- The batch is empty or has been iterated to the last document.
+Expected result:
+- getResumeToken must return the _id of the last document returned if one exists.
+- getResumeToken must return resumeAfter from the initial aggregate if the option was specified.
+- If resumeAfter was not specified, the getResumeToken result must be empty.</description>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testResumeTokenBehaviour" start="1402" end="1453" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 14 For a ChangeStream under these conditions:  - The batch is not empty.">- The batch hasn’t been iterated at all.
+ - Only the initial aggregate command has been executed.
+Expected result:
+ - getResumeToken must return startAfter from the initial aggregate if the option was specified.
+ - getResumeToken must return resumeAfter from the initial aggregate if the option was specified.
+ - If neither the startAfter nor resumeAfter options were specified, the getResumeToken result must be empty.</description>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Test startAfter option" line="1433"/>
+      <comment value="Test resumeAfter option" line="1440"/>
+      <comment value="Test without option" line="1447"/>
+    </inline>
+  </method>
+  <method name="testResumingChangeStreamWithoutPreviousResultsIncludesStartAfterOption" start="1461" end="1500" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 17: &quot;$changeStream stage for ChangeStream started with startAfter against a server &gt;=4.1.1 that has not received any results yet MUST include a startAfter option and MUST NOT include a resumeAfter option when resuming a change stream.&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testResumingChangeStreamWithPreviousResultsIncludesResumeAfterOption" start="1508" end="1551" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prose test 18: &quot;$changeStream stage for ChangeStream started with startAfter against a server &gt;=4.1.1 that has received at least one result MUST include a resumeAfter option and MUST NOT include a startAfter option when resuming a change stream.&quot;"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="assertNoCommandExecuted" start="1553" end="1565" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="callable" byreference="false" type="callable"/>
+  </method>
+  <method name="forceChangeStreamResume" start="1567" end="1578" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="getPostBatchResumeTokenFromReply" start="1580" end="1588" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="reply" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="insertDocument" start="1590" end="1600" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="document" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isPostBatchResumeTokenSupported" start="1602" end="1605" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="isStartAtOperationTimeSupported" start="1607" end="1610" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="advanceCursorUntilValid" start="1612" end="1629" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="iterator" byreference="false" type="object">
+      <type full="Iterator" namespace="" name="Iterator"/>
+    </parameter>
+    <parameter name="limitOnShardedClusters" byreference="false" type="integer" default="10"/>
+  </method>
+  <method name="skipIfIsShardedCluster" start="1631" end="1638" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="message" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="MongoDB\Tests\Operation\FunctionalTestCase" namespace="MongoDB\Tests\Operation" name="FunctionalTestCase">
+    <extends full="MongoDB\Tests\FunctionalTestCase" namespace="MongoDB\Tests" name="FunctionalTestCase"/>
+    <method name="setUp" start="14" end="19" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="tearDown" start="21" end="30" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="createDefaultReadConcern" start="32" end="35" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="createDefaultWriteConcern" start="37" end="40" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="createSession" start="42" end="45" abstract="false" final="false" static="false" visibility="protected"/>
+  </parent>
+  <parent full="MongoDB\Tests\FunctionalTestCase" namespace="MongoDB\Tests" name="FunctionalTestCase">
+    <extends full="MongoDB\Tests\TestCase" namespace="MongoDB\Tests" name="TestCase"/>
+    <member name="manager" visibility="protected" static="false" line="52">
+      <docblock>
+        <var type="object">
+          <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+        </var>
+      </docblock>
+    </member>
+    <method name="setUp" start="57" end="63" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="tearDown" start="65" end="70" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="createTestClient" start="72" end="79" abstract="false" final="false" static="true" visibility="public">
+      <return type="object" nullable="false">
+        <type full="MongoDB\Client" namespace="MongoDB" name="Client"/>
+      </return>
+      <parameter name="uri" byreference="false" nullable="true" type="string" default="NULL"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+      <parameter name="driverOptions" byreference="false" type="array" default=""/>
+    </method>
+    <method name="createTestManager" start="81" end="88" abstract="false" final="false" static="true" visibility="public">
+      <return type="object" nullable="false">
+        <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+      </return>
+      <parameter name="uri" byreference="false" nullable="true" type="string" default="NULL"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+      <parameter name="driverOptions" byreference="false" type="array" default=""/>
+    </method>
+    <method name="getUri" start="90" end="149" abstract="false" final="false" static="true" visibility="public">
+      <return type="string" nullable="false"/>
+      <parameter name="allowMultipleMongoses" byreference="false" type="boolean" default="false"/>
+      <inline>
+        <comment value="Only modify URIs using the mongodb scheme" line="103"/>
+        <comment value="Re-append port to last host" line="119"/>
+      </inline>
+    </method>
+    <method name="assertCollectionCount" start="151" end="161" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+      <parameter name="namespace" byreference="false" type="{unknown}"/>
+      <parameter name="count" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="assertCollectionDoesNotExist" start="169" end="188" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Asserts that a collection with the given name does not exist on the server.">$databaseName defaults to TestCase::getDatabaseName() if unspecified.</description>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="collectionName" byreference="false" type="string"/>
+      <parameter name="databaseName" byreference="false" nullable="true" type="string" default="NULL"/>
+    </method>
+    <method name="assertCollectionExists" start="199" end="226" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Asserts that a collection with the given name exists on the server.">$databaseName defaults to TestCase::getDatabaseName() if unspecified.
+An optional $callback may be provided, which should take a CollectionInfo
+argument as its first and only parameter. If a CollectionInfo matching
+the given name is found, it will be passed to the callback, which may
+perform additional assertions.</description>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="collectionName" byreference="false" type="string"/>
+      <parameter name="databaseName" byreference="false" nullable="true" type="string" default="NULL"/>
+      <parameter name="callback" byreference="false" nullable="true" type="callable" default="NULL"/>
+    </method>
+    <method name="assertCommandSucceeded" start="228" end="234" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+      <parameter name="document" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="assertSameObjectId" start="236" end="241" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+      <parameter name="expectedObjectId" byreference="false" type="{unknown}"/>
+      <parameter name="actualObjectId" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="configureFailPoint" start="252" end="284" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Configure a fail point for the test.">The fail point will automatically be disabled during tearDown() to avoid
+affecting a subsequent test.</description>
+        <param description="configureFailPoint command document" type="object" variable="$command">
+          <type full="MongoDB\Tests\array|stdClass" namespace="MongoDB\Tests" name="array|stdClass"/>
+        </param>
+        <throws description="if $command is not a configureFailPoint command" type="object">
+          <type full="InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+        </throws>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="command" byreference="false" type="{unknown}"/>
+      <parameter name="server" byreference="false" nullable="true" type="object" default="NULL">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+      <inline>
+        <comment value="Record the fail point so it can be disabled during tearDown()" line="282"/>
+      </inline>
+    </method>
+    <method name="createCollection" start="295" end="301" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Creates the test collection with the specified options.">If the "writeConcern" option is not specified but is supported by the
+server, a majority write concern will be used. This is helpful for tests
+using transactions or secondary reads.</description>
+        <param type="array" variable="$options"/>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+    </method>
+    <method name="dropCollection" start="312" end="318" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Drops the test collection with the specified options.">If the "writeConcern" option is not specified but is supported by the
+server, a majority write concern will be used. This is helpful for tests
+using transactions or secondary reads.</description>
+        <param type="array" variable="$options"/>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+    </method>
+    <method name="getFeatureCompatibilityVersion" start="320" end="340" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="readPreference" byreference="false" nullable="true" type="object" default="NULL">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </parameter>
+    </method>
+    <method name="getPrimaryServer" start="342" end="345" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="getServerVersion" start="347" end="360" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="readPreference" byreference="false" nullable="true" type="object" default="NULL">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </parameter>
+    </method>
+    <method name="getServerStorageEngine" start="362" end="377" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="readPreference" byreference="false" nullable="true" type="object" default="NULL">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </parameter>
+    </method>
+    <method name="isLoadBalanced" start="379" end="382" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="isReplicaSet" start="384" end="387" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="isMongos" start="389" end="392" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="isServerless" start="397" end="402" abstract="false" final="false" static="true" visibility="protected">
+      <docblock>
+        <description compact="Return whether serverless (i.e. proxy as mongos) is being utilized."/>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="isShardedCluster" start="404" end="418" abstract="false" final="false" static="false" visibility="protected">
+      <inline>
+        <comment value="Assume that load balancers are properly configured and front sharded clusters" line="412"/>
+      </inline>
+    </method>
+    <method name="isShardedClusterUsingReplicasets" start="420" end="445" abstract="false" final="false" static="false" visibility="protected">
+      <inline>
+        <comment value="Assume serverless is a sharded cluster using replica sets" line="422"/>
+        <comment value="Use regular expression to distinguish between standalone or replicaset:" line="439"/>
+        <comment xmlns="http://xml.phpdox.net/src" value="Without a replicaset: &quot;host&quot; : &quot;localhost:4100&quot;" line="440"/>
+        <comment xmlns="http://xml.phpdox.net/src" value="With a replicaset: &quot;host&quot; : &quot;dec6d8a7-9bc1-4c0e-960c-615f860b956f/localhost:4400,localhost:4401&quot;" line="441"/>
+      </inline>
+    </method>
+    <method name="skipIfChangeStreamIsNotSupported" start="447" end="464" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="skipIfCausalConsistencyIsNotSupported" start="466" end="487" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="skipIfClientSideEncryptionIsNotSupported" start="489" end="498" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="skipIfGeoHaystackIndexIsNotSupported" start="500" end="505" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="skipIfTransactionsAreNotSupported" start="507" end="532" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+  </parent>
+  <parent full="MongoDB\Tests\TestCase" namespace="MongoDB\Tests" name="TestCase">
+    <extends full="PHPUnit\Framework\TestCase" namespace="PHPUnit\Framework" name="TestCase" unresolved="true"/>
+    <method name="getUri" start="41" end="44" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Return the connection URI."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="assertMatchesDocument" start="55" end="78" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Asserts that a document has expected values for some fields.">Only fields in the expected document will be checked. The actual document
+may contain additional fields.</description>
+        <param type="object" variable="$expectedDocument">
+          <type full="MongoDB\Tests\array|object" namespace="MongoDB\Tests" name="array|object"/>
+        </param>
+        <param type="object" variable="$actualDocument">
+          <type full="MongoDB\Tests\array|object" namespace="MongoDB\Tests" name="array|object"/>
+        </param>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="expectedDocument" byreference="false" type="{unknown}"/>
+      <parameter name="actualDocument" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="Avoid unsetting fields while we're iterating on the ArrayObject to" line="62"/>
+        <comment xmlns="http://xml.phpdox.net/src" value="* work around https://bugs.php.net/bug.php?id=70246" line="63"/>
+      </inline>
+    </method>
+    <method name="assertSameDocument" start="89" end="95" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Asserts that a document has expected values for all fields.">The actual document will be compared directly with the expected document
+and may not contain extra fields.</description>
+        <param type="object" variable="$expectedDocument">
+          <type full="MongoDB\Tests\array|object" namespace="MongoDB\Tests" name="array|object"/>
+        </param>
+        <param type="object" variable="$actualDocument">
+          <type full="MongoDB\Tests\array|object" namespace="MongoDB\Tests" name="array|object"/>
+        </param>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="expectedDocument" byreference="false" type="{unknown}"/>
+      <parameter name="actualDocument" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="assertSameDocuments" start="97" end="115" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+      <parameter name="expectedDocuments" byreference="false" type="array"/>
+      <parameter name="actualDocuments" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="dataDescription" start="120" end="125" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Compatibility method as PHPUnit 9 no longer includes this method."/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="provideInvalidArrayValues" start="127" end="130" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="provideInvalidDocumentValues" start="132" end="135" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="assertDeprecated" start="137" end="152" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+      <parameter name="execution" byreference="false" type="callable"/>
+    </method>
+    <method name="getCollectionName" start="159" end="164" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return the test collection name."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="getDatabaseName" start="171" end="174" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return the test database name."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="getInvalidArrayValues" start="183" end="186" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid array values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidBooleanValues" start="195" end="198" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid boolean values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidDocumentValues" start="207" end="210" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid document values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidIntegerValues" start="219" end="222" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid integer values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidReadConcernValues" start="231" end="234" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid ReadPreference values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidReadPreferenceValues" start="243" end="246" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid ReadPreference values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidSessionValues" start="255" end="258" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid Session values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidStringValues" start="267" end="270" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid string values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidWriteConcernValues" start="279" end="282" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid WriteConcern values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getNamespace" start="289" end="292" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return the test namespace."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="wrapValuesForDataProvider" start="300" end="305" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Wrap a list of values for use as a single-argument data provider."/>
+        <param description="List of values" type="array" variable="$values"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="values" byreference="false" type="array"/>
+    </method>
+  </parent>
+</class>

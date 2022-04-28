@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Repository\Pear\PackageDependencyParser" namespace="Composer\Repository\Pear" name="PackageDependencyParser" abstract="false" final="false" start="20" end="317">
+  <file path="../vendor/composer/composer/src/Composer/Repository/Pear" file="PackageDependencyParser.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Repository/Pear/PackageDependencyParser.php" size="10917" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="15611d8fa60f5dc476d20e4b95e8db428aa89c39" relative="vendor/composer/composer/src/Composer/Repository/Pear/PackageDependencyParser.php"/>
+  <docblock>
+    <description compact="Read PEAR packages using REST 1.0 interface"/>
+    <author value="Alexey Prilipko &lt;palex@farpost.com&gt;"/>
+  </docblock>
+  <method name="buildDependencyInfo" start="28" end="38" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Builds dependency information. It detects used package.xml format."/>
+      <param type="array" variable="$depArray"/>
+      <return type="object">
+        <type full="Composer\Repository\Pear\DependencyInfo" namespace="Composer\Repository\Pear" name="DependencyInfo"/>
+      </return>
+    </docblock>
+    <parameter name="depArray" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="buildDependency10Info" start="52" end="113" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Builds dependency information from package.xml 1.0 format">https://pear.php.net/manual/en/guide.developers.package2.dependencies.php
+
+package.xml 1.0 format consists of array of
+{ type="php|os|sapi|ext|pkg" rel="has|not|eq|ge|gt|le|lt" optional="yes"
+  channel="channelName" name="extName|packageName" }</description>
+      <param description="Dependency data in package.xml 1.0 format" type="array" variable="$depArray"/>
+      <return type="array" of="object">
+        <type full="Composer\Repository\Pear\DependencyConstraint" namespace="Composer\Repository\Pear" name="DependencyConstraint"/>
+      </return>
+    </docblock>
+    <parameter name="depArray" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="buildDependency20Info" start="121" end="185" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Builds dependency information from package.xml 2.0 format"/>
+      <param description="Dependency data in package.xml 1.0 format" type="array" variable="$depArray"/>
+      <return type="object">
+        <type full="Composer\Repository\Pear\DependencyInfo" namespace="Composer\Repository\Pear" name="DependencyInfo"/>
+      </return>
+    </docblock>
+    <parameter name="depArray" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="buildDepExtensionConstraints" start="194" end="215" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Builds dependency constraint of 'extension' type"/>
+      <param description="dependency constraint or array of dependency constraints" type="array" variable="$depItem"/>
+      <param description="target type of building constraint." type="string" variable="$depType"/>
+      <return type="array" of="object">
+        <type full="Composer\Repository\Pear\DependencyConstraint" namespace="Composer\Repository\Pear" name="DependencyConstraint"/>
+      </return>
+    </docblock>
+    <parameter name="depItem" byreference="false" type="{unknown}"/>
+    <parameter name="depType" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="buildDepPackageConstraints" start="224" end="251" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Builds dependency constraint of 'package' type"/>
+      <param description="dependency constraint or array of dependency constraints" type="array" variable="$depItem"/>
+      <param description="target type of building constraint." type="string" variable="$depType"/>
+      <return type="array" of="object">
+        <type full="Composer\Repository\Pear\DependencyConstraint" namespace="Composer\Repository\Pear" name="DependencyConstraint"/>
+      </return>
+    </docblock>
+    <parameter name="depItem" byreference="false" type="{unknown}"/>
+    <parameter name="depType" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="parse20VersionConstraint" start="259" end="285" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Parses version constraint"/>
+      <param description="array containing several 'min', 'max', 'has', 'exclude' and other keys." type="array" variable="$data"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="data" byreference="false" type="array"/>
+  </method>
+  <method name="parseVersion" start="293" end="305" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Softened version parser"/>
+      <param type="string" variable="$version"/>
+      <return type="object">
+        <type full="Composer\Repository\Pear\null|string" namespace="Composer\Repository\Pear" name="null|string"/>
+      </return>
+    </docblock>
+    <parameter name="version" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isHash" start="313" end="316" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Test if array is associative or hash type"/>
+      <param type="array" variable="$array"/>
+      <return type="object">
+        <type full="Composer\Repository\Pear\bool" namespace="Composer\Repository\Pear" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="array" byreference="false" type="array"/>
+  </method>
+</class>

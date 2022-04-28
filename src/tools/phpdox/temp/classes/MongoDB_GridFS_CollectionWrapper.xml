@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\GridFS\CollectionWrapper" namespace="MongoDB\GridFS" name="CollectionWrapper" abstract="false" final="false" start="40" end="389">
+  <file path="../vendor/mongodb/mongodb/src/GridFS" file="CollectionWrapper.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/GridFS/CollectionWrapper.php" size="10730" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="4807c0da1d7e42db3a483069057edf98715b3454" relative="vendor/mongodb/mongodb/src/GridFS/CollectionWrapper.php"/>
+  <docblock>
+    <description compact="CollectionWrapper abstracts the GridFS files and chunks collections."/>
+    <internal/>
+  </docblock>
+  <member name="bucketName" visibility="private" static="false" line="43">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="chunksCollection" visibility="private" static="false" line="46">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Collection" namespace="MongoDB" name="Collection"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="databaseName" visibility="private" static="false" line="49">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="checkedIndexes" default="false" type="boolean" visibility="private" static="false" line="52">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="filesCollection" visibility="private" static="false" line="55">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Collection" namespace="MongoDB" name="Collection"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="67" end="74" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a GridFS collection wrapper."/>
+      <see value="Collection::__construct() for supported options"/>
+      <param description="Manager instance from the driver" type="object" variable="$manager">
+        <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+      </param>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Bucket name" type="string" variable="$bucketName"/>
+      <param description="Collection options" type="array" variable="$collectionOptions"/>
+      <throws type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="manager" byreference="false" type="object">
+      <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="bucketName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionOptions" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="deleteChunksByFilesId" start="81" end="84" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Deletes all GridFS chunks for a given file ID."/>
+      <param type="mixed" variable="$id"/>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="deleteFileAndChunksById" start="91" end="95" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Deletes a GridFS file and related chunks by ID."/>
+      <param type="mixed" variable="$id"/>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="dropCollections" start="100" end="104" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Drops the GridFS files and chunks collections."/>
+    </docblock>
+  </method>
+  <method name="findChunksByFileId" start="113" end="125" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Finds GridFS chunk documents for a given file ID and optional offset."/>
+      <param description="File ID" type="mixed" variable="$id"/>
+      <param description="Starting chunk (inclusive)" type="integer" variable="$fromChunk"/>
+      <return type="object">
+        <type full="MongoDB\Driver\Cursor" namespace="MongoDB\Driver" name="Cursor"/>
+      </return>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+    <parameter name="fromChunk" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="findFileByFilenameAndRevision" start="145" end="166" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Finds a GridFS file document for a given filename and revision.">Revision numbers are defined as follows:
+
+ * 0 = the original stored file
+ * 1 = the first revision
+ * 2 = the second revision
+ * etc…
+ * -2 = the second most recent revision
+ * -1 = the most recent revision</description>
+      <see value="Bucket::downloadToStreamByName()"/>
+      <see value="Bucket::openDownloadStreamByName()"/>
+      <param type="string" variable="$filename"/>
+      <param type="integer" variable="$revision"/>
+      <return type="object">
+        <type full="MongoDB\GridFS\stdClass|null" namespace="MongoDB\GridFS" name="stdClass|null"/>
+      </return>
+    </docblock>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+    <parameter name="revision" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="findFileById" start="174" end="180" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Finds a GridFS file document for a given ID."/>
+      <param type="mixed" variable="$id"/>
+      <return type="object">
+        <type full="MongoDB\GridFS\stdClass|null" namespace="MongoDB\GridFS" name="stdClass|null"/>
+      </return>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="findFiles" start="190" end="193" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Finds documents from the GridFS bucket's files collection."/>
+      <see value="Find::__construct() for supported options"/>
+      <param description="Query by which to filter documents" type="object" variable="$filter">
+        <type full="MongoDB\GridFS\array|object" namespace="MongoDB\GridFS" name="array|object"/>
+      </param>
+      <param description="Additional options" type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\Driver\Cursor" namespace="MongoDB\Driver" name="Cursor"/>
+      </return>
+    </docblock>
+    <parameter name="filter" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="findOneFile" start="202" end="205" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Finds a single document from the GridFS bucket's files collection."/>
+      <param description="Query by which to filter documents" type="object" variable="$filter">
+        <type full="MongoDB\GridFS\array|object" namespace="MongoDB\GridFS" name="array|object"/>
+      </param>
+      <param description="Additional options" type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\GridFS\array|object|null" namespace="MongoDB\GridFS" name="array|object|null"/>
+      </return>
+    </docblock>
+    <parameter name="filter" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getBucketName" start="212" end="215" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the bucket name."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getChunksCollection" start="222" end="225" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the chunks collection."/>
+      <return type="object">
+        <type full="MongoDB\Collection" namespace="MongoDB" name="Collection"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getDatabaseName" start="232" end="235" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the database name."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getFilesCollection" start="242" end="245" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the files collection."/>
+      <return type="object">
+        <type full="MongoDB\Collection" namespace="MongoDB" name="Collection"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="insertChunk" start="252" end="259" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Inserts a document into the chunks collection."/>
+      <param description="Chunk document" type="object" variable="$chunk">
+        <type full="MongoDB\GridFS\array|object" namespace="MongoDB\GridFS" name="array|object"/>
+      </param>
+    </docblock>
+    <parameter name="chunk" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="insertFile" start="268" end="275" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Inserts a document into the files collection.">The file document should be inserted after all chunks have been inserted.</description>
+      <param description="File document" type="object" variable="$file">
+        <type full="MongoDB\GridFS\array|object" namespace="MongoDB\GridFS" name="array|object"/>
+      </param>
+    </docblock>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="updateFilenameForId" start="284" end="290" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Updates the filename field in the file document for a given ID."/>
+      <param type="mixed" variable="$id"/>
+      <param type="string" variable="$filename"/>
+      <return type="object">
+        <type full="MongoDB\UpdateResult" namespace="MongoDB" name="UpdateResult"/>
+      </return>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="ensureChunksIndex" start="295" end="306" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create an index on the chunks collection if it does not already exist."/>
+    </docblock>
+  </method>
+  <method name="ensureFilesIndex" start="311" end="322" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create an index on the files collection if it does not already exist."/>
+    </docblock>
+  </method>
+  <method name="ensureIndexes" start="330" end="344" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Ensure indexes on the files and chunks collections exist.">This method is called once before the first write operation on a GridFS
+bucket. Indexes are only be created if the files collection is empty.</description>
+    </docblock>
+  </method>
+  <method name="indexKeysMatch" start="346" end="374" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="expectedKeys" byreference="false" type="array"/>
+    <parameter name="actualKeys" byreference="false" type="array"/>
+  </method>
+  <method name="isFilesCollectionEmpty" start="381" end="388" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns whether the files collection is empty."/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+</class>

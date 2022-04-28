@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Diff\v3_0\Output\UnifiedDiffOutputBuilder" namespace="PhpCsFixer\Diff\v3_0\Output" name="UnifiedDiffOutputBuilder" abstract="false" final="true" start="18" end="259">
+  <file path="../vendor/php-cs-fixer/diff/src/v3_0/Output" file="UnifiedDiffOutputBuilder.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/php-cs-fixer/diff/src/v3_0/Output/UnifiedDiffOutputBuilder.php" size="8173" time="2020-10-14T08:39:05+00:00" unixtime="1602664745" sha1="1b67885a77c7cbd9405b48a8938ae62cfc5baf71" relative="vendor/php-cs-fixer/diff/src/v3_0/Output/UnifiedDiffOutputBuilder.php"/>
+  <docblock>
+    <description compact="Builds a diff string representation in unified diff format in chunks."/>
+  </docblock>
+  <extends full="PhpCsFixer\Diff\v3_0\Output\AbstractChunkOutputBuilder" namespace="PhpCsFixer\Diff\v3_0\Output" name="AbstractChunkOutputBuilder"/>
+  <member name="collapseRanges" default="true" type="boolean" visibility="private" static="false" line="23">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Diff\v3_0\Output\bool" namespace="PhpCsFixer\Diff\v3_0\Output" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="commonLineThreshold" default="6" type="integer" visibility="private" static="false" line="28">
+    <docblock>
+      <description/>
+      <var description="&gt;= 0" type="int"/>
+    </docblock>
+  </member>
+  <member name="contextLines" default="3" type="integer" visibility="private" static="false" line="33">
+    <docblock>
+      <description/>
+      <var description="&gt;= 0" type="int"/>
+    </docblock>
+  </member>
+  <member name="header" visibility="private" static="false" line="38">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="addLineNumbers" visibility="private" static="false" line="43">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Diff\v3_0\Output\bool" namespace="PhpCsFixer\Diff\v3_0\Output" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="45" end="49" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="header" byreference="false" type="string" default="&quot;--- Original\n+++ New\n&quot;"/>
+    <parameter name="addLineNumbers" byreference="false" type="boolean" default="false"/>
+  </constructor>
+  <method name="getDiff" start="51" end="78" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="diff" byreference="false" type="array"/>
+    <inline>
+      <comment value="If the diff is non-empty and a linebreak: add it." line="70"/>
+      <comment value="This might happen when both the `from` and `to` do not have a trailing linebreak" line="71"/>
+    </inline>
+  </method>
+  <method name="writeDiffHunks" start="80" end="216" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="output" byreference="false" type="{unknown}"/>
+    <parameter name="diff" byreference="false" type="array"/>
+    <inline>
+      <comment value="detect &quot;No newline at end of file&quot; and insert into `$diff` if needed" line="82"/>
+      <comment value="write hunks to output buffer" line="110"/>
+      <comment value="we end here when cutoff (commonLineThreshold) was not reached, but we where capturing a hunk," line="191"/>
+      <comment value="do not render hunk till end automatically because the number of context lines might be less than the commonLineThreshold" line="192"/>
+      <comment value="prevent trying to write out more common lines than there are in the diff _and_" line="199"/>
+      <comment value="do not write more than configured through the context lines" line="200"/>
+    </inline>
+  </method>
+  <method name="writeHunk" start="218" end="258" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="diff" byreference="false" type="array"/>
+    <parameter name="diffStartIndex" byreference="false" type="{unknown}"/>
+    <parameter name="diffEndIndex" byreference="false" type="{unknown}"/>
+    <parameter name="fromStart" byreference="false" type="{unknown}"/>
+    <parameter name="fromRange" byreference="false" type="{unknown}"/>
+    <parameter name="toStart" byreference="false" type="{unknown}"/>
+    <parameter name="toRange" byreference="false" type="{unknown}"/>
+    <parameter name="output" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="PhpCsFixer\Diff\v3_0\Output\AbstractChunkOutputBuilder" namespace="PhpCsFixer\Diff\v3_0\Output" name="AbstractChunkOutputBuilder">
+    <implements full="PhpCsFixer\Diff\v3_0\Output\DiffOutputBuilderInterface" namespace="PhpCsFixer\Diff\v3_0\Output" name="DiffOutputBuilderInterface"/>
+    <method name="getCommonChunks" start="24" end="55" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Takes input of the diff array and returns the common parts.">Iterates through diff line by line.</description>
+        <param type="array" variable="$diff"/>
+        <param type="int" variable="$lineThreshold"/>
+        <return type="array"/>
+      </docblock>
+      <parameter name="diff" byreference="false" type="array"/>
+      <parameter name="lineThreshold" byreference="false" type="integer" default="5"/>
+    </method>
+  </parent>
+  <interface full="PhpCsFixer\Diff\v3_0\Output\DiffOutputBuilderInterface" namespace="PhpCsFixer\Diff\v3_0\Output" name="DiffOutputBuilderInterface">
+    <method name="getDiff" start="19" end="19" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="diff" byreference="false" type="array"/>
+    </method>
+  </interface>
+</class>

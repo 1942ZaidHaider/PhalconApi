@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\CommandObserver" namespace="MongoDB\Tests" name="CommandObserver" abstract="false" final="false" start="18" end="59">
+  <file path="../vendor/mongodb/mongodb/tests" file="CommandObserver.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/CommandObserver.php" size="1539" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="d2af21d15076e9eb874f376f0bdc059318c11c1f" relative="vendor/mongodb/mongodb/tests/CommandObserver.php"/>
+  <docblock>
+    <description compact="Observes command documents using the driver's monitoring API."/>
+  </docblock>
+  <implements full="MongoDB\Driver\Monitoring\CommandSubscriber" namespace="MongoDB\Driver\Monitoring" name="CommandSubscriber"/>
+  <member name="commands" default="" type="array" visibility="private" static="false" line="21">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <method name="observe" start="23" end="43" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="execution" byreference="false" type="callable"/>
+    <parameter name="commandCallback" byreference="false" type="callable"/>
+  </method>
+  <method name="commandStarted" start="45" end="48" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandStartedEvent" namespace="MongoDB\Driver\Monitoring" name="CommandStartedEvent"/>
+    </parameter>
+  </method>
+  <method name="commandSucceeded" start="50" end="53" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandSucceededEvent" namespace="MongoDB\Driver\Monitoring" name="CommandSucceededEvent"/>
+    </parameter>
+  </method>
+  <method name="commandFailed" start="55" end="58" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandFailedEvent" namespace="MongoDB\Driver\Monitoring" name="CommandFailedEvent"/>
+    </parameter>
+  </method>
+  <interface full="MongoDB\Driver\Monitoring\CommandSubscriber" namespace="MongoDB\Driver\Monitoring" name="CommandSubscriber">
+    <implements full="MongoDB\Driver\Monitoring\Subscriber" namespace="MongoDB\Driver\Monitoring" name="Subscriber"/>
+    <method name="commandFailed" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a failed command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandFailedEvent"/>
+  </method>
+    <method name="commandStarted" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a started command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandStartedEvent"/>
+  </method>
+    <method name="commandSucceeded" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a successful command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandSucceededEvent"/>
+  </method>
+  </interface>
+  <parent full="MongoDB\Driver\Monitoring\Subscriber" namespace="MongoDB\Driver\Monitoring" name="Subscriber"/>
+</class>

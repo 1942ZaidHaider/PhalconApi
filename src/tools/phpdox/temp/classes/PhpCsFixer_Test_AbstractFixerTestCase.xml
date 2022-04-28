@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Test\AbstractFixerTestCase" namespace="PhpCsFixer\Test" name="AbstractFixerTestCase" abstract="true" final="false" start="23" end="36">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Test" file="AbstractFixerTestCase.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Test/AbstractFixerTestCase.php" size="1002" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="691c40a65aef58abe5d4528b359db876fabdf8c8" relative="vendor/friendsofphp/php-cs-fixer/src/Test/AbstractFixerTestCase.php"/>
+  <docblock>
+    <description/>
+    <todo value="3.0 While removing, remove loading `tests/Test` from `autoload` section of `composer.json`."/>
+    <deprecated value="since v2.4"/>
+  </docblock>
+  <extends full="PhpCsFixer\Tests\Test\AbstractFixerTestCase" namespace="PhpCsFixer\Tests\Test" name="AbstractFixerTestCase"/>
+  <constructor name="__construct" start="25" end="35" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="name" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="data" byreference="false" type="array" default=""/>
+    <parameter name="dataName" byreference="false" type="string" default="''"/>
+  </constructor>
+  <parent full="PhpCsFixer\Tests\Test\AbstractFixerTestCase" namespace="PhpCsFixer\Tests\Test" name="AbstractFixerTestCase">
+    <extends full="PhpCsFixer\Tests\TestCase" namespace="PhpCsFixer\Tests" name="TestCase"/>
+    <uses full="PhpCsFixer\Tests\Test\Assert\AssertTokensTrait" namespace="PhpCsFixer\Tests\Test\Assert" name="AssertTokensTrait"/>
+    <uses full="PhpCsFixer\Tests\Test\IsIdenticalConstraint" namespace="PhpCsFixer\Tests\Test" name="IsIdenticalConstraint"/>
+    <member name="linter" visibility="protected" static="false" line="52">
+      <docblock>
+        <description/>
+        <var type="object">
+          <type full="PhpCsFixer\Tests\Test\null|LinterInterface" namespace="PhpCsFixer\Tests\Test" name="null|LinterInterface"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="fixer" visibility="protected" static="false" line="57">
+      <docblock>
+        <description/>
+        <var type="object">
+          <type full="PhpCsFixer\Tests\Test\null|AbstractFixer" namespace="PhpCsFixer\Tests\Test" name="null|AbstractFixer"/>
+        </var>
+      </docblock>
+    </member>
+    <method name="doSetUp" start="70" end="81" abstract="false" final="false" static="false" visibility="protected">
+      <inline>
+        <todo value="remove at 3.0 together with env var itself" line="77"/>
+      </inline>
+    </method>
+    <method name="doTearDown" start="83" end="92" abstract="false" final="false" static="false" visibility="protected">
+      <inline>
+        <todo value="remove at 3.0" line="90"/>
+      </inline>
+    </method>
+    <method name="testIsRisky" start="94" end="115" abstract="false" final="true" static="false" visibility="public">
+      <inline>
+        <comment value="If fixer is not risky then the method `isRisky` from `AbstractFixer` must be used" line="110"/>
+      </inline>
+    </method>
+    <method name="testFixerDefinitions" start="117" end="218" abstract="false" final="true" static="false" visibility="public"/>
+    <method name="testLegacyFixerDefinitions" start="223" end="231" abstract="false" final="true" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <group value="legacy"/>
+      </docblock>
+    </method>
+    <method name="testFixersAreFinal" start="233" end="241" abstract="false" final="true" static="false" visibility="public"/>
+    <method name="testFixersAreDefined" start="243" end="246" abstract="false" final="true" static="false" visibility="public"/>
+    <method name="testDeprecatedFixersHaveCorrectSummary" start="248" end="264" abstract="false" final="true" static="false" visibility="public"/>
+    <method name="testFixerUseInsertSlicesWhenOnlyInsertionsArePerformed" start="269" end="341" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Blur filter that find candidate fixer for performance optimization to use only `insertSlices` instead of multiple `insertAt` if there is no other collection manipulation."/>
+      </docblock>
+      <inline>
+        <comment value="if there is no `insertAt`, it's not a candidate" line="282"/>
+      </inline>
+    </method>
+    <method name="testFixerConfigurationDefinitions" start="343" end="377" abstract="false" final="true" static="false" visibility="public"/>
+    <method name="testFixersReturnTypes" start="379" end="401" abstract="false" final="true" static="false" visibility="public"/>
+    <method name="createFixer" start="406" end="411" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description/>
+        <return type="object">
+          <type full="PhpCsFixer\AbstractFixer" namespace="PhpCsFixer" name="AbstractFixer"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getTestFile" start="418" end="427" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description/>
+        <param type="string" variable="$filename"/>
+        <return type="object">
+          <type full="\SplFileInfo" namespace="" name="SplFileInfo"/>
+        </return>
+      </docblock>
+      <parameter name="filename" byreference="false" type="string" default="" constant="__FILE__"/>
+    </method>
+    <method name="doTest" start="443" end="503" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Tests if a fixer fixes a given string to match the expected result.">It is used both if you want to test if something is fixed or if it is not touched by the fixer.
+It also makes sure that the expected output does not change when run through the fixer. That means that you
+do not need two test cases like [$expected] and [$expected, $input] (where $expected is the same in both cases)
+as the latter covers both of them.
+This method throws an exception if $expected and $input are equal to prevent test cases that accidentally do
+not test anything.</description>
+        <param description="The expected fixer output" type="string" variable="$expected"/>
+        <param description="The fixer input, or null if it should intentionally be equal to the output" type="object" variable="$input">
+          <type full="PhpCsFixer\Tests\Test\null|string" namespace="PhpCsFixer\Tests\Test" name="null|string"/>
+        </param>
+        <param description="The file to fix, or null if unneeded" type="object" variable="$file">
+          <type full="PhpCsFixer\Tests\Test\null|\SplFileInfo" namespace="PhpCsFixer\Tests\Test\null|" name="SplFileInfo"/>
+        </param>
+      </docblock>
+      <parameter name="expected" byreference="false" type="{unknown}"/>
+      <parameter name="input" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="file" byreference="false" type="object" default="NULL">
+        <type full="SplFileInfo" namespace="" name="SplFileInfo"/>
+      </parameter>
+    </method>
+    <method name="lintSource" start="510" end="519" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description/>
+        <param type="string" variable="$source"/>
+        <return type="object">
+          <type full="PhpCsFixer\Tests\Test\null|string" namespace="PhpCsFixer\Tests\Test" name="null|string"/>
+        </return>
+      </docblock>
+      <parameter name="source" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+  <parent full="PhpCsFixer\Tests\TestCase" namespace="PhpCsFixer\Tests" name="TestCase">
+    <extends full="LegacyPHPUnit\TestCase" namespace="LegacyPHPUnit" name="TestCase" unresolved="true"/>
+  </parent>
+  <trait full="PhpCsFixer\Tests\Test\Assert\AssertTokensTrait" namespace="PhpCsFixer\Tests\Test\Assert" name="AssertTokensTrait"/>
+  <trait full="PhpCsFixer\Tests\Test\IsIdenticalConstraint" namespace="PhpCsFixer\Tests\Test" name="IsIdenticalConstraint"/>
+</class>

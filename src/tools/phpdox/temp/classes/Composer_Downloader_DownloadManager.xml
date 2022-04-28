@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager" abstract="false" final="false" start="24" end="325">
+  <file path="../vendor/composer/composer/src/Composer/Downloader" file="DownloadManager.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Downloader/DownloadManager.php" size="10584" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="9ce766c818b89a7984de272002fdd1093a0e9870" relative="vendor/composer/composer/src/Composer/Downloader/DownloadManager.php"/>
+  <docblock>
+    <description compact="Downloaders manager."/>
+    <author value="Konstantin Kudryashov &lt;ever.zet@gmail.com&gt;"/>
+  </docblock>
+  <member name="io" visibility="private" static="false" line="26"/>
+  <member name="preferDist" default="false" type="boolean" visibility="private" static="false" line="27"/>
+  <member name="preferSource" default="false" type="boolean" visibility="private" static="false" line="28"/>
+  <member name="packagePreferences" default="" type="array" visibility="private" static="false" line="29"/>
+  <member name="filesystem" visibility="private" static="false" line="30"/>
+  <member name="downloaders" default="" type="array" visibility="private" static="false" line="31"/>
+  <constructor name="__construct" start="40" end="45" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initializes download manager."/>
+      <param description="The Input Output Interface" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param description="prefer downloading from source" type="object" variable="$preferSource">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </param>
+      <param description="custom Filesystem object" type="object" variable="$filesystem">
+        <type full="Composer\Downloader\Filesystem|null" namespace="Composer\Downloader" name="Filesystem|null"/>
+      </param>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="preferSource" byreference="false" type="boolean" default="false"/>
+    <parameter name="filesystem" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+    </parameter>
+  </constructor>
+  <method name="setPreferSource" start="53" end="58" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Makes downloader prefer source installation over the dist."/>
+      <param description="prefer downloading from source" type="object" variable="$preferSource">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </return>
+    </docblock>
+    <parameter name="preferSource" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setPreferDist" start="66" end="71" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Makes downloader prefer dist installation over the source."/>
+      <param description="prefer downloading from dist" type="object" variable="$preferDist">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </return>
+    </docblock>
+    <parameter name="preferDist" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setPreferences" start="79" end="84" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets fine tuned preference settings for package level source/dist selection."/>
+      <param description="array of preferences by package patterns" type="array" variable="$preferences"/>
+      <return type="object">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </return>
+    </docblock>
+    <parameter name="preferences" byreference="false" type="array"/>
+  </method>
+  <method name="setOutputProgress" start="93" end="100" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets whether to output download progress information for all registered downloaders"/>
+      <param type="object" variable="$outputProgress">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </return>
+    </docblock>
+    <parameter name="outputProgress" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setDownloader" start="109" end="115" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets installer downloader for a specific installation type."/>
+      <param description="installation type" type="string" variable="$type"/>
+      <param description="downloader instance" type="object" variable="$downloader">
+        <type full="Composer\Downloader\DownloaderInterface" namespace="Composer\Downloader" name="DownloaderInterface"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </return>
+    </docblock>
+    <parameter name="type" byreference="false" type="{unknown}"/>
+    <parameter name="downloader" byreference="false" type="object">
+      <type full="Composer\Downloader\DownloaderInterface" namespace="Composer\Downloader" name="DownloaderInterface"/>
+    </parameter>
+  </method>
+  <method name="getDownloader" start="124" end="132" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns downloader for a specific installation type."/>
+      <param description="installation type" type="string" variable="$type"/>
+      <throws description="if downloader for provided type is not registered" type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <return type="object">
+        <type full="Composer\Downloader\DownloaderInterface" namespace="Composer\Downloader" name="DownloaderInterface"/>
+      </return>
+    </docblock>
+    <parameter name="type" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getDownloaderForInstalledPackage" start="143" end="172" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns downloader for already installed package."/>
+      <param description="package instance" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <throws description="if package has no installation source specified" type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="if specific downloader used to load package with" type="object">wrong type<type full="\LogicException" namespace="" name="LogicException"/></throws>
+      <return type="object">
+        <type full="Composer\Downloader\DownloaderInterface|null" namespace="Composer\Downloader" name="DownloaderInterface|null"/>
+      </return>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="download" start="184" end="232" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Downloads package into target dir."/>
+      <param description="package instance" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="target dir" type="string" variable="$targetDir"/>
+      <param description="prefer installation from source" type="object" variable="$preferSource">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </param>
+      <throws description="if package have no urls to download from" type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="targetDir" byreference="false" type="{unknown}"/>
+    <parameter name="preferSource" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="update" start="243" end="287" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Updates package from initial to target version."/>
+      <param description="initial package version" type="object" variable="$initial">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="target package version" type="object" variable="$target">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="target dir" type="string" variable="$targetDir"/>
+      <throws description="if initial package is not installed" type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="initial" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="target" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="targetDir" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="upgrading from a dist stable package to a dev package, force source reinstall" line="260"/>
+    </inline>
+  </method>
+  <method name="remove" start="295" end="301" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Removes package from target dir."/>
+      <param description="package instance" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="target dir" type="string" variable="$targetDir"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="targetDir" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="resolvePackageInstallPreference" start="310" end="324" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Determines the install preference of a package"/>
+      <param description="package instance" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+</class>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Nette\Utils\Reflection" namespace="Nette\Utils" name="Reflection" abstract="false" final="true" start="18" end="425">
+  <file path="../vendor/nette/utils/src/Utils" file="Reflection.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/nette/utils/src/Utils/Reflection.php" size="11899" time="2022-01-24T11:29:14+00:00" unixtime="1643023754" sha1="9d23e9cb9239498e88ea1b436fa005a0d628f405" relative="vendor/nette/utils/src/Utils/Reflection.php"/>
+  <docblock>
+    <description compact="PHP reflection helpers."/>
+  </docblock>
+  <uses full="Nette\StaticClass" namespace="Nette" name="StaticClass" start="20" end="20"/>
+  <constant type="array" name="BUILTIN_TYPES" value=""/>
+  <constant type="array" name="CLASS_KEYWORDS" value=""/>
+  <method name="isBuiltinType" start="36" end="39" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Determines if type is PHP built-in type. Otherwise, it is the class name."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="type" byreference="false" type="string"/>
+  </method>
+  <method name="isClassKeyword" start="45" end="48" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Determines if type is special class name self/parent/static."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="getReturnType" start="56" end="60" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the type of return value of given function or method and normalizes `self`, `static`, and `parent` to actual class names.">If the function does not have a return type, it returns null.
+If the function has union or intersection type, it throws Nette\InvalidStateException.</description>
+    </docblock>
+    <return type="string" nullable="true"/>
+    <parameter name="func" byreference="false" type="object">
+      <type full="ReflectionFunctionAbstract" namespace="" name="ReflectionFunctionAbstract"/>
+    </parameter>
+  </method>
+  <method name="getReturnTypes" start="66" end="70" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <deprecated/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="func" byreference="false" type="object">
+      <type full="ReflectionFunctionAbstract" namespace="" name="ReflectionFunctionAbstract"/>
+    </parameter>
+  </method>
+  <method name="getParameterType" start="78" end="81" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the type of given parameter and normalizes `self` and `parent` to the actual class names.">If the parameter does not have a type, it returns null.
+If the parameter has union or intersection type, it throws Nette\InvalidStateException.</description>
+    </docblock>
+    <return type="string" nullable="true"/>
+    <parameter name="param" byreference="false" type="object">
+      <type full="ReflectionParameter" namespace="" name="ReflectionParameter"/>
+    </parameter>
+  </method>
+  <method name="getParameterTypes" start="87" end="91" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <deprecated/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="param" byreference="false" type="object">
+      <type full="ReflectionParameter" namespace="" name="ReflectionParameter"/>
+    </parameter>
+  </method>
+  <method name="getPropertyType" start="99" end="102" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the type of given property and normalizes `self` and `parent` to the actual class names.">If the property does not have a type, it returns null.
+If the property has union or intersection type, it throws Nette\InvalidStateException.</description>
+    </docblock>
+    <return type="string" nullable="true"/>
+    <parameter name="prop" byreference="false" type="object">
+      <type full="ReflectionProperty" namespace="" name="ReflectionProperty"/>
+    </parameter>
+  </method>
+  <method name="getPropertyTypes" start="108" end="112" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <deprecated/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="prop" byreference="false" type="object">
+      <type full="ReflectionProperty" namespace="" name="ReflectionProperty"/>
+    </parameter>
+  </method>
+  <method name="getType" start="118" end="132" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$reflection">
+        <type full="\ReflectionFunction|\ReflectionMethod|\ReflectionParameter|\ReflectionProperty" namespace="\ReflectionFunction|\ReflectionMethod|\ReflectionParameter|" name="ReflectionProperty"/>
+      </param>
+    </docblock>
+    <return type="string" nullable="true"/>
+    <parameter name="reflection" byreference="false" type="{unknown}"/>
+    <parameter name="type" byreference="false" nullable="true" type="object">
+      <type full="ReflectionType" namespace="" name="ReflectionType"/>
+    </parameter>
+  </method>
+  <method name="getParameterDefaultValue" start="140" end="168" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the default value of parameter. If it is a constant, it returns its value."/>
+      <return type="mixed"/>
+      <throws description="If the parameter does not have a default value or the constant cannot be resolved" type="object">
+        <type full="\ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+    </docblock>
+    <parameter name="param" byreference="false" type="object">
+      <type full="ReflectionParameter" namespace="" name="ReflectionParameter"/>
+    </parameter>
+  </method>
+  <method name="getPropertyDeclaringClass" start="174" end="186" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns a reflection of a class or trait that contains a declaration of given property. Property can also be declared in the trait."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="ReflectionClass" namespace="" name="ReflectionClass"/>
+    </return>
+    <parameter name="prop" byreference="false" type="object">
+      <type full="ReflectionProperty" namespace="" name="ReflectionProperty"/>
+    </parameter>
+  </method>
+  <method name="getMethodDeclaringMethod" start="193" end="222" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns a reflection of a method that contains a declaration of $method.">Usually, each method is its own declaration, but the body of the method can also be in the trait and under a different name.</description>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="ReflectionMethod" namespace="" name="ReflectionMethod"/>
+    </return>
+    <parameter name="method" byreference="false" type="object">
+      <type full="ReflectionMethod" namespace="" name="ReflectionMethod"/>
+    </parameter>
+    <inline>
+      <comment value="file &amp; line guessing as workaround for insufficient PHP reflection" line="195"/>
+    </inline>
+  </method>
+  <method name="areCommentsAvailable" start="228" end="232" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Finds out if reflection has access to PHPdoc comments. Comments may not be available due to the opcode cache."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="toString" start="235" end="250" abstract="false" final="false" static="true" visibility="public">
+    <return type="string" nullable="false"/>
+    <parameter name="ref" byreference="false" type="object">
+      <type full="Reflector" namespace="" name="Reflector"/>
+    </parameter>
+  </method>
+  <method name="expandClassName" start="258" end="291" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Expands the name of the class to full name in the given context of given class.">Thus, it returns how the PHP parser would understand $name if it were written in the body of the class $context.</description>
+      <throws type="object">
+        <type full="Nette\Utils\Nette\InvalidArgumentException" namespace="Nette\Utils\Nette" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="name" byreference="false" type="string"/>
+    <parameter name="context" byreference="false" type="object">
+      <type full="ReflectionClass" namespace="" name="ReflectionClass"/>
+    </parameter>
+  </method>
+  <method name="getUseStatements" start="295" end="312" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <return description="of [alias =&gt; class]" type="array"/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="class" byreference="false" type="object">
+      <type full="ReflectionClass" namespace="" name="ReflectionClass"/>
+    </parameter>
+  </method>
+  <method name="parseUseStatements" start="318" end="406" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Parses PHP code to [class =&gt; [alias =&gt; class, ...]]"/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="code" byreference="false" type="string"/>
+    <parameter name="forClass" byreference="false" nullable="true" type="string" default="NULL"/>
+  </method>
+  <method name="fetch" start="409" end="424" abstract="false" final="false" static="true" visibility="private">
+    <return type="string" nullable="true"/>
+    <parameter name="tokens" byreference="true" type="array"/>
+    <parameter name="take" byreference="false" type="{unknown}"/>
+  </method>
+  <trait full="Nette\StaticClass" namespace="Nette" name="StaticClass">
+    <constructor name="__construct" start="22" end="25" abstract="false" final="true" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return type="object">
+          <type full="Nette\never" namespace="Nette" name="never"/>
+        </return>
+        <throws type="object">
+          <type full="\Error" namespace="" name="Error"/>
+        </throws>
+      </docblock>
+    </constructor>
+    <method name="__callStatic" start="33" end="36" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Call to undefined static method."/>
+        <return type="object">
+          <type full="Nette\void" namespace="Nette" name="void"/>
+        </return>
+        <throws type="object">
+          <type full="Nette\MemberAccessException" namespace="Nette" name="MemberAccessException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+      <parameter name="args" byreference="false" type="array"/>
+    </method>
+  </trait>
+</class>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Doctrine\Common\Annotations\TokenParser" namespace="Doctrine\Common\Annotations" name="TokenParser" abstract="false" final="false" start="26" end="208">
+  <file path="../vendor/doctrine/annotations/lib/Doctrine/Common/Annotations" file="TokenParser.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/TokenParser.php" size="6320" time="2021-08-05T19:00:23+00:00" unixtime="1628190023" sha1="8b3eb48d22792c2fc9af802c61aa96d772191b90" relative="vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/TokenParser.php"/>
+  <docblock>
+    <description compact="Parses a file for namespaces/use/class declarations."/>
+  </docblock>
+  <member name="tokens" visibility="private" static="false" line="33">
+    <docblock>
+      <description compact="The token list."/>
+      <phpstan value="-var list&lt;mixed[]&gt;"/>
+    </docblock>
+  </member>
+  <member name="numTokens" visibility="private" static="false" line="40">
+    <docblock>
+      <description compact="The number of tokens."/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="pointer" default="0" type="integer" visibility="private" static="false" line="47">
+    <docblock>
+      <description compact="The current array pointer."/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="52" end="66" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$contents"/>
+    </docblock>
+    <parameter name="contents" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="The PHP parser sets internal compiler globals for certain things. Annoyingly, the last docblock comment it" line="56"/>
+      <comment value="saw gets stored in doc_comment. When it comes to compile the next thing to be include()d this stored" line="57"/>
+      <comment value="doc_comment becomes owned by the first thing the compiler sees in the file that it considers might have a" line="58"/>
+      <comment value="docblock. If the first thing in the file is a class without a doc block this would cause calls to" line="59"/>
+      <comment value="getDocBlock() on said class to return our long lost doc_comment. Argh." line="60"/>
+      <comment value="To workaround, cause the parser to parse an empty docblock. Sure getDocBlock() will return this, but at least" line="61"/>
+      <comment value="it's harmless to us." line="62"/>
+    </inline>
+  </constructor>
+  <method name="next" start="76" end="92" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the next non whitespace and non comment token."/>
+      <param description="If TRUE then a doc comment is considered a comment and skipped." type="object" variable="$docCommentIsComment">If FALSE then only whitespace and normal comments are skipped.<type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/></param>
+      <return description="The token if exists, null otherwise." type="array" of="object">
+        <type full="Doctrine\Common\Annotations\mixed[]|string|nu" namespace="Doctrine\Common\Annotations" name="mixed[]|string|nu"/>
+      </return>
+    </docblock>
+    <parameter name="docCommentIsComment" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="parseUseStatement" start="99" end="145" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Parses a single use statement."/>
+      <return description="string&gt; A list with all found class names for a use statement." type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="parseUseStatements" start="154" end="174" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets all use statements."/>
+      <param description="The namespace name of the reflected class." type="string" variable="$namespaceName"/>
+      <return description="string&gt; A list with all found use statements." type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </return>
+    </docblock>
+    <parameter name="namespaceName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="parseNamespace" start="181" end="194" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the namespace."/>
+      <return description="The found namespace." type="string"/>
+    </docblock>
+  </method>
+  <method name="parseClass" start="201" end="207" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the class name."/>
+      <return description="The found class name." type="string"/>
+    </docblock>
+    <inline>
+      <comment value="Namespaces and class names are tokenized the same: T_STRINGs" line="203"/>
+      <comment value="separated by T_NS_SEPARATOR so we can use one function to provide" line="204"/>
+      <comment value="both." line="205"/>
+    </inline>
+  </method>
+</class>

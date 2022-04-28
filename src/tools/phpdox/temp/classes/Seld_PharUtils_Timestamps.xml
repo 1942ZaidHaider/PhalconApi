@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Seld\PharUtils\Timestamps" namespace="Seld\PharUtils" name="Timestamps" abstract="false" final="false" start="14" end="192">
+  <file path="../vendor/seld/phar-utils/src" file="Timestamps.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/seld/phar-utils/src/Timestamps.php" size="5671" time="2021-12-10T11:20:11+00:00" unixtime="1639135211" sha1="6778f23ea12579f36253fba8754800597975f355" relative="vendor/seld/phar-utils/src/Timestamps.php"/>
+  <member name="contents" visibility="private" static="false" line="16"/>
+  <constructor name="__construct" start="21" end="24" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="path to the phar file to use" type="string" variable="$file"/>
+    </docblock>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="updateTimestamps" start="33" end="90" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Updates each file's unix timestamps in the PHAR">The PHAR signature can then be produced in a reproducible manner.</description>
+      <param description="Date string or DateTime or unix timestamp to use" type="object" variable="$timestamp">
+        <type full="Seld\PharUtils\int|\DateTimeInterface|string" namespace="Seld\PharUtils\int|" name="DateTimeInterface|string"/>
+      </param>
+    </docblock>
+    <parameter name="timestamp" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="detect manifest offset / end of stub" line="43"/>
+      <comment value="set starting position and skip past manifest length" line="48"/>
+      <comment value="skip API version (YOLO)" line="56"/>
+      <comment value="skip PHAR flags" line="59"/>
+    </inline>
+  </method>
+  <method name="save" start="99" end="126" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Saves the updated phar file, optionally with an updated signature."/>
+      <param type="string" variable="$path"/>
+      <param description="One of Phar::MD5, Phar::SHA1, Phar::SHA256 or Phar::SHA512" type="int" variable="$signatureAlgo"/>
+      <return type="object">
+        <type full="Seld\PharUtils\bool" namespace="Seld\PharUtils" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="signatureAlgo" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="re-sign phar" line="115"/>
+      <comment value="signature" line="116"/>
+    </inline>
+  </method>
+  <method name="readUint" start="128" end="133" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="pos" byreference="false" type="{unknown}"/>
+    <parameter name="bytes" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="determineSignatureBegin" start="140" end="191" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Determine the beginning of the signature."/>
+      <return type="int"/>
+    </docblock>
+    <inline>
+      <comment value="detect signature position" line="142"/>
+      <comment value="set starting position and skip past manifest length" line="147"/>
+      <comment value="skip API version (YOLO)" line="156"/>
+      <comment value="skip PHAR flags" line="159"/>
+    </inline>
+  </method>
+</class>

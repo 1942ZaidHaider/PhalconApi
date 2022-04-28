@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="Symfony\Component\EventDispatcher\EventDispatcherInterface" namespace="Symfony\Component\EventDispatcher" name="EventDispatcherInterface" abstract="false" final="false" start="23" end="70">
+  <file path="../vendor/symfony/event-dispatcher" file="EventDispatcherInterface.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/event-dispatcher/EventDispatcherInterface.php" size="2168" time="2022-01-02T09:53:40+00:00" unixtime="1641117220" sha1="f3a98c29f0e05b22b8dcf68bb436f271e509a645" relative="vendor/symfony/event-dispatcher/EventDispatcherInterface.php"/>
+  <docblock>
+    <description compact="The EventDispatcherInterface is the central point of Symfony's event listener system.">Listeners are registered on the manager and events are dispatched through the
+manager.</description>
+    <author value="Bernhard Schussek &lt;bschussek@gmail.com&gt;"/>
+  </docblock>
+  <extends full="Symfony\Contracts\EventDispatcher\EventDispatcherInterface" namespace="Symfony\Contracts\EventDispatcher" name="EventDispatcherInterface" unresolved="true"/>
+  <method name="addListener" start="31" end="31" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds an event listener that listens on the specified events."/>
+      <param description="The higher this value, the earlier an event" type="int" variable="$priority">listener will be triggered in the chain (defaults to 0)</param>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="string"/>
+    <parameter name="listener" byreference="false" type="callable"/>
+    <parameter name="priority" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="addSubscriber" start="39" end="39" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds an event subscriber.">The subscriber is asked for all the events it is
+interested in and added as a listener for these events.</description>
+    </docblock>
+    <parameter name="subscriber" byreference="false" type="object">
+      <type full="Symfony\Component\EventDispatcher\EventSubscriberInterface" namespace="Symfony\Component\EventDispatcher" name="EventSubscriberInterface"/>
+    </parameter>
+  </method>
+  <method name="removeListener" start="44" end="44" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Removes an event listener from the specified events."/>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="string"/>
+    <parameter name="listener" byreference="false" type="callable"/>
+  </method>
+  <method name="removeSubscriber" start="46" end="46" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="subscriber" byreference="false" type="object">
+      <type full="Symfony\Component\EventDispatcher\EventSubscriberInterface" namespace="Symfony\Component\EventDispatcher" name="EventSubscriberInterface"/>
+    </parameter>
+  </method>
+  <method name="getListeners" start="53" end="53" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the listeners of a specific event or all listeners sorted by descending priority."/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\EventDispatcher\array&lt;callable[]|callabl" namespace="Symfony\Component\EventDispatcher" name="array&lt;callable[]|callabl"/>
+      </return>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="getListenerPriority" start="62" end="62" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the listener priority for a specific event.">Returns null if the event or the listener does not exist.</description>
+      <return type="object">
+        <type full="Symfony\Component\EventDispatcher\int|null" namespace="Symfony\Component\EventDispatcher" name="int|null"/>
+      </return>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="string"/>
+    <parameter name="listener" byreference="false" type="callable"/>
+  </method>
+  <method name="hasListeners" start="69" end="69" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks whether an event has any registered listeners."/>
+      <return type="object">
+        <type full="Symfony\Component\EventDispatcher\bool" namespace="Symfony\Component\EventDispatcher" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="string" default="NULL"/>
+  </method>
+</interface>

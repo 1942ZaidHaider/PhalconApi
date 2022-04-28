@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Console\Event\ConsoleCommandEvent" namespace="Symfony\Component\Console\Event" name="ConsoleCommandEvent" abstract="false" final="true" start="19" end="51">
+  <file path="../vendor/symfony/console/Event" file="ConsoleCommandEvent.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/console/Event/ConsoleCommandEvent.php" size="1223" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="1a5c2788f7f92fa2bd35a99bd0b1b06431e567dc" relative="vendor/symfony/console/Event/ConsoleCommandEvent.php"/>
+  <docblock>
+    <description compact="Allows to do things before the command is executed, like skipping the command or changing the input."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+  </docblock>
+  <extends full="Symfony\Component\Console\Event\ConsoleEvent" namespace="Symfony\Component\Console\Event" name="ConsoleEvent"/>
+  <constant type="integer" name="RETURN_CODE_DISABLED" value="113">
+    <docblock>
+      <description compact="The return code for skipped commands, this will also be passed into the terminate event."/>
+    </docblock>
+  </constant>
+  <member name="commandShouldRun" default="true" type="boolean" visibility="private" static="false" line="29">
+    <docblock>
+      <description compact="Indicates if the command should be run or skipped."/>
+    </docblock>
+  </member>
+  <method name="disableCommand" start="34" end="37" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Disables the command, so it won't be run."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="enableCommand" start="39" end="42" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="commandShouldRun" start="47" end="50" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true if the command is runnable, false otherwise."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <parent full="Symfony\Component\Console\Event\ConsoleEvent" namespace="Symfony\Component\Console\Event" name="ConsoleEvent">
+    <extends full="Symfony\Contracts\EventDispatcher\Event" namespace="Symfony\Contracts\EventDispatcher" name="Event"/>
+    <member name="command" visibility="protected" static="false" line="26"/>
+    <constructor name="__construct" start="31" end="36" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="command" byreference="false" nullable="true" type="object">
+        <type full="Symfony\Component\Console\Command\Command" namespace="Symfony\Component\Console\Command" name="Command"/>
+      </parameter>
+      <parameter name="input" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+      </parameter>
+      <parameter name="output" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+      </parameter>
+    </constructor>
+    <method name="getCommand" start="43" end="46" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the command that is executed."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Event\Command|null" namespace="Symfony\Component\Console\Event" name="Command|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getInput" start="53" end="56" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the input instance."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getOutput" start="63" end="66" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the output instance."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+        </return>
+      </docblock>
+    </method>
+  </parent>
+  <parent full="Symfony\Contracts\EventDispatcher\Event" namespace="Symfony\Contracts\EventDispatcher" name="Event">
+    <implements full="Psr\EventDispatcher\StoppableEventInterface" namespace="Psr\EventDispatcher" name="StoppableEventInterface"/>
+    <method name="isPropagationStopped" start="38" end="41" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="stopPropagation" start="50" end="53" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Stops the propagation of the event to further event listeners.">If multiple event listeners are connected to the same event, no
+further event listener will be triggered once any trigger calls
+stopPropagation().</description>
+      </docblock>
+      <return type="void" nullable="false"/>
+    </method>
+  </parent>
+  <interface full="Psr\EventDispatcher\StoppableEventInterface" namespace="Psr\EventDispatcher" name="StoppableEventInterface">
+    <method name="isPropagationStopped" start="25" end="25" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Is propagation stopped?">This will typically only be used by the Dispatcher to determine if the
+previous listener halted propagation.</description>
+        <return type="object">True if the Event is complete and no further listeners should be called.
+  False to continue calling listeners.<type full="Psr\EventDispatcher\bool" namespace="Psr\EventDispatcher" name="bool"/></return>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+  </interface>
+</class>

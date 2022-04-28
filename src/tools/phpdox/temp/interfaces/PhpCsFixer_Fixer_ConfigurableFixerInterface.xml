@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Fixer\ConfigurableFixerInterface" namespace="PhpCsFixer\Fixer" name="ConfigurableFixerInterface" abstract="false" final="false" start="23" end="51">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Fixer" file="ConfigurableFixerInterface.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Fixer/ConfigurableFixerInterface.php" size="1600" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="f3b6c9dbc82bb9c13c410910d5caf8da7053fe28" relative="vendor/friendsofphp/php-cs-fixer/src/Fixer/ConfigurableFixerInterface.php"/>
+  <docblock>
+    <description/>
+    <author value="Dariusz Rumiński &lt;dariusz.ruminski@gmail.com&gt;"/>
+    <author value="SpacePossum"/>
+    <todo value="Will incorporate `ConfigurationDefinitionFixerInterface` in 3.0"/>
+  </docblock>
+  <extends full="PhpCsFixer\Fixer\FixerInterface" namespace="PhpCsFixer\Fixer" name="FixerInterface"/>
+  <method name="configure" start="41" end="41" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set configuration.">New configuration must override current one, not patch it.
+Using `null` makes fixer to use default configuration (or reset configuration from previously configured back
+to default one).
+
+Some fixers may have no configuration, then - simply pass null.
+Other ones may have configuration that will change behavior of fixer,
+eg `php_unit_strict` fixer allows to configure which methods should be fixed.
+Finally, some fixers need configuration to work, eg `header_comment`.</description>
+      <param description="configuration depends on Fixer" type="object" variable="$configuration">
+        <type full="PhpCsFixer\Fixer\null|array" namespace="PhpCsFixer\Fixer" name="null|array"/>
+      </param>
+      <throws type="object">
+        <type full="PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException" namespace="PhpCsFixer\ConfigurationException" name="InvalidFixerConfigurationException"/>
+      </throws>
+    </docblock>
+    <parameter name="configuration" byreference="false" type="array" default="NULL"/>
+  </method>
+  <parent full="PhpCsFixer\Fixer\FixerInterface" namespace="PhpCsFixer\Fixer" name="FixerInterface">
+    <method name="isCandidate" start="34" end="34" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Check if the fixer is a candidate for given Tokens collection.">Fixer is a candidate when the collection contains tokens that may be fixed
+during fixer work. This could be considered as some kind of bloom filter.
+When this method returns true then to the Tokens collection may or may not
+need a fixing, but when this method returns false then the Tokens collection
+need no fixing for sure.</description>
+        <return type="object">
+          <type full="PhpCsFixer\Fixer\bool" namespace="PhpCsFixer\Fixer" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="tokens" byreference="false" type="object">
+        <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+      </parameter>
+    </method>
+    <method name="isRisky" start="43" end="43" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Check if fixer is risky or not.">Risky fixer could change code behavior!</description>
+        <return type="object">
+          <type full="PhpCsFixer\Fixer\bool" namespace="PhpCsFixer\Fixer" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="fix" start="51" end="51" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Fixes a file."/>
+        <param description="A \SplFileInfo instance" type="object" variable="$file">
+          <type full="\SplFileInfo" namespace="" name="SplFileInfo"/>
+        </param>
+        <param description="Tokens collection" type="object" variable="$tokens">
+          <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+        </param>
+      </docblock>
+      <parameter name="file" byreference="false" type="object">
+        <type full="SplFileInfo" namespace="" name="SplFileInfo"/>
+      </parameter>
+      <parameter name="tokens" byreference="false" type="object">
+        <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+      </parameter>
+    </method>
+    <method name="getName" start="60" end="60" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the name of the fixer.">The name must be all lowercase and without any spaces.</description>
+        <return description="The name of the fixer" type="string"/>
+      </docblock>
+    </method>
+    <method name="getPriority" start="69" end="69" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the priority of the fixer.">The default priority is 0 and higher priorities are executed first.</description>
+        <return type="int"/>
+      </docblock>
+    </method>
+    <method name="supports" start="76" end="76" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns true if the file is supported by this fixer."/>
+        <return description="true if the file is supported by this fixer, false otherwise" type="object">
+          <type full="PhpCsFixer\Fixer\bool" namespace="PhpCsFixer\Fixer" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="file" byreference="false" type="object">
+        <type full="SplFileInfo" namespace="" name="SplFileInfo"/>
+      </parameter>
+    </method>
+  </parent>
+  <extenders>
+    <extender full="PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface" namespace="PhpCsFixer\Fixer" name="ConfigurationDefinitionFixerInterface"/>
+  </extenders>
+</interface>

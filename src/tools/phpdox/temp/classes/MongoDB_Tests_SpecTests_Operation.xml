@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\SpecTests\Operation" namespace="MongoDB\Tests\SpecTests" name="Operation" abstract="false" final="true" start="34" end="934">
+  <file path="../vendor/mongodb/mongodb/tests/SpecTests" file="Operation.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/SpecTests/Operation.php" size="31713" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="ab233cf9c7e19135f7e7bcaaed9a376cc00d8988" relative="vendor/mongodb/mongodb/tests/SpecTests/Operation.php"/>
+  <docblock>
+    <description compact="Spec test operation."/>
+  </docblock>
+  <constant type="string" name="OBJECT_CLIENT" value="'client'"/>
+  <constant type="string" name="OBJECT_COLLECTION" value="'collection'"/>
+  <constant type="string" name="OBJECT_DATABASE" value="'database'"/>
+  <constant type="string" name="OBJECT_GRIDFS_BUCKET" value="'gridfsbucket'"/>
+  <constant type="string" name="OBJECT_SELECT_COLLECTION" value="'selectCollection'"/>
+  <constant type="string" name="OBJECT_SELECT_DATABASE" value="'selectDatabase'"/>
+  <constant type="string" name="OBJECT_SESSION0" value="'session0'"/>
+  <constant type="string" name="OBJECT_SESSION1" value="'session1'"/>
+  <constant type="string" name="OBJECT_TEST_RUNNER" value="'testRunner'"/>
+  <member name="errorExpectation" visibility="public" static="false" line="47">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\ErrorExpectation|null" namespace="MongoDB\Tests\SpecTests" name="ErrorExpectation|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="resultExpectation" visibility="public" static="false" line="50">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\ResultExpectation|null" namespace="MongoDB\Tests\SpecTests" name="ResultExpectation|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="arguments" default="" type="array" visibility="private" static="false" line="53">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="collectionName" visibility="private" static="false" line="56">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\string|null" namespace="MongoDB\Tests\SpecTests" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="collectionOptions" default="" type="array" visibility="private" static="false" line="59">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="databaseName" visibility="private" static="false" line="62">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\string|null" namespace="MongoDB\Tests\SpecTests" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="databaseOptions" default="" type="array" visibility="private" static="false" line="65">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="name" visibility="private" static="false" line="68">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="object" default="" type="{unknown}" constant="self::OBJECT_COLLECTION" visibility="private" static="false" line="71">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="73" end="84" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </constructor>
+  <method name="fromChangeStreams" start="86" end="123" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <inline>
+      <comment value="Note: change streams only return majority-committed writes, so ensure" line="90"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="each operation applies that write concern. This will avoid spurious" line="91"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* test failures." line="92"/>
+      <comment value="Expect all operations to succeed" line="95"/>
+      <comment value="The Change Streams spec tests include a unique &quot;rename&quot; operation," line="98"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="which we should convert to a renameCollection command to be run" line="99"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* against the admin database." line="100"/>
+    </inline>
+  </method>
+  <method name="fromClientSideEncryption" start="125" end="137" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="fromCommandMonitoring" start="139" end="151" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <inline>
+      <comment value="We purposefully avoid setting a default error expectation, because" line="147"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* some tests may trigger a write or command error." line="148"/>
+    </inline>
+  </method>
+  <method name="fromConvenientTransactions" start="159" end="174" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="This method is exclusively used to prepare nested operations for the withTransaction session operation"/>
+      <return type="object">
+        <type full="MongoDB\Tests\SpecTests\Operation" namespace="MongoDB\Tests\SpecTests" name="Operation"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="MongoDB\Tests\SpecTests\Operation" namespace="MongoDB\Tests\SpecTests" name="Operation"/>
+    </return>
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="fromCrud" start="176" end="188" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="fromReadWriteConcern" start="190" end="206" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="fromRetryableReads" start="208" end="216" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="fromRetryableWrites" start="218" end="226" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="outcome" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="fromTransactions" start="228" end="240" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="operation" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="assert" start="249" end="284" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation and assert its outcome."/>
+      <param description="Test instance" type="object" variable="$test">
+        <type full="MongoDB\Tests\SpecTests\FunctionalTestCase" namespace="MongoDB\Tests\SpecTests" name="FunctionalTestCase"/>
+      </param>
+      <param description="Execution context" type="object" variable="$context">
+        <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+      </param>
+      <param description="If true, any exception that was caught is rethrown" type="object" variable="$bubbleExceptions">
+        <type full="MongoDB\Tests\SpecTests\bool" namespace="MongoDB\Tests\SpecTests" name="bool"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="test" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\FunctionalTestCase" namespace="MongoDB\Tests\SpecTests" name="FunctionalTestCase"/>
+    </parameter>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+    </parameter>
+    <parameter name="bubbleExceptions" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Extract incomplete result for failed bulkWrite and insertMany operations" line="268"/>
+    </inline>
+  </method>
+  <method name="execute" start="293" end="338" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Executes the operation with a given context."/>
+      <param description="Execution context" type="object" variable="$context">
+        <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+      </param>
+      <return type="mixed"/>
+      <throws description="if the operation is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="test" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\FunctionalTestCase" namespace="MongoDB\Tests\SpecTests" name="FunctionalTestCase"/>
+    </parameter>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+    </parameter>
+  </method>
+  <method name="executeForClient" start="348" end="369" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Executes the client operation and return its result."/>
+      <param type="object" variable="$client">
+        <type full="MongoDB\Client" namespace="MongoDB" name="Client"/>
+      </param>
+      <param description="Execution context" type="object" variable="$context">
+        <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+      </param>
+      <return type="mixed"/>
+      <throws description="if the collection operation is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="client" byreference="false" type="object">
+      <type full="MongoDB\Client" namespace="MongoDB" name="Client"/>
+    </parameter>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+    </parameter>
+  </method>
+  <method name="executeForCollection" start="379" end="511" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Executes the collection operation and return its result."/>
+      <param type="object" variable="$collection">
+        <type full="MongoDB\Collection" namespace="MongoDB" name="Collection"/>
+      </param>
+      <param description="Execution context" type="object" variable="$context">
+        <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+      </param>
+      <return type="mixed"/>
+      <throws description="if the collection operation is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="collection" byreference="false" type="object">
+      <type full="MongoDB\Collection" namespace="MongoDB" name="Collection"/>
+    </parameter>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+    </parameter>
+  </method>
+  <method name="executeForDatabase" start="521" end="566" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Executes the database operation and return its result."/>
+      <param type="object" variable="$database">
+        <type full="MongoDB\Database" namespace="MongoDB" name="Database"/>
+      </param>
+      <param description="Execution context" type="object" variable="$context">
+        <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+      </param>
+      <return type="mixed"/>
+      <throws description="if the database operation is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="database" byreference="false" type="object">
+      <type full="MongoDB\Database" namespace="MongoDB" name="Database"/>
+    </parameter>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+    </parameter>
+  </method>
+  <method name="executeForGridFSBucket" start="576" end="609" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Executes the GridFS bucket operation and return its result."/>
+      <param type="object" variable="$bucket">
+        <type full="MongoDB\GridFS\Bucket" namespace="MongoDB\GridFS" name="Bucket"/>
+      </param>
+      <param description="Execution context" type="object" variable="$context">
+        <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+      </param>
+      <return type="mixed"/>
+      <throws description="if the database operation is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="bucket" byreference="false" type="object">
+      <type full="MongoDB\GridFS\Bucket" namespace="MongoDB\GridFS" name="Bucket"/>
+    </parameter>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+    </parameter>
+  </method>
+  <method name="executeForSession" start="620" end="653" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Executes the session operation and return its result."/>
+      <param type="object" variable="$session">
+        <type full="MongoDB\Driver\Session" namespace="MongoDB\Driver" name="Session"/>
+      </param>
+      <param type="object" variable="$test">
+        <type full="MongoDB\Tests\SpecTests\FunctionalTestCase" namespace="MongoDB\Tests\SpecTests" name="FunctionalTestCase"/>
+      </param>
+      <param description="Execution context" type="object" variable="$context">
+        <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+      </param>
+      <return type="mixed"/>
+      <throws description="if the session operation is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="session" byreference="false" type="object">
+      <type full="MongoDB\Driver\Session" namespace="MongoDB\Driver" name="Session"/>
+    </parameter>
+    <parameter name="test" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\FunctionalTestCase" namespace="MongoDB\Tests\SpecTests" name="FunctionalTestCase"/>
+    </parameter>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+    </parameter>
+  </method>
+  <method name="executeForTestRunner" start="655" end="722" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="test" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\FunctionalTestCase" namespace="MongoDB\Tests\SpecTests" name="FunctionalTestCase"/>
+    </parameter>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+    </parameter>
+  </method>
+  <method name="getIndexNames" start="730" end="738" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$databaseName"/>
+      <param type="string" variable="$collectionName"/>
+      <return type="array"/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="string"/>
+    <parameter name="collectionName" byreference="false" type="string"/>
+  </method>
+  <method name="getResultAssertionType" start="743" end="766" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <throws description="if the operation object is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getResultAssertionTypeForClient" start="771" end="786" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <throws description="if the collection operation is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getResultAssertionTypeForCollection" start="791" end="859" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <throws description="if the collection operation is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getResultAssertionTypeForDatabase" start="864" end="885" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <throws description="if the database operation is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="prepareBulkWriteRequest" start="894" end="933" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Prepares a request element for a bulkWrite operation."/>
+      <param type="object" variable="$request">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </param>
+      <return type="array"/>
+      <throws description="if the bulk write request is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="request" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+</class>

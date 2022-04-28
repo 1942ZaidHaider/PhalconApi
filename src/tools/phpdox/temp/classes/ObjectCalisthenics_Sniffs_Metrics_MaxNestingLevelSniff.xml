@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="ObjectCalisthenics\Sniffs\Metrics\MaxNestingLevelSniff" namespace="ObjectCalisthenics\Sniffs\Metrics" name="MaxNestingLevelSniff" abstract="false" final="true" start="8" end="166">
+  <file path="../vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/Sniffs/Metrics" file="MaxNestingLevelSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/Sniffs/Metrics/MaxNestingLevelSniff.php" size="4309" time="2020-09-08T10:18:44+00:00" unixtime="1599560324" sha1="931163527f1637038325999e6db817ddab3c4177" relative="vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/Sniffs/Metrics/MaxNestingLevelSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="ERROR_MESSAGE" value="'Only %d indentation level%s per function/method. Found %s levels.'">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </constant>
+  <constant type="string" name="SCOPE_CLOSER" value="'scope_closer'">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </constant>
+  <member name="maxNestingLevel" default="2" type="integer" visibility="public" static="false" line="20"/>
+  <member name="position" visibility="private" static="false" line="22"/>
+  <member name="nestingLevel" visibility="private" static="false" line="27">
+    <docblock>
+      <description/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="currentPtr" visibility="private" static="false" line="29"/>
+  <member name="ignoredScopeStack" default="" type="array" visibility="private" static="false" line="34">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\Metrics\mixed" namespace="ObjectCalisthenics\Sniffs\Metrics" name="mixed"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="file" visibility="private" static="false" line="36"/>
+  <method name="register" start="41" end="44" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\Metrics\int[]|string" namespace="ObjectCalisthenics\Sniffs\Metrics" name="int[]|string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="49" end="68" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="int" variable="$position"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="position" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Ignore abstract methods." line="59"/>
+    </inline>
+  </method>
+  <method name="iterateTokens" start="73" end="81" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$tokens" of="object">
+        <type full="ObjectCalisthenics\Sniffs\Metrics\mixed" namespace="ObjectCalisthenics\Sniffs\Metrics" name="mixed"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="start" byreference="false" type="int"/>
+    <parameter name="end" byreference="false" type="int"/>
+    <parameter name="tokens" byreference="false" type="array"/>
+    <inline>
+      <comment value="Find the maximum nesting level of any token in the function." line="75"/>
+    </inline>
+  </method>
+  <method name="subtractFunctionNestingLevel" start="86" end="89" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$token" of="object">
+        <type full="ObjectCalisthenics\Sniffs\Metrics\mixed" namespace="ObjectCalisthenics\Sniffs\Metrics" name="mixed"/>
+      </param>
+    </docblock>
+    <return type="int" nullable="false"/>
+    <parameter name="token" byreference="false" type="array"/>
+  </method>
+  <method name="handleNestingLevel" start="91" end="100" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="nestingLevel" byreference="false" type="int"/>
+  </method>
+  <method name="handleToken" start="105" end="118" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$nestedToken" of="object">
+        <type full="ObjectCalisthenics\Sniffs\Metrics\mixed" namespace="ObjectCalisthenics\Sniffs\Metrics" name="mixed"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="nestedToken" byreference="false" type="array"/>
+    <inline>
+      <comment value="Calculate nesting level" line="112"/>
+    </inline>
+  </method>
+  <method name="handleClosureToken" start="123" end="132" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$nestedToken" of="object">
+        <type full="ObjectCalisthenics\Sniffs\Metrics\mixed" namespace="ObjectCalisthenics\Sniffs\Metrics" name="mixed"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="nestedToken" byreference="false" type="array"/>
+  </method>
+  <method name="handleCaseToken" start="137" end="144" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$nestedToken" of="object">
+        <type full="ObjectCalisthenics\Sniffs\Metrics\mixed" namespace="ObjectCalisthenics\Sniffs\Metrics" name="mixed"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="nestedToken" byreference="false" type="array"/>
+  </method>
+  <method name="adjustNestingLevelToIgnoredScope" start="146" end="153" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="Iterated through ignored scope stack to find out if" line="148"/>
+      <comment value="anything can be popped out and adjust nesting level." line="149"/>
+    </inline>
+  </method>
+  <method name="unsetScopeIfNotCurrent" start="158" end="165" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$ignoredScope" of="object">
+        <type full="ObjectCalisthenics\Sniffs\Metrics\mixed" namespace="ObjectCalisthenics\Sniffs\Metrics" name="mixed"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="key" byreference="false" type="int"/>
+    <parameter name="ignoredScope" byreference="false" type="array"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

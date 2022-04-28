@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Doctrine\Common\Annotations\AnnotationRegistry" namespace="Doctrine\Common\Annotations" name="AnnotationRegistry" abstract="false" final="true" start="16" end="190">
+  <file path="../vendor/doctrine/annotations/lib/Doctrine/Common/Annotations" file="AnnotationRegistry.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationRegistry.php" size="5713" time="2021-08-05T19:00:23+00:00" unixtime="1628190023" sha1="47b6b7bb58f936d5a12684d02c3ad31106d44fee" relative="vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationRegistry.php"/>
+  <member name="autoloadNamespaces" default="" type="array" visibility="private" static="true" line="28">
+    <docblock>
+      <description compact="A map of namespaces to use for autoloading purposes based on a PSR-0 convention.">Contains the namespace as key and an array of directories as value. If the value is NULL
+the include path is used for checking for the corresponding file.
+
+This autoloading mechanism does not utilize the PHP autoloading but implements autoloading on its own.</description>
+      <var type="array" of="object">
+        <type full="Doctrine\Common\Annotations\string[][]|string[]|null" namespace="Doctrine\Common\Annotations" name="string[][]|string[]|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="loaders" default="" type="array" visibility="private" static="true" line="35">
+    <docblock>
+      <description compact="A map of autoloader callables."/>
+      <var type="array" of="object">
+        <type full="Doctrine\Common\Annotations\callable" namespace="Doctrine\Common\Annotations" name="callable"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="failedToAutoload" default="" type="array" visibility="private" static="true" line="42">
+    <docblock>
+      <description compact="An array of classes which cannot be found"/>
+      <var description="indexed by class name" type="array" of="object">
+        <type full="Doctrine\Common\Annotations\null" namespace="Doctrine\Common\Annotations" name="null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="registerFileUsed" default="false" type="boolean" visibility="private" static="true" line="49">
+    <docblock>
+      <description compact="Whenever registerFile() was used. Disables use of standard autoloader."/>
+      <var type="object">
+        <type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="reset" start="51" end="57" abstract="false" final="false" static="true" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="registerFile" start="65" end="70" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Registers file."/>
+      <deprecated value="This method is deprecated and will be removed in doctrine/annotations 2.0. Annotations will be autoloaded in 2.0."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="file" byreference="false" type="string"/>
+  </method>
+  <method name="registerAutoloadNamespace" start="82" end="85" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Adds a namespace with one or many directories to look for files or null for the include path.">Loading of this namespaces will be done with a PSR-0 namespace loading algorithm.</description>
+      <deprecated value="This method is deprecated and will be removed in doctrine/annotations 2.0. Annotations will be autoloaded in 2.0."/>
+      <phpstan value="-param string|list&lt;string&gt;|null $dirs"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="namespace" byreference="false" type="string"/>
+    <parameter name="dirs" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="registerAutoloadNamespaces" start="97" end="100" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Registers multiple namespaces.">Loading of this namespaces will be done with a PSR-0 namespace loading algorithm.</description>
+      <deprecated value="This method is deprecated and will be removed in doctrine/annotations 2.0. Annotations will be autoloaded in 2.0."/>
+      <param description="indexed by namespace name" type="array" variable="$namespaces" of="object">
+        <type full="Doctrine\Common\Annotations\string[][]|string[]|null" namespace="Doctrine\Common\Annotations" name="string[][]|string[]|null"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="namespaces" byreference="false" type="array"/>
+  </method>
+  <method name="registerLoader" start="111" end="116" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Registers an autoloading callable for annotations, much like spl_autoload_register().">NOTE: These class loaders HAVE to be silent when a class was not found!
+IMPORTANT: Loaders have to return true if they loaded a class that could contain the searched annotation class.</description>
+      <deprecated value="This method is deprecated and will be removed in doctrine/annotations 2.0. Annotations will be autoloaded in 2.0."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="callable" byreference="false" type="callable"/>
+    <inline>
+      <comment value="Reset our static cache now that we have a new loader to work with" line="113"/>
+    </inline>
+  </method>
+  <method name="registerUniqueLoader" start="124" end="131" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Registers an autoloading callable for annotations, if it is not already registered"/>
+      <deprecated value="This method is deprecated and will be removed in doctrine/annotations 2.0. Annotations will be autoloaded in 2.0."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="callable" byreference="false" type="callable"/>
+  </method>
+  <method name="loadAnnotationClass" start="136" end="189" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Autoloads an annotation class silently."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="class" byreference="false" type="string"/>
+  </method>
+</class>

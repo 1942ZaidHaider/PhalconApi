@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Sniffs\AbstractScopeSniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractScopeSniff" abstract="true" final="false" start="32" end="191">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Sniffs" file="AbstractScopeSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Sniffs/AbstractScopeSniff.php" size="6804" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="95a528fdd75b06495a6bde7138a2fb4973a7a900" relative="vendor/squizlabs/php_codesniffer/src/Sniffs/AbstractScopeSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <member name="tokens" default="" type="array" visibility="private" static="false" line="40">
+    <docblock>
+      <description compact="The token types that this test wishes to listen to within the scope."/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="scopeTokens" default="" type="array" visibility="private" static="false" line="47">
+    <docblock>
+      <description compact="The type of scope opener tokens that this test wishes to listen to."/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="listenOutside" default="false" type="boolean" visibility="private" static="false" line="54">
+    <docblock>
+      <description compact="True if this test should fire on tokens outside of the scope."/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="71" end="97" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a new AbstractScopeTest."/>
+      <param description="The type of scope the test wishes to listen to." type="array" variable="$scopeTokens"/>
+      <param description="The tokens that the test wishes to listen to" type="array" variable="$tokens">within the scope.</param>
+      <param description="If true this test will also alert the" type="boolean" variable="$listenOutside">extending class when a token is found outside
+                              the scope, by calling the
+                              processTokenOutsideScope method.</param>
+      <throws description="If the specified tokens arrays are empty" type="object">or invalid.<type full="\PHP_CodeSniffer\Exceptions\RuntimeException" namespace="\PHP_CodeSniffer\Exceptions" name="RuntimeException"/></throws>
+    </docblock>
+    <parameter name="scopeTokens" byreference="false" type="array"/>
+    <parameter name="tokens" byreference="false" type="array"/>
+    <parameter name="listenOutside" byreference="false" type="boolean" default="false"/>
+  </constructor>
+  <method name="register" start="110" end="114" abstract="false" final="true" static="false" visibility="public">
+    <docblock>
+      <description compact="The method that is called to register the tokens this test wishes to listen to.">DO NOT OVERRIDE THIS METHOD. Use the constructor of this class to register
+for the desired tokens and scope.</description>
+      <return type="array" of="object">
+        <type full="PHP_CodeSniffer\Sniffs\int" namespace="PHP_CodeSniffer\Sniffs" name="int"/>
+      </return>
+      <see value="__constructor()"/>
+    </docblock>
+  </method>
+  <method name="process" start="130" end="153" abstract="false" final="true" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes the tokens that this test is listening for."/>
+      <param description="The file where this token was found." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position in the stack where this" type="int" variable="$stackPtr">token was found.</param>
+      <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return ($phpcsFile-&gt;numTokens + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      <see value="processTokenWithinScope()"/>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="processTokenWithinScope" start="172" end="172" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Processes a token that is found within the scope that this test is listening to."/>
+      <param description="The file where this token was found." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position in the stack where this" type="int" variable="$stackPtr">token was found.</param>
+      <param description="The position in the tokens array that" type="int" variable="$currScope">opened the scope that this test is
+                                              listening for.</param>
+      <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return ($phpcsFile-&gt;numTokens + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="currScope" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="processTokenOutsideScope" start="188" end="188" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Processes a token that is found outside the scope that this test is listening to."/>
+      <param description="The file where this token was found." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position in the stack where this" type="int" variable="$stackPtr">token was found.</param>
+      <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+  <extenders>
+    <extender full="PHP_CodeSniffer\Sniffs\AbstractVariableSniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractVariableSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions\ValidFunctionNameSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions" name="ValidFunctionNameSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions\ValidVariableNameSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions" name="ValidVariableNameSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff" namespace="PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods" name="CamelCapsMethodNameSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Zend\Sniffs\NamingConventions\ValidVariableNameSniff" namespace="PHP_CodeSniffer\Standards\Zend\Sniffs\NamingConventions" name="ValidVariableNameSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions" name="CamelCapsFunctionNameSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\ConstructorNameSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions" name="ConstructorNameSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods" name="MethodDeclarationSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes" name="PropertyDeclarationSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\VariableCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="VariableCommentSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Sniffs\NamingConventions\ValidFunctionNameSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\NamingConventions" name="ValidFunctionNameSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Sniffs\NamingConventions\ValidVariableNameSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\NamingConventions" name="ValidVariableNameSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\MemberVarScopeSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope" name="MemberVarScopeSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\StaticThisUsageSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope" name="StaticThisUsageSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\MethodScopeSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope" name="MethodScopeSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\SelfMemberReferenceSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes" name="SelfMemberReferenceSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\MemberVarSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="MemberVarSpacingSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels\IncludeSystemSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels" name="IncludeSystemSniff"/>
+  </extenders>
+</class>

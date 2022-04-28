@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console" abstract="false" final="true" start="39" end="626">
+  <file path="../vendor/nunomaduro/phpinsights/src/Application/Console/Formatters" file="Console.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/nunomaduro/phpinsights/src/Application/Console/Formatters/Console.php" size="20307" time="2021-01-27T19:08:59+00:00" unixtime="1611774539" sha1="6637bd5baa52e67a9a2495f8f8618924cde821c0" relative="vendor/nunomaduro/phpinsights/src/Application/Console/Formatters/Console.php"/>
+  <docblock>
+    <description/>
+    <internal/>
+  </docblock>
+  <implements full="NunoMaduro\PhpInsights\Application\Console\Contracts\Formatter" namespace="NunoMaduro\PhpInsights\Application\Console\Contracts" name="Formatter"/>
+  <constant type="integer" name="BLOCK_SIZE" value="9"/>
+  <constant type="integer" name="ALL_BLOCKS_IN_ROW" value="4"/>
+  <constant type="integer" name="TWO_BLOCKS_IN_ROW" value="2"/>
+  <constant type="integer" name="MIN_SPACEWIDTH" value="5"/>
+  <constant type="integer" name="MAX_SPACEWIDTH" value="15"/>
+  <member name="style" visibility="private" static="false" line="50">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Style" namespace="NunoMaduro\PhpInsights\Application\Console" name="Style"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="totalWidth" visibility="private" static="false" line="54">
+    <docblock>
+      <description/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="fileLinkFormatter" visibility="private" static="false" line="58">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="NunoMaduro\PhpInsights\Domain\Contracts\FileLinkFormatter" namespace="NunoMaduro\PhpInsights\Domain\Contracts" name="FileLinkFormatter"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="supportHyperLinks" visibility="private" static="false" line="62">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\bool" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="64" end="75" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="input" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+    </parameter>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+  </constructor>
+  <method name="format" start="84" end="98" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Format the result to the desired format."/>
+      <param type="object" variable="$insightCollection">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+      </param>
+      <param type="string" variable="$dir"/>
+      <param type="object" variable="$metrics">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\array&lt;string&gt;" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="array&lt;string&gt;"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="insightCollection" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+    </parameter>
+    <parameter name="dir" byreference="false" type="string"/>
+    <parameter name="metrics" byreference="false" type="array"/>
+  </method>
+  <method name="summary" start="108" end="149" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Outputs the summary according to the format."/>
+      <param type="object" variable="$results">
+        <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+      </param>
+      <param type="string" variable="$dir"/>
+      <return resolution="self" type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+    </return>
+    <parameter name="results" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+    </parameter>
+    <parameter name="dir" byreference="false" type="string"/>
+  </method>
+  <method name="code" start="159" end="184" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Outputs the code errors according to the format."/>
+      <param type="object" variable="$insightCollection">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+      </param>
+      <param type="object" variable="$results">
+        <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+      </param>
+      <return resolution="self" type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+    </return>
+    <parameter name="insightCollection" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+    </parameter>
+    <parameter name="results" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+    </parameter>
+  </method>
+  <method name="complexity" start="194" end="206" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Outputs the complexity errors according to the format."/>
+      <param type="object" variable="$insightCollection">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+      </param>
+      <param type="object" variable="$results">
+        <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+      </param>
+      <return resolution="self" type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+    </return>
+    <parameter name="insightCollection" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+    </parameter>
+    <parameter name="results" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+    </parameter>
+  </method>
+  <method name="architecture" start="216" end="243" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Outputs the architecture errors according to the format."/>
+      <param type="object" variable="$insightCollection">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+      </param>
+      <param type="object" variable="$results">
+        <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+      </param>
+      <return resolution="self" type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+    </return>
+    <parameter name="insightCollection" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+    </parameter>
+    <parameter name="results" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+    </parameter>
+  </method>
+  <method name="miscellaneous" start="252" end="272" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Outputs the miscellaneous errors according to the format."/>
+      <param type="object" variable="$results">
+        <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+      </param>
+      <return resolution="self" type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+    </return>
+    <parameter name="results" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Results" namespace="NunoMaduro\PhpInsights\Domain" name="Results"/>
+    </parameter>
+  </method>
+  <method name="issues" start="283" end="356" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Outputs the issues errors according to the format."/>
+      <param type="object" variable="$insightCollection">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+      </param>
+      <param type="object" variable="$metrics">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\array&lt;string&gt;" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="array&lt;string&gt;"/>
+      </param>
+      <param type="string" variable="$dir"/>
+      <return resolution="self" type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\Console" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="Console"/>
+    </return>
+    <parameter name="insightCollection" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+    </parameter>
+    <parameter name="metrics" byreference="false" type="array"/>
+    <parameter name="dir" byreference="false" type="string"/>
+  </method>
+  <method name="getPercentageAsString" start="365" end="372" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Returns the percentage as 5 chars string."/>
+      <param type="float" variable="$percentage"/>
+      <return type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="percentage" byreference="false" type="float"/>
+  </method>
+  <method name="getColor" start="381" end="392" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns the color for the given percentage."/>
+      <param type="float" variable="$percentage"/>
+      <return type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="percentage" byreference="false" type="float"/>
+  </method>
+  <method name="writePercentageLines" start="397" end="411" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param description="float|string&gt; $lines" type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\array&lt;string" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="array&lt;string"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="lines" byreference="false" type="array"/>
+  </method>
+  <method name="renderBlocksScores" start="416" end="512" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param description="string&gt; $templates" type="object">
+        <type full="NunoMaduro\PhpInsights\Application\Console\Formatters\array&lt;string" namespace="NunoMaduro\PhpInsights\Application\Console\Formatters" name="array&lt;string"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="templates" byreference="false" type="array"/>
+    <inline>
+      <comment value="4 blocks in a row" line="419"/>
+    </inline>
+  </method>
+  <method name="getSpaceWidth" start="523" end="536" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Total width of terminal - block size * disposition (4 or 2) / number of space block."/>
+      <param type="int" variable="$totalWidth"/>
+      <param type="int" variable="$blockSize"/>
+      <param type="int" variable="$disposition"/>
+      <return type="int"/>
+    </docblock>
+    <return type="int" nullable="false"/>
+    <parameter name="totalWidth" byreference="false" type="int"/>
+    <parameter name="blockSize" byreference="false" type="int"/>
+    <parameter name="disposition" byreference="false" type="int"/>
+  </method>
+  <method name="getFileLinkFormatter" start="538" end="545" abstract="false" final="false" static="false" visibility="private">
+    <return type="object" nullable="false">
+      <type full="NunoMaduro\PhpInsights\Domain\Contracts\FileLinkFormatter" namespace="NunoMaduro\PhpInsights\Domain\Contracts" name="FileLinkFormatter"/>
+    </return>
+  </method>
+  <method name="getCategoryColor" start="547" end="558" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="category" byreference="false" type="string"/>
+    <inline>
+      <comment value="black, red, green, yellow, blue, magenta, cyan, white, default" line="549"/>
+    </inline>
+  </method>
+  <method name="formatFileLine" start="560" end="598" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="detail" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Details" namespace="NunoMaduro\PhpInsights\Domain" name="Details"/>
+    </parameter>
+    <parameter name="directory" byreference="false" type="string"/>
+    <parameter name="category" byreference="false" type="string"/>
+  </method>
+  <method name="parseDetailMessage" start="600" end="625" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="detail" byreference="false" type="object">
+      <type full="NunoMaduro\PhpInsights\Domain\Details" namespace="NunoMaduro\PhpInsights\Domain" name="Details"/>
+    </parameter>
+  </method>
+  <interface full="NunoMaduro\PhpInsights\Application\Console\Contracts\Formatter" namespace="NunoMaduro\PhpInsights\Application\Console\Contracts" name="Formatter">
+    <method name="format" start="23" end="27" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Format the result to the desired format."/>
+        <param type="object" variable="$insightCollection">
+          <type full="\NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="\NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+        </param>
+        <param type="string" variable="$dir"/>
+        <param description="string&gt; $metrics" type="object">
+          <type full="NunoMaduro\PhpInsights\Application\Console\Contracts\array&lt;int" namespace="NunoMaduro\PhpInsights\Application\Console\Contracts" name="array&lt;int"/>
+        </param>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="insightCollection" byreference="false" type="object">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\InsightCollection" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="InsightCollection"/>
+      </parameter>
+      <parameter name="dir" byreference="false" type="string"/>
+      <parameter name="metrics" byreference="false" type="array"/>
+    </method>
+  </interface>
+</class>

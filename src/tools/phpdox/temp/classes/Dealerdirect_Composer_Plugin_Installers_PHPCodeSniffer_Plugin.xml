@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\Plugin" namespace="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer" name="Plugin" abstract="false" final="false" start="35" end="621">
+  <file path="../vendor/dealerdirect/phpcodesniffer-composer-installer/src" file="Plugin.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/dealerdirect/phpcodesniffer-composer-installer/src/Plugin.php" size="19431" time="2022-02-04T12:51:07+00:00" unixtime="1643979067" sha1="c58ed6282b19903df740906ae34aa1925bb38b10" relative="vendor/dealerdirect/phpcodesniffer-composer-installer/src/Plugin.php"/>
+  <docblock>
+    <description compact="PHP_CodeSniffer standard installation manager."/>
+    <author value="Franck Nijhof &lt;franck.nijhof@dealerdirect.com&gt;"/>
+  </docblock>
+  <implements full="Composer\Plugin\PluginInterface" namespace="Composer\Plugin" name="PluginInterface"/>
+  <implements full="Composer\EventDispatcher\EventSubscriberInterface" namespace="Composer\EventDispatcher" name="EventSubscriberInterface"/>
+  <constant type="string" name="KEY_MAX_DEPTH" value="'phpcodesniffer-search-depth'"/>
+  <constant type="string" name="MESSAGE_ERROR_WRONG_MAX_DEPTH" value="'The value of &quot;%s&quot; (in the composer.json &quot;extra&quot;.section) must be an integer larger then %d, %s given.'"/>
+  <constant type="string" name="MESSAGE_NOT_INSTALLED" value="'PHPCodeSniffer is not installed'"/>
+  <constant type="string" name="MESSAGE_NOTHING_TO_INSTALL" value="'Nothing to install or update'"/>
+  <constant type="string" name="MESSAGE_PLUGIN_UNINSTALLED" value="'PHPCodeSniffer Composer Installer is uninstalled'"/>
+  <constant type="string" name="MESSAGE_RUNNING_INSTALLER" value="'Running PHPCodeSniffer Composer Installer'"/>
+  <constant type="string" name="PACKAGE_NAME" value="'squizlabs/php_codesniffer'"/>
+  <constant type="string" name="PACKAGE_TYPE" value="'phpcodesniffer-standard'"/>
+  <constant type="string" name="PHPCS_CONFIG_REGEX" value="'`%s:[^\r\n]+`'"/>
+  <constant type="string" name="PHPCS_CONFIG_KEY" value="'installed_paths'"/>
+  <constant type="string" name="PLUGIN_NAME" value="'dealerdirect/phpcodesniffer-composer-installer'"/>
+  <member name="composer" visibility="private" static="false" line="58">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="cwd" visibility="private" static="false" line="63">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="filesystem" visibility="private" static="false" line="68">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="installedPaths" visibility="private" static="false" line="73">
+    <docblock>
+      <description/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="io" visibility="private" static="false" line="78">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="processExecutor" visibility="private" static="false" line="83">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="run" start="98" end="109" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Triggers the plugin's main functionality.">Makes it possible to run the plugin as a custom command.</description>
+      <param type="object" variable="$event">
+        <type full="Composer\Script\Event" namespace="Composer\Script" name="Event"/>
+      </param>
+      <throws type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\ProcessFailedException" namespace="Symfony\Component\Process\Exception" name="ProcessFailedException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="Composer\Script\Event" namespace="Composer\Script" name="Event"/>
+    </parameter>
+  </method>
+  <method name="activate" start="119" end="125" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\ProcessFailedException" namespace="Symfony\Component\Process\Exception" name="ProcessFailedException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="composer" byreference="false" type="object">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </method>
+  <method name="deactivate" start="130" end="132" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="composer" byreference="false" type="object">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </method>
+  <method name="uninstall" start="137" end="139" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="composer" byreference="false" type="object">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </method>
+  <method name="init" start="149" end="156" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Prepares the plugin so it's main functionality can be run."/>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\ProcessFailedException" namespace="Symfony\Component\Process\Exception" name="ProcessFailedException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getSubscribedEvents" start="161" end="171" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+  </method>
+  <method name="onDependenciesChangedEvent" start="181" end="224" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Entry point for post install and post update events."/>
+      <throws type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\ProcessFailedException" namespace="Symfony\Component\Process\Exception" name="ProcessFailedException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="loadInstalledPaths" start="233" end="252" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Load all paths from PHP_CodeSniffer into an array."/>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\ProcessFailedException" namespace="Symfony\Component\Process\Exception" name="ProcessFailedException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="saveInstalledPaths" start="263" end="326" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Save all coding standard paths back into PHP_CodeSniffer"/>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\ProcessFailedException" namespace="Symfony\Component\Process\Exception" name="ProcessFailedException"/>
+      </throws>
+      <throws type="object">
+        <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+      </throws>
+      <return description="Exit code. 0 for success, 1 or higher for failure." type="int"/>
+    </docblock>
+    <inline>
+      <comment value="Check if we found installed paths to set." line="265"/>
+      <comment value="Prepare message in case of failure" line="284"/>
+      <comment value="Determine the path to the main PHPCS file." line="290"/>
+      <comment value="Okay, lets rock!" line="300"/>
+    </inline>
+  </method>
+  <method name="verifySaveSuccess" start="333" end="360" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Verify that the paths which were expected to be saved, have been."/>
+      <return description="Exit code. 0 for success, 1 for failure." type="int"/>
+    </docblock>
+    <inline>
+      <comment value="Request the currently set installed paths after the save." line="338"/>
+    </inline>
+  </method>
+  <method name="getPhpExecCommand" start="367" end="391" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Get the path to the current PHP version being used.">Duplicate of the same in the EventDispatcher class in Composer itself.</description>
+    </docblock>
+  </method>
+  <method name="cleanInstalledPaths" start="401" end="421" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Iterate trough all known paths and check if they are still valid.">If path does not exists, is not an directory or isn't readable, the path
+is removed from the list.</description>
+      <return description="True if changes where made, false otherwise" type="object">
+        <type full="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\bool" namespace="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="updateInstalledPaths" start="432" end="483" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Check all installed packages (including the root package) against the installed paths from PHP_CodeSniffer and add the missing ones."/>
+      <return description="True if changes where made, false otherwise" type="object">
+        <type full="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\bool" namespace="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer" name="bool"/>
+      </return>
+      <throws type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <inline>
+      <comment value="Process each found possible ruleset." line="457"/>
+    </inline>
+  </method>
+  <method name="getPHPCodingStandardPackages" start="494" end="514" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Iterates through Composers' local repository looking for valid Coding Standard packages.">If the package is the RootPackage (the one the plugin is installed into),
+the package is ignored for now since it needs a different install path logic.</description>
+      <return description="Composer packages containing coding standard(s)" type="array"/>
+    </docblock>
+  </method>
+  <method name="getPHPCodeSnifferPackage" start="523" end="532" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Searches for the installed PHP_CodeSniffer Composer package"/>
+      <param description="to match against" type="object" variable="$versionConstraint">
+        <type full="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\null|string|\Composer\Semver\Constraint\ConstraintInterface" namespace="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\null|string|\Composer\Semver\Constraint" name="ConstraintInterface"/>
+      </param>
+      <return type="object">
+        <type full="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\PackageInterface|null" namespace="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer" name="PackageInterface|null"/>
+      </return>
+    </docblock>
+    <parameter name="versionConstraint" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="getPHPCodeSnifferInstallPath" start="539" end="542" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns the path to the PHP_CodeSniffer package installation location"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="isPHPCodeSnifferInstalled" start="551" end="554" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Simple check if PHP_CodeSniffer is installed."/>
+      <param description="to match against" type="object" variable="$versionConstraint">
+        <type full="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\null|string|\Composer\Semver\Constraint\ConstraintInterface" namespace="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\null|string|\Composer\Semver\Constraint" name="ConstraintInterface"/>
+      </param>
+      <return description="Whether PHP_CodeSniffer is installed" type="object">
+        <type full="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\bool" namespace="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="versionConstraint" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="isRunningGlobally" start="564" end="567" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Test if composer is running &quot;global&quot; This check kinda dirty, but it is the &quot;Composer Way&quot;"/>
+      <return description="Whether Composer is running &quot;globally&quot;" type="object">
+        <type full="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer\bool" namespace="Dealerdirect\Composer\Plugin\Installers\PHPCodeSniffer" name="bool"/>
+      </return>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getMaxDepth" start="576" end="605" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Determines the maximum search depth when searching for Coding Standards."/>
+      <return type="int"/>
+      <throws type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getMinDepth" start="614" end="620" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns the minimal search depth for Coding Standard packages.">Usually this is 0, unless PHP_CodeSniffer &gt;= 3 is used.</description>
+      <return type="int"/>
+    </docblock>
+  </method>
+  <interface full="Composer\Plugin\PluginInterface" namespace="Composer\Plugin" name="PluginInterface">
+    <constant type="{unknown}" name="PLUGIN_API_VERSION" value="'1.1.0'">
+      <docblock>
+        <description compact="Version number of the internal composer-plugin-api package"/>
+        <var type="string"/>
+      </docblock>
+    </constant>
+    <method name="activate" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Apply plugin modifications to Composer"/>
+        <param type="object" variable="$composer">
+          <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+        </param>
+        <param type="object" variable="$io">
+          <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+        </param>
+      </docblock>
+      <parameter name="composer" byreference="false" type="object">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </parameter>
+      <parameter name="io" byreference="false" type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </parameter>
+    </method>
+  </interface>
+  <interface full="Composer\EventDispatcher\EventSubscriberInterface" namespace="Composer\EventDispatcher" name="EventSubscriberInterface">
+    <method name="getSubscribedEvents" start="47" end="47" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns an array of event names this subscriber wants to listen to.">The array keys are event names and the value can be:
+
+* The method name to call (priority defaults to 0)
+* An array composed of the method name to call and the priority
+* An array of arrays composed of the method names to call and respective
+  priorities, or 0 if unset
+
+For instance:
+
+* array('eventName' =&gt; 'methodName')
+* array('eventName' =&gt; array('methodName', $priority))
+* array('eventName' =&gt; array(array('methodName1', $priority), array('methodName2'))</description>
+        <return description="The event names to listen to" type="array"/>
+      </docblock>
+    </method>
+  </interface>
+</class>

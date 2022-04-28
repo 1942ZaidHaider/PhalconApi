@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="ObjectCalisthenics\Sniffs\NamingConventions\NoSetterSniff" namespace="ObjectCalisthenics\Sniffs\NamingConventions" name="NoSetterSniff" abstract="false" final="true" start="10" end="87">
+  <file path="../vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/Sniffs/NamingConventions" file="NoSetterSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/Sniffs/NamingConventions/NoSetterSniff.php" size="2113" time="2020-09-08T10:18:44+00:00" unixtime="1599560324" sha1="67af7069f30ae3a1d19352dc0a34c1e9e802e07b" relative="vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/Sniffs/NamingConventions/NoSetterSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="expression" name="ERROR_MESSAGE" value="'Setters are not allowed. Use constructor injection and' . ' behavior naming instead, e.g. changeName() instead of setName().">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </constant>
+  <constant type="string" name="SETTER_REGEX" value="'#^set[A-Z0-9]#'">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </constant>
+  <member name="allowedClasses" default="" type="array" visibility="public" static="false" line="26">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\NamingConventions\string" namespace="ObjectCalisthenics\Sniffs\NamingConventions" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="register" start="31" end="34" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\NamingConventions\int" namespace="ObjectCalisthenics\Sniffs\NamingConventions" name="int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="39" end="56" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="int" variable="$position"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="position" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getClassName" start="58" end="70" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <inline>
+      <comment value="anonymous class" line="62"/>
+    </inline>
+  </method>
+  <method name="shouldSkip" start="72" end="86" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="methodName" byreference="false" type="string"/>
+    <parameter name="className" byreference="false" type="string"/>
+    <inline>
+      <comment value="not really a setter, but usually test &quot;setup&quot; method" line="74"/>
+    </inline>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

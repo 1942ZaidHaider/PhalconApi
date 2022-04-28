@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\Retry\GenericRetryStrategy" namespace="Symfony\Component\HttpClient\Retry" name="GenericRetryStrategy" abstract="false" final="false" start="23" end="115">
+  <file path="../vendor/symfony/http-client/Retry" file="GenericRetryStrategy.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/Retry/GenericRetryStrategy.php" size="4200" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="2e59e6049ffd297491565fac7986c4ecd7ac8998" relative="vendor/symfony/http-client/Retry/GenericRetryStrategy.php"/>
+  <docblock>
+    <description compact="Decides to retry the request when HTTP status codes belong to the given list of codes."/>
+    <author value="Jérémy Derussé &lt;jeremy@derusse.com&gt;"/>
+  </docblock>
+  <implements full="Symfony\Component\HttpClient\Retry\RetryStrategyInterface" namespace="Symfony\Component\HttpClient\Retry" name="RetryStrategyInterface"/>
+  <constant type="array" name="IDEMPOTENT_METHODS" value=""/>
+  <constant type="array" name="DEFAULT_RETRY_STATUS_CODES" value=""/>
+  <member name="statusCodes" visibility="private" static="false" line="39"/>
+  <member name="delayMs" visibility="private" static="false" line="40"/>
+  <member name="multiplier" visibility="private" static="false" line="41"/>
+  <member name="maxDelayMs" visibility="private" static="false" line="42"/>
+  <member name="jitter" visibility="private" static="false" line="43"/>
+  <constructor name="__construct" start="52" end="75" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="List of HTTP status codes that trigger a retry" type="array" variable="$statusCodes"/>
+      <param description="Amount of time to delay (or the initial value when multiplier is used)" type="int" variable="$delayMs"/>
+      <param description="Multiplier to apply to the delay each time a retry occurs" type="float" variable="$multiplier"/>
+      <param description="Maximum delay to allow (0 means no maximum)" type="int" variable="$maxDelayMs"/>
+      <param description="Probability of randomness int delay (0 = none, 1 = 100% random)" type="float" variable="$jitter"/>
+    </docblock>
+    <parameter name="statusCodes" byreference="false" type="{unknown}" default="" constant="self::DEFAULT_RETRY_STATUS_CODES"/>
+    <parameter name="delayMs" byreference="false" type="integer" default="1000"/>
+    <parameter name="multiplier" byreference="false" type="float" default="2.0"/>
+    <parameter name="maxDelayMs" byreference="false" type="integer" default="0"/>
+    <parameter name="jitter" byreference="false" type="float" default="0.1"/>
+  </constructor>
+  <method name="shouldRetry" start="77" end="98" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="true"/>
+    <parameter name="context" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\AsyncContext" namespace="Symfony\Component\HttpClient\Response" name="AsyncContext"/>
+    </parameter>
+    <parameter name="responseContent" byreference="false" nullable="true" type="string"/>
+    <parameter name="exception" byreference="false" nullable="true" type="object">
+      <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+    </parameter>
+  </method>
+  <method name="getDelay" start="100" end="114" abstract="false" final="false" static="false" visibility="public">
+    <return type="int" nullable="false"/>
+    <parameter name="context" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\AsyncContext" namespace="Symfony\Component\HttpClient\Response" name="AsyncContext"/>
+    </parameter>
+    <parameter name="responseContent" byreference="false" nullable="true" type="string"/>
+    <parameter name="exception" byreference="false" nullable="true" type="object">
+      <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+    </parameter>
+  </method>
+  <interface full="Symfony\Component\HttpClient\Retry\RetryStrategyInterface" namespace="Symfony\Component\HttpClient\Retry" name="RetryStrategyInterface">
+    <method name="shouldRetry" start="30" end="30" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns whether the request should be retried."/>
+        <param description="Null is passed when the body did not arrive yet" type="object" variable="$responseContent">
+          <type full="Symfony\Component\HttpClient\Retry\?string" namespace="Symfony\Component\HttpClient\Retry" name="?string"/>
+        </param>
+        <return description="Returns null to signal that the body is required to take a decision" type="object">
+          <type full="Symfony\Component\HttpClient\Retry\bool|null" namespace="Symfony\Component\HttpClient\Retry" name="bool|null"/>
+        </return>
+      </docblock>
+      <return type="bool" nullable="true"/>
+      <parameter name="context" byreference="false" type="object">
+        <type full="Symfony\Component\HttpClient\Response\AsyncContext" namespace="Symfony\Component\HttpClient\Response" name="AsyncContext"/>
+      </parameter>
+      <parameter name="responseContent" byreference="false" nullable="true" type="string"/>
+      <parameter name="exception" byreference="false" nullable="true" type="object">
+        <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+      </parameter>
+    </method>
+    <method name="getDelay" start="35" end="35" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the time to wait in milliseconds."/>
+      </docblock>
+      <return type="int" nullable="false"/>
+      <parameter name="context" byreference="false" type="object">
+        <type full="Symfony\Component\HttpClient\Response\AsyncContext" namespace="Symfony\Component\HttpClient\Response" name="AsyncContext"/>
+      </parameter>
+      <parameter name="responseContent" byreference="false" nullable="true" type="string"/>
+      <parameter name="exception" byreference="false" nullable="true" type="object">
+        <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+      </parameter>
+    </method>
+  </interface>
+</class>

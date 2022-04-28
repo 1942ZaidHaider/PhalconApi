@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Doctrine\Common\Annotations\DocParser" namespace="Doctrine\Common\Annotations" name="DocParser" abstract="false" final="true" start="52" end="1459">
+  <file path="../vendor/doctrine/annotations/lib/Doctrine/Common/Annotations" file="DocParser.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php" size="48087" time="2021-08-05T19:00:23+00:00" unixtime="1628190023" sha1="1545e50f45c0088e8ad00a139542a4574f53c6bd" relative="vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php"/>
+  <docblock>
+    <description compact="A parser for docblock annotations.">It is strongly discouraged to change the default annotation parsing process.</description>
+  </docblock>
+  <member name="classIdentifiers" default="" type="array" visibility="private" static="true" line="59">
+    <docblock>
+      <description compact="An array of all valid tokens for a class name."/>
+      <phpstan value="-var list&lt;int&gt;"/>
+    </docblock>
+  </member>
+  <member name="lexer" visibility="private" static="false" line="71">
+    <docblock>
+      <description compact="The lexer."/>
+      <var type="object">
+        <type full="Doctrine\Common\Annotations\DocLexer" namespace="Doctrine\Common\Annotations" name="DocLexer"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="target" visibility="private" static="false" line="78">
+    <docblock>
+      <description compact="Current target context."/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="metadataParser" visibility="private" static="true" line="85">
+    <docblock>
+      <description compact="Doc parser used to collect annotation target."/>
+      <var type="object">
+        <type full="Doctrine\Common\Annotations\DocParser" namespace="Doctrine\Common\Annotations" name="DocParser"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="isNestedAnnotation" default="false" type="boolean" visibility="private" static="false" line="92">
+    <docblock>
+      <description compact="Flag to control if the current annotation is nested or not."/>
+      <var type="object">
+        <type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="imports" default="" type="array" visibility="private" static="false" line="100">
+    <docblock>
+      <description compact="Hashmap containing all use-statements that are to be used when parsing the given doc block."/>
+      <var description="class-string&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="classExists" default="" type="array" visibility="private" static="false" line="108">
+    <docblock>
+      <description compact="This hashmap is used internally to cache results of class_exists() look-ups."/>
+      <var description="bool&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;class-string" namespace="Doctrine\Common\Annotations" name="array&lt;class-string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ignoreNotImportedAnnotations" default="false" type="boolean" visibility="private" static="false" line="115">
+    <docblock>
+      <description compact="Whether annotations that have not been imported should be ignored."/>
+      <var type="object">
+        <type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="namespaces" default="" type="array" visibility="private" static="false" line="122">
+    <docblock>
+      <description compact="An array of default namespaces if operating in simple mode."/>
+      <var type="array" of="object">
+        <type full="Doctrine\Common\Annotations\string" namespace="Doctrine\Common\Annotations" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ignoredAnnotationNames" default="" type="array" visibility="private" static="false" line="131">
+    <docblock>
+      <description compact="A list with annotations that are not causing exceptions when not resolved to an annotation class.">The names must be the raw names as used in the class, not the fully qualified</description>
+      <var description="indexed by annotation name" type="array" of="object">
+        <type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ignoredAnnotationNamespaces" default="" type="array" visibility="private" static="false" line="139">
+    <docblock>
+      <description compact="A list with annotations in namespaced format that are not causing exceptions when not resolved to an annotation class."/>
+      <var description="indexed by namespace name" type="array" of="object">
+        <type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="context" default="''" type="string" visibility="private" static="false" line="142">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="annotationMetadata" default="" type="array" visibility="private" static="true" line="149">
+    <docblock>
+      <description compact="Hash-map for caching annotation metadata."/>
+      <var description="mixed[]&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;class-string" namespace="Doctrine\Common\Annotations" name="array&lt;class-string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="typeMap" default="" type="array" visibility="private" static="true" line="250">
+    <docblock>
+      <description compact="Hash-map for handle types declaration."/>
+      <var description="string&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="261" end="264" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a new DocParser."/>
+    </docblock>
+  </constructor>
+  <method name="setIgnoredAnnotationNames" start="276" end="279" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the annotation names that are ignored during the parsing process.">The names are supposed to be the raw names as used in the class, not the
+fully qualified class names.</description>
+      <param description="indexed by annotation name" type="array" variable="$names" of="object">
+        <type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Doctrine\Common\Annotations\void" namespace="Doctrine\Common\Annotations" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="names" byreference="false" type="array"/>
+  </method>
+  <method name="setIgnoredAnnotationNamespaces" start="288" end="291" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the annotation namespaces that are ignored during the parsing process."/>
+      <param description="indexed by annotation namespace name" type="array" variable="$ignoredAnnotationNamespaces" of="object">
+        <type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Doctrine\Common\Annotations\void" namespace="Doctrine\Common\Annotations" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="ignoredAnnotationNamespaces" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setIgnoreNotImportedAnnotations" start="300" end="303" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets ignore on not-imported annotations."/>
+      <param type="object" variable="$bool">
+        <type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Doctrine\Common\Annotations\void" namespace="Doctrine\Common\Annotations" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="bool" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addNamespace" start="314" end="321" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the default namespaces."/>
+      <param type="string" variable="$namespace"/>
+      <return type="object">
+        <type full="Doctrine\Common\Annotations\void" namespace="Doctrine\Common\Annotations" name="void"/>
+      </return>
+      <throws type="object">
+        <type full="RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="namespace" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setImports" start="332" end="339" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the imports."/>
+      <param description="class-string&gt; $imports" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </param>
+      <return type="object">
+        <type full="Doctrine\Common\Annotations\void" namespace="Doctrine\Common\Annotations" name="void"/>
+      </return>
+      <throws type="object">
+        <type full="RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="imports" byreference="false" type="array"/>
+  </method>
+  <method name="setTarget" start="348" end="351" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets current target context as bitmask."/>
+      <param type="int" variable="$target"/>
+      <return type="object">
+        <type full="Doctrine\Common\Annotations\void" namespace="Doctrine\Common\Annotations" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="target" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="parse" start="364" end="377" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Parses the given docblock string for annotations."/>
+      <param description="The docblock string to parse." type="string" variable="$input"/>
+      <param description="The parsing context." type="string" variable="$context"/>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+      <phpstan value="-return list&lt;object&gt; Array of annotations. If no annotations are found, an empty array is returned."/>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+    <parameter name="context" byreference="false" type="string" default="''"/>
+  </method>
+  <method name="findInitialTokenPosition" start="384" end="401" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Finds the first valid annotation"/>
+      <param description="The docblock string to parse" type="string" variable="$input"/>
+    </docblock>
+    <return type="int" nullable="true"/>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="search for first valid annotation" line="388"/>
+    </inline>
+  </method>
+  <method name="match" start="413" end="420" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Attempts to match the given token with the current lookahead token.">If they match, updates the lookahead token; otherwise raises a syntax error.</description>
+      <param description="Type of token." type="int" variable="$token"/>
+      <return description="True if tokens match; false otherwise." type="object">
+        <type full="Doctrine\Common\Annotations\bool" namespace="Doctrine\Common\Annotations" name="bool"/>
+      </return>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="token" byreference="false" type="int"/>
+  </method>
+  <method name="matchAny" start="432" end="439" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Attempts to match the current lookahead token with any of the given tokens.">If any of them matches, this method updates the lookahead token; otherwise
+a syntax error is raised.</description>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <phpstan value="-param list&lt;mixed[]&gt; $tokens"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="tokens" byreference="false" type="array"/>
+  </method>
+  <method name="syntaxError" start="447" end="465" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Generates a new syntax error."/>
+      <param description="Expected string." type="string" variable="$expected"/>
+      <param description="Optional token." type="array" variable="$token" of="object">
+        <type full="Doctrine\Common\Annotations\mixed[]|nu" namespace="Doctrine\Common\Annotations" name="mixed[]|nu"/>
+      </param>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+    </return>
+    <parameter name="expected" byreference="false" type="string"/>
+    <parameter name="token" byreference="false" nullable="true" type="array" default="NULL"/>
+  </method>
+  <method name="classExists" start="473" end="486" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Attempts to check if a class exists or not. This never goes through the PHP autoloading mechanism but uses the {@link AnnotationRegistry} to load classes."/>
+      <param type="object" variable="$fqcn">
+        <type full="Doctrine\Common\Annotations\class-string" namespace="Doctrine\Common\Annotations" name="class-string"/>
+      </param>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="fqcn" byreference="false" type="string"/>
+    <inline>
+      <comment value="first check if the class already exists, maybe loaded through another AnnotationReader" line="479"/>
+      <comment value="final check, does this class exist?" line="484"/>
+    </inline>
+  </method>
+  <method name="collectAnnotationMetadata" start="496" end="624" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Collects parsing metadata for a given annotation class"/>
+      <param description="The annotation name" type="object" variable="$name">
+        <type full="Doctrine\Common\Annotations\class-string" namespace="Doctrine\Common\Annotations" name="class-string"/>
+      </param>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="name" byreference="false" type="string"/>
+    <inline>
+      <comment value="Sets default values for annotation metadata" line="522"/>
+      <comment value="verify that the class is really meant to be an annotation" line="539"/>
+    </inline>
+  </method>
+  <method name="collectAttributeTypeMetadata" start="631" end="671" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Collects parsing metadata for a given attribute."/>
+      <param type="array" variable="$metadata" of="object">
+        <type full="Doctrine\Common\Annotations\mixed" namespace="Doctrine\Common\Annotations" name="mixed"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="metadata" byreference="true" type="array"/>
+    <parameter name="attribute" byreference="false" type="object">
+      <type full="Doctrine\Common\Annotations\Annotation\Attribute" namespace="Doctrine\Common\Annotations\Annotation" name="Attribute"/>
+    </parameter>
+    <inline>
+      <comment value="handle internal type declaration" line="633"/>
+      <comment value="handle the case if the property type is mixed" line="636"/>
+      <comment value="Evaluate type" line="641"/>
+    </inline>
+  </method>
+  <method name="Annotations" start="681" end="728" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Annotations ::= Annotation {[ &quot;*&quot; ]* [Annotation]}"/>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+      <phpstan value="-return list&lt;object&gt;"/>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="Annotation" start="742" end="1014" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Annotation     ::= &quot;@&quot; AnnotationName MethodCall AnnotationName ::= QualifiedName | SimpleName QualifiedName  ::= NameSpacePart &quot;\&quot; {NameSpacePart &quot;\&quot;}* SimpleName NameSpacePart  ::= identifier | null | false | true SimpleName     ::= identifier | null | false | true"/>
+      <return description="False if it is not a valid annotation." type="object">
+        <type full="Doctrine\Common\Annotations\object|false" namespace="Doctrine\Common\Annotations" name="object|false"/>
+      </return>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+    </docblock>
+    <inline>
+      <comment value="check if we have an annotation" line="746"/>
+      <comment value="only process names which are not fully qualified, yet" line="757"/>
+      <comment value="fully qualified names must start with a \" line="758"/>
+      <comment value="at this point, $name contains the fully qualified class name of the" line="818"/>
+      <comment value="annotation, and it is also guaranteed that this class exists, and" line="819"/>
+      <comment value="that it is loaded" line="820"/>
+      <comment value="collects the metadata annotation only if there is not yet" line="822"/>
+      <comment value="verify that the class is really meant to be an annotation and not just any ordinary class" line="827"/>
+      <comment value="if target is nested annotation" line="848"/>
+      <comment value="Next will be nested" line="851"/>
+      <comment value="if annotation does not support current target" line="854"/>
+      <comment value="checks all declared attributes" line="888"/>
+      <comment value="check if the annotation expects values via the constructor," line="974"/>
+      <comment value="or directly injected into public properties" line="975"/>
+    </inline>
+  </method>
+  <method name="MethodCall" start="1024" end="1041" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="MethodCall ::= [&quot;(&quot; [Values] &quot;)&quot;]"/>
+      <return type="array" of="object">
+        <type full="Doctrine\Common\Annotations\mixed" namespace="Doctrine\Common\Annotations" name="mixed"/>
+      </return>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="Values" start="1051" end="1079" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Values ::= Array | Value {&quot;,&quot; Value}* [&quot;,&quot;]"/>
+      <return type="array" of="object">
+        <type full="Doctrine\Common\Annotations\mixed" namespace="Doctrine\Common\Annotations" name="mixed"/>
+      </return>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="Constant" start="1088" end="1156" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Constant ::= integer | string | float | boolean"/>
+      <return type="mixed"/>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+    </docblock>
+    <inline>
+      <comment value="Checks if identifier ends with ::class and remove the leading backslash if it exists." line="1137"/>
+    </inline>
+  </method>
+  <method name="identifierStartsWithBackslash" start="1158" end="1161" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="identifier" byreference="false" type="string"/>
+  </method>
+  <method name="identifierEndsWithClassConstant" start="1163" end="1166" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="identifier" byreference="false" type="string"/>
+  </method>
+  <method name="getClassConstantPositionInIdentifier" start="1171" end="1174" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Doctrine\Common\Annotations\int|false" namespace="Doctrine\Common\Annotations" name="int|false"/>
+      </return>
+    </docblock>
+    <parameter name="identifier" byreference="false" type="string"/>
+  </method>
+  <method name="Identifier" start="1181" end="1205" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Identifier ::= string"/>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <inline>
+      <comment value="check if we have an annotation" line="1183"/>
+    </inline>
+  </method>
+  <method name="Value" start="1215" end="1224" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Value ::= PlainValue | FieldAssignment"/>
+      <return type="mixed"/>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="PlainValue" start="1234" end="1282" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="PlainValue ::= integer | string | float | boolean | Array | Annotation"/>
+      <return type="mixed"/>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="FieldAssignment" start="1291" end="1303" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="FieldAssignment ::= FieldName &quot;=&quot; PlainValue FieldName ::= identifier"/>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </return>
+  </method>
+  <method name="Arrayx" start="1313" end="1352" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Array ::= &quot;{&quot; ArrayEntry {&quot;,&quot; ArrayEntry}* [&quot;,&quot;] &quot;}&quot;"/>
+      <return type="array" of="object">
+        <type full="Doctrine\Common\Annotations\mixed" namespace="Doctrine\Common\Annotations" name="mixed"/>
+      </return>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <inline>
+      <comment value="If the array is empty, stop parsing and return." line="1319"/>
+    </inline>
+  </method>
+  <method name="ArrayEntry" start="1364" end="1385" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="ArrayEntry ::= Value | KeyValuePair KeyValuePair ::= Key (&quot;=&quot; | &quot;:&quot;) PlainValue | Constant Key ::= string | integer | Constant"/>
+      <throws type="object">
+        <type full="Doctrine\Common\Annotations\AnnotationException" namespace="Doctrine\Common\Annotations" name="AnnotationException"/>
+      </throws>
+      <throws type="object">
+        <type full="ReflectionException" namespace="" name="ReflectionException"/>
+      </throws>
+      <phpstan value="-return array{mixed, mixed}"/>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="isIgnoredAnnotation" start="1390" end="1405" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Checks whether the given $name matches any ignored annotation name or namespace"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="resolvePositionalValues" start="1414" end="1458" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Resolve positional arguments (without name) to named ones"/>
+      <param description="mixed&gt; $arguments" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </param>
+      <return description="mixed&gt;" type="object">
+        <type full="Doctrine\Common\Annotations\array&lt;string" namespace="Doctrine\Common\Annotations" name="array&lt;string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="arguments" byreference="false" type="array"/>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+</class>

@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\GridFS\Bucket" namespace="MongoDB\GridFS" name="Bucket" abstract="false" final="false" start="65" end="743">
+  <file path="../vendor/mongodb/mongodb/src/GridFS" file="Bucket.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/GridFS/Bucket.php" size="24923" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="1b4a9401af7df7f110db071a71848a4893dd9a04" relative="vendor/mongodb/mongodb/src/GridFS/Bucket.php"/>
+  <docblock>
+    <description compact="Bucket provides a public API for interacting with the GridFS files and chunks collections."/>
+    <api/>
+  </docblock>
+  <member name="defaultBucketName" default="'fs'" type="string" visibility="private" static="true" line="68">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="defaultChunkSizeBytes" default="261120" type="integer" visibility="private" static="true" line="71">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="defaultTypeMap" default="" type="array" visibility="private" static="true" line="74">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="streamWrapperProtocol" default="'gridfs'" type="string" visibility="private" static="true" line="81">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="collectionWrapper" visibility="private" static="false" line="84">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\GridFS\CollectionWrapper" namespace="MongoDB\GridFS" name="CollectionWrapper"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="databaseName" visibility="private" static="false" line="87">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="manager" visibility="private" static="false" line="90">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="bucketName" visibility="private" static="false" line="93">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="disableMD5" visibility="private" static="false" line="96">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="chunkSizeBytes" visibility="private" static="false" line="99">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="readConcern" visibility="private" static="false" line="102">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\ReadConcern" namespace="MongoDB\Driver" name="ReadConcern"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="readPreference" visibility="private" static="false" line="105">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="typeMap" visibility="private" static="false" line="108">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="writeConcern" visibility="private" static="false" line="111">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\WriteConcern" namespace="MongoDB\Driver" name="WriteConcern"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="140" end="194" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a GridFS bucket.">Supported options:
+
+ * bucketName (string): The bucket name, which will be used as a prefix
+   for the files and chunks collections. Defaults to "fs".
+
+ * chunkSizeBytes (integer): The chunk size in bytes. Defaults to
+   261120 (i.e. 255 KiB).
+
+ * disableMD5 (boolean): When true, no MD5 sum will be generated for
+   each stored file. Defaults to "false".
+
+ * readConcern (MongoDB\Driver\ReadConcern): Read concern.
+
+ * readPreference (MongoDB\Driver\ReadPreference): Read preference.
+
+ * typeMap (array): Default type map for cursors and BSON documents.
+
+ * writeConcern (MongoDB\Driver\WriteConcern): Write concern.</description>
+      <param description="Manager instance from the driver" type="object" variable="$manager">
+        <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+      </param>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Bucket options" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="manager" byreference="false" type="object">
+      <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="__debugInfo" start="202" end="214" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return internal properties for debugging purposes."/>
+      <see value="http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.debuginfo"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="delete" start="226" end="234" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Delete a file from the GridFS bucket.">If the files collection document is not found, this method will still
+attempt to delete orphaned chunks.</description>
+      <param description="File ID" type="mixed" variable="$id"/>
+      <throws description="if no file could be selected" type="object">
+        <type full="MongoDB\GridFS\Exception\FileNotFoundException" namespace="MongoDB\GridFS\Exception" name="FileNotFoundException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="downloadToStream" start="246" end="256" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Writes the contents of a GridFS file to a writable stream."/>
+      <param description="File ID" type="mixed" variable="$id"/>
+      <param description="Writable Stream" type="resource" variable="$destination"/>
+      <throws description="if no file could be selected" type="object">
+        <type full="MongoDB\GridFS\Exception\FileNotFoundException" namespace="MongoDB\GridFS\Exception" name="FileNotFoundException"/>
+      </throws>
+      <throws description="if $destination is not a stream" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="if the file could not be uploaded" type="object">
+        <type full="MongoDB\GridFS\Exception\StreamException" namespace="MongoDB\GridFS\Exception" name="StreamException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+    <parameter name="destination" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="downloadToStreamByName" start="285" end="295" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Writes the contents of a GridFS file, which is selected by name and revision, to a writable stream.">Supported options:
+
+ * revision (integer): Which revision (i.e. documents with the same
+   filename and different uploadDate) of the file to retrieve. Defaults
+   to -1 (i.e. the most recent revision).
+
+Revision numbers are defined as follows:
+
+ * 0 = the original stored file
+ * 1 = the first revision
+ * 2 = the second revision
+ * etc…
+ * -2 = the second most recent revision
+ * -1 = the most recent revision</description>
+      <param description="Filename" type="string" variable="$filename"/>
+      <param description="Writable Stream" type="resource" variable="$destination"/>
+      <param description="Download options" type="array" variable="$options"/>
+      <throws description="if no file could be selected" type="object">
+        <type full="MongoDB\GridFS\Exception\FileNotFoundException" namespace="MongoDB\GridFS\Exception" name="FileNotFoundException"/>
+      </throws>
+      <throws description="if $destination is not a stream" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="if the file could not be uploaded" type="object">
+        <type full="MongoDB\GridFS\Exception\StreamException" namespace="MongoDB\GridFS\Exception" name="StreamException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+    <parameter name="destination" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="drop" start="303" end="306" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Drops the files and chunks collections associated with this GridFS bucket."/>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="find" start="320" end="323" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Finds documents from the GridFS bucket's files collection matching the query."/>
+      <see value="Find::__construct() for supported options"/>
+      <param description="Query by which to filter documents" type="object" variable="$filter">
+        <type full="MongoDB\GridFS\array|object" namespace="MongoDB\GridFS" name="array|object"/>
+      </param>
+      <param description="Additional options" type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\Driver\Cursor" namespace="MongoDB\Driver" name="Cursor"/>
+      </return>
+      <throws description="if options are not supported by the selected server" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="filter" byreference="false" type="array" default=""/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="findOne" start="337" end="340" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Finds a single document from the GridFS bucket's files collection matching the query."/>
+      <see value="FindOne::__construct() for supported options"/>
+      <param description="Query by which to filter documents" type="object" variable="$filter">
+        <type full="MongoDB\GridFS\array|object" namespace="MongoDB\GridFS" name="array|object"/>
+      </param>
+      <param description="Additional options" type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\GridFS\array|object|null" namespace="MongoDB\GridFS" name="array|object|null"/>
+      </return>
+      <throws description="if options are not supported by the selected server" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="filter" byreference="false" type="array" default=""/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getBucketName" start="347" end="350" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the bucket name."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getChunksCollection" start="357" end="360" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the chunks collection."/>
+      <return type="object">
+        <type full="MongoDB\Collection" namespace="MongoDB" name="Collection"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getChunkSizeBytes" start="367" end="370" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the chunk size in bytes."/>
+      <return type="integer"/>
+    </docblock>
+  </method>
+  <method name="getDatabaseName" start="377" end="380" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the database name."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getFileDocumentForStream" start="390" end="396" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the file document of the GridFS file associated with a stream."/>
+      <param description="GridFS stream" type="resource" variable="$stream"/>
+      <return type="object">
+        <type full="MongoDB\GridFS\array|object" namespace="MongoDB\GridFS" name="array|object"/>
+      </return>
+      <throws description="if $stream is not a GridFS stream" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="stream" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Filter the raw document through the specified type map" line="394"/>
+    </inline>
+  </method>
+  <method name="getFileIdForStream" start="407" end="422" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the file document's ID of the GridFS file associated with a stream."/>
+      <param description="GridFS stream" type="resource" variable="$stream"/>
+      <return type="mixed"/>
+      <throws description="if the file &quot;_id&quot; field does not exist" type="object">
+        <type full="MongoDB\GridFS\Exception\CorruptFileException" namespace="MongoDB\GridFS\Exception" name="CorruptFileException"/>
+      </throws>
+      <throws description="if $stream is not a GridFS stream" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="stream" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Filter the raw document through the specified type map, but override" line="411"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="the root type so we can reliably access the ID." line="412"/>
+    </inline>
+  </method>
+  <method name="getFilesCollection" start="429" end="432" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the files collection."/>
+      <return type="object">
+        <type full="MongoDB\Collection" namespace="MongoDB" name="Collection"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getReadConcern" start="440" end="443" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the read concern for this GridFS bucket."/>
+      <see value="http://php.net/manual/en/mongodb-driver-readconcern.isdefault.php"/>
+      <return type="object">
+        <type full="MongoDB\Driver\ReadConcern" namespace="MongoDB\Driver" name="ReadConcern"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getReadPreference" start="450" end="453" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the read preference for this GridFS bucket."/>
+      <return type="object">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getTypeMap" start="460" end="463" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the type map for this GridFS bucket."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="getWriteConcern" start="471" end="474" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the write concern for this GridFS bucket."/>
+      <see value="http://php.net/manual/en/mongodb-driver-writeconcern.isdefault.php"/>
+      <return type="object">
+        <type full="MongoDB\Driver\WriteConcern" namespace="MongoDB\Driver" name="WriteConcern"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="openDownloadStream" start="484" end="493" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Opens a readable stream for reading a GridFS file."/>
+      <param description="File ID" type="mixed" variable="$id"/>
+      <return type="resource"/>
+      <throws description="if no file could be selected" type="object">
+        <type full="MongoDB\GridFS\Exception\FileNotFoundException" namespace="MongoDB\GridFS\Exception" name="FileNotFoundException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="openDownloadStreamByName" start="520" end="531" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Opens a readable stream stream to read a GridFS file, which is selected by name and revision.">Supported options:
+
+ * revision (integer): Which revision (i.e. documents with the same
+   filename and different uploadDate) of the file to retrieve. Defaults
+   to -1 (i.e. the most recent revision).
+
+Revision numbers are defined as follows:
+
+ * 0 = the original stored file
+ * 1 = the first revision
+ * 2 = the second revision
+ * etc…
+ * -2 = the second most recent revision
+ * -1 = the most recent revision</description>
+      <param description="Filename" type="string" variable="$filename"/>
+      <param description="Download options" type="array" variable="$options"/>
+      <return type="resource"/>
+      <throws description="if no file could be selected" type="object">
+        <type full="MongoDB\GridFS\Exception\FileNotFoundException" namespace="MongoDB\GridFS\Exception" name="FileNotFoundException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="openUploadStream" start="553" end="567" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Opens a writable stream for writing a GridFS file.">Supported options:
+
+ * _id (mixed): File document identifier. Defaults to a new ObjectId.
+
+ * chunkSizeBytes (integer): The chunk size in bytes. Defaults to the
+   bucket's chunk size.
+
+ * disableMD5 (boolean): When true, no MD5 sum will be generated for
+   the stored file. Defaults to "false".
+
+ * metadata (document): User data for the "metadata" field of the files
+   collection document.</description>
+      <param description="Filename" type="string" variable="$filename"/>
+      <param description="Upload options" type="array" variable="$options"/>
+      <return type="resource"/>
+    </docblock>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="rename" start="577" end="597" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Renames the GridFS file with the specified ID."/>
+      <param description="File ID" type="mixed" variable="$id"/>
+      <param description="New filename" type="string" variable="$newFilename"/>
+      <throws description="if no file could be selected" type="object">
+        <type full="MongoDB\GridFS\Exception\FileNotFoundException" namespace="MongoDB\GridFS\Exception" name="FileNotFoundException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+    <parameter name="newFilename" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="If the update resulted in no modification, it's possible that the" line="585"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="file did not exist, in which case we must raise an error. Checking" line="586"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="the write result's matched count will be most efficient, but fall" line="587"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="back to a findOne operation if necessary (i.e. legacy writes)." line="588"/>
+    </inline>
+  </method>
+  <method name="uploadFromStream" start="623" end="638" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Writes the contents of a readable stream to a GridFS file.">Supported options:
+
+ * _id (mixed): File document identifier. Defaults to a new ObjectId.
+
+ * chunkSizeBytes (integer): The chunk size in bytes. Defaults to the
+   bucket's chunk size.
+
+ * disableMD5 (boolean): When true, no MD5 sum will be generated for
+   the stored file. Defaults to "false".
+
+ * metadata (document): User data for the "metadata" field of the files
+   collection document.</description>
+      <param description="Filename" type="string" variable="$filename"/>
+      <param description="Readable stream" type="resource" variable="$source"/>
+      <param description="Stream options" type="array" variable="$options"/>
+      <return description="ID of the newly created GridFS file" type="mixed"/>
+      <throws description="if $source is not a GridFS stream" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="if the file could not be uploaded" type="object">
+        <type full="MongoDB\GridFS\Exception\StreamException" namespace="MongoDB\GridFS\Exception" name="StreamException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+    <parameter name="source" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="createPathForFile" start="646" end="661" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Creates a path for an existing GridFS file."/>
+      <param description="GridFS file document" type="object" variable="$file">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="file" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="createPathForUpload" start="668" end="676" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Creates a path for a new GridFS file, which does not yet have an ID."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getFilesNamespace" start="683" end="686" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns the names of the files collection."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getRawFileDocumentForStream" start="698" end="711" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Gets the file document of the GridFS file associated with a stream.">This returns the raw document from the StreamWrapper, which does not
+respect the Bucket's type map.</description>
+      <param description="GridFS stream" type="resource" variable="$stream"/>
+      <return type="object">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </return>
+      <throws type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="stream" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="openDownloadStreamByFile" start="719" end="730" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Opens a readable stream for the GridFS file."/>
+      <param description="GridFS file document" type="object" variable="$file">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </param>
+      <return type="resource"/>
+    </docblock>
+    <parameter name="file" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="registerStreamWrapper" start="735" end="742" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Registers the GridFS stream wrapper if it is not already registered."/>
+    </docblock>
+  </method>
+</class>

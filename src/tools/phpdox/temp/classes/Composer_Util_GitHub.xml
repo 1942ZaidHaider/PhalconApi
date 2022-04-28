@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Util\GitHub" namespace="Composer\Util" name="GitHub" abstract="false" final="false" start="23" end="180">
+  <file path="../vendor/composer/composer/src/Composer/Util" file="GitHub.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Util/GitHub.php" size="6060" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="024e2ea0d9ee8dbe30ccfdac0e41f4c7e3497614" relative="vendor/composer/composer/src/Composer/Util/GitHub.php"/>
+  <docblock>
+    <description/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <member name="io" visibility="protected" static="false" line="25"/>
+  <member name="config" visibility="protected" static="false" line="26"/>
+  <member name="process" visibility="protected" static="false" line="27"/>
+  <member name="remoteFilesystem" visibility="protected" static="false" line="28"/>
+  <constructor name="__construct" start="38" end="44" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructor."/>
+      <param description="The IO instance" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param description="The composer configuration" type="object" variable="$config">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </param>
+      <param description="Process instance, injectable for mocking" type="object" variable="$process">
+        <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+      </param>
+      <param description="Remote Filesystem, injectable for mocking" type="object" variable="$remoteFilesystem">
+        <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+      </param>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="process" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+    <parameter name="remoteFilesystem" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+    </parameter>
+  </constructor>
+  <method name="authorizeOAuth" start="52" end="66" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Attempts to authorize a GitHub domain via OAuth"/>
+      <param description="The host this GitHub instance is located at" type="string" variable="$originUrl"/>
+      <return description="true on success" type="object">
+        <type full="Composer\Util\bool" namespace="Composer\Util" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="originUrl" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="if available use token from git config" line="58"/>
+    </inline>
+  </method>
+  <method name="authorizeOAuthInteractively" start="77" end="128" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Authorizes a GitHub domain interactively via OAuth"/>
+      <param description="The host this GitHub instance is located at" type="string" variable="$originUrl"/>
+      <param description="The reason this authorization is required" type="string" variable="$message"/>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <throws type="object">
+        <type full="Composer\Util\TransportException|\Exception" namespace="Composer\Util\TransportException|" name="Exception"/>
+      </throws>
+      <return description="true on success" type="object">
+        <type full="Composer\Util\bool" namespace="Composer\Util" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="originUrl" byreference="false" type="{unknown}"/>
+    <parameter name="message" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="store value in user config" line="121"/>
+    </inline>
+  </method>
+  <method name="getRateLimit" start="137" end="161" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Extract ratelimit from response."/>
+      <param description="Headers from Composer\Downloader\TransportException." type="array" variable="$headers"/>
+      <return description="Associative array with the keys limit and reset." type="array"/>
+    </docblock>
+    <parameter name="headers" byreference="false" type="array"/>
+  </method>
+  <method name="isRateLimited" start="170" end="179" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Finds whether a request failed due to rate limiting"/>
+      <param description="Headers from Composer\Downloader\TransportException." type="array" variable="$headers"/>
+      <return type="object">
+        <type full="Composer\Util\bool" namespace="Composer\Util" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="headers" byreference="false" type="array"/>
+  </method>
+</class>

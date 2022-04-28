@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Repository\Vcs\HgDriver" namespace="Composer\Repository\Vcs" name="HgDriver" abstract="false" final="false" start="25" end="240">
+  <file path="../vendor/composer/composer/src/Composer/Repository/Vcs" file="HgDriver.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Repository/Vcs/HgDriver.php" size="7266" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="a5944576884343aee6fc23172cb7eb92ae0034ab" relative="vendor/composer/composer/src/Composer/Repository/Vcs/HgDriver.php"/>
+  <docblock>
+    <description/>
+    <author value="Per Bernhardt &lt;plb@webfactory.de&gt;"/>
+  </docblock>
+  <extends full="Composer\Repository\Vcs\VcsDriver" namespace="Composer\Repository\Vcs" name="VcsDriver"/>
+  <member name="tags" visibility="protected" static="false" line="27"/>
+  <member name="branches" visibility="protected" static="false" line="28"/>
+  <member name="rootIdentifier" visibility="protected" static="false" line="29"/>
+  <member name="repoDir" visibility="protected" static="false" line="30"/>
+  <member name="infoCache" default="" type="array" visibility="protected" static="false" line="31"/>
+  <method name="initialize" start="36" end="80" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+  </method>
+  <method name="getRootIdentifier" start="85" end="94" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+  </method>
+  <method name="getUrl" start="99" end="102" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+  </method>
+  <method name="getSource" start="107" end="110" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getDist" start="115" end="118" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getFileContent" start="123" end="137" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getChangeDate" start="142" end="154" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getTags" start="159" end="176" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+  </method>
+  <method name="getBranches" start="181" end="206" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+  </method>
+  <method name="supports" start="211" end="239" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="deep" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="local filesystem" line="217"/>
+    </inline>
+  </method>
+  <parent full="Composer\Repository\Vcs\VcsDriver" namespace="Composer\Repository\Vcs" name="VcsDriver">
+    <implements full="Composer\Repository\Vcs\VcsDriverInterface" namespace="Composer\Repository\Vcs" name="VcsDriverInterface"/>
+    <member name="url" visibility="protected" static="false" line="33">
+      <docblock>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <member name="originUrl" visibility="protected" static="false" line="35">
+      <docblock>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <member name="repoConfig" visibility="protected" static="false" line="37">
+      <docblock>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <member name="io" visibility="protected" static="false" line="39">
+      <docblock>
+        <var type="object">
+          <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="config" visibility="protected" static="false" line="41">
+      <docblock>
+        <var type="object">
+          <type full="Composer\Config" namespace="Composer" name="Config"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="process" visibility="protected" static="false" line="43">
+      <docblock>
+        <var type="object">
+          <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="remoteFilesystem" visibility="protected" static="false" line="45">
+      <docblock>
+        <var type="object">
+          <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="infoCache" default="" type="array" visibility="protected" static="false" line="47">
+      <docblock>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <member name="cache" visibility="protected" static="false" line="49">
+      <docblock>
+        <var type="object">
+          <type full="Composer\Cache" namespace="Composer" name="Cache"/>
+        </var>
+      </docblock>
+    </member>
+    <constructor name="__construct" start="60" end="73" abstract="false" final="true" static="false" visibility="public">
+      <docblock>
+        <description compact="Constructor."/>
+        <param description="The repository configuration" type="array" variable="$repoConfig"/>
+        <param description="The IO instance" type="object" variable="$io">
+          <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+        </param>
+        <param description="The composer configuration" type="object" variable="$config">
+          <type full="Composer\Config" namespace="Composer" name="Config"/>
+        </param>
+        <param description="Process instance, injectable for mocking" type="object" variable="$process">
+          <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+        </param>
+        <param description="Remote Filesystem, injectable for mocking" type="object" variable="$remoteFilesystem">
+          <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+        </param>
+      </docblock>
+      <parameter name="repoConfig" byreference="false" type="array"/>
+      <parameter name="io" byreference="false" type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </parameter>
+      <parameter name="config" byreference="false" type="object">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </parameter>
+      <parameter name="process" byreference="false" type="object" default="NULL">
+        <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+      </parameter>
+      <parameter name="remoteFilesystem" byreference="false" type="object" default="NULL">
+        <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+      </parameter>
+    </constructor>
+    <method name="shouldCache" start="81" end="84" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Returns whether or not the given $identifier should be cached or not."/>
+        <param type="string" variable="$identifier"/>
+        <return type="object">
+          <type full="Composer\Repository\Vcs\bool" namespace="Composer\Repository\Vcs" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getComposerInformation" start="89" end="106" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getBaseComposerInformation" start="108" end="123" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="hasComposerFile" start="128" end="136" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritDoc}"/>
+      </docblock>
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getScheme" start="145" end="152" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get the https or http protocol depending on SSL support.">Call this only if you know that the server supports both.</description>
+        <return description="The correct type of protocol" type="string"/>
+      </docblock>
+    </method>
+    <method name="getContents" start="161" end="166" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get the remote content."/>
+        <param description="The URL of content" type="string" variable="$url"/>
+        <return description="The result" type="mixed"/>
+      </docblock>
+      <parameter name="url" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="cleanup" start="171" end="174" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritDoc}"/>
+      </docblock>
+    </method>
+  </parent>
+  <interface full="Composer\Repository\Vcs\VcsDriverInterface" namespace="Composer\Repository\Vcs" name="VcsDriverInterface">
+    <method name="initialize" start="26" end="26" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Initializes the driver (git clone, svn checkout, fetch info etc)"/>
+      </docblock>
+    </method>
+    <method name="getComposerInformation" start="34" end="34" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Return the composer.json file information"/>
+        <param description="Any identifier to a specific branch/tag/commit" type="string" variable="$identifier"/>
+        <return description="containing all infos from the composer.json file" type="array"/>
+      </docblock>
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getFileContent" start="43" end="43" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Return the content of $file or null if the file does not exist."/>
+        <param type="string" variable="$file"/>
+        <param type="string" variable="$identifier"/>
+        <return type="string"/>
+      </docblock>
+      <parameter name="file" byreference="false" type="{unknown}"/>
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getChangeDate" start="51" end="51" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get the changedate for $identifier."/>
+        <param type="string" variable="$identifier"/>
+        <return type="object">
+          <type full="\DateTime" namespace="" name="DateTime"/>
+        </return>
+      </docblock>
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getRootIdentifier" start="58" end="58" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Return the root identifier (trunk, master, default/tip ..)"/>
+        <return description="Identifier" type="string"/>
+      </docblock>
+    </method>
+    <method name="getBranches" start="65" end="65" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Return list of branches in the repository"/>
+        <return description="Branch names as keys, identifiers as values" type="array"/>
+      </docblock>
+    </method>
+    <method name="getTags" start="72" end="72" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Return list of tags in the repository"/>
+        <return description="Tag names as keys, identifiers as values" type="array"/>
+      </docblock>
+    </method>
+    <method name="getDist" start="78" end="78" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param description="Any identifier to a specific branch/tag/commit" type="string" variable="$identifier"/>
+        <return description="With type, url reference and shasum keys." type="array"/>
+      </docblock>
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getSource" start="84" end="84" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param description="Any identifier to a specific branch/tag/commit" type="string" variable="$identifier"/>
+        <return description="With type, url and reference keys." type="array"/>
+      </docblock>
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getUrl" start="91" end="91" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Return the URL of the repository"/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="hasComposerFile" start="100" end="100" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Return true if the repository has a composer file for a given identifier, false otherwise."/>
+        <param description="Any identifier to a specific branch/tag/commit" type="string" variable="$identifier"/>
+        <return description="Whether the repository has a composer file for a given identifier." type="object">
+          <type full="Composer\Repository\Vcs\bool" namespace="Composer\Repository\Vcs" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="identifier" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="cleanup" start="105" end="105" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Performs any cleanup necessary as the driver is not longer needed"/>
+      </docblock>
+    </method>
+    <method name="supports" start="116" end="116" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Checks if this driver can handle a given url"/>
+        <param description="IO instance" type="object" variable="$io">
+          <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+        </param>
+        <param description="current $config" type="object" variable="$config">
+          <type full="Composer\Config" namespace="Composer" name="Config"/>
+        </param>
+        <param description="URL to validate/check" type="string" variable="$url"/>
+        <param description="unless true, only shallow checks (url matching typically) should be done" type="object" variable="$deep">
+          <type full="Composer\Repository\Vcs\bool" namespace="Composer\Repository\Vcs" name="bool"/>
+        </param>
+        <return type="object">
+          <type full="Composer\Repository\Vcs\bool" namespace="Composer\Repository\Vcs" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="io" byreference="false" type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </parameter>
+      <parameter name="config" byreference="false" type="object">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </parameter>
+      <parameter name="url" byreference="false" type="{unknown}"/>
+      <parameter name="deep" byreference="false" type="boolean" default="false"/>
+    </method>
+  </interface>
+</class>

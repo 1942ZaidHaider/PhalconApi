@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\String\Slugger\AsciiSlugger" namespace="Symfony\Component\String\Slugger" name="AsciiSlugger" abstract="false" final="false" start="25" end="183">
+  <file path="../vendor/symfony/string/Slugger" file="AsciiSlugger.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/string/Slugger/AsciiSlugger.php" size="6131" time="2022-04-19T10:40:37+00:00" unixtime="1650364837" sha1="2470de6d81f2858e73190e36f18a82e6827621a3" relative="vendor/symfony/string/Slugger/AsciiSlugger.php"/>
+  <docblock>
+    <description/>
+    <author value="Titouan Galopin &lt;galopintitouan@gmail.com&gt;"/>
+  </docblock>
+  <implements full="Symfony\Component\String\Slugger\SluggerInterface" namespace="Symfony\Component\String\Slugger" name="SluggerInterface"/>
+  <implements full="Symfony\Contracts\Translation\LocaleAwareInterface" namespace="Symfony\Contracts\Translation" name="LocaleAwareInterface" unresolved="true"/>
+  <constant type="array" name="LOCALE_TO_TRANSLITERATOR_ID" value=""/>
+  <member name="defaultLocale" visibility="private" static="false" line="57"/>
+  <member name="symbolsMap" default="" type="array" visibility="private" static="false" line="58"/>
+  <member name="transliterators" default="" type="array" visibility="private" static="false" line="67">
+    <docblock>
+      <description compact="Cache of transliterators per locale."/>
+      <var type="array" of="object">
+        <type full="\Transliterator" namespace="" name="Transliterator"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="72" end="80" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$symbolsMap">
+        <type full="Symfony\Component\String\Slugger\array|\Closure|null" namespace="Symfony\Component\String\Slugger\array|" name="Closure|null"/>
+      </param>
+    </docblock>
+    <parameter name="defaultLocale" byreference="false" type="string" default="NULL"/>
+    <parameter name="symbolsMap" byreference="false" type="{unknown}" default="NULL"/>
+  </constructor>
+  <method name="setLocale" start="85" end="88" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="locale" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getLocale" start="93" end="96" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+  </method>
+  <method name="slug" start="101" end="145" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\String\AbstractUnicodeString" namespace="Symfony\Component\String" name="AbstractUnicodeString"/>
+    </return>
+    <parameter name="string" byreference="false" type="string"/>
+    <parameter name="separator" byreference="false" type="string" default="'-'"/>
+    <parameter name="locale" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="createTransliterator" start="147" end="169" abstract="false" final="false" static="false" visibility="private">
+    <return type="object" nullable="true">
+      <type full="Transliterator" namespace="" name="Transliterator"/>
+    </return>
+    <parameter name="locale" byreference="false" type="string"/>
+    <inline>
+      <comment value="Exact locale supported, cache and return" line="153"/>
+      <comment value="Locale not supported and no parent, fallback to any-latin" line="158"/>
+      <comment value="Try to use the parent locale (ie. try &quot;de&quot; for &quot;de_AT&quot;) and cache both locales" line="163"/>
+    </inline>
+  </method>
+  <method name="getParentLocale" start="171" end="182" abstract="false" final="false" static="true" visibility="private">
+    <return type="string" nullable="true"/>
+    <parameter name="locale" byreference="false" nullable="true" type="string"/>
+  </method>
+  <interface full="Symfony\Component\String\Slugger\SluggerInterface" namespace="Symfony\Component\String\Slugger" name="SluggerInterface">
+    <method name="slug" start="26" end="26" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Creates a slug for the given string and locale, using appropriate transliteration when needed."/>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Component\String\AbstractUnicodeString" namespace="Symfony\Component\String" name="AbstractUnicodeString"/>
+      </return>
+      <parameter name="string" byreference="false" type="string"/>
+      <parameter name="separator" byreference="false" type="string" default="'-'"/>
+      <parameter name="locale" byreference="false" type="string" default="NULL"/>
+    </method>
+  </interface>
+</class>

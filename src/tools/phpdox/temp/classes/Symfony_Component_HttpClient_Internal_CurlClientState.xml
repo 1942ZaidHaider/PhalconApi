@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\Internal\CurlClientState" namespace="Symfony\Component\HttpClient\Internal" name="CurlClientState" abstract="false" final="true" start="24" end="148">
+  <file path="../vendor/symfony/http-client/Internal" file="CurlClientState.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/Internal/CurlClientState.php" size="5833" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="5718b86b0181ed31917d20ac3236558224285f13" relative="vendor/symfony/http-client/Internal/CurlClientState.php"/>
+  <docblock>
+    <description compact="Internal representation of the cURL client's state."/>
+    <author value="Alexander M. Turek &lt;me@derrabus.de&gt;"/>
+    <internal/>
+  </docblock>
+  <extends full="Symfony\Component\HttpClient\Internal\ClientState" namespace="Symfony\Component\HttpClient\Internal" name="ClientState"/>
+  <member name="handle" visibility="public" static="false" line="27">
+    <docblock>
+      <var type="object">
+        <type full="\CurlMultiHandle|resource|null" namespace="" name="CurlMultiHandle|resource|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="share" visibility="public" static="false" line="29">
+    <docblock>
+      <var type="object">
+        <type full="\CurlShareHandle|resource|null" namespace="" name="CurlShareHandle|resource|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="pushedResponses" default="" type="array" visibility="public" static="false" line="31">
+    <docblock>
+      <var type="array" of="object">
+        <type full="Symfony\Component\HttpClient\Internal\PushedResponse" namespace="Symfony\Component\HttpClient\Internal" name="PushedResponse"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="dnsCache" visibility="public" static="false" line="33">
+    <docblock>
+      <var type="object">
+        <type full="Symfony\Component\HttpClient\Internal\DnsCache" namespace="Symfony\Component\HttpClient\Internal" name="DnsCache"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="pauseExpiries" default="" type="array" visibility="public" static="false" line="35">
+    <docblock>
+      <var type="array" of="object">
+        <type full="Symfony\Component\HttpClient\Internal\float" namespace="Symfony\Component\HttpClient\Internal" name="float"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="execCounter" default="" type="{unknown}" constant="PHP_INT_MIN" visibility="public" static="false" line="36"/>
+  <member name="logger" visibility="public" static="false" line="38">
+    <docblock>
+      <var type="object">
+        <type full="Symfony\Component\HttpClient\Internal\LoggerInterface|null" namespace="Symfony\Component\HttpClient\Internal" name="LoggerInterface|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="curlVersion" visibility="public" static="true" line="40"/>
+  <constructor name="__construct" start="42" end="83" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="maxHostConnections" byreference="false" type="int"/>
+    <parameter name="maxPendingPushes" byreference="false" type="int"/>
+    <inline>
+      <comment value="Don't enable HTTP/1.1 pipelining: it forces responses to be sent in order" line="50"/>
+      <comment value="Skip configuring HTTP/2 push when it's unsupported or buggy, see https://bugs.php.net/77535" line="61"/>
+      <comment value="HTTP/2 push crashes before curl 7.61" line="66"/>
+      <comment value="Clone to prevent a circular reference" line="71"/>
+    </inline>
+  </constructor>
+  <method name="reset" start="85" end="105" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="handlePush" start="107" end="147" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+    <parameter name="parent" byreference="false" type="{unknown}"/>
+    <parameter name="pushed" byreference="false" type="{unknown}"/>
+    <parameter name="requestHeaders" byreference="false" type="array"/>
+    <parameter name="maxPendingPushes" byreference="false" type="int"/>
+    <inline>
+      <comment value="curl before 7.65 doesn't validate the pushed &quot;:authority&quot; header," line="126"/>
+      <comment value="but this is a MUST in the HTTP/2 RFC; let's restrict pushes to the original host," line="127"/>
+      <comment value="ignoring domains mentioned as alt-name in the certificate for now (same as curl)." line="128"/>
+    </inline>
+  </method>
+  <parent full="Symfony\Component\HttpClient\Internal\ClientState" namespace="Symfony\Component\HttpClient\Internal" name="ClientState">
+    <member name="handlesActivity" default="" type="array" visibility="public" static="false" line="23"/>
+    <member name="openHandles" default="" type="array" visibility="public" static="false" line="24"/>
+    <member name="lastTimeout" visibility="public" static="false" line="25"/>
+  </parent>
+</class>

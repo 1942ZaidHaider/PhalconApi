@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Util\Git" namespace="Composer\Util" name="Git" abstract="false" final="false" start="21" end="426">
+  <file path="../vendor/composer/composer/src/Composer/Util" file="Git.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Util/Git.php" size="18422" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="01ea6f6fae50fa0381875cd4cceadb83635267f1" relative="vendor/composer/composer/src/Composer/Util/Git.php"/>
+  <docblock>
+    <description/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <member name="version" default="false" type="boolean" visibility="private" static="true" line="23"/>
+  <member name="io" visibility="protected" static="false" line="26">
+    <docblock>
+      <var type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="config" visibility="protected" static="false" line="28">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="process" visibility="protected" static="false" line="30">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="filesystem" visibility="protected" static="false" line="32">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="34" end="40" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="process" byreference="false" type="object">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+    <parameter name="fs" byreference="false" type="object">
+      <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+    </parameter>
+  </constructor>
+  <method name="runCommand" start="42" end="247" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="commandCallable" byreference="false" type="{unknown}"/>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="cwd" byreference="false" type="{unknown}"/>
+    <parameter name="initialClone" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Ensure we are allowed to use this URL by config" line="44"/>
+      <comment value="public github, autoswitch protocols" line="68"/>
+      <comment value="if we have a private github url and the ssh protocol is disabled then we skip it and directly fallback to https" line="93"/>
+    </inline>
+  </method>
+  <method name="syncMirror" start="249" end="279" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="dir" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="update the repo if it is a valid git repository" line="251"/>
+      <comment value="clean up directory and do a fresh clone into it" line="269"/>
+    </inline>
+  </method>
+  <method name="fetchRefOrSyncMirror" start="281" end="292" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="dir" byreference="false" type="{unknown}"/>
+    <parameter name="ref" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getNoShowSignatureFlag" start="294" end="302" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="process" byreference="false" type="object">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+  </method>
+  <method name="checkRefIsInMirror" start="304" end="315" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="dir" byreference="false" type="{unknown}"/>
+    <parameter name="ref" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isAuthenticationFailure" start="317" end="339" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="match" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="cleanEnv" start="341" end="372" abstract="false" final="false" static="true" visibility="public">
+    <inline>
+      <comment value="added in git 1.7.1, prevents prompting the user for username/password" line="347"/>
+      <comment value="clean up rogue git env vars in case this is running in a git hook" line="353"/>
+      <comment value="Run processes with predictable LANGUAGE" line="363"/>
+      <comment value="clean up env for OSX, see https://github.com/composer/composer/issues/2146#issuecomment-35478940" line="369"/>
+    </inline>
+  </method>
+  <method name="getGitHubDomainsRegex" start="374" end="377" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+  </method>
+  <method name="getGitLabDomainsRegex" start="379" end="382" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+  </method>
+  <method name="sanitizeUrl" start="384" end="393" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="message" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="throwException" start="395" end="405" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="message" byreference="false" type="{unknown}"/>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="git might delete a directory when it fails and php will not know" line="397"/>
+    </inline>
+  </method>
+  <method name="getVersion" start="412" end="425" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Retrieves the current git version."/>
+      <return description="The git version number." type="object">
+        <type full="Composer\Util\string|null" namespace="Composer\Util" name="string|null"/>
+      </return>
+    </docblock>
+    <parameter name="process" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+  </method>
+</class>

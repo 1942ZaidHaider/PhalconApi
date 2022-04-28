@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\DisallowAlternativePHPTagsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="DisallowAlternativePHPTagsSniff" abstract="false" final="false" start="18" end="253">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP" file="DisallowAlternativePHPTagsSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP/DisallowAlternativePHPTagsSniff.php" size="8926" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="7a027ac29470c8c3e951cb4f730f49f4d0856255" relative="vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP/DisallowAlternativePHPTagsSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <member name="aspTags" default="false" type="boolean" visibility="private" static="false" line="26">
+    <docblock>
+      <description compact="Whether ASP tags are enabled or not."/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="phpVersion" default="NULL" visibility="private" static="false" line="33">
+    <docblock>
+      <description compact="The current PHP version."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <method name="register" start="41" end="60" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns an array of tokens this test wants to listen for."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="process" start="72" end="161" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes this test, when one of its tokens is encountered."/>
+      <param description="The file being scanned." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token" type="int" variable="$stackPtr">in the stack passed in $tokens.</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\void" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end if" line="107"/>
+      <comment value="end if" line="131"/>
+      <comment value="Account for incorrect script open tags." line="133"/>
+    </inline>
+  </method>
+  <method name="getSnippet" start="173" end="191" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Get a snippet from a HTML token."/>
+      <param description="The content of the HTML token." type="string" variable="$content"/>
+      <param description="Partial string to use as a starting point for the snippet." type="string" variable="$start"/>
+      <param description="The target length of the snippet to get. Defaults to 40." type="int" variable="$length"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+    <parameter name="start" byreference="false" type="string" default="''"/>
+    <parameter name="length" byreference="false" type="integer" default="40"/>
+  </method>
+  <method name="findClosingTag" start="205" end="215" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Try and find a matching PHP closing tag."/>
+      <param description="The file being scanned." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The token stack." type="array" variable="$tokens"/>
+      <param description="The position of the current token" type="int" variable="$stackPtr">in the stack passed in $tokens.</param>
+      <param description="The expected content of the closing tag to match the opener." type="string" variable="$content"/>
+      <return description="Pointer to the position in the stack for the closing tag or false if not found." type="object">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\int|false" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="int|false"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="tokens" byreference="false" type="{unknown}"/>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addChangeset" start="229" end="250" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Add a changeset to replace the alternative PHP tags."/>
+      <param description="The file being scanned." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The token stack." type="array" variable="$tokens"/>
+      <param description="Stack pointer to the PHP open tag." type="int" variable="$openTagPointer"/>
+      <param description="Stack pointer to the PHP close tag." type="int" variable="$closeTagPointer"/>
+      <param description="Whether to add 'echo' or not." type="object" variable="$echo">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\bool" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\void" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="tokens" byreference="false" type="{unknown}"/>
+    <parameter name="openTagPointer" byreference="false" type="{unknown}"/>
+    <parameter name="closeTagPointer" byreference="false" type="{unknown}"/>
+    <parameter name="echo" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Build up the open tag replacement and make sure there's always whitespace behind it." line="231"/>
+      <comment value="Make sure we don't remove any line breaks after the closing tag." line="241"/>
+    </inline>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

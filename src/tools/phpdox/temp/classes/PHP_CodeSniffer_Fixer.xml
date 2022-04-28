@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Fixer" namespace="PHP_CodeSniffer" name="Fixer" abstract="false" final="false" start="18" end="806">
+  <file path="../vendor/squizlabs/php_codesniffer/src" file="Fixer.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Fixer.php" size="23868" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="5f4085f3ccb92ce231aa41a171fd3c00f9073eb5" relative="vendor/squizlabs/php_codesniffer/src/Fixer.php"/>
+  <member name="enabled" default="false" type="boolean" visibility="public" static="false" line="30">
+    <docblock>
+      <description compact="Is the fixer enabled and fixing a file?">Sniffs should check this value to ensure they are not
+doing extra processing to prepare for a fix when fixing is
+not required.</description>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="loops" default="0" type="integer" visibility="public" static="false" line="37">
+    <docblock>
+      <description compact="The number of times we have looped over a file."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="currentFile" default="NULL" visibility="private" static="false" line="44">
+    <docblock>
+      <description compact="The file being fixed."/>
+      <var type="object">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="tokens" default="" type="array" visibility="private" static="false" line="55">
+    <docblock>
+      <description compact="The list of tokens that make up the file contents.">This is a simplified list which just contains the token content and nothing
+else. This is the array that is updated as fixes are made, not the file's
+token array. Imploding this array will give you the file content back.</description>
+      <var description="string&gt;" type="object">
+        <type full="PHP_CodeSniffer\array&lt;int" namespace="PHP_CodeSniffer" name="array&lt;int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="fixedTokens" default="" type="array" visibility="private" static="false" line="65">
+    <docblock>
+      <description compact="A list of tokens that have already been fixed.">We don't allow the same token to be fixed more than once each time
+through a file as this can easily cause conflicts between sniffs.</description>
+      <var type="array" of="object">
+        <type full="PHP_CodeSniffer\int" namespace="PHP_CodeSniffer" name="int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="oldTokenValues" default="" type="array" visibility="private" static="false" line="75">
+    <docblock>
+      <description compact="The last value of each fixed token.">If a token is being "fixed" back to its last value, the fix is
+probably conflicting with another.</description>
+      <var description="string&gt;" type="object">
+        <type full="PHP_CodeSniffer\array&lt;int" namespace="PHP_CodeSniffer" name="array&lt;int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="changeset" default="" type="array" visibility="private" static="false" line="85">
+    <docblock>
+      <description compact="A list of tokens that have been fixed during a changeset.">All changes in changeset must be able to be applied, or else
+the entire changeset is rejected.</description>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="inChangeset" default="false" type="boolean" visibility="private" static="false" line="92">
+    <docblock>
+      <description compact="Is there an open changeset."/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="inConflict" default="false" type="boolean" visibility="private" static="false" line="99">
+    <docblock>
+      <description compact="Is the current fixing loop in conflict?"/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="numFixes" default="0" type="integer" visibility="private" static="false" line="106">
+    <docblock>
+      <description compact="The number of fixes that have been performed."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <method name="startFile" start="116" end="132" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Starts fixing a new file."/>
+      <param description="The file being fixed." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+  </method>
+  <method name="fixFile" start="140" end="217" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Attempt to fix the file by processing it until no fixes are made."/>
+      <return type="boolean"/>
+    </docblock>
+    <inline>
+      <comment value="end while" line="198"/>
+    </inline>
+  </method>
+  <method name="generateDiff" start="230" end="295" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Generates a text diff of the original file and the new content."/>
+      <param description="Optional file path to diff the file against." type="string" variable="$filePath">If not specified, the original version of the
+                         file will be used.</param>
+      <param description="Print coloured output or not." type="boolean" variable="$colors"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="filePath" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="colors" byreference="false" type="boolean" default="true"/>
+    <inline>
+      <comment value="We must use something like shell_exec() because whitespace at the end" line="249"/>
+      <comment value="of lines is critical to diff files." line="250"/>
+    </inline>
+  </method>
+  <method name="getFixCount" start="306" end="310" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get a count of fixes that have been performed on the file.">This value is reset every time a new file is started, or an existing
+file is restarted.</description>
+      <return type="int"/>
+    </docblock>
+  </method>
+  <method name="getContents" start="318" end="323" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get the current content of the file, as a string."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getTokenContent" start="336" end="346" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get the current fixed content of a token.">This function takes changesets into account so should be used
+instead of directly accessing the token array.</description>
+      <param description="The position of the token in the token stack." type="int" variable="$stackPtr"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="beginChangeset" start="354" end="378" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Start recording actions for a changeset."/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="endChangeset" start="386" end="426" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stop recording actions for a changeset, and apply logged changes."/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+  <method name="rollbackChangeset" start="434" end="463" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stop recording actions for a changeset, and discard logged changes."/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="end if" line="461"/>
+    </inline>
+  </method>
+  <method name="replaceToken" start="474" end="596" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Replace the entire contents of a token."/>
+      <param description="The position of the token in the token stack." type="int" variable="$stackPtr"/>
+      <param description="The new content of the token." type="string" variable="$content"/>
+      <return description="If the change was accepted." type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end if" line="520"/>
+      <comment value="end if" line="574"/>
+    </inline>
+  </method>
+  <method name="revertToken" start="606" end="654" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Reverts the previous fix made to a token."/>
+      <param description="The position of the token in the token stack." type="int" variable="$stackPtr"/>
+      <return description="If a change was reverted." type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end if" line="635"/>
+    </inline>
+  </method>
+  <method name="substrToken" start="667" end="679" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Replace the content of a token with a part of its current content."/>
+      <param description="The position of the token in the token stack." type="int" variable="$stackPtr"/>
+      <param description="The first character to keep." type="int" variable="$start"/>
+      <param description="The number of characters to keep. If NULL, the content of" type="int" variable="$length">the token from $start to the end of the content is kept.</param>
+      <return description="If the change was accepted." type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="start" byreference="false" type="{unknown}"/>
+    <parameter name="length" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="addNewline" start="689" end="694" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds a newline to end of a token's content."/>
+      <param description="The position of the token in the token stack." type="int" variable="$stackPtr"/>
+      <return description="If the change was accepted." type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addNewlineBefore" start="704" end="709" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds a newline to the start of a token's content."/>
+      <param description="The position of the token in the token stack." type="int" variable="$stackPtr"/>
+      <return description="If the change was accepted." type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addContent" start="720" end="725" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds content to the end of a token's current content."/>
+      <param description="The position of the token in the token stack." type="int" variable="$stackPtr"/>
+      <param description="The content to add." type="string" variable="$content"/>
+      <return description="If the change was accepted." type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addContentBefore" start="736" end="741" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds content to the start of a token's current content."/>
+      <param description="The position of the token in the token stack." type="int" variable="$stackPtr"/>
+      <param description="The content to add." type="string" variable="$content"/>
+      <return description="If the change was accepted." type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="changeCodeBlockIndent" start="756" end="803" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adjust the indent of a code block."/>
+      <param description="The position of the token in the token stack" type="int" variable="$start">to start adjusting the indent from.</param>
+      <param description="The position of the token in the token stack" type="int" variable="$end">to end adjusting the indent.</param>
+      <param description="The number of spaces to adjust the indent by" type="int" variable="$change">(positive or negative).</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="start" byreference="false" type="{unknown}"/>
+    <parameter name="end" byreference="false" type="{unknown}"/>
+    <parameter name="change" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end for" line="797"/>
+    </inline>
+  </method>
+</class>

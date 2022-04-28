@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="JsonSchema\Constraints\Factory" namespace="JsonSchema\Constraints" name="Factory" abstract="false" final="false" start="22" end="220">
+  <file path="../vendor/justinrainbow/json-schema/src/JsonSchema/Constraints" file="Factory.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/justinrainbow/json-schema/src/JsonSchema/Constraints/Factory.php" size="5702" time="2022-04-13T08:02:27+00:00" unixtime="1649836947" sha1="beb06a1f175eb19f0f6eb6e06288d2ada06cf1ef" relative="vendor/justinrainbow/json-schema/src/JsonSchema/Constraints/Factory.php"/>
+  <docblock>
+    <description compact="Factory for centralize constraint initialization."/>
+  </docblock>
+  <member name="schemaStorage" visibility="protected" static="false" line="27">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="JsonSchema\SchemaStorage" namespace="JsonSchema" name="SchemaStorage"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="uriRetriever" visibility="protected" static="false" line="32">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="JsonSchema\Uri\UriRetriever" namespace="JsonSchema\Uri" name="UriRetriever"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="checkMode" default="" type="{unknown}" constant="Constraint::CHECK_MODE_NORMAL" visibility="private" static="false" line="37">
+    <docblock>
+      <description/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="typeCheck" default="" type="array" visibility="private" static="false" line="42">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="JsonSchema\Constraints\TypeCheck\TypeCheckInterface" namespace="JsonSchema\Constraints\TypeCheck" name="TypeCheckInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="errorContext" default="" type="{unknown}" constant="Validator::ERROR_DOCUMENT_VALIDATION" visibility="protected" static="false" line="47">
+    <docblock>
+      <description/>
+      <var description="Validation context" type="int"/>
+    </docblock>
+  </member>
+  <member name="constraintMap" default="" type="array" visibility="protected" static="false" line="52">
+    <docblock>
+      <description/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="instanceCache" default="" type="array" visibility="private" static="false" line="69">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="JsonSchema\Constraints\array&lt;ConstraintInterface&gt;" namespace="JsonSchema\Constraints" name="array&lt;ConstraintInterface&gt;"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="76" end="86" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$schemaStorage">
+        <type full="JsonSchema\SchemaStorage" namespace="JsonSchema" name="SchemaStorage"/>
+      </param>
+      <param type="object" variable="$uriRetriever">
+        <type full="JsonSchema\UriRetrieverInterface" namespace="JsonSchema" name="UriRetrieverInterface"/>
+      </param>
+      <param type="int" variable="$checkMode"/>
+    </docblock>
+    <parameter name="schemaStorage" byreference="false" type="object" default="NULL">
+      <type full="JsonSchema\SchemaStorageInterface" namespace="JsonSchema" name="SchemaStorageInterface"/>
+    </parameter>
+    <parameter name="uriRetriever" byreference="false" type="object" default="NULL">
+      <type full="JsonSchema\UriRetrieverInterface" namespace="JsonSchema" name="UriRetrieverInterface"/>
+    </parameter>
+    <parameter name="checkMode" byreference="false" type="{unknown}" default="" constant="Constraint::CHECK_MODE_NORMAL"/>
+    <inline>
+      <comment value="set provided config options" line="81"/>
+    </inline>
+  </constructor>
+  <method name="setConfig" start="93" end="96" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set config values"/>
+      <param description="Set checkMode options - does not preserve existing flags" type="int" variable="$checkMode"/>
+    </docblock>
+    <parameter name="checkMode" byreference="false" type="{unknown}" default="" constant="Constraint::CHECK_MODE_NORMAL"/>
+  </method>
+  <method name="addConfig" start="103" end="106" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Enable checkMode flags"/>
+      <param type="int" variable="$options"/>
+    </docblock>
+    <parameter name="options" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="removeConfig" start="113" end="116" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Disable checkMode flags"/>
+      <param type="int" variable="$options"/>
+    </docblock>
+    <parameter name="options" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getConfig" start="125" end="132" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get checkMode option"/>
+      <param description="Options to get, if null then return entire bitmask" type="int" variable="$options"/>
+      <return type="int"/>
+    </docblock>
+    <parameter name="options" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="getUriRetriever" start="137" end="140" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="JsonSchema\UriRetrieverInterface" namespace="JsonSchema" name="UriRetrieverInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getSchemaStorage" start="142" end="145" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getTypeCheck" start="147" end="156" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="setConstraintClass" start="164" end="177" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$name"/>
+      <param type="string" variable="$class"/>
+      <return type="object">
+        <type full="JsonSchema\Constraints\Factory" namespace="JsonSchema\Constraints" name="Factory"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="class" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Ensure class exists" line="166"/>
+      <comment value="Ensure class is appropriate" line="170"/>
+    </inline>
+  </method>
+  <method name="createInstanceFor" start="188" end="199" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Create a constraint instance for the given constraint name."/>
+      <param type="string" variable="$constraintName"/>
+      <throws description="if is not possible create the constraint instance" type="object">
+        <type full="JsonSchema\Exception\InvalidArgumentException" namespace="JsonSchema\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <return type="object">
+        <type full="JsonSchema\Constraints\ConstraintInterface|ObjectConstraint" namespace="JsonSchema\Constraints" name="ConstraintInterface|ObjectConstraint"/>
+      </return>
+    </docblock>
+    <parameter name="constraintName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getErrorContext" start="206" end="209" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get the error context"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="setErrorContext" start="216" end="219" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set the error context"/>
+      <param type="string" variable="$validationContext"/>
+    </docblock>
+    <parameter name="errorContext" byreference="false" type="{unknown}"/>
+  </method>
+</class>

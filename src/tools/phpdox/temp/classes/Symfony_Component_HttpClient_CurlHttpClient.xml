@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\CurlHttpClient" namespace="Symfony\Component\HttpClient" name="CurlHttpClient" abstract="false" final="true" start="35" end="551">
+  <file path="../vendor/symfony/http-client" file="CurlHttpClient.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/CurlHttpClient.php" size="23747" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="0b8dcd2a93f105f18a90c0162fdb5cf22c70b05d" relative="vendor/symfony/http-client/CurlHttpClient.php"/>
+  <docblock>
+    <description compact="A performant implementation of the HttpClientInterface contracts based on the curl extension.">This provides fully concurrent HTTP requests, with transparent
+HTTP/2 push when a curl version that supports it is installed.</description>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <implements full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+  <implements full="Psr\Log\LoggerAwareInterface" namespace="Psr\Log" name="LoggerAwareInterface"/>
+  <implements full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface"/>
+  <uses full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait" start="37" end="37"/>
+  <member name="defaultOptions" default="self::OPTIONS_DEFAULTS + [&#10;    'auth_ntlm' =&gt; null,&#10;    // array|string - an array containing the username as first value, and optionally the&#10;    //   password as the second one; or string like username:password - enabling NTLM auth&#10;    'extra' =&gt; ['curl' =&gt; []],&#10;" type="object" visibility="private" static="false" line="39">
+    <type full="expression" namespace="" name="expression"/>
+  </member>
+  <member name="emptyDefaults" default="self::OPTIONS_DEFAULTS + ['auth_ntlm' =&gt; null" type="object" visibility="private" static="true" line="46">
+    <type full="expression" namespace="" name="expression"/>
+  </member>
+  <member name="logger" visibility="private" static="false" line="51">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Symfony\Component\HttpClient\LoggerInterface|null" namespace="Symfony\Component\HttpClient" name="LoggerInterface|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="multi" visibility="private" static="false" line="58">
+    <docblock>
+      <description compact="An internal object to share state between the client and its responses."/>
+      <var type="object">
+        <type full="Symfony\Component\HttpClient\Internal\CurlClientState" namespace="Symfony\Component\HttpClient\Internal" name="CurlClientState"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="67" end="80" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="Default request's options" type="array" variable="$defaultOptions"/>
+      <param description="The maximum number of connections to a single host" type="int" variable="$maxHostConnections"/>
+      <param description="The maximum number of pushed responses to accept in the queue" type="int" variable="$maxPendingPushes"/>
+      <see value="HttpClientInterface::OPTIONS_DEFAULTS for available options"/>
+    </docblock>
+    <parameter name="defaultOptions" byreference="false" type="array" default=""/>
+    <parameter name="maxHostConnections" byreference="false" type="integer" default="6"/>
+    <parameter name="maxPendingPushes" byreference="false" type="integer" default="50"/>
+  </constructor>
+  <method name="setLogger" start="82" end="85" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="logger" byreference="false" type="object">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+  </method>
+  <method name="request" start="92" end="310" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <see value="HttpClientInterface::OPTIONS_DEFAULTS for available options {@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </return>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="url" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="curl's resolve feature varies by host:port but ours varies by host only, let's handle this with our own DNS map" line="166"/>
+      <comment value="Prevent curl from sending its default Accept and Expect headers" line="217"/>
+    </inline>
+  </method>
+  <method name="stream" start="315" end="330" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseStreamInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseStreamInterface"/>
+    </return>
+    <parameter name="responses" byreference="false" type="{unknown}"/>
+    <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+  </method>
+  <method name="reset" start="332" end="335" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="acceptPushForRequest" start="340" end="364" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Accepts pushed responses only if their headers related to authentication match the request."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="pushedResponse" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Internal\PushedResponse" namespace="Symfony\Component\HttpClient\Internal" name="PushedResponse"/>
+    </parameter>
+  </method>
+  <method name="readRequestBody" start="369" end="384" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Wraps the request's body callback to allow it to return strings longer than curl requested."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="length" byreference="false" type="int"/>
+    <parameter name="body" byreference="false" type="object">
+      <type full="Closure" namespace="" name="Closure"/>
+    </parameter>
+    <parameter name="buffer" byreference="true" type="string"/>
+    <parameter name="eof" byreference="true" type="bool"/>
+  </method>
+  <method name="createRedirectResolver" start="391" end="440" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Resolves relative URLs on redirects and deals with authentication headers.">Work around CVE-2018-1000007: Authorization and Cookie headers should not follow redirects - fixed in Curl 7.64</description>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Closure" namespace="" name="Closure"/>
+    </return>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="host" byreference="false" type="string"/>
+  </method>
+  <method name="findConstantName" start="442" end="449" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="true"/>
+    <parameter name="opt" byreference="false" type="int"/>
+  </method>
+  <method name="validateExtraCurlOptions" start="454" end="550" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Prevents overriding options that are set internally throughout the request."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <interface full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface">
+    <constant type="{unknown}" name="OPTIONS_DEFAULTS" value=""/>
+    <method name="request" start="86" end="86" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Requests an HTTP resource.">Responses MUST be lazy, but their status code MUST be
+checked even if none of their public methods are called.
+
+Implementations are not required to support all options described above; they can also
+support more custom options; but in any case, they MUST throw a TransportExceptionInterface
+when an unsupported option is passed.</description>
+        <throws description="When an unsupported option is passed" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+      </return>
+      <parameter name="method" byreference="false" type="string"/>
+      <parameter name="url" byreference="false" type="string"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+    </method>
+    <method name="stream" start="94" end="94" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Yields responses chunk by chunk as they complete."/>
+        <param description="ResponseInterface&gt; $responses One or more responses created by the current HTTP client" type="object">
+          <type full="Symfony\Contracts\HttpClient\ResponseInterface|iterable&lt;array-key" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface|iterable&lt;array-key"/>
+        </param>
+        <param description="The idle timeout before yielding timeout chunks" type="object" variable="$timeout">
+          <type full="Symfony\Contracts\HttpClient\float|null" namespace="Symfony\Contracts\HttpClient" name="float|null"/>
+        </param>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Contracts\HttpClient\ResponseStreamInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseStreamInterface"/>
+      </return>
+      <parameter name="responses" byreference="false" type="{unknown}"/>
+      <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+    </method>
+  </interface>
+  <interface full="Psr\Log\LoggerAwareInterface" namespace="Psr\Log" name="LoggerAwareInterface">
+    <method name="setLogger" start="17" end="17" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets a logger instance on the object."/>
+        <param type="object" variable="$logger">
+          <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+        </param>
+        <return type="object">
+          <type full="Psr\Log\void" namespace="Psr\Log" name="void"/>
+        </return>
+      </docblock>
+      <parameter name="logger" byreference="false" type="object">
+        <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+      </parameter>
+    </method>
+  </interface>
+  <interface full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface">
+    <method name="reset" start="29" end="29" abstract="false" final="false" static="false" visibility="public"/>
+  </interface>
+  <trait full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait">
+    <method name="withOptions" start="31" end="37" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait"/>
+      </return>
+      <parameter name="options" byreference="false" type="array"/>
+    </method>
+  </trait>
+</class>

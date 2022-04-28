@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Autoload\AutoloadGenerator" namespace="Composer\Autoload" name="AutoloadGenerator" abstract="false" final="false" start="30" end="1093">
+  <file path="../vendor/composer/composer/src/Composer/Autoload" file="AutoloadGenerator.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Autoload/AutoloadGenerator.php" size="38423" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="48b92c288707de1a2bac7a8d283e9230c8c9e48e" relative="vendor/composer/composer/src/Composer/Autoload/AutoloadGenerator.php"/>
+  <docblock>
+    <description/>
+    <author value="Igor Wiedler &lt;igor@wiedler.ch&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <member name="eventDispatcher" visibility="private" static="false" line="35">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="io" visibility="private" static="false" line="40">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="devMode" default="false" type="boolean" visibility="private" static="false" line="45">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="classMapAuthoritative" default="false" type="boolean" visibility="private" static="false" line="50">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="apcu" default="false" type="boolean" visibility="private" static="false" line="55">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="runScripts" default="false" type="boolean" visibility="private" static="false" line="60">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="62" end="66" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="eventDispatcher" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+    </parameter>
+    <parameter name="io" byreference="false" type="object" default="NULL">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </constructor>
+  <method name="setDevMode" start="68" end="71" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="devMode" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setClassMapAuthoritative" start="79" end="82" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Whether or not generated autoloader considers the class map authoritative."/>
+      <param type="object" variable="$classMapAuthoritative">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="classMapAuthoritative" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setApcu" start="89" end="92" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Whether or not generated autoloader considers APCu caching."/>
+      <param type="object" variable="$apcu">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="apcu" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setRunScripts" start="99" end="102" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set whether to run scripts or not"/>
+      <param type="object" variable="$runScripts">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="runScripts" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="dump" start="104" end="327" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="localRepo" byreference="false" type="object">
+      <type full="Composer\Repository\InstalledRepositoryInterface" namespace="Composer\Repository" name="InstalledRepositoryInterface"/>
+    </parameter>
+    <parameter name="mainPackage" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="installationManager" byreference="false" type="object">
+      <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+    </parameter>
+    <parameter name="targetDir" byreference="false" type="{unknown}"/>
+    <parameter name="scanPsrPackages" byreference="false" type="boolean" default="false"/>
+    <parameter name="suffix" byreference="false" type="string" default="''"/>
+    <inline>
+      <comment value="Do not remove double realpath() calls." line="118"/>
+      <comment value="Fixes failing Windows realpath() implementation." line="119"/>
+      <comment value="See https://bugs.php.net/bug.php?id=72738" line="120"/>
+      <comment value="Collect information from all packages." line="159"/>
+      <comment value="Process the 'psr-0' base directories." line="163"/>
+      <comment value="Process the 'psr-4' base directories." line="175"/>
+      <comment value="add custom psr-0 autoloading if the root package has a target dir" line="199"/>
+    </inline>
+  </method>
+  <method name="filePutContentsIfModified" start="329" end="337" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addClassMapCode" start="339" end="351" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="filesystem" byreference="false" type="{unknown}"/>
+    <parameter name="basePath" byreference="false" type="{unknown}"/>
+    <parameter name="vendorPath" byreference="false" type="{unknown}"/>
+    <parameter name="dir" byreference="false" type="{unknown}"/>
+    <parameter name="excluded" byreference="false" type="{unknown}"/>
+    <parameter name="namespaceFilter" byreference="false" type="{unknown}"/>
+    <parameter name="autoloadType" byreference="false" type="{unknown}"/>
+    <parameter name="classMap" byreference="false" type="array"/>
+    <parameter name="ambiguousClasses" byreference="true" type="array"/>
+    <parameter name="scannedFiles" byreference="true" type="array"/>
+  </method>
+  <method name="generateClassMap" start="356" end="379" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$excluded">
+        <type full="Composer\Autoload\?array" namespace="Composer\Autoload" name="?array"/>
+      </param>
+    </docblock>
+    <parameter name="dir" byreference="false" type="{unknown}"/>
+    <parameter name="excluded" byreference="false" type="{unknown}"/>
+    <parameter name="namespaceFilter" byreference="false" type="{unknown}"/>
+    <parameter name="autoloadType" byreference="false" type="{unknown}"/>
+    <parameter name="showAmbiguousWarning" byreference="false" type="{unknown}"/>
+    <parameter name="scannedFiles" byreference="true" type="array"/>
+  </method>
+  <method name="buildPackageMap" start="381" end="399" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="installationManager" byreference="false" type="object">
+      <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+    </parameter>
+    <parameter name="mainPackage" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="packages" byreference="false" type="array"/>
+    <inline>
+      <comment value="build package =&gt; install path map" line="383"/>
+    </inline>
+  </method>
+  <method name="validatePackage" start="406" end="421" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <throws description="Throws an exception, if the package has illegal settings." type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="parseAutoloads" start="431" end="457" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Compiles an ordered list of namespace =&gt; path mappings"/>
+      <param description="array of array(package, installDir-relative-to-composer.json)" type="array" variable="$packageMap"/>
+      <param description="root package instance" type="object" variable="$mainPackage">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="whether to filter out require-dev packages" type="object" variable="$filterOutRequireDevPackages">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </param>
+      <return description="array('psr-0' =&gt; array('Ns\\Foo' =&gt; array('installDir')))" type="array"/>
+    </docblock>
+    <parameter name="packageMap" byreference="false" type="array"/>
+    <parameter name="mainPackage" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="filterOutRequireDevPackages" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="createLoader" start="465" end="498" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Registers an autoloader based on an autoload map returned by parseAutoloads"/>
+      <param description="see parseAutoloads return value" type="array" variable="$autoloads"/>
+      <return type="object">
+        <type full="Composer\Autoload\ClassLoader" namespace="Composer\Autoload" name="ClassLoader"/>
+      </return>
+    </docblock>
+    <parameter name="autoloads" byreference="false" type="array"/>
+  </method>
+  <method name="getIncludePathsFile" start="500" end="538" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="packageMap" byreference="false" type="array"/>
+    <parameter name="filesystem" byreference="false" type="object">
+      <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+    </parameter>
+    <parameter name="basePath" byreference="false" type="{unknown}"/>
+    <parameter name="vendorPath" byreference="false" type="{unknown}"/>
+    <parameter name="vendorPathCode" byreference="false" type="{unknown}"/>
+    <parameter name="appBaseDirCode" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getIncludeFilesFile" start="540" end="564" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="files" byreference="false" type="array"/>
+    <parameter name="filesystem" byreference="false" type="object">
+      <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+    </parameter>
+    <parameter name="basePath" byreference="false" type="{unknown}"/>
+    <parameter name="vendorPath" byreference="false" type="{unknown}"/>
+    <parameter name="vendorPathCode" byreference="false" type="{unknown}"/>
+    <parameter name="appBaseDirCode" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getPathCode" start="566" end="594" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="filesystem" byreference="false" type="object">
+      <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+    </parameter>
+    <parameter name="basePath" byreference="false" type="{unknown}"/>
+    <parameter name="vendorPath" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getAutoloadFile" start="596" end="615" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="vendorPathToTargetDirCode" byreference="false" type="{unknown}"/>
+    <parameter name="suffix" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getAutoloadRealFile" start="617" end="778" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="useClassMap" byreference="false" type="{unknown}"/>
+    <parameter name="useIncludePath" byreference="false" type="{unknown}"/>
+    <parameter name="targetDirLoader" byreference="false" type="{unknown}"/>
+    <parameter name="useIncludeFiles" byreference="false" type="{unknown}"/>
+    <parameter name="vendorPathCode" byreference="false" type="{unknown}"/>
+    <parameter name="appBaseDirCode" byreference="false" type="{unknown}"/>
+    <parameter name="suffix" byreference="false" type="{unknown}"/>
+    <parameter name="useGlobalIncludePath" byreference="false" type="{unknown}"/>
+    <parameter name="prependAutoloader" byreference="false" type="{unknown}"/>
+    <parameter name="staticPhpVersion" byreference="false" type="integer" default="70000"/>
+  </method>
+  <method name="getStaticFile" start="780" end="873" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="suffix" byreference="false" type="{unknown}"/>
+    <parameter name="targetDir" byreference="false" type="{unknown}"/>
+    <parameter name="vendorPath" byreference="false" type="{unknown}"/>
+    <parameter name="basePath" byreference="false" type="{unknown}"/>
+    <parameter name="staticPhpVersion" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="parseAutoloadsType" start="875" end="955" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="packageMap" byreference="false" type="array"/>
+    <parameter name="type" byreference="false" type="{unknown}"/>
+    <parameter name="mainPackage" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="getFileIdentifier" start="957" end="960" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="filterPackageMap" start="969" end="1013" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Filters out dev-dependencies"/>
+      <param type="array" variable="$packageMap"/>
+      <param type="object" variable="$mainPackage">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="packageMap" byreference="false" type="array"/>
+    <parameter name="mainPackage" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="sortPackageMap" start="1023" end="1045" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Sorts packages by dependency weight">Packages of equal weight retain the original order</description>
+      <param type="array" variable="$packageMap"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="packageMap" byreference="false" type="array"/>
+  </method>
+  <method name="safeCopy" start="1053" end="1063" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Copy file using stream_copy_to_stream to work around https://bugs.php.net/bug.php?id=6463"/>
+      <param type="string" variable="$source"/>
+      <param type="string" variable="$target"/>
+    </docblock>
+    <parameter name="source" byreference="false" type="{unknown}"/>
+    <parameter name="target" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="filesAreEqual" start="1069" end="1092" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="compare 2 files https://stackoverflow.com/questions/3060125/can-i-use-file-get-contents-to-compare-two-files"/>
+    </docblock>
+    <parameter name="a" byreference="false" type="{unknown}"/>
+    <parameter name="b" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check if filesize is different" line="1071"/>
+      <comment value="Check if content is different" line="1076"/>
+    </inline>
+  </method>
+</class>

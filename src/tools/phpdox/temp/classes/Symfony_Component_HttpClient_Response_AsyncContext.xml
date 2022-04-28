@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\Response\AsyncContext" namespace="Symfony\Component\HttpClient\Response" name="AsyncContext" abstract="false" final="true" start="25" end="183">
+  <file path="../vendor/symfony/http-client/Response" file="AsyncContext.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/Response/AsyncContext.php" size="5032" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="ea244482416a401f087dd835fa6ffae9f7bec820" relative="vendor/symfony/http-client/Response/AsyncContext.php"/>
+  <docblock>
+    <description compact="A DTO to work with AsyncResponse."/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <member name="passthru" visibility="private" static="false" line="27"/>
+  <member name="client" visibility="private" static="false" line="28"/>
+  <member name="response" visibility="private" static="false" line="29"/>
+  <member name="info" default="" type="array" visibility="private" static="false" line="30"/>
+  <member name="content" visibility="private" static="false" line="31"/>
+  <member name="offset" visibility="private" static="false" line="32"/>
+  <constructor name="__construct" start="34" end="42" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="passthru" byreference="true" type="{unknown}"/>
+    <parameter name="client" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+    </parameter>
+    <parameter name="response" byreference="true" type="object">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </parameter>
+    <parameter name="info" byreference="true" type="array"/>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+    <parameter name="offset" byreference="false" type="int"/>
+  </constructor>
+  <method name="getStatusCode" start="47" end="50" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the HTTP status without consuming the response."/>
+    </docblock>
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="getHeaders" start="55" end="68" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the headers without consuming the response."/>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getContent" start="73" end="76" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="The PHP stream resource where the content is buffered, if it is" type="object">
+        <type full="Symfony\Component\HttpClient\Response\resource|null" namespace="Symfony\Component\HttpClient\Response" name="resource|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="createChunk" start="81" end="84" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Creates a new chunk of content."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ChunkInterface" namespace="Symfony\Contracts\HttpClient" name="ChunkInterface"/>
+    </return>
+    <parameter name="data" byreference="false" type="string"/>
+  </method>
+  <method name="pause" start="89" end="96" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Pauses the request for the given number of seconds."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="duration" byreference="false" type="float"/>
+  </method>
+  <method name="cancel" start="101" end="108" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Cancels the request and returns the last chunk to yield."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ChunkInterface" namespace="Symfony\Contracts\HttpClient" name="ChunkInterface"/>
+    </return>
+  </method>
+  <method name="getInfo" start="113" end="120" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the current info of the response."/>
+    </docblock>
+    <parameter name="type" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="setInfo" start="127" end="140" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Attaches an info to the response."/>
+      <return type="object">
+        <type full="Symfony\Component\HttpClient\Response\$this" namespace="Symfony\Component\HttpClient\Response" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\HttpClient\Response\AsyncContext" namespace="Symfony\Component\HttpClient\Response" name="AsyncContext"/>
+    </return>
+    <parameter name="type" byreference="false" type="string"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getResponse" start="145" end="148" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the currently processed response."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </return>
+  </method>
+  <method name="replaceRequest" start="153" end="164" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Replaces the currently processed response by doing a new request."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </return>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="url" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="replaceResponse" start="169" end="174" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Replaces the currently processed response by another one."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </return>
+    <parameter name="response" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </parameter>
+  </method>
+  <method name="passthru" start="179" end="182" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Replaces or removes the chunk filter iterator."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="passthru" byreference="false" type="callable" default="NULL"/>
+  </method>
+</class>

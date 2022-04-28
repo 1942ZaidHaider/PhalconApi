@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Factory" namespace="Composer" name="Factory" abstract="false" final="false" start="48" end="657">
+  <file path="../vendor/composer/composer/src/Composer" file="Factory.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Factory.php" size="24838" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="475dc022647dc719a86711cf51141d32d23a81d5" relative="vendor/composer/composer/src/Composer/Factory.php"/>
+  <docblock>
+    <description compact="Creates a configured instance of composer."/>
+    <author value="Ryan Weaver &lt;ryan@knplabs.com&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+    <author value="Igor Wiedler &lt;igor@wiedler.ch&gt;"/>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+  </docblock>
+  <method name="getHomeDir" start="54" end="82" abstract="false" final="false" static="true" visibility="protected">
+    <docblock>
+      <description/>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getCacheDir" start="88" end="122" abstract="false" final="false" static="true" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="string" variable="$home"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="home" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getDataDir" start="128" end="147" abstract="false" final="false" static="true" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="string" variable="$home"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="home" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="createConfig" start="153" end="218" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$io">
+        <type full="Composer\IOInterface|null" namespace="Composer" name="IOInterface|null"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object" default="NULL">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="cwd" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="determine and add main dirs to the config" line="159"/>
+      <comment value="load global config" line="167"/>
+      <comment value="load global auth file" line="193"/>
+      <comment value="load COMPOSER_AUTH environment variable if set" line="203"/>
+    </inline>
+  </method>
+  <method name="getComposerFile" start="220" end="223" abstract="false" final="false" static="true" visibility="public"/>
+  <method name="createAdditionalStyles" start="225" end="231" abstract="false" final="false" static="true" visibility="public"/>
+  <method name="createOutput" start="238" end="244" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Creates a ConsoleOutput instance"/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Output\ConsoleOutput" namespace="Symfony\Component\Console\Output" name="ConsoleOutput"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="createDefaultRepositories" start="249" end="252" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <deprecated value="Use Composer\Repository\RepositoryFactory::defaultRepos instead"/>
+    </docblock>
+    <parameter name="io" byreference="false" type="object" default="NULL">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object" default="NULL">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="rm" byreference="false" type="object" default="NULL">
+      <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+    </parameter>
+  </method>
+  <method name="createComposer" start="266" end="409" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Creates a Composer instance"/>
+      <param description="IO instance" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param description="either a configuration array or a filename to read from, if null it will" type="object" variable="$localConfig">read from the default filename<type full="Composer\array|string|null" namespace="Composer" name="array|string|null"/></param>
+      <param description="Whether plugins should not be loaded" type="object" variable="$disablePlugins">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <param description="Whether to initialize everything or only main project stuff (used when loading the global composer)" type="object" variable="$fullLoad">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <throws type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws type="object">
+        <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+      <return type="object">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="localConfig" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="disablePlugins" byreference="false" type="boolean" default="false"/>
+    <parameter name="cwd" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="fullLoad" byreference="false" type="boolean" default="true"/>
+    <inline>
+      <comment value="load Composer configuration" line="270"/>
+      <comment value="Load config and override with local config/auth config" line="302"/>
+      <comment value="initialize composer" line="319"/>
+      <comment value="initialize event dispatcher" line="330"/>
+      <comment value="initialize repository manager" line="334"/>
+      <comment value="load local repository" line="338"/>
+      <comment value="force-set the version of the global package if not defined as" line="341"/>
+      <comment value="guessing it adds no value and only takes time" line="342"/>
+      <comment value="load package" line="347"/>
+      <comment value="initialize installation manager" line="354"/>
+      <comment value="add installers to the manager (must happen after download manager is created since they read it out of $composer)" line="372"/>
+      <comment value="init locker if possible" line="387"/>
+    </inline>
+  </method>
+  <method name="createGlobal" start="416" end="421" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param description="IO instance" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param description="Whether plugins should not be loaded" type="object" variable="$disablePlugins">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="disablePlugins" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="addLocalRepository" start="427" end="430" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="object" variable="$rm">
+        <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+      </param>
+      <param type="string" variable="$vendorDir"/>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="rm" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+    </parameter>
+    <parameter name="vendorDir" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="createGlobalComposer" start="436" end="446" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="object" variable="$config">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Composer|null" namespace="Composer" name="Composer|null"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="disablePlugins" byreference="false" type="{unknown}"/>
+    <parameter name="fullLoad" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="createDownloadManager" start="454" end="497" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param type="object" variable="$config">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </param>
+      <param type="object" variable="$eventDispatcher">
+        <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="eventDispatcher" byreference="false" type="object" default="NULL">
+      <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+    </parameter>
+    <parameter name="rfs" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+    </parameter>
+  </method>
+  <method name="createArchiveManager" start="504" end="517" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The configuration" type="object" variable="$config">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </param>
+      <param description="Manager use to download sources" type="object" variable="$dm">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Archiver\ArchiveManager" namespace="Composer\Archiver" name="ArchiveManager"/>
+      </return>
+    </docblock>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="dm" byreference="false" type="object" default="NULL">
+      <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+    </parameter>
+  </method>
+  <method name="createPluginManager" start="526" end="529" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param type="object" variable="$composer">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </param>
+      <param type="object" variable="$globalComposer">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </param>
+      <param type="object" variable="$disablePlugins">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Plugin\PluginManager" namespace="Composer\Plugin" name="PluginManager"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="composer" byreference="false" type="object">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+    <parameter name="globalComposer" byreference="false" type="object" default="NULL">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+    <parameter name="disablePlugins" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="createInstallationManager" start="534" end="537" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="createDefaultInstallers" start="544" end="550" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="object" variable="$im">
+        <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+      </param>
+      <param type="object" variable="$composer">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </param>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+    </docblock>
+    <parameter name="im" byreference="false" type="object">
+      <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+    </parameter>
+    <parameter name="composer" byreference="false" type="object">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </method>
+  <method name="purgePackages" start="556" end="563" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param description="repository to purge packages from" type="object" variable="$repo">
+        <type full="Composer\Repository\WritableRepositoryInterface" namespace="Composer\Repository" name="WritableRepositoryInterface"/>
+      </param>
+      <param description="manager to check whether packages are still installed" type="object" variable="$im">
+        <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+      </param>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\WritableRepositoryInterface" namespace="Composer\Repository" name="WritableRepositoryInterface"/>
+    </parameter>
+    <parameter name="im" byreference="false" type="object">
+      <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+    </parameter>
+  </method>
+  <method name="create" start="572" end="577" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param description="IO instance" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param description="either a configuration array or a filename to read from, if null it will read from" type="mixed" variable="$config">the default filename</param>
+      <param description="Whether plugins should not be loaded" type="object" variable="$disablePlugins">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="disablePlugins" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="createRemoteFilesystem" start="585" end="628" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param description="IO instance" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param description="Config instance" type="object" variable="$config">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </param>
+      <param description="Array of options passed directly to RemoteFilesystem constructor" type="array" variable="$options"/>
+      <return type="object">
+        <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object" default="NULL">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="options" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="allow running the config command if disable-tls is in the arg list, even if openssl is missing, to allow disabling it via the config command" line="589"/>
+    </inline>
+  </method>
+  <method name="useXdg" start="633" end="642" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getUserDir" start="648" end="656" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return type="string"/>
+    </docblock>
+  </method>
+</class>

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\Response\MockResponse" namespace="Symfony\Component\HttpClient\Response" name="MockResponse" abstract="false" final="false" start="26" end="337">
+  <file path="../vendor/symfony/http-client/Response" file="MockResponse.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/Response/MockResponse.php" size="11552" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="07e02b08a4b7ec5a1ab7d6aa5a43c74301b0809f" relative="vendor/symfony/http-client/Response/MockResponse.php"/>
+  <docblock>
+    <description compact="A test-friendly response."/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <implements full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+  <implements full="Symfony\Component\HttpClient\Response\StreamableInterface" namespace="Symfony\Component\HttpClient\Response" name="StreamableInterface"/>
+  <uses full="Symfony\Component\HttpClient\Response\CommonResponseTrait" namespace="Symfony\Component\HttpClient\Response" name="CommonResponseTrait" start="28" end="28"/>
+  <uses full="Symfony\Component\HttpClient\Response\TransportResponseTrait" namespace="Symfony\Component\HttpClient\Response" name="TransportResponseTrait" start="29" end="31">
+    <alias method="doDestruct" as="__destruct" modifier="public"/>
+  </uses>
+  <member name="body" visibility="private" static="false" line="33"/>
+  <member name="requestOptions" default="" type="array" visibility="private" static="false" line="34"/>
+  <member name="requestUrl" visibility="private" static="false" line="35"/>
+  <member name="requestMethod" visibility="private" static="false" line="36"/>
+  <member name="mainMulti" visibility="private" static="true" line="38"/>
+  <member name="idSequence" default="0" type="integer" visibility="private" static="true" line="39"/>
+  <constructor name="__construct" start="48" end="67" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The response body as a string or an iterable of strings," type="array" variable="$body" of="object">yielding an empty string simulates an idle timeout,
+                                      throwing an exception yields an ErrorChunk<type full="Symfony\Component\HttpClient\Response\string|string[]|iterab" namespace="Symfony\Component\HttpClient\Response" name="string|string[]|iterab"/></param>
+      <see value="ResponseInterface::getInfo() for possible info, e.g. &quot;response_headers&quot;"/>
+    </docblock>
+    <parameter name="body" byreference="false" type="string" default="''"/>
+    <parameter name="info" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="getRequestOptions" start="72" end="75" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the options used when doing the request."/>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getRequestUrl" start="80" end="83" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the URL used when doing the request."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="getRequestMethod" start="88" end="91" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the method used when doing the request."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="getInfo" start="96" end="99" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="type" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="cancel" start="104" end="113" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="close" start="118" end="122" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="fromRequest" start="127" end="155" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <internal/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\HttpClient\Response\MockResponse" namespace="Symfony\Component\HttpClient\Response" name="MockResponse"/>
+    </return>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="url" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="mock" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </parameter>
+  </method>
+  <method name="schedule" start="160" end="173" abstract="false" final="false" static="true" visibility="protected">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="response" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\self" namespace="Symfony\Component\HttpClient\Response" name="self"/>
+    </parameter>
+    <parameter name="runningResponses" byreference="true" type="array"/>
+  </method>
+  <method name="perform" start="178" end="219" abstract="false" final="false" static="true" visibility="protected">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="multi" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Internal\ClientState" namespace="Symfony\Component\HttpClient\Internal" name="ClientState"/>
+    </parameter>
+    <parameter name="responses" byreference="true" type="array"/>
+  </method>
+  <method name="select" start="224" end="227" abstract="false" final="false" static="true" visibility="protected">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="int" nullable="false"/>
+    <parameter name="multi" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Internal\ClientState" namespace="Symfony\Component\HttpClient\Internal" name="ClientState"/>
+    </parameter>
+    <parameter name="timeout" byreference="false" type="float"/>
+  </method>
+  <method name="writeRequest" start="232" end="270" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Simulates sending the request."/>
+    </docblock>
+    <parameter name="response" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\self" namespace="Symfony\Component\HttpClient\Response" name="self"/>
+    </parameter>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="mock" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </parameter>
+    <inline>
+      <comment value="simulate &quot;size_upload&quot; if it is set" line="237"/>
+      <comment value="simulate &quot;total_time&quot; if it is not set" line="242"/>
+      <comment value="&quot;notify&quot; DNS resolution" line="247"/>
+      <comment value="consume the request body" line="250"/>
+    </inline>
+  </method>
+  <method name="readResponse" start="275" end="336" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Simulates reading the response."/>
+    </docblock>
+    <parameter name="response" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\self" namespace="Symfony\Component\HttpClient\Response" name="self"/>
+    </parameter>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="mock" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </parameter>
+    <parameter name="offset" byreference="true" type="int"/>
+    <inline>
+      <comment value="populate info related to headers" line="279"/>
+      <comment value="&quot;notify&quot; headers arrival" line="299"/>
+      <comment value="cast response body to activity list" line="302"/>
+      <comment value="&quot;notify&quot; completion" line="330"/>
+    </inline>
+  </method>
+  <interface full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface">
+    <method name="getStatusCode" start="33" end="33" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the HTTP status code of the response."/>
+        <throws description="when a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="int" nullable="false"/>
+    </method>
+    <method name="getHeaders" start="47" end="47" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the HTTP headers of the response."/>
+        <param description="Whether an exception should be thrown on 3/4/5xx status codes" type="object" variable="$throw">
+          <type full="Symfony\Contracts\HttpClient\bool" namespace="Symfony\Contracts\HttpClient" name="bool"/>
+        </param>
+        <return description="The headers of the response keyed by header names in lowercase" type="array" of="object">
+          <type full="Symfony\Contracts\HttpClient\string[]" namespace="Symfony\Contracts\HttpClient" name="string[]"/>
+        </return>
+        <throws description="When a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+        <throws description="On a 3xx when $throw is true and the &quot;max_redirects&quot; option has been reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="RedirectionExceptionInterface"/>
+        </throws>
+        <throws description="On a 4xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ClientExceptionInterface"/>
+        </throws>
+        <throws description="On a 5xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ServerExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="getContent" start="59" end="59" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the response body as a string."/>
+        <param description="Whether an exception should be thrown on 3/4/5xx status codes" type="object" variable="$throw">
+          <type full="Symfony\Contracts\HttpClient\bool" namespace="Symfony\Contracts\HttpClient" name="bool"/>
+        </param>
+        <throws description="When a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+        <throws description="On a 3xx when $throw is true and the &quot;max_redirects&quot; option has been reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="RedirectionExceptionInterface"/>
+        </throws>
+        <throws description="On a 4xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ClientExceptionInterface"/>
+        </throws>
+        <throws description="On a 5xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ServerExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="string" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="toArray" start="72" end="72" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the response body decoded as array, typically from a JSON payload."/>
+        <param description="Whether an exception should be thrown on 3/4/5xx status codes" type="object" variable="$throw">
+          <type full="Symfony\Contracts\HttpClient\bool" namespace="Symfony\Contracts\HttpClient" name="bool"/>
+        </param>
+        <throws description="When the body cannot be decoded to an array" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="DecodingExceptionInterface"/>
+        </throws>
+        <throws description="When a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+        <throws description="On a 3xx when $throw is true and the &quot;max_redirects&quot; option has been reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="RedirectionExceptionInterface"/>
+        </throws>
+        <throws description="On a 4xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ClientExceptionInterface"/>
+        </throws>
+        <throws description="On a 5xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ServerExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="cancel" start="79" end="79" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Closes the response stream and all related buffers.">No further chunk will be yielded after this method has been called.</description>
+      </docblock>
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="getInfo" start="108" end="108" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns info coming from the transport layer.">This method SHOULD NOT throw any ExceptionInterface and SHOULD be non-blocking.
+The returned info is "live": it can be empty and can change from one call to
+another, as the request/response progresses.
+
+The following info MUST be returned:
+ - canceled (bool) - true if the response was canceled using ResponseInterface::cancel(), false otherwise
+ - error (string|null) - the error message when the transfer was aborted, null otherwise
+ - http_code (int) - the last response code or 0 when it is not known yet
+ - http_method (string) - the HTTP verb of the last request
+ - redirect_count (int) - the number of redirects followed while executing the request
+ - redirect_url (string|null) - the resolved location of redirect responses, null otherwise
+ - response_headers (array) - an array modelled after the special $http_response_header variable
+ - start_time (float) - the time when the request was sent or 0.0 when it's pending
+ - url (string) - the last effective URL of the request
+ - user_data (mixed) - the value of the "user_data" request option, null if not set
+
+When the "capture_peer_cert_chain" option is true, the "peer_certificate_chain"
+attribute SHOULD list the peer certificates as an array of OpenSSL X.509 resources.
+
+Other info SHOULD be named after curl_getinfo()'s associative return value.</description>
+        <return description="An array of all available info, or one of them when $type is" type="mixed">provided, or null when an unsupported type is requested</return>
+      </docblock>
+      <parameter name="type" byreference="false" type="string" default="NULL"/>
+    </method>
+  </interface>
+  <interface full="Symfony\Component\HttpClient\Response\StreamableInterface" namespace="Symfony\Component\HttpClient\Response" name="StreamableInterface">
+    <method name="toStream" start="34" end="34" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Casts the response to a PHP stream resource."/>
+        <return type="resource"/>
+        <throws description="When a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+        <throws description="On a 3xx when $throw is true and the &quot;max_redirects&quot; option has been reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="RedirectionExceptionInterface"/>
+        </throws>
+        <throws description="On a 4xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ClientExceptionInterface"/>
+        </throws>
+        <throws description="On a 5xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ServerExceptionInterface"/>
+        </throws>
+      </docblock>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+  </interface>
+  <trait full="Symfony\Component\HttpClient\Response\CommonResponseTrait" namespace="Symfony\Component\HttpClient\Response" name="CommonResponseTrait">
+    <method name="getContent" start="41" end="76" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="toArray" start="81" end="111" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="toStream" start="116" end="128" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="__sleep" start="130" end="133" abstract="false" final="false" static="false" visibility="public">
+      <return type="array" nullable="false"/>
+    </method>
+    <method name="__wakeup" start="135" end="138" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="close" start="143" end="143" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Closes the response and all its network handles."/>
+      </docblock>
+      <return type="void" nullable="false"/>
+    </method>
+  </trait>
+  <trait full="Symfony\Component\HttpClient\Response\TransportResponseTrait" namespace="Symfony\Component\HttpClient\Response" name="TransportResponseTrait">
+    <method name="getStatusCode" start="50" end="57" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="int" nullable="false"/>
+    </method>
+    <method name="getHeaders" start="62" end="73" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="cancel" start="78" end="83" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="close" start="88" end="92" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Closes the response and all its network handles."/>
+      </docblock>
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="schedule" start="97" end="97" abstract="true" final="false" static="true" visibility="protected">
+      <docblock>
+        <description compact="Adds pending responses to the activity list."/>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="response" byreference="false" type="object">
+        <type full="Symfony\Component\HttpClient\Response\self" namespace="Symfony\Component\HttpClient\Response" name="self"/>
+      </parameter>
+      <parameter name="runningResponses" byreference="true" type="array"/>
+    </method>
+    <method name="perform" start="102" end="102" abstract="true" final="false" static="true" visibility="protected">
+      <docblock>
+        <description compact="Performs all pending non-blocking operations."/>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="multi" byreference="false" type="object">
+        <type full="Symfony\Component\HttpClient\Internal\ClientState" namespace="Symfony\Component\HttpClient\Internal" name="ClientState"/>
+      </parameter>
+      <parameter name="responses" byreference="true" type="array"/>
+    </method>
+    <method name="select" start="107" end="107" abstract="true" final="false" static="true" visibility="protected">
+      <docblock>
+        <description compact="Waits for network activity."/>
+      </docblock>
+      <return type="int" nullable="false"/>
+      <parameter name="multi" byreference="false" type="object">
+        <type full="Symfony\Component\HttpClient\Internal\ClientState" namespace="Symfony\Component\HttpClient\Internal" name="ClientState"/>
+      </parameter>
+      <parameter name="timeout" byreference="false" type="float"/>
+    </method>
+    <method name="stream" start="149" end="311" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Implements an event loop based on a buffer activity queue."/>
+        <param description="self&gt; $responses" type="object">
+          <type full="Symfony\Component\HttpClient\Response\iterable&lt;array-key" namespace="Symfony\Component\HttpClient\Response" name="iterable&lt;array-key"/>
+        </param>
+        <internal/>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Generator" namespace="" name="Generator"/>
+      </return>
+      <parameter name="responses" byreference="false" type="object">
+        <type full="Symfony\Component\HttpClient\Response\iterable" namespace="Symfony\Component\HttpClient\Response" name="iterable"/>
+      </parameter>
+      <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+    </method>
+  </trait>
+</class>

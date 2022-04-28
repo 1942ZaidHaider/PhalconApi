@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Installer" namespace="" name="Installer" abstract="false" final="false" start="651" end="1234">
+  <file path=".." file="installer.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/installer.php" size="57721" time="2021-09-30T12:13:03+00:00" unixtime="1633003983" sha1="17fe4e7cc95731908cad7bf6abcabfd7486334c2" relative="installer.php"/>
+  <member name="quiet" visibility="private" static="false" line="653"/>
+  <member name="disableTls" visibility="private" static="false" line="654"/>
+  <member name="cafile" visibility="private" static="false" line="655"/>
+  <member name="displayPath" visibility="private" static="false" line="656"/>
+  <member name="target" visibility="private" static="false" line="657"/>
+  <member name="tmpFile" visibility="private" static="false" line="658"/>
+  <member name="tmpCafile" visibility="private" static="false" line="659"/>
+  <member name="baseUrl" visibility="private" static="false" line="660"/>
+  <member name="algo" visibility="private" static="false" line="661"/>
+  <member name="errHandler" visibility="private" static="false" line="662"/>
+  <member name="httpClient" visibility="private" static="false" line="663"/>
+  <member name="pubKeys" default="" type="array" visibility="private" static="false" line="664"/>
+  <member name="installs" default="" type="array" visibility="private" static="false" line="665"/>
+  <constructor name="__construct" start="674" end="682" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructor - must not do anything that throws an exception"/>
+      <param description="Quiet mode" type="object" variable="$quiet">
+        <type full="bool" namespace="" name="bool"/>
+      </param>
+      <param description="Bypass tls" type="object" variable="$disableTls">
+        <type full="bool" namespace="" name="bool"/>
+      </param>
+      <param description="Path to CA bundle, or false" type="mixed" variable="$cafile"/>
+    </docblock>
+    <parameter name="quiet" byreference="false" type="{unknown}"/>
+    <parameter name="disableTls" byreference="false" type="{unknown}"/>
+    <parameter name="caFile" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="run" start="695" end="727" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Runs the installer"/>
+      <param description="Specific version to install, or false" type="mixed" variable="$version"/>
+      <param description="Specific installation directory, or false" type="mixed" variable="$installDir"/>
+      <param description="Specific filename to save to, or composer.phar" type="string" variable="$filename"/>
+      <param description="Specific version channel to use" type="string" variable="$channel"/>
+      <throws description="If anything other than a RuntimeException is caught" type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+      <return description="If the installation succeeded" type="object">
+        <type full="bool" namespace="" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="version" byreference="false" type="{unknown}"/>
+    <parameter name="installDir" byreference="false" type="{unknown}"/>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+    <parameter name="channel" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Always clean up" line="716"/>
+    </inline>
+  </method>
+  <method name="initTargets" start="736" end="750" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Initialization methods to set the required filenames and composer url"/>
+      <param description="Specific installation directory, or false" type="mixed" variable="$installDir"/>
+      <param description="Specific filename to save to, or composer.phar" type="string" variable="$filename"/>
+      <throws description="If the installation directory is not writable" type="object">
+        <type full="RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="installDir" byreference="false" type="{unknown}"/>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="initTls" start="756" end="777" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="A wrapper around methods to check tls and write public keys"/>
+      <throws description="If SHA384 is not supported" type="object">
+        <type full="RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getComposerHome" start="785" end="803" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns the Composer home directory, creating it if required"/>
+      <throws description="If the directory cannot be created" type="object">
+        <type full="RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="installKey" start="815" end="835" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Writes public key data to disc"/>
+      <param description="The public key(s) in pem format" type="string" variable="$data"/>
+      <param description="The directory to write to" type="string" variable="$path"/>
+      <param description="The name of the file" type="string" variable="$filename"/>
+      <throws description="If the file cannot be written" type="object">
+        <type full="RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return description="The path to the saved data" type="string"/>
+    </docblock>
+    <parameter name="data" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="install" start="845" end="888" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="The main install function"/>
+      <param description="Specific version to install, or false" type="mixed" variable="$version"/>
+      <param description="Version channel to use" type="string" variable="$channel"/>
+      <return description="If the installation succeeded" type="object">
+        <type full="bool" namespace="" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="version" byreference="false" type="{unknown}"/>
+    <parameter name="channel" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getVersion" start="900" end="919" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Sets the version url, downloading version data if required"/>
+      <param description="Version channel to use" type="string" variable="$channel"/>
+      <param description="Version to install, or set by method" type="object" variable="$version">
+        <type full="false|string" namespace="" name="false|string"/>
+      </param>
+      <param description="The versioned url, set by method" type="object" variable="$url">
+        <type full="null|string" namespace="" name="null|string"/>
+      </param>
+      <param description="Set by method on failure" type="object" variable="$error">
+        <type full="null|string" namespace="" name="null|string"/>
+      </param>
+      <return description="If the operation succeeded" type="object">
+        <type full="bool" namespace="" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="channel" byreference="false" type="{unknown}"/>
+    <parameter name="version" byreference="true" type="{unknown}"/>
+    <parameter name="url" byreference="true" type="{unknown}"/>
+    <parameter name="error" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="downloadVersionData" start="929" end="944" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Downloads and json-decodes version data"/>
+      <param description="Downloaded version data, set by method" type="object" variable="$data">
+        <type full="null|array" namespace="" name="null|array"/>
+      </param>
+      <param description="Set by method on failure" type="object" variable="$error">
+        <type full="null|string" namespace="" name="null|string"/>
+      </param>
+      <return description="If the operation succeeded" type="object">
+        <type full="bool" namespace="" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="data" byreference="true" type="{unknown}"/>
+    <parameter name="error" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="downloadToTmp" start="955" end="977" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="A wrapper around the methods needed to download and save the phar"/>
+      <param description="The versioned download url" type="string" variable="$url"/>
+      <param description="Set by method on successful download" type="object" variable="$signature">
+        <type full="null|string" namespace="" name="null|string"/>
+      </param>
+      <param description="Set by method on failure" type="object" variable="$error">
+        <type full="null|string" namespace="" name="null|string"/>
+      </param>
+      <return description="If the operation succeeded" type="object">
+        <type full="bool" namespace="" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="signature" byreference="true" type="{unknown}"/>
+    <parameter name="error" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="verifyAndSave" start="988" end="1009" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Verifies the downloaded file and saves it to the target location"/>
+      <param description="The composer version downloaded" type="string" variable="$version"/>
+      <param description="The digital signature to check" type="string" variable="$signature"/>
+      <param description="Set by method on failure" type="object" variable="$error">
+        <type full="null|string" namespace="" name="null|string"/>
+      </param>
+      <return description="If the operation succeeded" type="object">
+        <type full="bool" namespace="" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="version" byreference="false" type="{unknown}"/>
+    <parameter name="signature" byreference="false" type="{unknown}"/>
+    <parameter name="error" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="parseVersionData" start="1019" end="1039" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Parses an array of version data to match the required channel"/>
+      <param description="Downloaded version data" type="array" variable="$data"/>
+      <param description="Version channel to use" type="mixed" variable="$channel"/>
+      <param description="Set by method" type="object" variable="$version">
+        <type full="false|string" namespace="" name="false|string"/>
+      </param>
+      <param description="The versioned url, set by method" type="mixed" variable="$url"/>
+    </docblock>
+    <parameter name="data" byreference="false" type="array"/>
+    <parameter name="channel" byreference="false" type="{unknown}"/>
+    <parameter name="version" byreference="true" type="{unknown}"/>
+    <parameter name="url" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="getSignature" start="1049" end="1062" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Downloads the digital signature of required phar file"/>
+      <param description="The signature url" type="string" variable="$url"/>
+      <param description="Set by method on success" type="object" variable="$signature">
+        <type full="null|string" namespace="" name="null|string"/>
+      </param>
+      <return description="If the download succeeded" type="object">
+        <type full="bool" namespace="" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="signature" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="verifySignature" start="1073" end="1093" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Verifies the signature of the downloaded phar"/>
+      <param description="The composer versione" type="string" variable="$version"/>
+      <param description="The downloaded digital signature" type="string" variable="$signature"/>
+      <param description="The temp phar file" type="string" variable="$file"/>
+      <return description="If the operation succeeded" type="object">
+        <type full="bool" namespace="" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="version" byreference="false" type="{unknown}"/>
+    <parameter name="signature" byreference="false" type="{unknown}"/>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="validatePhar" start="1103" end="1124" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Validates the downloaded phar file"/>
+      <param description="The temp phar file" type="string" variable="$pharFile"/>
+      <param description="Set by method on failure" type="object" variable="$error">
+        <type full="null|string" namespace="" name="null|string"/>
+      </param>
+      <return description="If the operation succeeded" type="object">
+        <type full="bool" namespace="" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="pharFile" byreference="false" type="{unknown}"/>
+    <parameter name="error" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="getJsonError" start="1131" end="1138" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns a string representation of the last json error"/>
+      <return description="The error string or code" type="string"/>
+    </docblock>
+  </method>
+  <method name="cleanUp" start="1145" end="1157" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Cleans up resources at the end of the installation"/>
+      <param description="If the installation succeeded" type="object" variable="$result">
+        <type full="bool" namespace="" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="result" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="outputErrors" start="1163" end="1174" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Outputs unique errors when in quiet mode"/>
+    </docblock>
+  </method>
+  <method name="uninstall" start="1180" end="1193" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Uninstalls newly-created files and directories on failure"/>
+    </docblock>
+  </method>
+  <method name="getPKDev" start="1195" end="1213" abstract="false" final="false" static="true" visibility="public"/>
+  <method name="getPKTags" start="1215" end="1233" abstract="false" final="false" static="true" visibility="public"/>
+</class>

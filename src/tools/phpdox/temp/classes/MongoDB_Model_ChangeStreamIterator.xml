@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Model\ChangeStreamIterator" namespace="MongoDB\Model" name="ChangeStreamIterator" abstract="false" final="false" start="49" end="314">
+  <file path="../vendor/mongodb/mongodb/src/Model" file="ChangeStreamIterator.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Model/ChangeStreamIterator.php" size="9624" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="6ffa3918d4cab0eefefb9cc43bcf68ea5a81da91" relative="vendor/mongodb/mongodb/src/Model/ChangeStreamIterator.php"/>
+  <docblock>
+    <description compact="ChangeStreamIterator wraps a change stream's tailable cursor.">This iterator tracks the size of each batch in order to determine when the
+postBatchResumeToken is applicable. It also ensures that initial calls to
+rewind() do not execute getMore commands.</description>
+    <internal/>
+  </docblock>
+  <extends full="IteratorIterator" namespace="" name="IteratorIterator"/>
+  <implements full="MongoDB\Driver\Monitoring\CommandSubscriber" namespace="MongoDB\Driver\Monitoring" name="CommandSubscriber"/>
+  <member name="batchPosition" default="0" type="integer" visibility="private" static="false" line="52">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="batchSize" visibility="private" static="false" line="55">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="isRewindNop" visibility="private" static="false" line="58">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="isValid" default="false" type="boolean" visibility="private" static="false" line="61">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="postBatchResumeToken" visibility="private" static="false" line="64">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Model\object|null" namespace="MongoDB\Model" name="object|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="resumeToken" visibility="private" static="false" line="67">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Model\array|object|null" namespace="MongoDB\Model" name="array|object|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="server" visibility="private" static="false" line="70">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="79" end="100" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <internal/>
+      <param type="object" variable="$cursor">
+        <type full="MongoDB\Driver\Cursor" namespace="MongoDB\Driver" name="Cursor"/>
+      </param>
+      <param type="integer" variable="$firstBatchSize"/>
+      <param type="object" variable="$initialResumeToken">
+        <type full="MongoDB\Model\array|object|null" namespace="MongoDB\Model" name="array|object|null"/>
+      </param>
+      <param type="object" variable="$postBatchResumeToken">
+        <type full="MongoDB\Model\object|null" namespace="MongoDB\Model" name="object|null"/>
+      </param>
+    </docblock>
+    <parameter name="cursor" byreference="false" type="object">
+      <type full="MongoDB\Driver\Cursor" namespace="MongoDB\Driver" name="Cursor"/>
+    </parameter>
+    <parameter name="firstBatchSize" byreference="false" type="{unknown}"/>
+    <parameter name="initialResumeToken" byreference="false" type="{unknown}"/>
+    <parameter name="postBatchResumeToken" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="commandFailed" start="103" end="105" abstract="false" final="true" static="false" visibility="public">
+    <docblock>
+      <internal/>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandFailedEvent" namespace="MongoDB\Driver\Monitoring" name="CommandFailedEvent"/>
+    </parameter>
+  </method>
+  <method name="commandStarted" start="108" end="117" abstract="false" final="true" static="false" visibility="public">
+    <docblock>
+      <internal/>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandStartedEvent" namespace="MongoDB\Driver\Monitoring" name="CommandStartedEvent"/>
+    </parameter>
+  </method>
+  <method name="commandSucceeded" start="120" end="137" abstract="false" final="true" static="false" visibility="public">
+    <docblock>
+      <internal/>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandSucceededEvent" namespace="MongoDB\Driver\Monitoring" name="CommandSucceededEvent"/>
+    </parameter>
+  </method>
+  <method name="current" start="144" end="147" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getResumeToken" start="158" end="161" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the resume token for the iterator's current position.">Null may be returned if no change documents have been iterated and the
+server did not include a postBatchResumeToken in its aggregate or getMore
+command response.</description>
+      <return type="object">
+        <type full="MongoDB\Model\array|object|null" namespace="MongoDB\Model" name="array|object|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getServer" start="166" end="169" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the server the cursor is running on."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </return>
+  </method>
+  <method name="key" start="176" end="179" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="next" start="186" end="207" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="Determine if advancing the iterator will execute a getMore command" line="188"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="(i.e. we are already positioned at the end of the current batch). If" line="189"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="so, rely on the APM callbacks to reset $batchPosition and update" line="190"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="$batchSize. Otherwise, we can forgo APM and manually increment" line="191"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* $batchPosition after calling next()." line="192"/>
+    </inline>
+  </method>
+  <method name="rewind" start="214" end="222" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="valid" start="229" end="232" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="extractResumeToken" start="242" end="269" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Extracts the resume token (i.e. &quot;_id&quot; field) from a change document."/>
+      <param description="Change document" type="object" variable="$document">
+        <type full="MongoDB\Model\array|object" namespace="MongoDB\Model" name="array|object"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\Model\array|object" namespace="MongoDB\Model" name="array|object"/>
+      </return>
+      <throws type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="if the resume token is not found or invalid" type="object">
+        <type full="MongoDB\Exception\ResumeTokenException" namespace="MongoDB\Exception" name="ResumeTokenException"/>
+      </throws>
+    </docblock>
+    <parameter name="document" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isAtEndOfBatch" start="276" end="279" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Return whether the iterator is positioned at the end of the batch."/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+  <method name="onIteration" start="287" end="313" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Perform housekeeping after an iteration event."/>
+      <see value="https://github.com/mongodb/specifications/blob/master/source/change-streams/change-streams.rst#updating-the-cached-resume-token"/>
+      <param type="boolean" variable="$incrementBatchPosition"/>
+    </docblock>
+    <parameter name="incrementBatchPosition" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Disable rewind()'s NOP behavior once we advance to a valid position." line="291"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="This will allow the driver to throw a LogicException if rewind() is" line="292"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* called after the cursor has advanced past its first element." line="293"/>
+      <comment value="If the iterator is positioned at the end of the batch, apply the" line="302"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="postBatchResumeToken if it's available. This handles both the case" line="303"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="where the current batch is empty (since onIteration() will be called" line="304"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="after a successful getMore) and when the iterator has advanced to the" line="305"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="last document in its current batch. Otherwise, extract a resume token" line="306"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* from the current document if possible." line="307"/>
+    </inline>
+  </method>
+  <parent full="IteratorIterator" namespace="" name="IteratorIterator">
+    <implements full="OuterIterator" namespace="" name="OuterIterator"/>
+    <constructor name="__construct" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Create an iterator from anything that is traversable"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="iterator" optional="false" byreference="false" type="object" class="Traversable"/>
+  </constructor>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Get the current value"/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="getInnerIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Get the inner iterator"/>
+      <return type="Traversable"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Get the key of the current element"/>
+      <return type="scalar"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Forward to the next element"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Rewind to the first element"/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Checks if the iterator is valid"/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+  </parent>
+  <interface full="OuterIterator" namespace="" name="OuterIterator">
+    <extends full="Iterator" namespace="" name="Iterator"/>
+    <method name="getInnerIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Returns the inner iterator for the current entry"/>
+      <return type="Iterator"/>
+    </docblock>
+  </method>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="scalar"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+  </interface>
+  <interface full="MongoDB\Driver\Monitoring\CommandSubscriber" namespace="MongoDB\Driver\Monitoring" name="CommandSubscriber">
+    <implements full="MongoDB\Driver\Monitoring\Subscriber" namespace="MongoDB\Driver\Monitoring" name="Subscriber"/>
+    <method name="commandFailed" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a failed command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandFailedEvent"/>
+  </method>
+    <method name="commandStarted" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a started command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandStartedEvent"/>
+  </method>
+    <method name="commandSucceeded" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a successful command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandSucceededEvent"/>
+  </method>
+  </interface>
+  <parent full="MongoDB\Driver\Monitoring\Subscriber" namespace="MongoDB\Driver\Monitoring" name="Subscriber"/>
+</class>

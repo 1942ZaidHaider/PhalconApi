@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="JsonSchema\SchemaStorage" namespace="JsonSchema" name="SchemaStorage" abstract="false" final="false" start="11" end="169">
+  <file path="../vendor/justinrainbow/json-schema/src/JsonSchema" file="SchemaStorage.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/justinrainbow/json-schema/src/JsonSchema/SchemaStorage.php" size="5419" time="2022-04-13T08:02:27+00:00" unixtime="1649836947" sha1="a6076fe72057c019d3a34555241cb46a9690e6be" relative="vendor/justinrainbow/json-schema/src/JsonSchema/SchemaStorage.php"/>
+  <implements full="JsonSchema\SchemaStorageInterface" namespace="JsonSchema" name="SchemaStorageInterface"/>
+  <constant type="string" name="INTERNAL_PROVIDED_SCHEMA_URI" value="'internal://provided-schema/'"/>
+  <member name="uriRetriever" visibility="protected" static="false" line="15"/>
+  <member name="uriResolver" visibility="protected" static="false" line="16"/>
+  <member name="schemas" default="" type="array" visibility="protected" static="false" line="17"/>
+  <constructor name="__construct" start="19" end="25" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="uriRetriever" byreference="false" type="object" default="NULL">
+      <type full="JsonSchema\UriRetrieverInterface" namespace="JsonSchema" name="UriRetrieverInterface"/>
+    </parameter>
+    <parameter name="uriResolver" byreference="false" type="object" default="NULL">
+      <type full="JsonSchema\UriResolverInterface" namespace="JsonSchema" name="UriResolverInterface"/>
+    </parameter>
+  </constructor>
+  <method name="getUriRetriever" start="30" end="33" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="JsonSchema\UriRetrieverInterface" namespace="JsonSchema" name="UriRetrieverInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getUriResolver" start="38" end="41" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="JsonSchema\UriResolverInterface" namespace="JsonSchema" name="UriResolverInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="addSchema" start="46" end="75" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+    <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="cast array schemas to object" line="55"/>
+      <comment value="workaround for bug in draft-03 &amp; draft-04 meta-schemas (id &amp; $ref defined with incorrect format)" line="60"/>
+      <comment value="see https://github.com/json-schema-org/JSON-Schema-Test-Suite/issues/177#issuecomment-293051367" line="61"/>
+      <comment value="resolve references" line="71"/>
+    </inline>
+  </method>
+  <method name="expandRefs" start="83" end="107" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Recursively resolve all references against the provided base"/>
+      <param type="mixed" variable="$schema"/>
+      <param type="string" variable="$base"/>
+    </docblock>
+    <parameter name="schema" byreference="true" type="{unknown}"/>
+    <parameter name="base" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="getSchema" start="112" end="119" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="resolveRef" start="124" end="154" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="ref" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="resolve filename for pointer" line="128"/>
+      <comment value="get &amp; process the schema" line="137"/>
+    </inline>
+  </method>
+  <method name="resolveRefSchema" start="159" end="168" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="refSchema" byreference="false" type="{unknown}"/>
+  </method>
+  <interface full="JsonSchema\SchemaStorageInterface" namespace="JsonSchema" name="SchemaStorageInterface">
+    <method name="addSchema" start="13" end="13" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds schema with given identifier"/>
+        <param type="string" variable="$id"/>
+        <param type="object" variable="$schema"/>
+      </docblock>
+      <parameter name="id" byreference="false" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="getSchema" start="22" end="22" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns schema for given identifier, or null if it does not exist"/>
+        <param type="string" variable="$id"/>
+        <return type="object"/>
+      </docblock>
+      <parameter name="id" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="resolveRef" start="31" end="31" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns schema for given reference with all sub-references resolved"/>
+        <param type="string" variable="$ref"/>
+        <return type="object"/>
+      </docblock>
+      <parameter name="ref" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="resolveRefSchema" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns schema referenced by '$ref' property"/>
+        <param type="mixed" variable="$refSchema"/>
+        <return type="object"/>
+      </docblock>
+      <parameter name="refSchema" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

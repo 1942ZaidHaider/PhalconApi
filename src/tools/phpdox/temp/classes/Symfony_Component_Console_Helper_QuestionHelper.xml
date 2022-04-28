@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Console\Helper\QuestionHelper" namespace="Symfony\Component\Console\Helper" name="QuestionHelper" abstract="false" final="false" start="34" end="615">
+  <file path="../vendor/symfony/console/Helper" file="QuestionHelper.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/console/Helper/QuestionHelper.php" size="19620" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="cb58c6154b43642b2b61ffb3d04d4b4fa1ca2c6f" relative="vendor/symfony/console/Helper/QuestionHelper.php"/>
+  <docblock>
+    <description compact="The QuestionHelper class provides helpers to interact with the user."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+  </docblock>
+  <extends full="Symfony\Component\Console\Helper\Helper" namespace="Symfony\Component\Console\Helper" name="Helper"/>
+  <member name="inputStream" visibility="private" static="false" line="39">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Symfony\Component\Console\Helper\resource|null" namespace="Symfony\Component\Console\Helper" name="resource|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="stty" default="true" type="boolean" visibility="private" static="true" line="41"/>
+  <member name="stdinIsInteractive" visibility="private" static="true" line="42"/>
+  <method name="ask" start="51" end="84" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Asks a question to the user."/>
+      <return description="The user answer" type="mixed"/>
+      <throws description="If there is no data to read in the input stream" type="object">
+        <type full="Symfony\Component\Console\Exception\RuntimeException" namespace="Symfony\Component\Console\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="input" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+    </parameter>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+    <parameter name="question" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </parameter>
+  </method>
+  <method name="getName" start="89" end="92" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+  </method>
+  <method name="disableStty" start="97" end="100" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Prevents usage of stty."/>
+    </docblock>
+  </method>
+  <method name="doAsk" start="109" end="154" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Asks the question to the user."/>
+      <return type="mixed"/>
+      <throws description="In case the fallback is deactivated and the response cannot be hidden" type="object">
+        <type full="Symfony\Component\Console\Exception\RuntimeException" namespace="Symfony\Component\Console\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+    <parameter name="question" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </parameter>
+  </method>
+  <method name="getDefaultAnswer" start="159" end="184" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="question" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </parameter>
+  </method>
+  <method name="writePrompt" start="189" end="202" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Outputs the question prompt."/>
+    </docblock>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+    <parameter name="question" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </parameter>
+  </method>
+  <method name="formatChoiceQuestionChoices" start="207" end="220" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\Console\Helper\string" namespace="Symfony\Component\Console\Helper" name="string"/>
+      </return>
+    </docblock>
+    <parameter name="question" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Question\ChoiceQuestion" namespace="Symfony\Component\Console\Question" name="ChoiceQuestion"/>
+    </parameter>
+    <parameter name="tag" byreference="false" type="string"/>
+  </method>
+  <method name="writeError" start="225" end="234" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Outputs an error message."/>
+    </docblock>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+    <parameter name="error" byreference="false" type="object">
+      <type full="Exception" namespace="" name="Exception"/>
+    </parameter>
+  </method>
+  <method name="autocomplete" start="241" end="382" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Autocompletes a question."/>
+      <param type="resource" variable="$inputStream"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+    <parameter name="question" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </parameter>
+    <parameter name="inputStream" byreference="false" type="{unknown}"/>
+    <parameter name="autocomplete" byreference="false" type="callable"/>
+    <inline>
+      <comment value="Disable icanon (so we can fread each keypress) and echo (we'll do echoing here instead)" line="258"/>
+      <comment value="Add highlighted text style" line="261"/>
+      <comment value="Read a keypress" line="264"/>
+      <comment value="Reset stty so it behaves normally again" line="378"/>
+    </inline>
+  </method>
+  <method name="mostRecentlyEnteredValue" start="384" end="397" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="entered" byreference="false" type="string"/>
+    <inline>
+      <comment value="Determine the most recent value that the user entered" line="386"/>
+    </inline>
+  </method>
+  <method name="getHiddenResponse" start="407" end="452" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Gets a hidden response from user."/>
+      <param description="The handler resource" type="resource" variable="$inputStream"/>
+      <param description="Is the answer trimmable" type="object" variable="$trimmable">
+        <type full="Symfony\Component\Console\Helper\bool" namespace="Symfony\Component\Console\Helper" name="bool"/>
+      </param>
+      <throws description="In case the fallback is deactivated and the response cannot be hidden" type="object">
+        <type full="Symfony\Component\Console\Exception\RuntimeException" namespace="Symfony\Component\Console\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+    <parameter name="inputStream" byreference="false" type="{unknown}"/>
+    <parameter name="trimmable" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="validateAttempts" start="463" end="482" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Validates an attempt."/>
+      <param description="A callable that will ask for a question and return the result" type="object" variable="$interviewer">
+        <type full="Symfony\Component\Console\Helper\callable" namespace="Symfony\Component\Console\Helper" name="callable"/>
+      </param>
+      <return description="The validated response" type="mixed"/>
+      <throws description="In case the max number of attempts has been reached and no valid response has been given" type="object">
+        <type full="\Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <parameter name="interviewer" byreference="false" type="callable"/>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+    <parameter name="question" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </parameter>
+  </method>
+  <method name="isInteractiveInput" start="484" end="509" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="inputStream" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="readInput" start="519" end="543" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Reads one or more lines of input and returns what is read."/>
+      <param description="The handler resource" type="resource" variable="$inputStream"/>
+      <param description="The question being asked" type="object" variable="$question">
+        <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+      </param>
+      <return description="The input received, false in case input could not be read" type="object">
+        <type full="Symfony\Component\Console\Helper\string|false" namespace="Symfony\Component\Console\Helper" name="string|false"/>
+      </return>
+    </docblock>
+    <parameter name="inputStream" byreference="false" type="{unknown}"/>
+    <parameter name="question" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Question\Question" namespace="Symfony\Component\Console\Question" name="Question"/>
+    </parameter>
+  </method>
+  <method name="setIOCodepage" start="550" end="560" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Sets console I/O to the host code page."/>
+      <return description="Previous code page in IBM/EBCDIC format" type="int"/>
+    </docblock>
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="resetIOCodepage" start="569" end="580" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Sets console I/O to the specified code page and converts the user input."/>
+      <param type="object" variable="$input">
+        <type full="Symfony\Component\Console\Helper\string|false" namespace="Symfony\Component\Console\Helper" name="string|false"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\string|false" namespace="Symfony\Component\Console\Helper" name="string|false"/>
+      </return>
+    </docblock>
+    <parameter name="cp" byreference="false" type="int"/>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="cloneInputStream" start="590" end="614" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Clones an input stream in order to act on one instance of the same stream without affecting the other instance."/>
+      <param description="The handler resource" type="resource" variable="$inputStream"/>
+      <return description="The cloned resource, null in case it could not be cloned" type="object">
+        <type full="Symfony\Component\Console\Helper\resource|null" namespace="Symfony\Component\Console\Helper" name="resource|null"/>
+      </return>
+    </docblock>
+    <parameter name="inputStream" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="For seekable and writable streams, add all the same data to the" line="603"/>
+      <comment value="cloned stream and then seek to the same offset." line="604"/>
+    </inline>
+  </method>
+  <parent full="Symfony\Component\Console\Helper\Helper" namespace="Symfony\Component\Console\Helper" name="Helper">
+    <implements full="Symfony\Component\Console\Helper\HelperInterface" namespace="Symfony\Component\Console\Helper" name="HelperInterface"/>
+    <member name="helperSet" default="NULL" visibility="protected" static="false" line="24"/>
+    <method name="setHelperSet" start="29" end="32" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <parameter name="helperSet" byreference="false" type="object" default="NULL">
+        <type full="Symfony\Component\Console\Helper\HelperSet" namespace="Symfony\Component\Console\Helper" name="HelperSet"/>
+      </parameter>
+    </method>
+    <method name="getHelperSet" start="37" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+    </method>
+    <method name="strlen" start="49" end="54" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns the length of a string, using mb_strwidth if it is available."/>
+        <deprecated value="since Symfony 5.3"/>
+        <return type="int"/>
+      </docblock>
+      <parameter name="string" byreference="false" nullable="true" type="string"/>
+    </method>
+    <method name="width" start="60" end="73" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns the width of a string, using mb_strwidth if it is available.">The width is how many characters positions the string will use.</description>
+      </docblock>
+      <return type="int" nullable="false"/>
+      <parameter name="string" byreference="false" nullable="true" type="string"/>
+    </method>
+    <method name="length" start="79" end="92" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns the length of a string, using mb_strlen if it is available.">The length is related to how many bytes the string will use.</description>
+      </docblock>
+      <return type="int" nullable="false"/>
+      <parameter name="string" byreference="false" nullable="true" type="string"/>
+    </method>
+    <method name="substr" start="99" end="108" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns the subset of a string, using mb_substr if it is available."/>
+        <return type="string"/>
+      </docblock>
+      <parameter name="string" byreference="false" nullable="true" type="string"/>
+      <parameter name="from" byreference="false" type="int"/>
+      <parameter name="length" byreference="false" type="int" default="NULL"/>
+    </method>
+    <method name="formatTime" start="110" end="137" abstract="false" final="false" static="true" visibility="public">
+      <parameter name="secs" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="formatMemory" start="139" end="154" abstract="false" final="false" static="true" visibility="public">
+      <parameter name="memory" byreference="false" type="int"/>
+    </method>
+    <method name="strlenWithoutDecoration" start="159" end="164" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description/>
+        <deprecated value="since Symfony 5.3"/>
+      </docblock>
+      <parameter name="formatter" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Formatter\OutputFormatterInterface" namespace="Symfony\Component\Console\Formatter" name="OutputFormatterInterface"/>
+      </parameter>
+      <parameter name="string" byreference="false" nullable="true" type="string"/>
+    </method>
+    <method name="removeDecoration" start="166" end="177" abstract="false" final="false" static="true" visibility="public">
+      <parameter name="formatter" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Formatter\OutputFormatterInterface" namespace="Symfony\Component\Console\Formatter" name="OutputFormatterInterface"/>
+      </parameter>
+      <parameter name="string" byreference="false" nullable="true" type="string"/>
+      <inline>
+        <comment value="remove &lt;...&gt; formatting" line="170"/>
+        <comment value="remove already formatted characters" line="172"/>
+      </inline>
+    </method>
+  </parent>
+  <interface full="Symfony\Component\Console\Helper\HelperInterface" namespace="Symfony\Component\Console\Helper" name="HelperInterface">
+    <method name="setHelperSet" start="24" end="24" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the helper set associated with this helper."/>
+      </docblock>
+      <parameter name="helperSet" byreference="false" type="object" default="NULL">
+        <type full="Symfony\Component\Console\Helper\HelperSet" namespace="Symfony\Component\Console\Helper" name="HelperSet"/>
+      </parameter>
+    </method>
+    <method name="getHelperSet" start="31" end="31" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the helper set associated with this helper."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Helper\HelperSet|null" namespace="Symfony\Component\Console\Helper" name="HelperSet|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getName" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the canonical name of this helper."/>
+        <return type="string"/>
+      </docblock>
+    </method>
+  </interface>
+  <extenders>
+    <extender full="Symfony\Component\Console\Helper\SymfonyQuestionHelper" namespace="Symfony\Component\Console\Helper" name="SymfonyQuestionHelper"/>
+  </extenders>
+</class>

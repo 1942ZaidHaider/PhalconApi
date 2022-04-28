@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Repository\Pear\ChannelRest10Reader" namespace="Composer\Repository\Pear" name="ChannelRest10Reader" abstract="false" final="false" start="28" end="164">
+  <file path="../vendor/composer/composer/src/Composer/Repository/Pear" file="ChannelRest10Reader.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Repository/Pear/ChannelRest10Reader.php" size="4823" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="92911d6525c300e5d10bb2a2522ac535ec045175" relative="vendor/composer/composer/src/Composer/Repository/Pear/ChannelRest10Reader.php"/>
+  <docblock>
+    <description compact="Read PEAR packages using REST 1.0 interface">At version 1.0 package descriptions read from:
+ {baseUrl}/p/packages.xml
+ {baseUrl}/p/{package}/info.xml
+ {baseUrl}/p/{package}/allreleases.xml
+ {baseUrl}/p/{package}/deps.{version}.txt</description>
+    <author value="Alexey Prilipko &lt;palex@farpost.com&gt;"/>
+  </docblock>
+  <extends full="Composer\Repository\Pear\BaseChannelReader" namespace="Composer\Repository\Pear" name="BaseChannelReader"/>
+  <member name="dependencyReader" visibility="private" static="false" line="30"/>
+  <constructor name="__construct" start="32" end="37" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="rfs" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="read" start="46" end="49" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Reads package descriptions using PEAR Rest 1.0 interface"/>
+      <param description="base Url interface" type="string" variable="$baseUrl"/>
+      <return type="array" of="object">
+        <type full="Composer\Repository\Pear\PackageInfo" namespace="Composer\Repository\Pear" name="PackageInfo"/>
+      </return>
+    </docblock>
+    <parameter name="baseUrl" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="readPackages" start="58" end="72" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Read list of packages from  {baseUrl}/p/packages.xml"/>
+      <param type="string" variable="$baseUrl"/>
+      <return type="array" of="object">
+        <type full="Composer\Repository\Pear\PackageInfo" namespace="Composer\Repository\Pear" name="PackageInfo"/>
+      </return>
+    </docblock>
+    <parameter name="baseUrl" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="readPackage" start="82" end="102" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Read package info from  {baseUrl}/p/{package}/info.xml"/>
+      <param type="string" variable="$baseUrl"/>
+      <param type="string" variable="$packageName"/>
+      <return type="object">
+        <type full="Composer\Repository\Pear\PackageInfo" namespace="Composer\Repository\Pear" name="PackageInfo"/>
+      </return>
+    </docblock>
+    <parameter name="baseUrl" byreference="false" type="{unknown}"/>
+    <parameter name="packageName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="readPackageReleases" start="113" end="143" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Read package releases from  {baseUrl}/p/{package}/allreleases.xml"/>
+      <param type="string" variable="$baseUrl"/>
+      <param type="string" variable="$packageName"/>
+      <throws type="object">
+        <type full="\Composer\Downloader\TransportException|\Exception" namespace="\Composer\Downloader\TransportException|" name="Exception"/>
+      </throws>
+      <return description="hash array with keys as version numbers" type="array" of="object">
+        <type full="Composer\Repository\Pear\ReleaseInfo" namespace="Composer\Repository\Pear" name="ReleaseInfo"/>
+      </return>
+    </docblock>
+    <parameter name="baseUrl" byreference="false" type="{unknown}"/>
+    <parameter name="packageName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="readPackageReleaseDependencies" start="154" end="163" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Read package dependencies from  {baseUrl}/p/{package}/deps.{version}.txt"/>
+      <param type="string" variable="$baseUrl"/>
+      <param type="string" variable="$packageName"/>
+      <param type="string" variable="$version"/>
+      <return type="array" of="object">
+        <type full="Composer\Repository\Pear\DependencyInfo" namespace="Composer\Repository\Pear" name="DependencyInfo"/>
+      </return>
+    </docblock>
+    <parameter name="baseUrl" byreference="false" type="{unknown}"/>
+    <parameter name="packageName" byreference="false" type="{unknown}"/>
+    <parameter name="version" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="Composer\Repository\Pear\BaseChannelReader" namespace="Composer\Repository\Pear" name="BaseChannelReader">
+    <constant type="{unknown}" name="CHANNEL_NS" value="'http://pear.php.net/channel-1.0'">
+      <docblock>
+        <description compact="PEAR REST Interface namespaces"/>
+      </docblock>
+    </constant>
+    <constant type="{unknown}" name="ALL_CATEGORIES_NS" value="'http://pear.php.net/dtd/rest.allcategories'"/>
+    <constant type="{unknown}" name="CATEGORY_PACKAGES_INFO_NS" value="'http://pear.php.net/dtd/rest.categorypackageinfo'"/>
+    <constant type="{unknown}" name="ALL_PACKAGES_NS" value="'http://pear.php.net/dtd/rest.allpackages'"/>
+    <constant type="{unknown}" name="ALL_RELEASES_NS" value="'http://pear.php.net/dtd/rest.allreleases'"/>
+    <constant type="{unknown}" name="PACKAGE_INFO_NS" value="'http://pear.php.net/dtd/rest.package'"/>
+    <constructor name="__construct" start="39" end="42" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="rfs" byreference="false" type="object">
+        <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+      </parameter>
+    </constructor>
+    <method name="requestContent" start="52" end="61" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Read content from remote filesystem."/>
+        <param description="server" type="string" variable="$origin"/>
+        <param description="relative path to content" type="string" variable="$path"/>
+        <throws type="object">
+          <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+        </throws>
+        <return type="object">
+          <type full="\SimpleXMLElement" namespace="" name="SimpleXMLElement"/>
+        </return>
+      </docblock>
+      <parameter name="origin" byreference="false" type="{unknown}"/>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="requestXml" start="71" end="81" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Read xml content from remote filesystem"/>
+        <param description="server" type="string" variable="$origin"/>
+        <param description="relative path to content" type="string" variable="$path"/>
+        <throws type="object">
+          <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+        </throws>
+        <return type="object">
+          <type full="\SimpleXMLElement" namespace="" name="SimpleXMLElement"/>
+        </return>
+      </docblock>
+      <parameter name="origin" byreference="false" type="{unknown}"/>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="http://components.ez.no/p/packages.xml is malformed. to read it we must ignore parsing errors." line="73"/>
+      </inline>
+    </method>
+  </parent>
+</class>

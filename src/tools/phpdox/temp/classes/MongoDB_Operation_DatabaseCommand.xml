@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\DatabaseCommand" namespace="MongoDB\Operation" name="DatabaseCommand" abstract="false" final="false" start="36" end="129">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="DatabaseCommand.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/DatabaseCommand.php" size="4189" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="b2ca649160734409e55284961efeec6672128abb" relative="vendor/mongodb/mongodb/src/Operation/DatabaseCommand.php"/>
+  <docblock>
+    <description compact="Operation for executing a database command."/>
+    <api/>
+    <see value="\MongoDB\Database::command()"/>
+  </docblock>
+  <implements full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+  <member name="databaseName" visibility="private" static="false" line="39">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="command" visibility="private" static="false" line="42">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\array|Command|object" namespace="MongoDB\Operation" name="array|Command|object"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="options" visibility="private" static="false" line="45">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="68" end="89" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a command.">Supported options:
+
+ * readPreference (MongoDB\Driver\ReadPreference): The read preference to
+   use when executing the command. This may be used when issuing the
+   command to a replica set or mongos node to ensure that the driver sets
+   the wire protocol accordingly or adds the read preference to the
+   command document, respectively.
+
+ * session (MongoDB\Driver\Session): Client session.
+
+ * typeMap (array): Type map for BSON deserialization. This will be
+   applied to the returned Cursor (it is not sent to the server).</description>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Command document" type="object" variable="$command">
+        <type full="MongoDB\Operation\array|object" namespace="MongoDB\Operation" name="array|object"/>
+      </param>
+      <param description="Options for command execution" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="command" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="execute" start="98" end="107" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation."/>
+      <see value="Executable::execute()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\Driver\Cursor" namespace="MongoDB\Driver" name="Cursor"/>
+      </return>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="createOptions" start="115" end="128" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create options for executing the command."/>
+      <see value="http://php.net/manual/en/mongodb-driver-server.executecommand.php"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <interface full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable">
+    <method name="execute" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Execute the operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+</class>

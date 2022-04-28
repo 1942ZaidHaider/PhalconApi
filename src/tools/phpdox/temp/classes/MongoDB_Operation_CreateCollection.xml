@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\CreateCollection" namespace="MongoDB\Operation" name="CreateCollection" abstract="false" final="false" start="44" end="268">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="CreateCollection.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/CreateCollection.php" size="10596" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="ba7d51d87b990866cf7741004752922d9621aa75" relative="vendor/mongodb/mongodb/src/Operation/CreateCollection.php"/>
+  <docblock>
+    <description compact="Operation for the create command."/>
+    <api/>
+    <see value="\MongoDB\Database::createCollection()"/>
+    <see value="http://docs.mongodb.org/manual/reference/command/create/"/>
+  </docblock>
+  <implements full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+  <constant type="integer" name="USE_POWER_OF_2_SIZES" value="1"/>
+  <constant type="integer" name="NO_PADDING" value="2"/>
+  <member name="databaseName" visibility="private" static="false" line="50">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="collectionName" visibility="private" static="false" line="53">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="options" default="" type="array" visibility="private" static="false" line="56">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="122" end="203" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a create command.">Supported options:
+
+ * autoIndexId (boolean): Specify false to disable the automatic creation
+   of an index on the _id field. For replica sets, this option cannot be
+   false. The default is true.
+
+   This option has been deprecated since MongoDB 3.2. As of MongoDB 4.0,
+   this option cannot be false when creating a replicated collection
+   (i.e. a collection outside of the local database in any mongod mode).
+
+ * capped (boolean): Specify true to create a capped collection. If set,
+   the size option must also be specified. The default is false.
+
+ * collation (document): Collation specification.
+
+ * expireAfterSeconds: The TTL for documents in time series collections.
+
+   This is not supported for servers versions &lt; 5.0.
+
+ * flags (integer): Options for the MMAPv1 storage engine only. Must be a
+   bitwise combination CreateCollection::USE_POWER_OF_2_SIZES and
+   CreateCollection::NO_PADDING. The default is
+   CreateCollection::USE_POWER_OF_2_SIZES.
+
+ * indexOptionDefaults (document): Default configuration for indexes when
+   creating the collection.
+
+ * max (integer): The maximum number of documents allowed in the capped
+   collection. The size option takes precedence over this limit.
+
+ * maxTimeMS (integer): The maximum amount of time to allow the query to
+   run.
+
+ * session (MongoDB\Driver\Session): Client session.
+
+ * size (integer): The maximum number of bytes for a capped collection.
+
+ * storageEngine (document): Storage engine options.
+
+ * timeseries (document): Options for time series collections.
+
+   This is not supported for servers versions &lt; 5.0.
+
+ * typeMap (array): Type map for BSON deserialization. This will only be
+   used for the returned command result document.
+
+ * validationAction (string): Validation action.
+
+ * validationLevel (string): Validation level.
+
+ * validator (document): Validation rules or expressions.
+
+ * writeConcern (MongoDB\Driver\WriteConcern): Write concern.</description>
+      <see value="http://source.wiredtiger.com/2.4.1/struct_w_t___s_e_s_s_i_o_n.html#a358ca4141d59c345f401c58501276bbb"/>
+      <see value="https://docs.mongodb.org/manual/core/document-validation/"/>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Collection name" type="string" variable="$collectionName"/>
+      <param description="Command options" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="execute" start="213" end="222" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation."/>
+      <see value="Executable::execute()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return description="Command result document" type="object">
+        <type full="MongoDB\Operation\array|object" namespace="MongoDB\Operation" name="array|object"/>
+      </return>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="createCommand" start="229" end="246" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create the create command."/>
+      <return type="object">
+        <type full="MongoDB\Driver\Command" namespace="MongoDB\Driver" name="Command"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="createOptions" start="254" end="267" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create options for executing the command."/>
+      <see value="http://php.net/manual/en/mongodb-driver-server.executewritecommand.php"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <interface full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable">
+    <method name="execute" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Execute the operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+</class>

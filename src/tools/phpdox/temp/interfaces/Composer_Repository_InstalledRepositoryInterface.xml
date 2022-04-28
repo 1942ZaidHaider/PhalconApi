@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="Composer\Repository\InstalledRepositoryInterface" namespace="Composer\Repository" name="InstalledRepositoryInterface" abstract="false" final="false" start="22" end="24">
+  <file path="../vendor/composer/composer/src/Composer/Repository" file="InstalledRepositoryInterface.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Repository/InstalledRepositoryInterface.php" size="579" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="f6c6e584434a4eb27fa94336a4fdfc0e1b7dce56" relative="vendor/composer/composer/src/Composer/Repository/InstalledRepositoryInterface.php"/>
+  <docblock>
+    <description compact="Installable repository interface.">Just used to tag installed repositories so the base classes can act differently on Alias packages</description>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <extends full="Composer\Repository\WritableRepositoryInterface" namespace="Composer\Repository" name="WritableRepositoryInterface"/>
+  <implementors>
+    <class full="Composer\Repository\InstalledArrayRepository" namespace="Composer\Repository" name="InstalledArrayRepository"/>
+    <class full="Composer\Repository\InstalledFilesystemRepository" namespace="Composer\Repository" name="InstalledFilesystemRepository"/>
+  </implementors>
+  <parent full="Composer\Repository\WritableRepositoryInterface" namespace="Composer\Repository" name="WritableRepositoryInterface">
+    <extends full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    <method name="write" start="27" end="27" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Writes repository (f.e. to the disc)."/>
+      </docblock>
+    </method>
+    <method name="addPackage" start="34" end="34" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds package to the repository."/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+    </method>
+    <method name="removePackage" start="41" end="41" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Removes package from the repository."/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+    </method>
+    <method name="getCanonicalPackages" start="48" end="48" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get unique packages (at most one package of each name), with aliases resolved and removed."/>
+        <return type="array" of="object">
+          <type full="Composer\Repository\PackageInterface" namespace="Composer\Repository" name="PackageInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="reload" start="53" end="53" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Forces a reload of all packages."/>
+      </docblock>
+    </method>
+  </parent>
+  <parent full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface">
+    <extends full="Countable" namespace="" name="Countable"/>
+    <constant type="{unknown}" name="SEARCH_FULLTEXT" value="0"/>
+    <constant type="{unknown}" name="SEARCH_NAME" value="1"/>
+    <method name="hasPackage" start="36" end="36" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks if specified package registered (installed)."/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <return type="object">
+          <type full="Composer\Repository\bool" namespace="Composer\Repository" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+    </method>
+    <method name="findPackage" start="46" end="46" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Searches for the first match of a package by name and version."/>
+        <param description="package name" type="string" variable="$name"/>
+        <param description="package version or version constraint to match against" type="object" variable="$constraint">
+          <type full="Composer\Repository\string|\Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Repository\string|\Composer\Semver\Constraint" name="ConstraintInterface"/>
+        </param>
+        <return type="object">
+          <type full="Composer\Repository\PackageInterface|null" namespace="Composer\Repository" name="PackageInterface|null"/>
+        </return>
+      </docblock>
+      <parameter name="name" byreference="false" type="{unknown}"/>
+      <parameter name="constraint" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="findPackages" start="56" end="56" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Searches for all packages matching a name and optionally a version."/>
+        <param description="package name" type="string" variable="$name"/>
+        <param description="package version or version constraint to match against" type="object" variable="$constraint">
+          <type full="Composer\Repository\string|\Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Repository\string|\Composer\Semver\Constraint" name="ConstraintInterface"/>
+        </param>
+        <return type="array" of="object">
+          <type full="Composer\Repository\PackageInterface" namespace="Composer\Repository" name="PackageInterface"/>
+        </return>
+      </docblock>
+      <parameter name="name" byreference="false" type="{unknown}"/>
+      <parameter name="constraint" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="getPackages" start="63" end="63" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns list of registered packages."/>
+        <return type="array" of="object">
+          <type full="Composer\Repository\PackageInterface" namespace="Composer\Repository" name="PackageInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="search" start="73" end="73" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Searches the repository for packages containing the query"/>
+        <param description="search query" type="string" variable="$query"/>
+        <param description="a set of SEARCH_* constants to search on, implementations should do a best effort only" type="int" variable="$mode"/>
+        <return description="an array of array('name' =&gt; '...', 'description' =&gt; '...')" type="array" of="object">
+          <type full="Composer\Repository\array" namespace="Composer\Repository" name="array"/>
+        </return>
+      </docblock>
+      <parameter name="query" byreference="false" type="{unknown}"/>
+      <parameter name="mode" byreference="false" type="integer" default="0"/>
+    </method>
+  </parent>
+  <parent full="Countable" namespace="" name="Countable">
+    <method name="count" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Count elements of an object"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  </parent>
+</interface>

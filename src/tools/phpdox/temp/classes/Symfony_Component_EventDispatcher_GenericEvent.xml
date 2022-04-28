@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\EventDispatcher\GenericEvent" namespace="Symfony\Component\EventDispatcher" name="GenericEvent" abstract="false" final="false" start="26" end="182">
+  <file path="../vendor/symfony/event-dispatcher" file="GenericEvent.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/event-dispatcher/GenericEvent.php" size="3852" time="2022-01-02T09:53:40+00:00" unixtime="1641117220" sha1="583abc8e52305b671a2794a755256e0ede9faa7e" relative="vendor/symfony/event-dispatcher/GenericEvent.php"/>
+  <docblock>
+    <description compact="Event encapsulation class.">Encapsulates events thus decoupling the observer from the subject they encapsulate.</description>
+    <author value="Drak &lt;drak@zikula.org&gt;"/>
+    <implements value="\ArrayAccess&lt;string, mixed&gt;"/>
+    <implements value="\IteratorAggregate&lt;string, mixed&gt;"/>
+  </docblock>
+  <extends full="Symfony\Contracts\EventDispatcher\Event" namespace="Symfony\Contracts\EventDispatcher" name="Event"/>
+  <implements full="ArrayAccess" namespace="" name="ArrayAccess"/>
+  <implements full="IteratorAggregate" namespace="" name="IteratorAggregate"/>
+  <member name="subject" visibility="protected" static="false" line="28"/>
+  <member name="arguments" visibility="protected" static="false" line="29"/>
+  <constructor name="__construct" start="37" end="41" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Encapsulate an event with $subject and $args."/>
+      <param description="The subject of the event, usually an object or a callable" type="mixed" variable="$subject"/>
+      <param description="Arguments to store in the event" type="array" variable="$arguments"/>
+    </docblock>
+    <parameter name="subject" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="arguments" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="getSubject" start="48" end="51" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Getter for subject property."/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+  <method name="getArgument" start="60" end="67" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get argument by key."/>
+      <return type="mixed"/>
+      <throws description="if key is not found" type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="key" byreference="false" type="string"/>
+  </method>
+  <method name="setArgument" start="76" end="81" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Add argument to event."/>
+      <param description="Value" type="mixed" variable="$value"/>
+      <return type="object">
+        <type full="Symfony\Component\EventDispatcher\$this" namespace="Symfony\Component\EventDispatcher" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="key" byreference="false" type="string"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getArguments" start="88" end="91" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Getter for all arguments."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="setArguments" start="98" end="103" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set args property."/>
+      <return type="object">
+        <type full="Symfony\Component\EventDispatcher\$this" namespace="Symfony\Component\EventDispatcher" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="args" byreference="false" type="array" default=""/>
+  </method>
+  <method name="hasArgument" start="110" end="113" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Has argument."/>
+      <return type="object">
+        <type full="Symfony\Component\EventDispatcher\bool" namespace="Symfony\Component\EventDispatcher" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="key" byreference="false" type="string"/>
+  </method>
+  <method name="offsetGet" start="125" end="128" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="offsetSet" start="139" end="142" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="offsetUnset" start="152" end="157" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="offsetExists" start="167" end="170" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getIterator" start="178" end="181" abstract="false" final="false" static="false" visibility="public"/>
+  <parent full="Symfony\Contracts\EventDispatcher\Event" namespace="Symfony\Contracts\EventDispatcher" name="Event">
+    <implements full="Psr\EventDispatcher\StoppableEventInterface" namespace="Psr\EventDispatcher" name="StoppableEventInterface"/>
+    <method name="isPropagationStopped" start="38" end="41" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="stopPropagation" start="50" end="53" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Stops the propagation of the event to further event listeners.">If multiple event listeners are connected to the same event, no
+further event listener will be triggered once any trigger calls
+stopPropagation().</description>
+      </docblock>
+      <return type="void" nullable="false"/>
+    </method>
+  </parent>
+  <interface full="Psr\EventDispatcher\StoppableEventInterface" namespace="Psr\EventDispatcher" name="StoppableEventInterface">
+    <method name="isPropagationStopped" start="25" end="25" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Is propagation stopped?">This will typically only be used by the Dispatcher to determine if the
+previous listener halted propagation.</description>
+        <return type="object">True if the Event is complete and no further listeners should be called.
+  False to continue calling listeners.<type full="Psr\EventDispatcher\bool" namespace="Psr\EventDispatcher" name="bool"/></return>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+  </interface>
+  <interface full="ArrayAccess" namespace="" name="ArrayAccess">
+    <method name="offsetExists" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Whether an offset exists">Whether or not an offset exists.</description>
+      <return type="bool"/>
+    </docblock>
+    <parameter name="offset" optional="false" byreference="false" type="object" class="mixed"/>
+  </method>
+    <method name="offsetGet" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Offset to retrieve">Returns the value at specified offset.</description>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="offset" optional="false" byreference="false" type="object" class="mixed"/>
+  </method>
+    <method name="offsetSet" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Assign a value to the specified offset"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="offset" optional="false" byreference="false" type="object" class="mixed"/>
+    <parameter name="value" optional="false" byreference="false" type="object" class="mixed"/>
+  </method>
+    <method name="offsetUnset" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Unset an offset">Unsets an offset.</description>
+      <return type="void"/>
+    </docblock>
+    <parameter name="offset" optional="false" byreference="false" type="object" class="mixed"/>
+  </method>
+  </interface>
+  <interface full="IteratorAggregate" namespace="" name="IteratorAggregate">
+    <extends full="Traversable" namespace="" name="Traversable"/>
+    <method name="getIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Retrieve an external iterator"/>
+      <return type="Traversable"/>
+    </docblock>
+  </method>
+  </interface>
+</class>

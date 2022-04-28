@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="JsonSchema\Constraints\EnumConstraint" namespace="JsonSchema\Constraints" name="EnumConstraint" abstract="false" final="false" start="20" end="54">
+  <file path="../vendor/justinrainbow/json-schema/src/JsonSchema/Constraints" file="EnumConstraint.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/justinrainbow/json-schema/src/JsonSchema/Constraints/EnumConstraint.php" size="1649" time="2022-04-13T08:02:27+00:00" unixtime="1649836947" sha1="48cd35721efdd1ce18ea48763f45e1162109dcd9" relative="vendor/justinrainbow/json-schema/src/JsonSchema/Constraints/EnumConstraint.php"/>
+  <docblock>
+    <description compact="The EnumConstraint Constraints, validates an element against a given set of possibilities"/>
+    <author value="Robert Schönthal &lt;seroscho@googlemail.com&gt;"/>
+    <author value="Bruno Prieto Reis &lt;bruno.p.reis@gmail.com&gt;"/>
+  </docblock>
+  <extends full="JsonSchema\Constraints\Constraint" namespace="JsonSchema\Constraints" name="Constraint"/>
+  <method name="check" start="25" end="53" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="element" byreference="true" type="{unknown}"/>
+    <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="path" byreference="false" type="object" default="NULL">
+      <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+    </parameter>
+    <parameter name="i" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="Only validate enum if the attribute exists" line="27"/>
+    </inline>
+  </method>
+  <parent full="JsonSchema\Constraints\Constraint" namespace="JsonSchema\Constraints" name="Constraint">
+    <extends full="JsonSchema\Constraints\BaseConstraint" namespace="JsonSchema\Constraints" name="BaseConstraint"/>
+    <implements full="JsonSchema\Constraints\ConstraintInterface" namespace="JsonSchema\Constraints" name="ConstraintInterface"/>
+    <constant type="{unknown}" name="CHECK_MODE_NONE" value="0x00000000"/>
+    <constant type="{unknown}" name="CHECK_MODE_NORMAL" value="0x00000001"/>
+    <constant type="{unknown}" name="CHECK_MODE_TYPE_CAST" value="0x00000002"/>
+    <constant type="{unknown}" name="CHECK_MODE_COERCE_TYPES" value="0x00000004"/>
+    <constant type="{unknown}" name="CHECK_MODE_APPLY_DEFAULTS" value="0x00000008"/>
+    <constant type="{unknown}" name="CHECK_MODE_EXCEPTIONS" value="0x00000010"/>
+    <constant type="{unknown}" name="CHECK_MODE_DISABLE_FORMAT" value="0x00000020"/>
+    <constant type="{unknown}" name="CHECK_MODE_ONLY_REQUIRED_DEFAULTS" value="0x00000080"/>
+    <constant type="{unknown}" name="CHECK_MODE_VALIDATE_SCHEMA" value="0x00000100"/>
+    <member name="inlineSchemaProperty" default="'$schema'" type="string" visibility="protected" static="false" line="22"/>
+    <method name="incrementPath" start="42" end="58" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Bubble down the path"/>
+        <param description="Current path" type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param description="What to append to the path" type="mixed" variable="$i"/>
+        <return type="object">
+          <type full="JsonSchema\Constraints\JsonPointer;" namespace="JsonSchema\Constraints" name="JsonPointer;"/>
+        </return>
+      </docblock>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="i" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="checkArray" start="68" end="74" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Validates an array"/>
+        <param type="mixed" variable="$value"/>
+        <param type="mixed" variable="$schema"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param type="mixed" variable="$i"/>
+      </docblock>
+      <parameter name="value" byreference="true" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="i" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="checkObject" start="86" end="93" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Validates an object"/>
+        <param type="mixed" variable="$value"/>
+        <param type="mixed" variable="$schema"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param type="mixed" variable="$properties"/>
+        <param type="mixed" variable="$additionalProperties"/>
+        <param type="mixed" variable="$patternProperties"/>
+      </docblock>
+      <parameter name="value" byreference="true" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="properties" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="additionalProperties" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="patternProperties" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="appliedDefaults" byreference="false" type="array" default=""/>
+    </method>
+    <method name="checkType" start="103" end="109" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Validates the type of a property"/>
+        <param type="mixed" variable="$value"/>
+        <param type="mixed" variable="$schema"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param type="mixed" variable="$i"/>
+      </docblock>
+      <parameter name="value" byreference="true" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="i" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="checkUndefined" start="119" end="126" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Checks a undefined element"/>
+        <param type="mixed" variable="$value"/>
+        <param type="mixed" variable="$schema"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param type="mixed" variable="$i"/>
+      </docblock>
+      <parameter name="value" byreference="true" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="i" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="fromDefault" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="checkString" start="136" end="142" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Checks a string element"/>
+        <param type="mixed" variable="$value"/>
+        <param type="mixed" variable="$schema"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param type="mixed" variable="$i"/>
+      </docblock>
+      <parameter name="value" byreference="false" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="i" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="checkNumber" start="152" end="158" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Checks a number element"/>
+        <param type="mixed" variable="$value"/>
+        <param type="mixed" variable="$schema"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+        </param>
+        <param type="mixed" variable="$i"/>
+      </docblock>
+      <parameter name="value" byreference="false" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="i" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="checkEnum" start="168" end="174" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Checks a enum element"/>
+        <param type="mixed" variable="$value"/>
+        <param type="mixed" variable="$schema"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param type="mixed" variable="$i"/>
+      </docblock>
+      <parameter name="value" byreference="false" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="i" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="checkFormat" start="184" end="190" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Checks format of an element"/>
+        <param type="mixed" variable="$value"/>
+        <param type="mixed" variable="$schema"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param type="mixed" variable="$i"/>
+      </docblock>
+      <parameter name="value" byreference="false" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="i" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="getTypeCheck" start="197" end="200" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get the type check based on the set check mode."/>
+        <return type="object">
+          <type full="JsonSchema\Constraints\TypeCheck\TypeCheckInterface" namespace="JsonSchema\Constraints\TypeCheck" name="TypeCheckInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="convertJsonPointerIntoPropertyPath" start="207" end="217" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description/>
+        <param type="object" variable="$pointer">
+          <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+        </param>
+        <return description="property path" type="string"/>
+      </docblock>
+      <parameter name="pointer" byreference="false" type="object">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+    </method>
+  </parent>
+  <parent full="JsonSchema\Constraints\BaseConstraint" namespace="JsonSchema\Constraints" name="BaseConstraint">
+    <member name="errors" default="" type="array" visibility="protected" static="false" line="26">
+      <docblock>
+        <description/>
+        <var description="Errors" type="array"/>
+      </docblock>
+    </member>
+    <member name="errorMask" default="" type="{unknown}" constant="Validator::ERROR_NONE" visibility="protected" static="false" line="31">
+      <docblock>
+        <description/>
+        <var description="All error types which have occurred" type="int"/>
+      </docblock>
+    </member>
+    <member name="factory" visibility="protected" static="false" line="36">
+      <docblock>
+        <description/>
+        <var type="object">
+          <type full="JsonSchema\Constraints\Factory" namespace="JsonSchema\Constraints" name="Factory"/>
+        </var>
+      </docblock>
+    </member>
+    <constructor name="__construct" start="41" end="44" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param type="object" variable="$factory">
+          <type full="JsonSchema\Constraints\Factory" namespace="JsonSchema\Constraints" name="Factory"/>
+        </param>
+      </docblock>
+      <parameter name="factory" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Constraints\Factory" namespace="JsonSchema\Constraints" name="Factory"/>
+      </parameter>
+    </constructor>
+    <method name="addError" start="46" end="66" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="message" byreference="false" type="{unknown}"/>
+      <parameter name="constraint" byreference="false" type="string" default="''"/>
+      <parameter name="more" byreference="false" type="array" default="NULL"/>
+    </method>
+    <method name="addErrors" start="68" end="79" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="errors" byreference="false" type="array"/>
+    </method>
+    <method name="getErrors" start="81" end="92" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="errorContext" byreference="false" type="{unknown}" default="" constant="Validator::ERROR_ALL"/>
+    </method>
+    <method name="numErrors" start="94" end="101" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="errorContext" byreference="false" type="{unknown}" default="" constant="Validator::ERROR_ALL"/>
+    </method>
+    <method name="isValid" start="103" end="106" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="reset" start="112" end="116" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Clears any reported errors.  Should be used between multiple validation checks."/>
+      </docblock>
+    </method>
+    <method name="getErrorMask" start="123" end="126" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get the error mask"/>
+        <return type="int"/>
+      </docblock>
+    </method>
+    <method name="arrayToObjectRecursive" start="135" end="147" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Recursively cast an associative array to an object"/>
+        <param type="array" variable="$array"/>
+        <return type="object"/>
+      </docblock>
+      <parameter name="array" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+  <interface full="JsonSchema\Constraints\ConstraintInterface" namespace="JsonSchema\Constraints" name="ConstraintInterface">
+    <method name="getErrors" start="26" end="26" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="returns all collected errors"/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="addErrors" start="33" end="33" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="adds errors to this validator"/>
+        <param type="array" variable="$errors"/>
+      </docblock>
+      <parameter name="errors" byreference="false" type="array"/>
+    </method>
+    <method name="addError" start="43" end="43" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="adds an error"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param type="string" variable="$message"/>
+        <param description="the constraint/rule that is broken, e.g.: 'minLength'" type="string" variable="$constraint"/>
+        <param description="more array elements to add to the error" type="array" variable="$more"/>
+      </docblock>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="message" byreference="false" type="{unknown}"/>
+      <parameter name="constraint" byreference="false" type="string" default="''"/>
+      <parameter name="more" byreference="false" type="array" default="NULL"/>
+    </method>
+    <method name="isValid" start="50" end="50" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="checks if the validator has not raised errors"/>
+        <return type="object">
+          <type full="JsonSchema\Constraints\bool" namespace="JsonSchema\Constraints" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="check" start="64" end="64" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="invokes the validation of an element"/>
+        <abstract/>
+        <param type="mixed" variable="$value"/>
+        <param type="mixed" variable="$schema"/>
+        <param type="object" variable="$path">
+          <type full="JsonSchema\Constraints\JsonPointer|null" namespace="JsonSchema\Constraints" name="JsonPointer|null"/>
+        </param>
+        <param type="mixed" variable="$i"/>
+        <throws type="object">
+          <type full="\JsonSchema\Exception\ExceptionInterface" namespace="\JsonSchema\Exception" name="ExceptionInterface"/>
+        </throws>
+      </docblock>
+      <parameter name="value" byreference="true" type="{unknown}"/>
+      <parameter name="schema" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="path" byreference="false" type="object" default="NULL">
+        <type full="JsonSchema\Entity\JsonPointer" namespace="JsonSchema\Entity" name="JsonPointer"/>
+      </parameter>
+      <parameter name="i" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+  </interface>
+</class>

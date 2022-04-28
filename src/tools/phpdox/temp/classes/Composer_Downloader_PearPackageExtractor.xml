@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Downloader\PearPackageExtractor" namespace="Composer\Downloader" name="PearPackageExtractor" abstract="false" final="false" start="26" end="266">
+  <file path="../vendor/composer/composer/src/Composer/Downloader" file="PearPackageExtractor.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Downloader/PearPackageExtractor.php" size="11666" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="c1c40a55a532734cdd856af4ee6b465ce912a796" relative="vendor/composer/composer/src/Composer/Downloader/PearPackageExtractor.php"/>
+  <docblock>
+    <description compact="Extractor for pear packages.">Composer cannot rely on tar files structure when place it inside package target dir. Correct source files
+disposition must be read from package.xml
+This extract pear package source files to target dir.</description>
+    <author value="Alexey Prilipko &lt;palex@farpost.com&gt;"/>
+  </docblock>
+  <member name="rolesWithoutPackageNamePrefix" default="" type="array" visibility="private" static="true" line="28"/>
+  <member name="filesystem" visibility="private" static="false" line="30">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="file" visibility="private" static="false" line="31"/>
+  <constructor name="__construct" start="33" end="41" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="file" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="extractTo" start="52" end="70" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Installs PEAR source files according to package.xml definitions and removes extracted files"/>
+      <param description="target install location. all source installation would be performed relative to target path." type="string" variable="$target"/>
+      <param description="types of files to install. default role for PEAR source files are 'php'." type="array" variable="$roles"/>
+      <param description="used for replacement tasks" type="array" variable="$vars"/>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <throws type="object">
+        <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+    </docblock>
+    <parameter name="target" byreference="false" type="{unknown}"/>
+    <parameter name="roles" byreference="false" type="array" default=""/>
+    <parameter name="vars" byreference="false" type="array" default=""/>
+  </method>
+  <method name="copyFiles" start="81" end="90" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Perform copy actions on files"/>
+      <param description="array of copy actions ('from', 'to') with relative paths" type="array" variable="$files"/>
+      <param description="path to source dir." type="string" variable="$source"/>
+      <param description="path to destination dir" type="string" variable="$target"/>
+      <param description="array [role =&gt; roleRoot] relative root for files having that role" type="array" variable="$roles"/>
+      <param description="list of values can be used for replacement tasks" type="array" variable="$vars"/>
+    </docblock>
+    <parameter name="files" byreference="false" type="{unknown}"/>
+    <parameter name="source" byreference="false" type="{unknown}"/>
+    <parameter name="target" byreference="false" type="{unknown}"/>
+    <parameter name="roles" byreference="false" type="{unknown}"/>
+    <parameter name="vars" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="copyFile" start="92" end="124" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="from" byreference="false" type="{unknown}"/>
+    <parameter name="to" byreference="false" type="{unknown}"/>
+    <parameter name="tasks" byreference="false" type="{unknown}"/>
+    <parameter name="vars" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="buildCopyActions" start="136" end="167" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Builds list of copy and list of remove actions that would transform extracted PEAR tarball into installed package."/>
+      <param description="string path to extracted files" type="string" variable="$source"/>
+      <param description="array [role =&gt; roleRoot] relative root for files having that role" type="array" variable="$roles"/>
+      <param description="list of values can be used for replacement tasks" type="array" variable="$vars"/>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return description="array of 'source' =&gt; 'target', where source is location of file in the tarball (relative to source" type="array">path, and target is destination of file (also relative to $source path)</return>
+    </docblock>
+    <parameter name="source" byreference="false" type="{unknown}"/>
+    <parameter name="roles" byreference="false" type="array"/>
+    <parameter name="vars" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="applyRelease" start="169" end="195" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="actions" byreference="true" type="{unknown}"/>
+    <parameter name="releaseNodes" byreference="false" type="{unknown}"/>
+    <parameter name="vars" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="buildSourceList10" start="197" end="225" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="children" byreference="false" type="{unknown}"/>
+    <parameter name="targetRoles" byreference="false" type="{unknown}"/>
+    <parameter name="source" byreference="false" type="{unknown}"/>
+    <parameter name="target" byreference="false" type="{unknown}"/>
+    <parameter name="role" byreference="false" type="{unknown}"/>
+    <parameter name="packageName" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="enumerating files" line="201"/>
+    </inline>
+  </method>
+  <method name="buildSourceList20" start="227" end="260" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="children" byreference="false" type="{unknown}"/>
+    <parameter name="targetRoles" byreference="false" type="{unknown}"/>
+    <parameter name="source" byreference="false" type="{unknown}"/>
+    <parameter name="target" byreference="false" type="{unknown}"/>
+    <parameter name="role" byreference="false" type="{unknown}"/>
+    <parameter name="packageName" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="enumerating files" line="231"/>
+    </inline>
+  </method>
+  <method name="combine" start="262" end="265" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="left" byreference="false" type="{unknown}"/>
+    <parameter name="right" byreference="false" type="{unknown}"/>
+  </method>
+</class>

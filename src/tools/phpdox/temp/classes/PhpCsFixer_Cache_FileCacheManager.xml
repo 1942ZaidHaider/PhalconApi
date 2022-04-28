@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Cache\FileCacheManager" namespace="PhpCsFixer\Cache" name="FileCacheManager" abstract="false" final="true" start="31" end="144">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Cache" file="FileCacheManager.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Cache/FileCacheManager.php" size="3356" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="01d1ebac46b950a01587ee7e1d92c55770097821" relative="vendor/friendsofphp/php-cs-fixer/src/Cache/FileCacheManager.php"/>
+  <docblock>
+    <description compact="Class supports caching information about state of fixing files.">Cache is supported only for phar version and version installed via composer.
+
+File will be processed by PHP CS Fixer only if any of the following conditions is fulfilled:
+ - cache is corrupt
+ - fixer version changed
+ - rules changed
+ - file is new
+ - file changed</description>
+    <author value="Dariusz Rumiński &lt;dariusz.ruminski@gmail.com&gt;"/>
+    <internal/>
+  </docblock>
+  <implements full="PhpCsFixer\Cache\CacheManagerInterface" namespace="PhpCsFixer\Cache" name="CacheManagerInterface"/>
+  <member name="handler" visibility="private" static="false" line="36">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Cache\FileHandlerInterface" namespace="PhpCsFixer\Cache" name="FileHandlerInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="signature" visibility="private" static="false" line="41">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Cache\SignatureInterface" namespace="PhpCsFixer\Cache" name="SignatureInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="cache" visibility="private" static="false" line="46">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Cache\CacheInterface" namespace="PhpCsFixer\Cache" name="CacheInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="isDryRun" visibility="private" static="false" line="51">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Cache\bool" namespace="PhpCsFixer\Cache" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="cacheDirectory" visibility="private" static="false" line="56">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Cache\DirectoryInterface" namespace="PhpCsFixer\Cache" name="DirectoryInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="61" end="73" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$isDryRun">
+        <type full="PhpCsFixer\Cache\bool" namespace="PhpCsFixer\Cache" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="handler" byreference="false" type="object">
+      <type full="PhpCsFixer\Cache\FileHandlerInterface" namespace="PhpCsFixer\Cache" name="FileHandlerInterface"/>
+    </parameter>
+    <parameter name="signature" byreference="false" type="object">
+      <type full="PhpCsFixer\Cache\SignatureInterface" namespace="PhpCsFixer\Cache" name="SignatureInterface"/>
+    </parameter>
+    <parameter name="isDryRun" byreference="false" type="boolean" default="false"/>
+    <parameter name="cacheDirectory" byreference="false" type="object" default="NULL">
+      <type full="PhpCsFixer\Cache\DirectoryInterface" namespace="PhpCsFixer\Cache" name="DirectoryInterface"/>
+    </parameter>
+  </constructor>
+  <destructor name="__destruct" start="75" end="78" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="__sleep" start="86" end="89" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="This class is not intended to be serialized, and cannot be deserialized (see __wakeup method)."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="__wakeup" start="97" end="100" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Disable the deserialization of the class to prevent attacker executing code by leveraging the __destruct method."/>
+      <see value="https://owasp.org/www-community/vulnerabilities/PHP_Object_Injection"/>
+    </docblock>
+  </method>
+  <method name="needFixing" start="102" end="107" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="fileContent" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setFile" start="109" end="122" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="fileContent" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="readCache" start="124" end="133" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="writeCache" start="135" end="138" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="calcHash" start="140" end="143" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="content" byreference="false" type="{unknown}"/>
+  </method>
+  <interface full="PhpCsFixer\Cache\CacheManagerInterface" namespace="PhpCsFixer\Cache" name="CacheManagerInterface">
+    <method name="needFixing" start="28" end="28" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param type="string" variable="$file"/>
+        <param type="string" variable="$fileContent"/>
+        <return type="object">
+          <type full="PhpCsFixer\Cache\bool" namespace="PhpCsFixer\Cache" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="file" byreference="false" type="{unknown}"/>
+      <parameter name="fileContent" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="setFile" start="34" end="34" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param type="string" variable="$file"/>
+        <param type="string" variable="$fileContent"/>
+      </docblock>
+      <parameter name="file" byreference="false" type="{unknown}"/>
+      <parameter name="fileContent" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

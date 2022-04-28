@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor" abstract="false" final="false" start="23" end="205">
+  <file path="../vendor/composer/composer/src/Composer/Util" file="ProcessExecutor.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Util/ProcessExecutor.php" size="6358" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="81165fb62c3a2614e16ef41b41b5d26af9ee0ce2" relative="vendor/composer/composer/src/Composer/Util/ProcessExecutor.php"/>
+  <docblock>
+    <description/>
+    <author value="Robert Schönthal &lt;seroscho@googlemail.com&gt;"/>
+  </docblock>
+  <member name="timeout" default="300" type="integer" visibility="protected" static="true" line="25"/>
+  <member name="captureOutput" visibility="protected" static="false" line="27"/>
+  <member name="errorOutput" visibility="protected" static="false" line="28"/>
+  <member name="io" visibility="protected" static="false" line="29"/>
+  <constructor name="__construct" start="31" end="34" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="io" byreference="false" type="object" default="NULL">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </constructor>
+  <method name="execute" start="45" end="90" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="runs a process on the commandline"/>
+      <param description="the command to execute" type="string" variable="$command"/>
+      <param description="the output will be written into this var if passed by ref" type="mixed" variable="$output">if a callable is passed it will be used as output handler</param>
+      <param description="the working directory" type="string" variable="$cwd"/>
+      <return description="statuscode" type="int"/>
+    </docblock>
+    <parameter name="command" byreference="false" type="{unknown}"/>
+    <parameter name="output" byreference="true" type="{unknown}" default="NULL"/>
+    <parameter name="cwd" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="make sure that null translate to the proper directory in case the dir is a symlink" line="60"/>
+      <comment value="and we call a git command, because msysgit does not handle symlinks properly" line="61"/>
+      <todo value="in v3, commands should be passed in as arrays of cmd + args" line="73"/>
+    </inline>
+  </method>
+  <method name="splitLines" start="92" end="97" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="output" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getErrorOutput" start="104" end="107" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get any error output from the last command"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="outputHandler" start="109" end="134" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="type" byreference="false" type="{unknown}"/>
+    <parameter name="buffer" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getTimeout" start="136" end="139" abstract="false" final="false" static="true" visibility="public"/>
+  <method name="setTimeout" start="141" end="144" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="timeout" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="escape" start="153" end="156" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Escapes a string to be used as a shell argument."/>
+      <param description="The argument that will be escaped" type="string" variable="$argument"/>
+      <return description="The escaped argument" type="string"/>
+    </docblock>
+    <parameter name="argument" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="escapeArgument" start="173" end="204" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Escapes a string to be used as a shell argument for Symfony Process.">This method expects cmd.exe to be started with the /V:ON option, which
+enables delayed environment variable expansion using ! as the delimiter.
+If this is not the case, any escaped ^^!var^^! will be transformed to
+^!var^! and introduce two unintended carets.
+
+Modified from https://github.com/johnstevenson/winbox-args
+MIT Licensed (c) John Stevenson &lt;john-stevenson@blueyonder.co.uk&gt;</description>
+      <param type="string" variable="$argument"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="argument" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="New lines break cmd.exe command parsing" line="183"/>
+    </inline>
+  </method>
+</class>

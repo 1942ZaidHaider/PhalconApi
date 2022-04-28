@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trait xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\Response\TransportResponseTrait" namespace="Symfony\Component\HttpClient\Response" name="TransportResponseTrait" abstract="false" final="false" start="28" end="312">
+  <file path="../vendor/symfony/http-client/Response" file="TransportResponseTrait.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/Response/TransportResponseTrait.php" size="11161" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="de3862b90a2f1fa6db19479d96d406753525804c" relative="vendor/symfony/http-client/Response/TransportResponseTrait.php"/>
+  <docblock>
+    <description compact="Implements common logic for transport-level response classes."/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+    <internal/>
+  </docblock>
+  <member name="canary" visibility="private" static="false" line="30"/>
+  <member name="headers" default="" type="array" visibility="private" static="false" line="31"/>
+  <member name="info" default="" type="array" visibility="private" static="false" line="32"/>
+  <member name="handle" visibility="private" static="false" line="40">
+    <docblock>
+      <var type="object">
+        <type full="Symfony\Component\HttpClient\Response\object|resource" namespace="Symfony\Component\HttpClient\Response" name="object|resource"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="id" visibility="private" static="false" line="41"/>
+  <member name="timeout" default="0" type="integer" visibility="private" static="false" line="42"/>
+  <member name="inflate" visibility="private" static="false" line="43"/>
+  <member name="finalInfo" visibility="private" static="false" line="44"/>
+  <member name="logger" visibility="private" static="false" line="45"/>
+  <method name="getStatusCode" start="50" end="57" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="getHeaders" start="62" end="73" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="throw" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="cancel" start="78" end="83" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="close" start="88" end="92" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Closes the response and all its network handles."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="schedule" start="97" end="97" abstract="true" final="false" static="true" visibility="protected">
+    <docblock>
+      <description compact="Adds pending responses to the activity list."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="response" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\self" namespace="Symfony\Component\HttpClient\Response" name="self"/>
+    </parameter>
+    <parameter name="runningResponses" byreference="true" type="array"/>
+  </method>
+  <method name="perform" start="102" end="102" abstract="true" final="false" static="true" visibility="protected">
+    <docblock>
+      <description compact="Performs all pending non-blocking operations."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="multi" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Internal\ClientState" namespace="Symfony\Component\HttpClient\Internal" name="ClientState"/>
+    </parameter>
+    <parameter name="responses" byreference="true" type="array"/>
+  </method>
+  <method name="select" start="107" end="107" abstract="true" final="false" static="true" visibility="protected">
+    <docblock>
+      <description compact="Waits for network activity."/>
+    </docblock>
+    <return type="int" nullable="false"/>
+    <parameter name="multi" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Internal\ClientState" namespace="Symfony\Component\HttpClient\Internal" name="ClientState"/>
+    </parameter>
+    <parameter name="timeout" byreference="false" type="float"/>
+  </method>
+  <method name="addResponseHeaders" start="109" end="127" abstract="false" final="false" static="true" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="responseHeaders" byreference="false" type="array"/>
+    <parameter name="info" byreference="true" type="array"/>
+    <parameter name="headers" byreference="true" type="array"/>
+    <parameter name="debug" byreference="true" type="string" default="''"/>
+  </method>
+  <method name="doDestruct" start="132" end="140" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Ensures the request is always sent and that the response code was checked."/>
+    </docblock>
+  </method>
+  <method name="stream" start="149" end="311" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Implements an event loop based on a buffer activity queue."/>
+      <param description="self&gt; $responses" type="object">
+        <type full="Symfony\Component\HttpClient\Response\iterable&lt;array-key" namespace="Symfony\Component\HttpClient\Response" name="iterable&lt;array-key"/>
+      </param>
+      <internal/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Generator" namespace="" name="Generator"/>
+    </return>
+    <parameter name="responses" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\iterable" namespace="Symfony\Component\HttpClient\Response" name="iterable"/>
+    </parameter>
+    <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+  </method>
+  <users>
+    <class full="Symfony\Component\HttpClient\Response\CurlResponse" namespace="Symfony\Component\HttpClient\Response" name="CurlResponse"/>
+    <class full="Symfony\Component\HttpClient\Response\MockResponse" namespace="Symfony\Component\HttpClient\Response" name="MockResponse"/>
+    <class full="Symfony\Component\HttpClient\Response\NativeResponse" namespace="Symfony\Component\HttpClient\Response" name="NativeResponse"/>
+  </users>
+</trait>

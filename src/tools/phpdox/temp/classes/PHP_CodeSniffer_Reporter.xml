@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Reporter" namespace="PHP_CodeSniffer" name="Reporter" abstract="false" final="false" start="18" end="423">
+  <file path="../vendor/squizlabs/php_codesniffer/src" file="Reporter.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Reporter.php" size="13445" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="eeb826c94afeefa9c864569f22179908e0b511c8" relative="vendor/squizlabs/php_codesniffer/src/Reporter.php"/>
+  <member name="config" default="NULL" visibility="public" static="false" line="26">
+    <docblock>
+      <description compact="The config data for the run."/>
+      <var type="object">
+        <type full="\PHP_CodeSniffer\Config" namespace="\PHP_CodeSniffer" name="Config"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="totalFiles" default="0" type="integer" visibility="public" static="false" line="33">
+    <docblock>
+      <description compact="Total number of files that contain errors or warnings."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="totalErrors" default="0" type="integer" visibility="public" static="false" line="40">
+    <docblock>
+      <description compact="Total number of errors found during the run."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="totalWarnings" default="0" type="integer" visibility="public" static="false" line="47">
+    <docblock>
+      <description compact="Total number of warnings found during the run."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="totalFixable" default="0" type="integer" visibility="public" static="false" line="54">
+    <docblock>
+      <description compact="Total number of errors/warnings that can be fixed."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="totalFixed" default="0" type="integer" visibility="public" static="false" line="61">
+    <docblock>
+      <description compact="Total number of errors/warnings that were fixed."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="startTime" default="0" type="integer" visibility="public" static="true" line="68">
+    <docblock>
+      <description compact="When the PHPCS run started."/>
+      <var type="float"/>
+    </docblock>
+  </member>
+  <member name="reports" default="" type="array" visibility="private" static="false" line="75">
+    <docblock>
+      <description compact="A cache of report objects."/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="tmpFiles" default="" type="array" visibility="private" static="false" line="82">
+    <docblock>
+      <description compact="A cache of opened temporary files."/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="98" end="166" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initialise the reporter.">All reports specified in the config will be created and their
+output file (or a temp file if none is specified) initialised by
+clearing the current contents.</description>
+      <param description="The config data for the run." type="object" variable="$config">
+        <type full="\PHP_CodeSniffer\Config" namespace="\PHP_CodeSniffer" name="Config"/>
+      </param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+      <throws description="If a custom report class could not be found." type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\DeepExitException" namespace="\PHP_CodeSniffer\Exceptions" name="DeepExitException"/>
+      </throws>
+      <throws description="If a report class is incorrectly set up." type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\RuntimeException" namespace="\PHP_CodeSniffer\Exceptions" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="config" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Config" namespace="PHP_CodeSniffer" name="Config"/>
+    </parameter>
+    <inline>
+      <comment value="end foreach" line="164"/>
+    </inline>
+  </constructor>
+  <method name="printReports" start="177" end="190" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Generates and prints final versions of all reports.">Returns TRUE if any of the reports output content to the screen
+or FALSE if all reports were silently printed to a file.</description>
+      <return type="object">
+        <type full="PHP_CodeSniffer\bool" namespace="PHP_CodeSniffer" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="printReport" start="200" end="256" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Generates and prints a single final report."/>
+      <param description="The report type to print." type="string" variable="$report"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="report" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="cacheFileReport" start="270" end="324" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Caches the result of a single processed file for all reports.">The report content that is generated is appended to the output file
+assigned to each report. This content may be an intermediate report format
+and not reflect the final report output.</description>
+      <param description="The file that has been processed." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\void" namespace="PHP_CodeSniffer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <inline>
+      <comment value="end foreach" line="307"/>
+    </inline>
+  </method>
+  <method name="prepareFileReport" start="334" end="420" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Generate summary information to be used during report generation."/>
+      <param description="The file that has been processed." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <inline>
+      <comment value="Merge errors and warnings." line="366"/>
+      <comment value="end foreach" line="384"/>
+      <comment value="end foreach" line="414"/>
+    </inline>
+  </method>
+</class>

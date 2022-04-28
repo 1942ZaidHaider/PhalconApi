@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Diff\v1_4\Differ" namespace="PhpCsFixer\Diff\v1_4" name="Differ" abstract="false" final="false" start="20" end="399">
+  <file path="../vendor/php-cs-fixer/diff/src/v1_4" file="Differ.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/php-cs-fixer/diff/src/v1_4/Differ.php" size="10504" time="2020-10-14T08:39:05+00:00" unixtime="1602664745" sha1="ca21aa8d3a5aafc1e4bf93d85977195b75ac337b" relative="vendor/php-cs-fixer/diff/src/v1_4/Differ.php"/>
+  <docblock>
+    <description compact="Diff implementation."/>
+  </docblock>
+  <member name="header" visibility="private" static="false" line="25">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="showNonDiffLines" visibility="private" static="false" line="30">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Diff\v1_4\bool" namespace="PhpCsFixer\Diff\v1_4" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="36" end="40" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$header"/>
+      <param type="object" variable="$showNonDiffLines">
+        <type full="PhpCsFixer\Diff\v1_4\bool" namespace="PhpCsFixer\Diff\v1_4" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="header" byreference="false" type="string" default="&quot;--- Original\n+++ New\n&quot;"/>
+    <parameter name="showNonDiffLines" byreference="false" type="boolean" default="true"/>
+  </constructor>
+  <method name="diff" start="51" end="65" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the diff between two arrays or strings as string."/>
+      <param type="object" variable="$from">
+        <type full="PhpCsFixer\Diff\v1_4\array|string" namespace="PhpCsFixer\Diff\v1_4" name="array|string"/>
+      </param>
+      <param type="object" variable="$to">
+        <type full="PhpCsFixer\Diff\v1_4\array|string" namespace="PhpCsFixer\Diff\v1_4" name="array|string"/>
+      </param>
+      <param type="object" variable="$lcs">
+        <type full="PhpCsFixer\Diff\v1_4\LCS\LongestCommonSubsequence" namespace="PhpCsFixer\Diff\v1_4\LCS" name="LongestCommonSubsequence"/>
+      </param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="from" byreference="false" type="{unknown}"/>
+    <parameter name="to" byreference="false" type="{unknown}"/>
+    <parameter name="lcs" byreference="false" type="object" default="NULL">
+      <type full="PhpCsFixer\Diff\v1_4\LCS\LongestCommonSubsequence" namespace="PhpCsFixer\Diff\v1_4\LCS" name="LongestCommonSubsequence"/>
+    </parameter>
+  </method>
+  <method name="validateDiffInput" start="74" end="81" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Casts variable to string if it is not a string or array."/>
+      <param type="mixed" variable="$input"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="checkIfDiffInOld" start="91" end="114" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Takes input of the diff array and returns the old array.">Iterates through diff line by line,</description>
+      <param type="array" variable="$diff"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="diff" byreference="false" type="array"/>
+  </method>
+  <method name="getBuffer" start="126" end="145" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Generates buffer in string format, returning the patch."/>
+      <param type="array" variable="$diff"/>
+      <param type="array" variable="$old"/>
+      <param type="int" variable="$start"/>
+      <param type="int" variable="$end"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="diff" byreference="false" type="array"/>
+    <parameter name="old" byreference="false" type="array"/>
+    <parameter name="start" byreference="false" type="{unknown}"/>
+    <parameter name="end" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getDiffBufferElement" start="156" end="167" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Gets individual buffer element."/>
+      <param type="array" variable="$diff"/>
+      <param type="string" variable="$buffer"/>
+      <param type="int" variable="$diffIndex"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="diff" byreference="false" type="array"/>
+    <parameter name="buffer" byreference="false" type="{unknown}"/>
+    <parameter name="diffIndex" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getDiffBufferElementNew" start="178" end="185" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Gets individual buffer element with opening."/>
+      <param type="array" variable="$diff"/>
+      <param type="string" variable="$buffer"/>
+      <param type="int" variable="$diffIndex"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="diff" byreference="false" type="array"/>
+    <parameter name="buffer" byreference="false" type="{unknown}"/>
+    <parameter name="diffIndex" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="diffToArray" start="204" end="275" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the diff between two arrays or strings as array.">Each array element contains two elements:
+  - [0] =&gt; mixed $token
+  - [1] =&gt; 2|1|0
+
+- 2: REMOVED: $token was removed from $from
+- 1: ADDED: $token was added to $from
+- 0: OLD: $token is not changed in $to</description>
+      <param type="object" variable="$from">
+        <type full="PhpCsFixer\Diff\v1_4\array|string" namespace="PhpCsFixer\Diff\v1_4" name="array|string"/>
+      </param>
+      <param type="object" variable="$to">
+        <type full="PhpCsFixer\Diff\v1_4\array|string" namespace="PhpCsFixer\Diff\v1_4" name="array|string"/>
+      </param>
+      <param type="object" variable="$lcs">
+        <type full="PhpCsFixer\Diff\v1_4\LCS\LongestCommonSubsequence" namespace="PhpCsFixer\Diff\v1_4\LCS" name="LongestCommonSubsequence"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="from" byreference="false" type="{unknown}"/>
+    <parameter name="to" byreference="false" type="{unknown}"/>
+    <parameter name="lcs" byreference="false" type="object" default="NULL">
+      <type full="PhpCsFixer\Diff\v1_4\LCS\LongestCommonSubsequence" namespace="PhpCsFixer\Diff\v1_4\LCS" name="LongestCommonSubsequence"/>
+    </parameter>
+  </method>
+  <method name="getNewLineMatches" start="284" end="289" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Get new strings denoting new lines from a given string."/>
+      <param type="string" variable="$string"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="string" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="splitStringByLines" start="298" end="301" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Checks if input is string, if so it will split it line-by-line."/>
+      <param type="string" variable="$input"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="selectLcsImplementation" start="309" end="322" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$from"/>
+      <param type="array" variable="$to"/>
+      <return type="object">
+        <type full="PhpCsFixer\Diff\v1_4\LCS\LongestCommonSubsequence" namespace="PhpCsFixer\Diff\v1_4\LCS" name="LongestCommonSubsequence"/>
+      </return>
+    </docblock>
+    <parameter name="from" byreference="false" type="array"/>
+    <parameter name="to" byreference="false" type="array"/>
+    <inline>
+      <comment value="We do not want to use the time-efficient implementation if its memory" line="311"/>
+      <comment value="footprint will probably exceed this value. Note that the footprint" line="312"/>
+      <comment value="calculation is only an estimation for the matrix and the LCS method" line="313"/>
+      <comment value="will typically allocate a bit more memory than this." line="314"/>
+    </inline>
+  </method>
+  <method name="calculateEstimatedFootprint" start="332" end="337" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Calculates the estimated memory footprint for the DP-based method."/>
+      <param type="array" variable="$from"/>
+      <param type="array" variable="$to"/>
+      <return type="object">
+        <type full="PhpCsFixer\Diff\v1_4\int|float" namespace="PhpCsFixer\Diff\v1_4" name="int|float"/>
+      </return>
+    </docblock>
+    <parameter name="from" byreference="false" type="array"/>
+    <parameter name="to" byreference="false" type="array"/>
+  </method>
+  <method name="detectUnmatchedLineEndings" start="347" end="352" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns true if line ends don't match on fromMatches and toMatches."/>
+      <param type="array" variable="$fromMatches"/>
+      <param type="array" variable="$toMatches"/>
+      <return type="object">
+        <type full="PhpCsFixer\Diff\v1_4\bool" namespace="PhpCsFixer\Diff\v1_4" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="fromMatches" byreference="false" type="array"/>
+    <parameter name="toMatches" byreference="false" type="array"/>
+  </method>
+  <method name="getArrayDiffParted" start="360" end="398" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$from"/>
+      <param type="array" variable="$to"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="from" byreference="true" type="array"/>
+    <parameter name="to" byreference="true" type="array"/>
+  </method>
+</class>

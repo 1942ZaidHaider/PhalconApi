@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="Composer\Repository\Vcs\VcsDriverInterface" namespace="Composer\Repository\Vcs" name="VcsDriverInterface" abstract="false" final="false" start="21" end="117">
+  <file path="../vendor/composer/composer/src/Composer/Repository/Vcs" file="VcsDriverInterface.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Repository/Vcs/VcsDriverInterface.php" size="3198" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="2289d8a16a31f64d5b8944d51080bcab72ba686a" relative="vendor/composer/composer/src/Composer/Repository/Vcs/VcsDriverInterface.php"/>
+  <docblock>
+    <description/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <method name="initialize" start="26" end="26" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initializes the driver (git clone, svn checkout, fetch info etc)"/>
+    </docblock>
+  </method>
+  <method name="getComposerInformation" start="34" end="34" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the composer.json file information"/>
+      <param description="Any identifier to a specific branch/tag/commit" type="string" variable="$identifier"/>
+      <return description="containing all infos from the composer.json file" type="array"/>
+    </docblock>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getFileContent" start="43" end="43" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the content of $file or null if the file does not exist."/>
+      <param type="string" variable="$file"/>
+      <param type="string" variable="$identifier"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getChangeDate" start="51" end="51" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get the changedate for $identifier."/>
+      <param type="string" variable="$identifier"/>
+      <return type="object">
+        <type full="\DateTime" namespace="" name="DateTime"/>
+      </return>
+    </docblock>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getRootIdentifier" start="58" end="58" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the root identifier (trunk, master, default/tip ..)"/>
+      <return description="Identifier" type="string"/>
+    </docblock>
+  </method>
+  <method name="getBranches" start="65" end="65" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return list of branches in the repository"/>
+      <return description="Branch names as keys, identifiers as values" type="array"/>
+    </docblock>
+  </method>
+  <method name="getTags" start="72" end="72" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return list of tags in the repository"/>
+      <return description="Tag names as keys, identifiers as values" type="array"/>
+    </docblock>
+  </method>
+  <method name="getDist" start="78" end="78" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="Any identifier to a specific branch/tag/commit" type="string" variable="$identifier"/>
+      <return description="With type, url reference and shasum keys." type="array"/>
+    </docblock>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getSource" start="84" end="84" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="Any identifier to a specific branch/tag/commit" type="string" variable="$identifier"/>
+      <return description="With type, url and reference keys." type="array"/>
+    </docblock>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getUrl" start="91" end="91" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the URL of the repository"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="hasComposerFile" start="100" end="100" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return true if the repository has a composer file for a given identifier, false otherwise."/>
+      <param description="Any identifier to a specific branch/tag/commit" type="string" variable="$identifier"/>
+      <return description="Whether the repository has a composer file for a given identifier." type="object">
+        <type full="Composer\Repository\Vcs\bool" namespace="Composer\Repository\Vcs" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="cleanup" start="105" end="105" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Performs any cleanup necessary as the driver is not longer needed"/>
+    </docblock>
+  </method>
+  <method name="supports" start="116" end="116" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Checks if this driver can handle a given url"/>
+      <param description="IO instance" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param description="current $config" type="object" variable="$config">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </param>
+      <param description="URL to validate/check" type="string" variable="$url"/>
+      <param description="unless true, only shallow checks (url matching typically) should be done" type="object" variable="$deep">
+        <type full="Composer\Repository\Vcs\bool" namespace="Composer\Repository\Vcs" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Repository\Vcs\bool" namespace="Composer\Repository\Vcs" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="deep" byreference="false" type="boolean" default="false"/>
+  </method>
+  <implementors>
+    <class full="Composer\Repository\Vcs\GitLabDriver" namespace="Composer\Repository\Vcs" name="GitLabDriver"/>
+    <class full="Composer\Repository\Vcs\GitDriver" namespace="Composer\Repository\Vcs" name="GitDriver"/>
+    <class full="Composer\Repository\Vcs\FossilDriver" namespace="Composer\Repository\Vcs" name="FossilDriver"/>
+    <class full="Composer\Repository\Vcs\BitbucketDriver" namespace="Composer\Repository\Vcs" name="BitbucketDriver"/>
+    <class full="Composer\Repository\Vcs\HgDriver" namespace="Composer\Repository\Vcs" name="HgDriver"/>
+    <class full="Composer\Repository\Vcs\HgBitbucketDriver" namespace="Composer\Repository\Vcs" name="HgBitbucketDriver"/>
+    <class full="Composer\Repository\Vcs\SvnDriver" namespace="Composer\Repository\Vcs" name="SvnDriver"/>
+    <class full="Composer\Repository\Vcs\VcsDriver" namespace="Composer\Repository\Vcs" name="VcsDriver"/>
+    <class full="Composer\Repository\Vcs\GitHubDriver" namespace="Composer\Repository\Vcs" name="GitHubDriver"/>
+    <class full="Composer\Repository\Vcs\GitBitbucketDriver" namespace="Composer\Repository\Vcs" name="GitBitbucketDriver"/>
+    <class full="Composer\Repository\Vcs\PerforceDriver" namespace="Composer\Repository\Vcs" name="PerforceDriver"/>
+  </implementors>
+</interface>

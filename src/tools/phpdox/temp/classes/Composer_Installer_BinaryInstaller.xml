@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Installer\BinaryInstaller" namespace="Composer\Installer" name="BinaryInstaller" abstract="false" final="false" start="29" end="214">
+  <file path="../vendor/composer/composer/src/Composer/Installer" file="BinaryInstaller.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Installer/BinaryInstaller.php" size="7014" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="f6985d6525470e0023a7f5620ca43b70fc89f8ad" relative="vendor/composer/composer/src/Composer/Installer/BinaryInstaller.php"/>
+  <docblock>
+    <description compact="Utility to handle installation of package &quot;bin&quot;/binaries"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+    <author value="Konstantin Kudryashov &lt;ever.zet@gmail.com&gt;"/>
+    <author value="Helmut Hummel &lt;info@helhum.io&gt;"/>
+  </docblock>
+  <member name="binDir" visibility="protected" static="false" line="31"/>
+  <member name="binCompat" visibility="protected" static="false" line="32"/>
+  <member name="io" visibility="protected" static="false" line="33"/>
+  <member name="filesystem" visibility="protected" static="false" line="34"/>
+  <constructor name="__construct" start="42" end="48" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param type="string" variable="$binDir"/>
+      <param type="string" variable="$binCompat"/>
+      <param type="object" variable="$filesystem">
+        <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+      </param>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="binDir" byreference="false" type="{unknown}"/>
+    <parameter name="binCompat" byreference="false" type="{unknown}"/>
+    <parameter name="filesystem" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+    </parameter>
+  </constructor>
+  <method name="installBinaries" start="50" end="95" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="installPath" byreference="false" type="{unknown}"/>
+    <parameter name="warnOnOverwrite" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="removeBinaries" start="97" end="119" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <inline>
+      <comment value="attempt removing the bin dir in case it is left empty" line="115"/>
+    </inline>
+  </method>
+  <method name="determineBinaryCaller" start="121" end="135" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="bin" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getBinaries" start="137" end="140" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="installFullBinaries" start="142" end="156" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="binPath" byreference="false" type="{unknown}"/>
+    <parameter name="link" byreference="false" type="{unknown}"/>
+    <parameter name="bin" byreference="false" type="{unknown}"/>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <inline>
+      <comment value="add unixy support for cygwin and similar environments" line="144"/>
+    </inline>
+  </method>
+  <method name="installSymlinkBinaries" start="158" end="163" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="binPath" byreference="false" type="{unknown}"/>
+    <parameter name="link" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="installUnixyProxyBinaries" start="165" end="168" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="binPath" byreference="false" type="{unknown}"/>
+    <parameter name="link" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="initializeBinDir" start="170" end="174" abstract="false" final="false" static="false" visibility="protected"/>
+  <method name="generateWindowsProxyCode" start="176" end="185" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="bin" byreference="false" type="{unknown}"/>
+    <parameter name="link" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="generateUnixyProxyCode" start="187" end="213" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="bin" byreference="false" type="{unknown}"/>
+    <parameter name="link" byreference="false" type="{unknown}"/>
+  </method>
+  <extenders>
+    <extender full="Composer\Installer\PearBinaryInstaller" namespace="Composer\Installer" name="PearBinaryInstaller"/>
+  </extenders>
+</class>

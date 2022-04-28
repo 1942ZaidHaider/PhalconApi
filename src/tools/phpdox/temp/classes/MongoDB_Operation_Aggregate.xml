@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\Aggregate" namespace="MongoDB\Operation" name="Aggregate" abstract="false" final="false" start="52" end="404">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="Aggregate.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/Aggregate.php" size="15523" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="3f93de9ea373a0343214ff6ad592fb43afc07916" relative="vendor/mongodb/mongodb/src/Operation/Aggregate.php"/>
+  <docblock>
+    <description compact="Operation for the aggregate command."/>
+    <api/>
+    <see value="\MongoDB\Collection::aggregate()"/>
+    <see value="http://docs.mongodb.org/manual/reference/command/aggregate/"/>
+  </docblock>
+  <implements full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+  <implements full="MongoDB\Operation\Explainable" namespace="MongoDB\Operation" name="Explainable"/>
+  <member name="databaseName" visibility="private" static="false" line="55">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="collectionName" visibility="private" static="false" line="58">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\string|null" namespace="MongoDB\Operation" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="pipeline" visibility="private" static="false" line="61">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="options" visibility="private" static="false" line="64">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="isExplain" visibility="private" static="false" line="67">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\bool" namespace="MongoDB\Operation" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="isWrite" visibility="private" static="false" line="70">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\bool" namespace="MongoDB\Operation" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="139" end="256" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs an aggregate command.">Supported options:
+
+ * allowDiskUse (boolean): Enables writing to temporary files. When set
+   to true, aggregation stages can write data to the _tmp sub-directory
+   in the dbPath directory.
+
+ * batchSize (integer): The number of documents to return per batch.
+
+ * bypassDocumentValidation (boolean): If true, allows the write to
+   circumvent document level validation. This only applies when an $out
+   or $merge stage is specified.
+
+ * collation (document): Collation specification.
+
+ * comment (string): An arbitrary string to help trace the operation
+   through the database profiler, currentOp, and logs.
+
+ * explain (boolean): Specifies whether or not to return the information
+   on the processing of the pipeline.
+
+ * hint (string|document): The index to use. Specify either the index
+   name as a string or the index key pattern as a document. If specified,
+   then the query system will only consider plans using the hinted index.
+
+ * let (document): Map of parameter names and values. Values must be
+   constant or closed expressions that do not reference document fields.
+   Parameters can then be accessed as variables in an aggregate
+   expression context (e.g. "$$var").
+
+   This is not supported for server versions &lt; 5.0 and will result in an
+   exception at execution time if used.
+
+ * maxTimeMS (integer): The maximum amount of time to allow the query to
+   run.
+
+ * readConcern (MongoDB\Driver\ReadConcern): Read concern.
+
+ * readPreference (MongoDB\Driver\ReadPreference): Read preference.
+
+   This option is ignored if an $out or $merge stage is specified.
+
+ * session (MongoDB\Driver\Session): Client session.
+
+ * typeMap (array): Type map for BSON deserialization. This will be
+   applied to the returned Cursor (it is not sent to the server).
+
+ * useCursor (boolean): Indicates whether the command will request that
+   the server provide results using a cursor. The default is true.
+
+   This option allows users to turn off cursors if necessary to aid in
+   mongod/mongos upgrades.
+
+ * writeConcern (MongoDB\Driver\WriteConcern): Write concern. This only
+   applies when an $out or $merge stage is specified.
+
+Note: Collection-agnostic commands (e.g. $currentOp) may be executed by
+specifying null for the collection name.</description>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Collection name" type="object" variable="$collectionName">
+        <type full="MongoDB\Operation\string|null" namespace="MongoDB\Operation" name="string|null"/>
+      </param>
+      <param description="List of pipeline operations" type="array" variable="$pipeline"/>
+      <param description="Command options" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="pipeline" byreference="false" type="array"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="Explain does not use a cursor" line="240"/>
+      <comment value="Ignore batchSize for writes, since no documents are returned and a" line="246"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* batchSize of zero could prevent the pipeline from executing." line="247"/>
+    </inline>
+  </constructor>
+  <method name="execute" start="268" end="307" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation."/>
+      <see value="Executable::execute()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="object">
+        <type full="Traversable" namespace="" name="Traversable"/>
+      </return>
+      <throws description="if the command response was malformed" type="object">
+        <type full="MongoDB\Exception\UnexpectedValueException" namespace="MongoDB\Exception" name="UnexpectedValueException"/>
+      </throws>
+      <throws description="if read concern or write concern is used and unsupported" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="getCommandDocument" start="316" end="319" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the command document for this operation."/>
+      <see value="Explainable::getCommandDocument()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="createCommandDocument" start="326" end="356" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create the aggregate command document."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="createCommandOptions" start="358" end="367" abstract="false" final="false" static="false" visibility="private">
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="executeCommand" start="376" end="403" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Execute the aggregate command using the appropriate Server method."/>
+      <see value="http://php.net/manual/en/mongodb-driver-server.executecommand.php"/>
+      <see value="http://php.net/manual/en/mongodb-driver-server.executereadcommand.php"/>
+      <see value="http://php.net/manual/en/mongodb-driver-server.executereadwritecommand.php"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="MongoDB\Driver\Cursor" namespace="MongoDB\Driver" name="Cursor"/>
+    </return>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+    <parameter name="command" byreference="false" type="object">
+      <type full="MongoDB\Driver\Command" namespace="MongoDB\Driver" name="Command"/>
+    </parameter>
+    <inline>
+      <comment value="Server::executeReadWriteCommand() does not support a &quot;readPreference&quot;" line="394"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="option, so fall back to executeCommand(). This means that libmongoc" line="395"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="will not apply any client-level options (e.g. writeConcern), but that" line="396"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* should not be an issue as PHPLIB handles inheritance on its own." line="397"/>
+    </inline>
+  </method>
+  <interface full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable">
+    <method name="execute" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Execute the operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+  <interface full="MongoDB\Operation\Explainable" namespace="MongoDB\Operation" name="Explainable">
+    <extends full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+    <method name="getCommandDocument" start="36" end="36" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the command document for this operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="array"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+</class>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Model\CachingIterator" namespace="MongoDB\Model" name="CachingIterator" abstract="false" final="false" start="41" end="170">
+  <file path="../vendor/mongodb/mongodb/src/Model" file="CachingIterator.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Model/CachingIterator.php" size="4104" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="bd79bc4d5b74a642d353b68b9e36e849ab6fa6ad" relative="vendor/mongodb/mongodb/src/Model/CachingIterator.php"/>
+  <docblock>
+    <description compact="Iterator for wrapping a Traversable and caching its results.">By caching results, this iterators allows a Traversable to be counted and
+rewound multiple times, even if the wrapped object does not natively support
+those operations (e.g. MongoDB\Driver\Cursor).</description>
+    <internal/>
+  </docblock>
+  <implements full="Countable" namespace="" name="Countable"/>
+  <implements full="Iterator" namespace="" name="Iterator"/>
+  <member name="items" default="" type="array" visibility="private" static="false" line="44">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="iterator" visibility="private" static="false" line="47">
+    <docblock>
+      <var type="object">
+        <type full="Iterator" namespace="" name="Iterator"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="iteratorAdvanced" default="false" type="boolean" visibility="private" static="false" line="50">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="iteratorExhausted" default="false" type="boolean" visibility="private" static="false" line="53">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="63" end="69" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initialize the iterator and stores the first item in the cache. This effectively rewinds the Traversable and the wrapping IteratorIterator.">Additionally, this mimics behavior of the SPL iterators and allows users
+to omit an explicit call to rewind() before using the other methods.</description>
+      <param type="object" variable="$traversable">
+        <type full="Traversable" namespace="" name="Traversable"/>
+      </param>
+    </docblock>
+    <parameter name="traversable" byreference="false" type="object">
+      <type full="Traversable" namespace="" name="Traversable"/>
+    </parameter>
+  </constructor>
+  <method name="count" start="76" end="81" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="current" start="88" end="91" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="key" start="98" end="101" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="next" start="108" end="120" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="rewind" start="127" end="137" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="If the iterator has advanced, exhaust it now so that future iteration" line="129"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="can rely on the cache." line="130"/>
+    </inline>
+  </method>
+  <method name="valid" start="144" end="147" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="exhaustIterator" start="152" end="157" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Ensures that the inner iterator is fully consumed and cached."/>
+    </docblock>
+  </method>
+  <method name="storeCurrentItem" start="162" end="169" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Stores the current item in the cache."/>
+    </docblock>
+  </method>
+  <interface full="Countable" namespace="" name="Countable">
+    <method name="count" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Count elements of an object"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  </interface>
+  <interface full="Iterator" namespace="" name="Iterator">
+    <extends full="Traversable" namespace="" name="Traversable"/>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Return the current element"/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Return the key of the current element"/>
+      <return type="scalar"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Move forward to next element">Moves the current position to the next element.</description>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Rewind the Iterator to the first element">Rewinds back to the first element of the Iterator.</description>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Checks if current position is valid"/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+  </interface>
+</class>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Fixer\Operator\AlignEqualsFixerHelper" namespace="PhpCsFixer\Fixer\Operator" name="AlignEqualsFixerHelper" abstract="false" final="true" start="27" end="76">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Fixer/Operator" file="AlignEqualsFixerHelper.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Fixer/Operator/AlignEqualsFixerHelper.php" size="2065" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="93e4f8e9d3295a4048f2611ad7f757e0c28611c8" relative="vendor/friendsofphp/php-cs-fixer/src/Fixer/Operator/AlignEqualsFixerHelper.php"/>
+  <docblock>
+    <description/>
+    <author value="Carlos Cirello &lt;carlos.cirello.nl@gmail.com&gt;"/>
+    <author value="Graham Campbell &lt;graham@alt-three.com&gt;"/>
+    <deprecated/>
+  </docblock>
+  <extends full="PhpCsFixer\AbstractAlignFixerHelper" namespace="PhpCsFixer" name="AbstractAlignFixerHelper"/>
+  <constructor name="__construct" start="29" end="35" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="injectAlignmentPlaceholders" start="40" end="75" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+    <parameter name="startAt" byreference="false" type="{unknown}"/>
+    <parameter name="endAt" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="PhpCsFixer\AbstractAlignFixerHelper" namespace="PhpCsFixer" name="AbstractAlignFixerHelper">
+    <constant type="{unknown}" name="ALIGNABLE_PLACEHOLDER" value="&quot;\x2 ALIGNABLE%d \x3&quot;">
+      <docblock>
+        <description/>
+        <const value="Placeholder used as anchor for right alignment."/>
+      </docblock>
+    </constant>
+    <member name="deepestLevel" default="0" type="integer" visibility="protected" static="false" line="38">
+      <docblock>
+        <description compact="Keep track of the deepest level ever achieved while parsing the code. Used later to replace alignment placeholders with spaces."/>
+        <var type="int"/>
+      </docblock>
+    </member>
+    <method name="fix" start="40" end="54" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="tokens" byreference="false" type="object">
+        <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+      </parameter>
+      <inline>
+        <comment value="This fixer works partially on Tokens and partially on string representation of code." line="42"/>
+        <comment value="During the process of fixing internal state of single Token may be affected by injecting ALIGNABLE_PLACEHOLDER to its content." line="43"/>
+        <comment value="The placeholder will be resolved by `replacePlaceholder` method by removing placeholder or changing it into spaces." line="44"/>
+        <comment value="That way of fixing the code causes disturbances in marking Token as changed - if code is perfectly valid then placeholder" line="45"/>
+        <comment value="still be injected and removed, which will cause the `changed` flag to be set." line="46"/>
+        <comment value="To handle that unwanted behavior we work on clone of Tokens collection and then override original collection with fixed collection." line="47"/>
+      </inline>
+    </method>
+    <method name="injectAlignmentPlaceholders" start="62" end="62" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Inject into the text placeholders of candidates of vertical alignment."/>
+        <param type="int" variable="$startAt"/>
+        <param type="int" variable="$endAt"/>
+      </docblock>
+      <parameter name="tokens" byreference="false" type="object">
+        <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+      </parameter>
+      <parameter name="startAt" byreference="false" type="{unknown}"/>
+      <parameter name="endAt" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="replacePlaceholder" start="69" end="121" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Look for group of placeholders, and provide vertical alignment."/>
+        <return type="string"/>
+      </docblock>
+      <parameter name="tokens" byreference="false" type="object">
+        <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+      </parameter>
+    </method>
+  </parent>
+</class>

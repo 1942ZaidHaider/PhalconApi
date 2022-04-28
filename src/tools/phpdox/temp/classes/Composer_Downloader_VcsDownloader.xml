@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Downloader\VcsDownloader" namespace="Composer\Downloader" name="VcsDownloader" abstract="true" final="false" start="27" end="293">
+  <file path="../vendor/composer/composer/src/Composer/Downloader" file="VcsDownloader.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Downloader/VcsDownloader.php" size="10640" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="b13095a6f4c8f7db54e62e8aaea559084a2d5188" relative="vendor/composer/composer/src/Composer/Downloader/VcsDownloader.php"/>
+  <docblock>
+    <description/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <implements full="Composer\Downloader\DownloaderInterface" namespace="Composer\Downloader" name="DownloaderInterface"/>
+  <implements full="Composer\Downloader\ChangeReportInterface" namespace="Composer\Downloader" name="ChangeReportInterface"/>
+  <implements full="Composer\Downloader\VcsCapableDownloaderInterface" namespace="Composer\Downloader" name="VcsCapableDownloaderInterface"/>
+  <member name="io" visibility="protected" static="false" line="30">
+    <docblock>
+      <var type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="config" visibility="protected" static="false" line="32">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="process" visibility="protected" static="false" line="34">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="filesystem" visibility="protected" static="false" line="36">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="38" end="44" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="process" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+    <parameter name="fs" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+    </parameter>
+  </constructor>
+  <method name="getInstallationSource" start="49" end="52" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+  </method>
+  <method name="download" start="57" end="107" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="update" start="112" end="191" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="initial" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="target" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="print the commit logs if in verbose mode and VCS metadata is present" line="164"/>
+      <comment value="because in case of missing metadata code would trigger another exception" line="165"/>
+    </inline>
+  </method>
+  <method name="remove" start="196" end="203" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setOutputProgress" start="209" end="212" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Download progress information is not available for all VCS downloaders.">{@inheritDoc}</description>
+    </docblock>
+    <parameter name="outputProgress" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getVcsReference" start="217" end="227" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="cleanChanges" start="238" end="244" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Prompt the user to check if changes should be stashed/removed or the operation aborted"/>
+      <param type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param type="string" variable="$path"/>
+      <param description="if true (update) the changes can be stashed and reapplied after an update," type="object" variable="$update">if false (remove) the changes should be assumed to be lost if the operation is not aborted<type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/></param>
+      <throws description="in case the operation must be aborted" type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="update" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="the default implementation just fails if there are any changes, override in child classes to provide stash-ability" line="240"/>
+    </inline>
+  </method>
+  <method name="reapplyChanges" start="252" end="254" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Guarantee that no changes have been made to the local copy"/>
+      <param type="string" variable="$path"/>
+      <throws description="in case the operation must be aborted or the patch does not apply cleanly" type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="doDownload" start="263" end="263" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Downloads specific package into specific folder."/>
+      <param description="package instance" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="download path" type="string" variable="$path"/>
+      <param description="package url" type="string" variable="$url"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="doUpdate" start="273" end="273" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Updates specific package in specific folder from initial to target version."/>
+      <param description="initial package" type="object" variable="$initial">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="updated package" type="object" variable="$target">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="download path" type="string" variable="$path"/>
+      <param description="package url" type="string" variable="$url"/>
+    </docblock>
+    <parameter name="initial" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="target" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getCommitLogs" start="283" end="283" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Fetches the commit logs between two commits"/>
+      <param description="the source reference" type="string" variable="$fromReference"/>
+      <param description="the target reference" type="string" variable="$toReference"/>
+      <param description="the package path" type="string" variable="$path"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="fromReference" byreference="false" type="{unknown}"/>
+    <parameter name="toReference" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="hasMetadataRepository" start="292" end="292" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Checks if VCS metadata repository has been initialized repository example: .git|.svn|.hg"/>
+      <param type="string" variable="$path"/>
+      <return type="object">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <extenders>
+    <extender full="Composer\Downloader\FossilDownloader" namespace="Composer\Downloader" name="FossilDownloader"/>
+    <extender full="Composer\Downloader\PerforceDownloader" namespace="Composer\Downloader" name="PerforceDownloader"/>
+    <extender full="Composer\Downloader\HgDownloader" namespace="Composer\Downloader" name="HgDownloader"/>
+    <extender full="Composer\Downloader\GitDownloader" namespace="Composer\Downloader" name="GitDownloader"/>
+    <extender full="Composer\Downloader\SvnDownloader" namespace="Composer\Downloader" name="SvnDownloader"/>
+  </extenders>
+  <interface full="Composer\Downloader\DownloaderInterface" namespace="Composer\Downloader" name="DownloaderInterface">
+    <method name="getInstallationSource" start="30" end="30" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns installation source (either source or dist)."/>
+        <return description="&quot;source&quot; or &quot;dist&quot;" type="string"/>
+      </docblock>
+    </method>
+    <method name="download" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Downloads specific package into specific folder."/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="download path" type="string" variable="$path"/>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="update" start="47" end="47" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Updates specific package in specific folder from initial to target version."/>
+        <param description="initial package" type="object" variable="$initial">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="updated package" type="object" variable="$target">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="download path" type="string" variable="$path"/>
+      </docblock>
+      <parameter name="initial" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="target" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="remove" start="55" end="55" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Removes specific package from specific folder."/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="download path" type="string" variable="$path"/>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="setOutputProgress" start="63" end="63" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets whether to output download progress information or not"/>
+        <param type="object" variable="$outputProgress">
+          <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+        </param>
+        <return type="object">
+          <type full="Composer\Downloader\DownloaderInterface" namespace="Composer\Downloader" name="DownloaderInterface"/>
+        </return>
+      </docblock>
+      <parameter name="outputProgress" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+  <interface full="Composer\Downloader\ChangeReportInterface" namespace="Composer\Downloader" name="ChangeReportInterface">
+    <method name="getLocalChanges" start="31" end="31" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks for changes to the local copy"/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="package directory" type="string" variable="$path"/>
+        <return description="changes or null" type="object">
+          <type full="Composer\Downloader\string|null" namespace="Composer\Downloader" name="string|null"/>
+        </return>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+  <interface full="Composer\Downloader\VcsCapableDownloaderInterface" namespace="Composer\Downloader" name="VcsCapableDownloaderInterface">
+    <method name="getVcsReference" start="31" end="31" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the VCS Reference for the package at path"/>
+        <param description="package directory" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="package directory" type="string" variable="$path"/>
+        <return description="reference or null" type="object">
+          <type full="Composer\Downloader\string|null" namespace="Composer\Downloader" name="string|null"/>
+        </return>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

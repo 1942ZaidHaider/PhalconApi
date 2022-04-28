@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Util\Cache" namespace="PHP_CodeSniffer\Util" name="Cache" abstract="false" final="false" start="16" end="351">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Util" file="Cache.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Util/Cache.php" size="11325" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="5b48d08256c8ee7b4ce177656d1b7d29d7e150df" relative="vendor/squizlabs/php_codesniffer/src/Util/Cache.php"/>
+  <member name="path" default="''" type="string" visibility="private" static="true" line="24">
+    <docblock>
+      <description compact="The filesystem location of the cache file."/>
+      <var type="object">
+        <type full="PHP_CodeSniffer\Util\void" namespace="PHP_CodeSniffer\Util" name="void"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="cache" default="" type="array" visibility="private" static="true" line="31">
+    <docblock>
+      <description compact="The cached data."/>
+      <var description="mixed&gt;" type="object">
+        <type full="PHP_CodeSniffer\Util\array&lt;string" namespace="PHP_CodeSniffer\Util" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="load" start="42" end="281" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Loads existing cache data for the run, if any."/>
+      <param description="The ruleset used for the run." type="object" variable="$ruleset">
+        <type full="\PHP_CodeSniffer\Ruleset" namespace="\PHP_CodeSniffer" name="Ruleset"/>
+      </param>
+      <param description="The config data for the run." type="object" variable="$config">
+        <type full="\PHP_CodeSniffer\Config" namespace="\PHP_CodeSniffer" name="Config"/>
+      </param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Util\void" namespace="PHP_CodeSniffer\Util" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="ruleset" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Ruleset" namespace="PHP_CodeSniffer" name="Ruleset"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Config" namespace="PHP_CodeSniffer" name="Config"/>
+    </parameter>
+    <inline>
+      <comment value="Look at every loaded sniff class so far and use their file contents" line="44"/>
+      <comment value="to generate a hash for the code used during the run." line="45"/>
+      <comment value="At this point, the loaded class list contains the core PHPCS code" line="46"/>
+      <comment value="and all sniffs that have been loaded as part of the run." line="47"/>
+      <comment value="Add the content of the used rulesets to the hash so that sniff setting" line="78"/>
+      <comment value="changes in the ruleset invalidate the cache." line="79"/>
+      <comment value="Go through the core PHPCS code and add those files to the file" line="94"/>
+      <comment value="hash. This ensures that core PHPCS changes will also invalidate the cache." line="95"/>
+      <comment value="Note that we ignore sniffs here, and any files that don't affect" line="96"/>
+      <comment value="the outcome of the run." line="97"/>
+      <comment value="Along with the code hash, use various settings that can affect" line="146"/>
+      <comment value="the results of a run to create a new hash. This hash will be used" line="147"/>
+      <comment value="in the cache file name." line="148"/>
+      <comment value="end if" line="186"/>
+      <comment value="end if" line="258"/>
+    </inline>
+  </method>
+  <method name="save" start="289" end="293" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Saves the current cache to the filesystem."/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Util\void" namespace="PHP_CodeSniffer\Util" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="get" start="304" end="316" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Retrieves a single entry from the cache."/>
+      <param description="The key of the data to get. If NULL," type="string" variable="$key">everything in the cache is returned.</param>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="set" start="328" end="336" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Retrieves a single entry from the cache."/>
+      <param description="The key of the data to set. If NULL," type="string" variable="$key">sets the entire cache.</param>
+      <param description="The value to set." type="mixed" variable="$value"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Util\void" namespace="PHP_CodeSniffer\Util" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getSize" start="344" end="348" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Retrieves the number of cache entries."/>
+      <return type="int"/>
+    </docblock>
+  </method>
+</class>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Contracts\EventDispatcher\Event" namespace="Symfony\Contracts\EventDispatcher" name="Event" abstract="false" final="false" start="31" end="54">
+  <file path="../vendor/symfony/event-dispatcher-contracts" file="Event.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/event-dispatcher-contracts/Event.php" size="1511" time="2022-01-02T09:53:40+00:00" unixtime="1641117220" sha1="2df250a22cd0899eed5b86e8daf88fcc0dc594bc" relative="vendor/symfony/event-dispatcher-contracts/Event.php"/>
+  <docblock>
+    <description compact="Event is the base class for classes containing event data.">This class contains no event data. It is used by events that do not pass
+state information to an event handler when an event is raised.
+
+You can call the method stopPropagation() to abort the execution of
+further listeners in your event listener.</description>
+    <author value="Guilherme Blanco &lt;guilhermeblanco@hotmail.com&gt;"/>
+    <author value="Jonathan Wage &lt;jonwage@gmail.com&gt;"/>
+    <author value="Roman Borschel &lt;roman@code-factory.org&gt;"/>
+    <author value="Bernhard Schussek &lt;bschussek@gmail.com&gt;"/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <implements full="Psr\EventDispatcher\StoppableEventInterface" namespace="Psr\EventDispatcher" name="StoppableEventInterface"/>
+  <member name="propagationStopped" default="false" type="boolean" visibility="private" static="false" line="33"/>
+  <method name="isPropagationStopped" start="38" end="41" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="stopPropagation" start="50" end="53" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stops the propagation of the event to further event listeners.">If multiple event listeners are connected to the same event, no
+further event listener will be triggered once any trigger calls
+stopPropagation().</description>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <extenders>
+    <extender full="Symfony\Component\EventDispatcher\GenericEvent" namespace="Symfony\Component\EventDispatcher" name="GenericEvent"/>
+    <extender full="Symfony\Component\Console\Event\ConsoleTerminateEvent" namespace="Symfony\Component\Console\Event" name="ConsoleTerminateEvent"/>
+    <extender full="Symfony\Component\Console\Event\ConsoleEvent" namespace="Symfony\Component\Console\Event" name="ConsoleEvent"/>
+    <extender full="Symfony\Component\Console\Event\ConsoleErrorEvent" namespace="Symfony\Component\Console\Event" name="ConsoleErrorEvent"/>
+    <extender full="Symfony\Component\Console\Event\ConsoleSignalEvent" namespace="Symfony\Component\Console\Event" name="ConsoleSignalEvent"/>
+    <extender full="Symfony\Component\Console\Event\ConsoleCommandEvent" namespace="Symfony\Component\Console\Event" name="ConsoleCommandEvent"/>
+  </extenders>
+  <interface full="Psr\EventDispatcher\StoppableEventInterface" namespace="Psr\EventDispatcher" name="StoppableEventInterface">
+    <method name="isPropagationStopped" start="25" end="25" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Is propagation stopped?">This will typically only be used by the Dispatcher to determine if the
+previous listener halted propagation.</description>
+        <return type="object">True if the Event is complete and no further listeners should be called.
+  False to continue calling listeners.<type full="Psr\EventDispatcher\bool" namespace="Psr\EventDispatcher" name="bool"/></return>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+  </interface>
+</class>

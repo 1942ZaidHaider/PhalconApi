@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Util\StreamContextFactory" namespace="Composer\Util" name="StreamContextFactory" abstract="false" final="true" start="23" end="177">
+  <file path="../vendor/composer/composer/src/Composer/Util" file="StreamContextFactory.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Util/StreamContextFactory.php" size="7295" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="25b387d86c9907803d97a929c91fea1a38bdf0dd" relative="vendor/composer/composer/src/Composer/Util/StreamContextFactory.php"/>
+  <docblock>
+    <description compact="Allows the creation of a basic context supporting http proxy"/>
+    <author value="Jordan Alliot &lt;jordan.alliot@gmail.com&gt;"/>
+    <author value="Markus Tacker &lt;m@coderbyheart.de&gt;"/>
+  </docblock>
+  <method name="getContext" start="34" end="154" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Creates a context supporting HTTP proxies"/>
+      <param description="URL the context is to be used for" type="string" variable="$url"/>
+      <param description="Options to merge with the default" type="array" variable="$defaultOptions"/>
+      <param description="Parameters to specify on the context" type="array" variable="$defaultParams"/>
+      <throws description="if https proxy required and OpenSSL uninstalled" type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return description="Default context" type="resource"/>
+    </docblock>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="defaultOptions" byreference="false" type="array" default=""/>
+    <parameter name="defaultParams" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="Handle HTTP_PROXY/http_proxy on CLI only for security reasons" line="42"/>
+      <comment value="Prefer CGI_HTTP_PROXY if available" line="47"/>
+      <comment value="Override with HTTPS proxy if present and URL is https" line="52"/>
+      <comment value="Remove proxy if URL matches no_proxy directive" line="57"/>
+    </inline>
+  </method>
+  <method name="fixHttpHeaderField" start="166" end="176" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="A bug in PHP prevents the headers from correctly being sent when a content-type header is present and NOT at the end of the array">This method fixes the array by moving the content-type header to the end</description>
+      <link value="https://bugs.php.net/bug.php?id=61548"/>
+      <param type="object" variable="$header">
+        <type full="Composer\Util\string|array" namespace="Composer\Util" name="string|array"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="header" byreference="false" type="{unknown}"/>
+  </method>
+</class>

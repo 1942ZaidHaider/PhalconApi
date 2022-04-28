@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Package\Archiver\ArchiveManager" namespace="Composer\Package\Archiver" name="ArchiveManager" abstract="false" final="false" start="25" end="183">
+  <file path="../vendor/composer/composer/src/Composer/Package/Archiver" file="ArchiveManager.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Package/Archiver/ArchiveManager.php" size="6204" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="7731450c278dc3f0a0b252a9a70160602d8f709b" relative="vendor/composer/composer/src/Composer/Package/Archiver/ArchiveManager.php"/>
+  <docblock>
+    <description/>
+    <author value="Matthieu Moquet &lt;matthieu@moquet.net&gt;"/>
+    <author value="Till Klampaeckel &lt;till@php.net&gt;"/>
+  </docblock>
+  <member name="downloadManager" visibility="protected" static="false" line="27"/>
+  <member name="archivers" default="" type="array" visibility="protected" static="false" line="29"/>
+  <member name="overwriteFiles" default="true" type="boolean" visibility="protected" static="false" line="34">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Package\Archiver\bool" namespace="Composer\Package\Archiver" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="39" end="42" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="A manager used to download package sources" type="object" variable="$downloadManager">
+        <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+      </param>
+    </docblock>
+    <parameter name="downloadManager" byreference="false" type="object">
+      <type full="Composer\Downloader\DownloadManager" namespace="Composer\Downloader" name="DownloadManager"/>
+    </parameter>
+  </constructor>
+  <method name="addArchiver" start="47" end="50" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$archiver">
+        <type full="Composer\Package\Archiver\ArchiverInterface" namespace="Composer\Package\Archiver" name="ArchiverInterface"/>
+      </param>
+    </docblock>
+    <parameter name="archiver" byreference="false" type="object">
+      <type full="Composer\Package\Archiver\ArchiverInterface" namespace="Composer\Package\Archiver" name="ArchiverInterface"/>
+    </parameter>
+  </method>
+  <method name="setOverwriteFiles" start="59" end="64" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set whether existing archives should be overwritten"/>
+      <param description="New setting" type="object" variable="$overwriteFiles">
+        <type full="Composer\Package\Archiver\bool" namespace="Composer\Package\Archiver" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Package\Archiver\$this" namespace="Composer\Package\Archiver" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="overwriteFiles" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getPackageFilename" start="73" end="92" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Generate a distinct filename for a particular version of a package."/>
+      <param description="The package to get a name for" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return description="A filename without an extension" type="string"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="archive" start="107" end="182" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Create an archive of the specified package."/>
+      <param description="The package to archive" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="The format of the archive (zip, tar, ...)" type="string" variable="$format"/>
+      <param description="The directory where to build the archive" type="string" variable="$targetDir"/>
+      <param description="The relative file name to use for the archive, or null to generate" type="object" variable="$fileName">the package name. Note that the format will be appended to this name<type full="Composer\Package\Archiver\string|null" namespace="Composer\Package\Archiver" name="string|null"/></param>
+      <param description="Ignore filters when looking for files in the package" type="object" variable="$ignoreFilters">
+        <type full="Composer\Package\Archiver\bool" namespace="Composer\Package\Archiver" name="bool"/>
+      </param>
+      <throws type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return description="The path of the created archive" type="string"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="format" byreference="false" type="{unknown}"/>
+    <parameter name="targetDir" byreference="false" type="{unknown}"/>
+    <parameter name="fileName" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="ignoreFilters" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Search for the most appropriate archiver" line="113"/>
+      <comment value="Checks the format/source type are supported before downloading the package" line="122"/>
+      <comment value="Archive filename" line="134"/>
+      <comment value="Create the archive" line="168"/>
+      <comment value="cleanup temporary download" line="175"/>
+    </inline>
+  </method>
+</class>

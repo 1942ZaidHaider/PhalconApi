@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Util\Perforce" namespace="Composer\Util" name="Perforce" abstract="false" final="false" start="21" end="579">
+  <file path="../vendor/composer/composer/src/Composer/Util" file="Perforce.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Util/Perforce.php" size="17509" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="b6d8c8ed3acbb822a38c58e051ca5695b386f879" relative="vendor/composer/composer/src/Composer/Util/Perforce.php"/>
+  <docblock>
+    <description/>
+    <author value="Matt Whittom &lt;Matt.Whittom@veteransunited.com&gt;"/>
+  </docblock>
+  <member name="path" visibility="protected" static="false" line="23"/>
+  <member name="p4Depot" visibility="protected" static="false" line="24"/>
+  <member name="p4Client" visibility="protected" static="false" line="25"/>
+  <member name="p4User" visibility="protected" static="false" line="26"/>
+  <member name="p4Password" visibility="protected" static="false" line="27"/>
+  <member name="p4Port" visibility="protected" static="false" line="28"/>
+  <member name="p4Stream" visibility="protected" static="false" line="29"/>
+  <member name="p4ClientSpec" visibility="protected" static="false" line="30"/>
+  <member name="p4DepotType" visibility="protected" static="false" line="31"/>
+  <member name="p4Branch" visibility="protected" static="false" line="32"/>
+  <member name="process" visibility="protected" static="false" line="33"/>
+  <member name="uniquePerforceClientName" visibility="protected" static="false" line="34"/>
+  <member name="windowsFlag" visibility="protected" static="false" line="35"/>
+  <member name="commandResult" visibility="protected" static="false" line="36"/>
+  <member name="io" visibility="protected" static="false" line="38"/>
+  <member name="filesystem" visibility="protected" static="false" line="40"/>
+  <constructor name="__construct" start="42" end="50" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="repoConfig" byreference="false" type="{unknown}"/>
+    <parameter name="port" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="process" byreference="false" type="object">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+    <parameter name="isWindows" byreference="false" type="{unknown}"/>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </constructor>
+  <method name="create" start="52" end="55" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="repoConfig" byreference="false" type="{unknown}"/>
+    <parameter name="port" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="process" byreference="false" type="object">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </method>
+  <method name="checkServerExists" start="57" end="62" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="processExecutor" byreference="false" type="object">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+  </method>
+  <method name="initialize" start="64" end="88" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="repoConfig" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="initializeDepotAndBranch" start="90" end="98" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="depot" byreference="false" type="{unknown}"/>
+    <parameter name="branch" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="generateUniquePerforceClientName" start="100" end="103" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="cleanupClientSpec" start="105" end="115" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="executeCommand" start="117" end="122" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="command" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getClient" start="124" end="132" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getPath" start="134" end="137" abstract="false" final="false" static="false" visibility="protected"/>
+  <method name="initializePath" start="139" end="144" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getPort" start="146" end="149" abstract="false" final="false" static="false" visibility="protected"/>
+  <method name="setStream" start="151" end="159" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="stream" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Stream format is //depot/stream, while non-streaming depot is //depot" line="155"/>
+    </inline>
+  </method>
+  <method name="isStream" start="161" end="164" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getStream" start="166" end="177" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getStreamWithoutLabel" start="179" end="187" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="stream" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getP4ClientSpec" start="189" end="192" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getUser" start="194" end="197" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="setUser" start="199" end="202" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="user" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="queryP4User" start="204" end="221" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getP4variable" start="223" end="253" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="queryP4Password" start="255" end="267" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="generateP4Command" start="269" end="279" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="command" byreference="false" type="{unknown}"/>
+    <parameter name="useClient" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="isLoggedIn" start="281" end="299" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="connectClient" start="301" end="307" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="syncCodeBase" start="309" end="319" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="sourceReference" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="writeClientSpecToFile" start="321" end="342" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="spec" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="writeP4ClientSpec" start="344" end="355" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="read" start="357" end="366" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="pipe" byreference="false" type="{unknown}"/>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="windowsLogin" start="368" end="380" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="password" byreference="false" type="{unknown}"/>
+    <inline>
+      <todo value="in v3 generate command as an array" line="372"/>
+    </inline>
+  </method>
+  <method name="p4Login" start="382" end="398" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getComposerInformation" start="400" end="409" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getFileContent" start="411" end="424" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getFilePath" start="426" end="451" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="identifier" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getBranches" start="453" end="482" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getTags" start="484" end="499" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="checkStream" start="501" end="519" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getChangeList" start="525" end="541" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="string" variable="$reference"/>
+      <return type="object">
+        <type full="Composer\Util\mixed|null" namespace="Composer\Util" name="mixed|null"/>
+      </return>
+    </docblock>
+    <parameter name="reference" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getCommitLogs" start="548" end="564" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$fromReference"/>
+      <param type="string" variable="$toReference"/>
+      <return type="object">
+        <type full="Composer\Util\mixed|null" namespace="Composer\Util" name="mixed|null"/>
+      </return>
+    </docblock>
+    <parameter name="fromReference" byreference="false" type="{unknown}"/>
+    <parameter name="toReference" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getFilesystem" start="566" end="573" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="setFilesystem" start="575" end="578" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="fs" byreference="false" type="object">
+      <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+    </parameter>
+  </method>
+</class>

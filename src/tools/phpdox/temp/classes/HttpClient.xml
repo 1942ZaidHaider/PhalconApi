@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="HttpClient" namespace="" name="HttpClient" abstract="false" final="false" start="1331" end="1738">
+  <file path=".." file="installer.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/installer.php" size="57721" time="2021-09-30T12:13:03+00:00" unixtime="1633003983" sha1="17fe4e7cc95731908cad7bf6abcabfd7486334c2" relative="installer.php"/>
+  <member name="options" default="" type="array" visibility="private" static="false" line="1333"/>
+  <member name="disableTls" default="false" type="boolean" visibility="private" static="false" line="1334"/>
+  <constructor name="__construct" start="1336" end="1348" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="disableTls" byreference="false" type="boolean" default="false"/>
+    <parameter name="cafile" byreference="false" type="boolean" default="false"/>
+  </constructor>
+  <method name="get" start="1350" end="1381" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="url" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getStreamContext" start="1383" end="1392" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Keeping the above mostly isolated from the code copied from Composer." line="1390"/>
+    </inline>
+  </method>
+  <method name="getTlsStreamContextDefaults" start="1394" end="1478" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="cafile" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="CN_match and SNI_server_name are only known once a URL is passed." line="1440"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="They will be set in the getOptionsForUrl() method which receives a URL." line="1441"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="cafile or capath can be overridden by passing in those options to constructor." line="1442"/>
+      <comment value="Attempt to find a local cafile or throw an exception." line="1455"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="The user may go download one if this occurs." line="1456"/>
+      <comment value="Disable TLS compression to prevent CRIME attacks where supported." line="1470"/>
+    </inline>
+  </method>
+  <method name="getMergedStreamContext" start="1489" end="1575" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="function copied from Composer\Util\StreamContextFactory::initOptions">Any changes should be applied there as well, or backported here.</description>
+      <param description="URL the context is to be used for" type="string" variable="$url"/>
+      <return description="Default context" type="resource"/>
+      <throws description="if https proxy required and OpenSSL uninstalled" type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Handle HTTP_PROXY/http_proxy on CLI only for security reasons" line="1493"/>
+      <comment value="Prefer CGI_HTTP_PROXY if available" line="1498"/>
+      <comment value="Override with HTTPS proxy if present and URL is https" line="1503"/>
+      <comment value="Remove proxy if URL matches no_proxy directive" line="1508"/>
+    </inline>
+  </method>
+  <method name="getSystemCaRootBundlePath" start="1609" end="1670" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="This method was adapted from Sslurp.">https://github.com/EvanDotPro/Sslurp
+
+(c) Evan Coury &lt;me@evancoury.com&gt;
+
+For the full copyright and license information, please see below:
+
+Copyright (c) 2013, Evan Coury
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</description>
+    </docblock>
+    <inline>
+      <comment value="If SSL_CERT_FILE env variable points to a valid certificate/bundle, use that." line="1617"/>
+      <comment value="This mimics how OpenSSL uses the SSL_CERT_FILE env variable." line="1618"/>
+      <comment value="If SSL_CERT_DIR env variable points to a valid certificate/bundle, use that." line="1624"/>
+      <comment value="This mimics how OpenSSL uses the SSL_CERT_FILE env variable." line="1625"/>
+    </inline>
+  </method>
+  <method name="getPackagedCaFile" start="1672" end="1737" abstract="false" final="false" static="true" visibility="public"/>
+</class>

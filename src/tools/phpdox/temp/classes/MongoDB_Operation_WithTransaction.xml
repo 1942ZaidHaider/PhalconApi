@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\WithTransaction" namespace="MongoDB\Operation" name="WithTransaction" abstract="false" final="false" start="16" end="132">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="WithTransaction.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/WithTransaction.php" size="4292" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="dcddc80dae7ef272b417270c9dc35694eec3e12f" relative="vendor/mongodb/mongodb/src/Operation/WithTransaction.php"/>
+  <docblock>
+    <description/>
+    <internal/>
+  </docblock>
+  <member name="callback" visibility="private" static="false" line="19">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\callable" namespace="MongoDB\Operation" name="callable"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="transactionOptions" visibility="private" static="false" line="22">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="30" end="34" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <see value="Session::startTransaction for supported transaction options"/>
+      <param description="A callback that will be invoked within the transaction" type="object" variable="$callback">
+        <type full="MongoDB\Operation\callable" namespace="MongoDB\Operation" name="callable"/>
+      </param>
+      <param description="Additional options that are passed to Session::startTransaction" type="array" variable="$transactionOptions"/>
+    </docblock>
+    <parameter name="callback" byreference="false" type="callable"/>
+    <parameter name="transactionOptions" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="execute" start="59" end="120" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation in the given session">This helper takes care of retrying the commit operation or the entire
+transaction if an error occurs.
+
+If the commit fails because of an UnknownTransactionCommitResult error, the
+commit is retried without re-invoking the callback.
+If the commit fails because of a TransientTransactionError, the entire
+transaction will be retried. In this case, the callback will be invoked
+again. It is important that the logic inside the callback is idempotent.
+
+In case of failures, the commit or transaction are retried until 120 seconds
+from the initial call have elapsed. After that, no retries will happen and
+the helper will throw the last exception received from the driver.</description>
+      <see value="Client::startSession"/>
+      <param description="A session object as retrieved by Client::startSession" type="object" variable="$session">
+        <type full="MongoDB\Driver\Session" namespace="MongoDB\Driver" name="Session"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\Operation\void" namespace="MongoDB\Operation" name="void"/>
+      </return>
+      <throws description="for driver errors while committing the transaction" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+      <throws description="for any other errors, including those thrown in the callback" type="object">
+        <type full="Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <parameter name="session" byreference="false" type="object">
+      <type full="MongoDB\Driver\Session" namespace="MongoDB\Driver" name="Session"/>
+    </parameter>
+  </method>
+  <method name="isTransactionTimeLimitExceeded" start="128" end="131" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns whether the time limit for retrying transactions in the convenient transaction API has passed"/>
+      <param description="The time the transaction was started" type="int" variable="$startTime"/>
+      <return type="object">
+        <type full="MongoDB\Operation\bool" namespace="MongoDB\Operation" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="startTime" byreference="false" type="{unknown}"/>
+  </method>
+</class>

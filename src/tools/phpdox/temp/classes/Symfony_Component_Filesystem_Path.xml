@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Filesystem\Path" namespace="Symfony\Component\Filesystem" name="Path" abstract="false" final="true" start="28" end="819">
+  <file path="../vendor/symfony/filesystem" file="Path.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/filesystem/Path.php" size="26107" time="2022-04-01T12:33:59+00:00" unixtime="1648816439" sha1="4e832c6d3db924a0aff02806a5c9dc7c47330f4d" relative="vendor/symfony/filesystem/Path.php"/>
+  <docblock>
+    <description compact="Contains utility methods for handling path strings.">The methods in this class are able to deal with both UNIX and Windows paths
+with both forward and backward slashes. All methods return normalized parts
+containing only forward slashes and no excess "." and ".." segments.</description>
+    <author value="Bernhard Schussek &lt;bschussek@gmail.com&gt;"/>
+    <author value="Thomas Schulz &lt;mail@king2500.net&gt;"/>
+    <author value="Théo Fidry &lt;theo.fidry@gmail.com&gt;"/>
+  </docblock>
+  <constant type="integer" name="CLEANUP_THRESHOLD" value="1250">
+    <docblock>
+      <description compact="The number of buffer entries that triggers a cleanup operation."/>
+    </docblock>
+  </constant>
+  <constant type="integer" name="CLEANUP_SIZE" value="1000">
+    <docblock>
+      <description compact="The buffer size after the cleanup operation."/>
+    </docblock>
+  </constant>
+  <member name="buffer" default="" type="array" visibility="private" static="true" line="45">
+    <docblock>
+      <description compact="Buffers input/output of {@link canonicalize()}."/>
+      <var description="string&gt;" type="object">
+        <type full="Symfony\Component\Filesystem\array&lt;string" namespace="Symfony\Component\Filesystem" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="bufferSize" default="0" type="integer" visibility="private" static="true" line="50">
+    <docblock>
+      <description/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <method name="canonicalize" start="69" end="104" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Canonicalizes the given path.">During normalization, all slashes are replaced by forward slashes ("/").
+Furthermore, all "." and ".." segments are removed as far as possible.
+".." segments at the beginning of relative paths are not removed.
+
+```php
+echo Path::canonicalize("\symfony\puli\..\css\style.css");
+// =&gt; /symfony/css/style.css
+
+echo Path::canonicalize("../css/./style.css");
+// =&gt; ../css/style.css
+```
+
+This method is able to deal with both UNIX and Windows paths.</description>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <inline>
+      <comment value="This method is called by many other methods in this class. Buffer" line="75"/>
+      <comment value="the canonicalized paths to make up for the severe performance" line="76"/>
+      <comment value="decrease." line="77"/>
+      <comment value="Replace &quot;~&quot; with user's home directory." line="82"/>
+      <comment value="Add the root directory again" line="93"/>
+      <comment value="Clean up regularly to prevent memory leaks" line="97"/>
+    </inline>
+  </method>
+  <method name="normalize" start="117" end="120" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Normalizes the given path.">During normalization, all slashes are replaced by forward slashes ("/").
+Contrary to <link xmlns="http://xml.phpdox.net/src" value="canonicalize()"/>, this method does not remove invalid
+or dot path segments. Consequently, it is much more efficient and should
+be used whenever the given path is known to be a valid, absolute system
+path.
+This method is able to deal with both UNIX and Windows paths.
+</description>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="getDirectory" start="145" end="176" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the directory part of the path.">This method is similar to PHP's dirname(), but handles various cases
+where dirname() returns a weird result:
+
+ - dirname() does not accept backslashes on UNIX
+ - dirname("C:/symfony") returns "C:", not "C:/"
+ - dirname("C:/") returns ".", not "C:/"
+ - dirname("C:") returns ".", not "C:/"
+ - dirname("symfony") returns ".", not ""
+ - dirname() does not canonicalize the result
+
+This method fixes these shortcomings and behaves like dirname()
+otherwise.
+
+The result is a canonical path.</description>
+      <return description="The canonical directory part. Returns the root directory" type="string">if the root directory is passed. Returns an empty string
+               if a relative path is passed that contains no slashes.
+               Returns an empty string if an empty string is passed.</return>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <inline>
+      <comment value="Maintain scheme" line="153"/>
+      <comment value="Directory equals root directory &quot;/&quot;" line="165"/>
+      <comment value="Directory equals Windows root &quot;C:/&quot;" line="170"/>
+    </inline>
+  </method>
+  <method name="getHomeDirectory" start="192" end="205" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns canonical path of the user's home directory.">Supported operating systems:
+
+ - UNIX
+ - Windows8 and upper
+
+If your operating system or environment isn't supported, an exception is thrown.
+
+The result is a canonical path.</description>
+      <throws description="If your operating system or environment isn't supported" type="object">
+        <type full="Symfony\Component\Filesystem\Exception\RuntimeException" namespace="Symfony\Component\Filesystem\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <inline>
+      <comment value="For UNIX support" line="194"/>
+      <comment value="For &gt;= Windows8 support" line="199"/>
+    </inline>
+  </method>
+  <method name="getRoot" start="215" end="252" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the root directory of a path.">The result is a canonical path.</description>
+      <return description="The canonical root directory. Returns an empty string if" type="string">the given path is relative or empty.</return>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <inline>
+      <comment value="Maintain scheme" line="221"/>
+      <comment value="UNIX root &quot;/&quot; or &quot;\&quot; (Windows style)" line="231"/>
+      <comment value="Windows root" line="238"/>
+    </inline>
+  </method>
+  <method name="getFilenameWithoutExtension" start="260" end="272" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the file name without the extension from a file path."/>
+      <param description="if specified, only that extension is cut" type="object" variable="$extension">off (may contain leading dot)<type full="Symfony\Component\Filesystem\string|null" namespace="Symfony\Component\Filesystem" name="string|null"/></param>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="extension" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="getExtension" start="279" end="292" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the extension from a file path (without leading dot)."/>
+      <param description="forces the extension to be lower-case" type="object" variable="$forceLowerCase">
+        <type full="Symfony\Component\Filesystem\bool" namespace="Symfony\Component\Filesystem" name="bool"/>
+      </param>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="forceLowerCase" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="hasExtension" start="305" end="332" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns whether the path has an (or the specified) extension."/>
+      <param description="the path string" type="string" variable="$path"/>
+      <param description="if null or not provided, checks if" type="array" variable="$extensions" of="object">an extension exists, otherwise
+                                        checks for the specified extension
+                                        or array of extensions (with or
+                                        without leading dot)<type full="Symfony\Component\Filesystem\string|string[]|nu" namespace="Symfony\Component\Filesystem" name="string|string[]|nu"/></param>
+      <param description="whether to ignore case-sensitivity" type="object" variable="$ignoreCase">
+        <type full="Symfony\Component\Filesystem\bool" namespace="Symfony\Component\Filesystem" name="bool"/>
+      </param>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="extensions" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="ignoreCase" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Only check if path has any extension" line="313"/>
+    </inline>
+  </method>
+  <method name="changeExtension" start="342" end="362" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Changes the extension of a path string."/>
+      <param description="The path string with filename.ext to change." type="string" variable="$path"/>
+      <param description="new extension (with or without leading dot)" type="string" variable="$extension"/>
+      <return description="the path string with new file extension" type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="extension" byreference="false" type="string"/>
+    <inline>
+      <comment value="No extension for paths" line="351"/>
+      <comment value="No actual extension in path" line="356"/>
+    </inline>
+  </method>
+  <method name="isAbsolute" start="364" end="396" abstract="false" final="false" static="true" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <inline>
+      <comment value="Strip scheme" line="370"/>
+      <comment value="UNIX root &quot;/&quot; or &quot;\&quot; (Windows style)" line="377"/>
+      <comment value="Windows root" line="382"/>
+    </inline>
+  </method>
+  <method name="isRelative" start="398" end="401" abstract="false" final="false" static="true" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="makeAbsolute" start="440" end="462" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Turns a relative path into an absolute path in canonical form.">Usually, the relative path is appended to the given base path. Dot
+segments ("." and "..") are removed/collapsed and all slashes turned
+into forward slashes.
+
+```php
+echo Path::makeAbsolute("../style.css", "/symfony/puli/css");
+// =&gt; /symfony/puli/style.css
+```
+
+If an absolute path is passed, that path is returned unless its root
+directory is different than the one of the base path. In that case, an
+exception is thrown.
+
+```php
+Path::makeAbsolute("/style.css", "/symfony/puli/css");
+// =&gt; /style.css
+
+Path::makeAbsolute("C:/style.css", "C:/symfony/puli/css");
+// =&gt; C:/style.css
+
+Path::makeAbsolute("C:/style.css", "/symfony/puli/css");
+// InvalidArgumentException
+```
+
+If the base path is not an absolute path, an exception is thrown.
+
+The result is a canonical path.</description>
+      <param description="an absolute base path" type="string" variable="$basePath"/>
+      <throws description="if the base path is not absolute or if" type="object">the given path is an absolute path with
+                                 a different root than the base path<type full="Symfony\Component\Filesystem\Exception\InvalidArgumentException" namespace="Symfony\Component\Filesystem\Exception" name="InvalidArgumentException"/></throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="basePath" byreference="false" type="string"/>
+  </method>
+  <method name="makeRelative" start="514" end="570" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Turns a path into a relative path.">The relative path is created relative to the given base path:
+
+```php
+echo Path::makeRelative("/symfony/style.css", "/symfony/puli");
+// =&gt; ../style.css
+```
+
+If a relative path is passed and the base path is absolute, the relative
+path is returned unchanged:
+
+```php
+Path::makeRelative("style.css", "/symfony/puli/css");
+// =&gt; style.css
+```
+
+If both paths are relative, the relative path is created with the
+assumption that both paths are relative to the same directory:
+
+```php
+Path::makeRelative("style.css", "symfony/puli/css");
+// =&gt; ../../../style.css
+```
+
+If both paths are absolute, their root directory must be the same,
+otherwise an exception is thrown:
+
+```php
+Path::makeRelative("C:/symfony/style.css", "/symfony/puli");
+// InvalidArgumentException
+```
+
+If the passed path is absolute, but the base path is not, an exception
+is thrown as well:
+
+```php
+Path::makeRelative("/symfony/style.css", "symfony/puli");
+// InvalidArgumentException
+```
+
+If the base path is not an absolute path, an exception is thrown.
+
+The result is a canonical path.</description>
+      <throws description="if the base path is not absolute or if" type="object">the given path has a different root
+                                 than the base path<type full="Symfony\Component\Filesystem\Exception\InvalidArgumentException" namespace="Symfony\Component\Filesystem\Exception" name="InvalidArgumentException"/></throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="basePath" byreference="false" type="string"/>
+    <inline>
+      <comment value="If the base path is given as absolute path and the path is already" line="522"/>
+      <comment value="relative, consider it to be relative to the given absolute path" line="523"/>
+      <comment value="already" line="524"/>
+      <comment value="If the passed path is absolute, but the base path is not, we" line="534"/>
+      <comment value="cannot generate a relative path" line="535"/>
+      <comment value="Fail if the roots of the two paths are different" line="540"/>
+      <comment value="Build a &quot;../../&quot; prefix with as many &quot;../&quot; parts as necessary" line="549"/>
+      <comment value="Once we found a non-matching part in the prefix, we need to add" line="554"/>
+      <comment value="&quot;../&quot; parts for all remaining parts" line="555"/>
+    </inline>
+  </method>
+  <method name="isLocal" start="575" end="578" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns whether the given path is on the local filesystem."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="getLongestCommonBasePath" start="616" end="651" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the longest common base path in canonical form of a set of paths or `null` if the paths are on different Windows partitions.">Dot segments ("." and "..") are removed/collapsed and all slashes turned
+into forward slashes.
+
+```php
+$basePath = Path::getLongestCommonBasePath(
+    '/symfony/css/style.css',
+    '/symfony/css/..'
+);
+// =&gt; /symfony
+```
+
+The root is returned if no common base path can be found:
+
+```php
+$basePath = Path::getLongestCommonBasePath(
+    '/symfony/css/style.css',
+    '/puli/css/..'
+);
+// =&gt; /
+```
+
+If the paths are located on different Windows partitions, `null` is
+returned.
+
+```php
+$basePath = Path::getLongestCommonBasePath(
+    'C:/symfony/css/style.css',
+    'D:/symfony/css/..'
+);
+// =&gt; null
+```</description>
+    </docblock>
+    <return type="string" nullable="true"/>
+    <parameter name="paths" byreference="false" type="string"/>
+  </method>
+  <method name="join" start="656" end="688" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Joins two or more path strings into a canonical path."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="paths" byreference="false" type="string"/>
+  </method>
+  <method name="isBasePath" start="710" end="721" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns whether a path is a base path of another path.">Dot segments ("." and "..") are removed/collapsed and all slashes turned
+into forward slashes.
+
+```php
+Path::isBasePath('/symfony', '/symfony/css');
+// =&gt; true
+
+Path::isBasePath('/symfony', '/symfony');
+// =&gt; true
+
+Path::isBasePath('/symfony', '/symfony/..');
+// =&gt; false
+
+Path::isBasePath('/symfony', '/puli');
+// =&gt; false
+```</description>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="basePath" byreference="false" type="string"/>
+    <parameter name="ofPath" byreference="false" type="string"/>
+    <inline>
+      <comment value="Append slashes to prevent false positives when two paths have" line="715"/>
+      <comment value="a common prefix, for example /base/foo and /base/foobar." line="716"/>
+      <comment value="Don't append a slash for the root &quot;/&quot;, because then that root" line="717"/>
+      <comment value="won't be discovered as common prefix (&quot;//&quot; is not a prefix of" line="718"/>
+      <comment value="&quot;/foobar/&quot;)." line="719"/>
+    </inline>
+  </method>
+  <method name="findCanonicalParts" start="726" end="753" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\Filesystem\non-empty-string" namespace="Symfony\Component\Filesystem" name="non-empty-string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="root" byreference="false" type="string"/>
+    <parameter name="pathWithoutRoot" byreference="false" type="string"/>
+    <inline>
+      <comment value="Collapse &quot;.&quot; and &quot;..&quot;, if possible" line="732"/>
+    </inline>
+  </method>
+  <method name="split" start="772" end="805" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Splits a canonical path into its root directory and the remainder.">If the path has no root directory, an empty root directory will be
+returned.
+
+If the root directory is a Windows style partition, the resulting root
+will always contain a trailing slash.
+
+list ($root, $path) = Path::split("C:/symfony")
+// =&gt; ["C:/", "symfony"]
+
+list ($root, $path) = Path::split("C:")
+// =&gt; ["C:/", ""]</description>
+      <return description="string} an array with the root directory and the remaining relative path" type="object">
+        <type full="Symfony\Component\Filesystem\array{string" namespace="Symfony\Component\Filesystem" name="array{string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <inline>
+      <comment value="Remember scheme as part of the root, if any" line="778"/>
+      <comment value="Remove and remember root directory" line="788"/>
+    </inline>
+  </method>
+  <method name="toLower" start="807" end="814" abstract="false" final="false" static="true" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="string" byreference="false" type="string"/>
+  </method>
+  <constructor name="__construct" start="816" end="818" abstract="false" final="false" static="false" visibility="private"/>
+</class>

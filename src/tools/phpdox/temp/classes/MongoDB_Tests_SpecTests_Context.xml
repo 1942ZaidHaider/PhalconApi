@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\SpecTests\Context" namespace="MongoDB\Tests\SpecTests" name="Context" abstract="false" final="true" start="27" end="493">
+  <file path="../vendor/mongodb/mongodb/tests/SpecTests" file="Context.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/SpecTests/Context.php" size="16272" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="360d1f9b793c8b9bec26bf062d55720dd2ff0dd7" relative="vendor/mongodb/mongodb/tests/SpecTests/Context.php"/>
+  <docblock>
+    <description compact="Execution context for spec tests.">This object tracks state that would be difficult to store on the test itself
+due to the design of PHPUnit's data providers and setUp/tearDown methods.</description>
+  </docblock>
+  <member name="bucketName" visibility="public" static="false" line="30">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\string|null" namespace="MongoDB\Tests\SpecTests" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="client" visibility="private" static="false" line="33">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\Client|null" namespace="MongoDB\Tests\SpecTests" name="Client|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="collectionName" visibility="public" static="false" line="36">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\string|null" namespace="MongoDB\Tests\SpecTests" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="databaseName" visibility="public" static="false" line="39">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="defaultWriteOptions" default="" type="array" visibility="public" static="false" line="42">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="outcomeReadOptions" default="" type="array" visibility="public" static="false" line="45">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="outcomeCollectionName" visibility="public" static="false" line="48">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\string|null" namespace="MongoDB\Tests\SpecTests" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="session0" visibility="public" static="false" line="51">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\Session|null" namespace="MongoDB\Tests\SpecTests" name="Session|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="session0Lsid" visibility="public" static="false" line="54">
+    <docblock>
+      <var type="object"/>
+    </docblock>
+  </member>
+  <member name="session1" visibility="public" static="false" line="57">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\Session|null" namespace="MongoDB\Tests\SpecTests" name="Session|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="session1Lsid" visibility="public" static="false" line="60">
+    <docblock>
+      <var type="object"/>
+    </docblock>
+  </member>
+  <member name="encryptedClient" visibility="private" static="false" line="63">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\Client|null" namespace="MongoDB\Tests\SpecTests" name="Client|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="useEncryptedClient" default="false" type="boolean" visibility="private" static="false" line="66">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\bool" namespace="MongoDB\Tests\SpecTests" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="68" end="73" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="databaseName" byreference="false" type="string"/>
+    <parameter name="collectionName" byreference="false" nullable="true" type="string"/>
+  </constructor>
+  <method name="disableEncryption" start="75" end="78" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="enableEncryption" start="80" end="87" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="fromChangeStreams" start="89" end="96" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="fromClientSideEncryption" start="98" end="149" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="mongocryptd caches collection information, which causes test failures" line="104"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="if we reuse the client. Thus, we add a random value to ensure we're" line="105"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* creating a new client for each test." line="106"/>
+    </inline>
+  </method>
+  <method name="fromCommandMonitoring" start="151" end="158" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="fromCrud" start="160" end="182" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="fromReadWriteConcern" start="184" end="197" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="fromRetryableReads" start="199" end="210" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="bucketName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="fromRetryableWrites" start="212" end="225" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="useMultipleMongoses" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="fromTransactions" start="227" end="259" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="useMultipleMongoses" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Transaction spec tests expect a new client for each test so that" line="242"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="txnNumber values are deterministic. Append a random option to avoid" line="243"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* re-using a previously persisted libmongoc client object." line="244"/>
+    </inline>
+  </method>
+  <method name="getAWSCredentials" start="261" end="271" abstract="false" final="false" static="true" visibility="public">
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getAzureCredentials" start="273" end="284" abstract="false" final="false" static="true" visibility="public">
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getKmipEndpoint" start="286" end="293" abstract="false" final="false" static="true" visibility="public">
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="getKmsTlsOptions" start="295" end="305" abstract="false" final="false" static="true" visibility="public">
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getGCPCredentials" start="307" end="317" abstract="false" final="false" static="true" visibility="public">
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getClient" start="319" end="322" abstract="false" final="false" static="false" visibility="public">
+    <return type="object" nullable="false">
+      <type full="MongoDB\Client" namespace="MongoDB" name="Client"/>
+    </return>
+  </method>
+  <method name="getCollection" start="324" end="332" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="collectionOptions" byreference="false" type="array" default=""/>
+    <parameter name="databaseOptions" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getDatabase" start="334" end="337" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="databaseOptions" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getGridFSBucket" start="339" end="342" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="bucketOptions" byreference="false" type="array" default=""/>
+  </method>
+  <method name="prepareOptions" start="352" end="398" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Prepare options readConcern, readPreference, and writeConcern options by creating value objects."/>
+      <param type="array" variable="$options"/>
+      <return type="array"/>
+      <throws description="if any option keys are unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <method name="replaceArgumentSessionPlaceholder" start="408" end="426" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Replace a session placeholder in an operation arguments array.">Note: this method will modify the $args parameter.</description>
+      <param description="Operation arguments" type="array" variable="$args"/>
+      <throws description="if the session placeholder is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="args" byreference="true" type="array"/>
+  </method>
+  <method name="replaceCommandSessionPlaceholder" start="436" end="454" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Replace a logical session ID placeholder in a command document.">Note: this method will modify the $command parameter.</description>
+      <param description="Command document" type="object" variable="$command">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </param>
+      <throws description="if the session placeholder is unsupported" type="object">
+        <type full="LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="command" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="selectCollection" start="456" end="461" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionOptions" byreference="false" type="array" default=""/>
+    <parameter name="databaseOptions" byreference="false" type="array" default=""/>
+  </method>
+  <method name="selectDatabase" start="463" end="469" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="databaseOptions" byreference="false" type="array" default=""/>
+  </method>
+  <method name="selectGridFSBucket" start="471" end="474" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="bucketName" byreference="false" type="{unknown}"/>
+    <parameter name="bucketOptions" byreference="false" type="array" default=""/>
+  </method>
+  <method name="prepareGridFSBucketOptions" start="476" end="483" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="bucketPrefix" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="prepareSessionOptions" start="485" end="492" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+</class>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\Watch" namespace="MongoDB\Operation" name="Watch" abstract="false" final="false" start="57" end="445">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="Watch.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/Watch.php" size="16570" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="9518cc1b0f51b67920ec4b09dc33fb26a3e9ae24" relative="vendor/mongodb/mongodb/src/Operation/Watch.php"/>
+  <docblock>
+    <description compact="Operation for creating a change stream with the aggregate command.">Note: the implementation of CommandSubscriber is an internal implementation
+detail and should not be considered part of the public API.</description>
+    <api/>
+    <see value="\MongoDB\Collection::watch()"/>
+    <see value="https://docs.mongodb.com/manual/changeStreams/"/>
+  </docblock>
+  <implements full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+  <implements full="MongoDB\Driver\Monitoring\CommandSubscriber" namespace="MongoDB\Driver\Monitoring" name="CommandSubscriber"/>
+  <constant type="string" name="FULL_DOCUMENT_DEFAULT" value="'default'"/>
+  <constant type="string" name="FULL_DOCUMENT_UPDATE_LOOKUP" value="'updateLookup'"/>
+  <member name="wireVersionForStartAtOperationTime" default="7" type="integer" visibility="private" static="true" line="63">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="aggregate" visibility="private" static="false" line="66">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\Aggregate" namespace="MongoDB\Operation" name="Aggregate"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="aggregateOptions" visibility="private" static="false" line="69">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="changeStreamOptions" visibility="private" static="false" line="72">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="collectionName" visibility="private" static="false" line="75">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\string|null" namespace="MongoDB\Operation" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="databaseName" visibility="private" static="false" line="78">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="firstBatchSize" visibility="private" static="false" line="81">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\integer|null" namespace="MongoDB\Operation" name="integer|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="hasResumed" default="false" type="boolean" visibility="private" static="false" line="84">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="manager" visibility="private" static="false" line="87">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="operationTime" visibility="private" static="false" line="90">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\BSON\TimestampInterface" namespace="MongoDB\BSON" name="TimestampInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="pipeline" visibility="private" static="false" line="93">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="postBatchResumeToken" visibility="private" static="false" line="96">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\object|null" namespace="MongoDB\Operation" name="object|null"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="169" end="229" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs an aggregate command for creating a change stream.">Supported options:
+
+ * batchSize (integer): The number of documents to return per batch.
+
+ * collation (document): Specifies a collation.
+
+ * fullDocument (string): Determines whether the "fullDocument" field
+   will be populated for update operations. By default, change streams
+   only return the delta of fields during the update operation (via the
+   "updateDescription" field). To additionally return the most current
+   majority-committed version of the updated document, specify
+   "updateLookup" for this option. Defaults to "default".
+
+   Insert and replace operations always include the "fullDocument" field
+   and delete operations omit the field as the document no longer exists.
+
+ * maxAwaitTimeMS (integer): The maximum amount of time for the server to
+   wait on new documents to satisfy a change stream query.
+
+ * readConcern (MongoDB\Driver\ReadConcern): Read concern.
+
+ * readPreference (MongoDB\Driver\ReadPreference): Read preference. This
+   will be used to select a new server when resuming. Defaults to a
+   "primary" read preference.
+
+ * resumeAfter (document): Specifies the logical starting point for the
+   new change stream.
+
+   Using this option in conjunction with "startAfter" and/or
+   "startAtOperationTime" will result in a server error. The options are
+   mutually exclusive.
+
+ * session (MongoDB\Driver\Session): Client session.
+
+ * startAfter (document): Specifies the logical starting point for the
+   new change stream. Unlike "resumeAfter", this option can be used with
+   a resume token from an "invalidate" event.
+
+   Using this option in conjunction with "resumeAfter" and/or
+   "startAtOperationTime" will result in a server error. The options are
+   mutually exclusive.
+
+ * startAtOperationTime (MongoDB\BSON\TimestampInterface): If specified,
+   the change stream will only provide changes that occurred at or after
+   the specified timestamp. Any command run against the server will
+   return an operation time that can be used here. Alternatively, an
+   operation time may be obtained from MongoDB\Driver\Server::getInfo().
+
+   Using this option in conjunction with "resumeAfter" and/or
+   "startAfter" will result in a server error. The options are mutually
+   exclusive.
+
+   This option is not supported for server versions &lt; 4.0.
+
+ * typeMap (array): Type map for BSON deserialization. This will be
+   applied to the returned Cursor (it is not sent to the server).
+
+Note: A database-level change stream may be created by specifying null
+for the collection name. A cluster-level change stream may be created by
+specifying null for both the database and collection name.</description>
+      <param description="Manager instance from the driver" type="object" variable="$manager">
+        <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+      </param>
+      <param description="Database name" type="object" variable="$databaseName">
+        <type full="MongoDB\Operation\string|null" namespace="MongoDB\Operation" name="string|null"/>
+      </param>
+      <param description="Collection name" type="object" variable="$collectionName">
+        <type full="MongoDB\Operation\string|null" namespace="MongoDB\Operation" name="string|null"/>
+      </param>
+      <param description="List of pipeline operations" type="array" variable="$pipeline"/>
+      <param description="Command options" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="manager" byreference="false" type="object">
+      <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+    </parameter>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="pipeline" byreference="false" type="array"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="In the absence of an explicit session, create one to ensure that the" line="200"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="initial aggregation and any resume attempts can use the same session" line="201"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="(&quot;implicit from the user's perspective&quot; per PHPLIB-342). Since this" line="202"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="is filling in for an implicit session, we default &quot;causalConsistency&quot;" line="203"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* to false." line="204"/>
+      <comment value="Null database name implies a cluster-wide change stream" line="217"/>
+    </inline>
+  </constructor>
+  <method name="commandFailed" start="232" end="234" abstract="false" final="true" static="false" visibility="public">
+    <docblock>
+      <internal/>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandFailedEvent" namespace="MongoDB\Driver\Monitoring" name="CommandFailedEvent"/>
+    </parameter>
+  </method>
+  <method name="commandStarted" start="237" end="245" abstract="false" final="true" static="false" visibility="public">
+    <docblock>
+      <internal/>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandStartedEvent" namespace="MongoDB\Driver\Monitoring" name="CommandStartedEvent"/>
+    </parameter>
+  </method>
+  <method name="commandSucceeded" start="248" end="272" abstract="false" final="true" static="false" visibility="public">
+    <docblock>
+      <internal/>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="MongoDB\Driver\Monitoring\CommandSucceededEvent" namespace="MongoDB\Driver\Monitoring" name="CommandSucceededEvent"/>
+    </parameter>
+  </method>
+  <method name="execute" start="283" end="291" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation."/>
+      <see value="Executable::execute()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\ChangeStream" namespace="MongoDB" name="ChangeStream"/>
+      </return>
+      <throws description="if collation or read concern is used and unsupported" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="createAggregate" start="300" end="306" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create the aggregate command for a change stream.">This method is also used to recreate the aggregate command when resuming.</description>
+      <return type="object">
+        <type full="MongoDB\Operation\Aggregate" namespace="MongoDB\Operation" name="Aggregate"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="createChangeStreamIterator" start="314" end="322" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create a ChangeStreamIterator by executing the aggregate command."/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\Model\ChangeStreamIterator" namespace="MongoDB\Model" name="ChangeStreamIterator"/>
+      </return>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="executeAggregate" start="333" end="342" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Execute the aggregate command.">The command will be executed using APM so that we can capture data from
+its response (e.g. firstBatch size, postBatchResumeToken).</description>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\Driver\Cursor" namespace="MongoDB\Driver" name="Cursor"/>
+      </return>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="getInitialResumeToken" start="350" end="365" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Return the initial resume token for creating the ChangeStreamIterator."/>
+      <see value="https://github.com/mongodb/specifications/blob/master/source/change-streams/change-streams.rst#updating-the-cached-resume-token"/>
+      <return type="object">
+        <type full="MongoDB\Operation\array|object|null" namespace="MongoDB\Operation" name="array|object|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="resume" start="376" end="408" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Resumes a change stream."/>
+      <see value="https://github.com/mongodb/specifications/blob/master/source/change-streams/change-streams.rst#resume-process"/>
+      <param type="object" variable="$resumeToken">
+        <type full="MongoDB\Operation\array|object|null" namespace="MongoDB\Operation" name="array|object|null"/>
+      </param>
+      <param type="object" variable="$hasAdvanced">
+        <type full="MongoDB\Operation\bool" namespace="MongoDB\Operation" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\Model\ChangeStreamIterator" namespace="MongoDB\Model" name="ChangeStreamIterator"/>
+      </return>
+      <throws type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="resumeToken" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="hasAdvanced" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Select a new server using the original read preference. While watch" line="384"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="is not usable within transactions, we still check if there is a" line="385"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="pinned session. This is to avoid an ambiguous error message about" line="386"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* running a command on the wrong server." line="387"/>
+      <comment value="Recreate the aggregate command and return a new ChangeStreamIterator" line="404"/>
+    </inline>
+  </method>
+  <method name="shouldCaptureOperationTime" start="417" end="444" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Determine whether to capture operation time from an aggregate response."/>
+      <see value="https://github.com/mongodb/specifications/blob/master/source/change-streams/change-streams.rst#startatoperationtime"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="boolean"/>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <interface full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable">
+    <method name="execute" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Execute the operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+  <interface full="MongoDB\Driver\Monitoring\CommandSubscriber" namespace="MongoDB\Driver\Monitoring" name="CommandSubscriber">
+    <implements full="MongoDB\Driver\Monitoring\Subscriber" namespace="MongoDB\Driver\Monitoring" name="Subscriber"/>
+    <method name="commandFailed" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a failed command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandFailedEvent"/>
+  </method>
+    <method name="commandStarted" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a started command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandStartedEvent"/>
+  </method>
+    <method name="commandSucceeded" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Notification method for a successful command"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="event" optional="false" byreference="false" type="object" class="MongoDB\Driver\Monitoring\CommandSucceededEvent"/>
+  </method>
+  </interface>
+  <parent full="MongoDB\Driver\Monitoring\Subscriber" namespace="MongoDB\Driver\Monitoring" name="Subscriber"/>
+</class>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="JsonSchema\Uri\Retrievers\Curl" namespace="JsonSchema\Uri\Retrievers" name="Curl" abstract="false" final="false" start="20" end="83">
+  <file path="../vendor/justinrainbow/json-schema/src/JsonSchema/Uri/Retrievers" file="Curl.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/justinrainbow/json-schema/src/JsonSchema/Uri/Retrievers/Curl.php" size="2159" time="2022-04-13T08:02:27+00:00" unixtime="1649836947" sha1="c8ae765cb4aa6bb4a3ffe75e46d66c05fcb8508d" relative="vendor/justinrainbow/json-schema/src/JsonSchema/Uri/Retrievers/Curl.php"/>
+  <docblock>
+    <description compact="Tries to retrieve JSON schemas from a URI using cURL library"/>
+    <author value="Sander Coolen &lt;sander@jibber.nl&gt;"/>
+  </docblock>
+  <extends full="JsonSchema\Uri\Retrievers\AbstractRetriever" namespace="JsonSchema\Uri\Retrievers" name="AbstractRetriever"/>
+  <member name="messageBody" visibility="protected" static="false" line="22"/>
+  <constructor name="__construct" start="24" end="30" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="retrieve" start="37" end="57" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+      <see value="\JsonSchema\Uri\Retrievers\UriRetrieverInterface::retrieve()"/>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="fetchMessageBody" start="62" end="66" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param description="cURL HTTP response" type="string" variable="$response"/>
+    </docblock>
+    <parameter name="response" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="fetchContentType" start="73" end="82" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param description="cURL HTTP response" type="string" variable="$response"/>
+      <return description="Whether the Content-Type header was found or not" type="object">
+        <type full="JsonSchema\Uri\Retrievers\bool" namespace="JsonSchema\Uri\Retrievers" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="response" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="JsonSchema\Uri\Retrievers\AbstractRetriever" namespace="JsonSchema\Uri\Retrievers" name="AbstractRetriever">
+    <implements full="JsonSchema\Uri\Retrievers\UriRetrieverInterface" namespace="JsonSchema\Uri\Retrievers" name="UriRetrieverInterface"/>
+    <member name="contentType" visibility="protected" static="false" line="23">
+      <docblock>
+        <description compact="Media content type"/>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <method name="getContentType" start="30" end="33" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+        <see value="\JsonSchema\Uri\Retrievers\UriRetrieverInterface::getContentType()"/>
+      </docblock>
+    </method>
+  </parent>
+  <interface full="JsonSchema\Uri\Retrievers\UriRetrieverInterface" namespace="JsonSchema\Uri\Retrievers" name="UriRetrieverInterface">
+    <method name="retrieve" start="28" end="28" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Retrieve a schema from the specified URI"/>
+        <param description="URI that resolves to a JSON schema" type="string" variable="$uri"/>
+        <throws type="object">
+          <type full="\JsonSchema\Exception\ResourceNotFoundException" namespace="\JsonSchema\Exception" name="ResourceNotFoundException"/>
+        </throws>
+        <return description="string|null" type="mixed"/>
+      </docblock>
+      <parameter name="uri" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getContentType" start="35" end="35" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get media content type"/>
+        <return type="string"/>
+      </docblock>
+    </method>
+  </interface>
+</class>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\DependencyResolver\RuleWatchGraph" namespace="Composer\DependencyResolver" name="RuleWatchGraph" abstract="false" final="false" start="25" end="144">
+  <file path="../vendor/composer/composer/src/Composer/DependencyResolver" file="RuleWatchGraph.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/DependencyResolver/RuleWatchGraph.php" size="5349" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="cfa60f67d97ae0731eb15c95964d99ec3e3fe79b" relative="vendor/composer/composer/src/Composer/DependencyResolver/RuleWatchGraph.php"/>
+  <docblock>
+    <description compact="The RuleWatchGraph efficiently propagates decisions to other rules">All rules generated for solving a SAT problem should be inserted into the
+graph. When a decision on a literal is made, the graph can be used to
+propagate the decision to all other rules involving the literal, leading to
+other trivial decisions resulting from unit clauses.</description>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+  </docblock>
+  <member name="watchChains" default="" type="array" visibility="protected" static="false" line="27"/>
+  <method name="insert" start="41" end="54" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Inserts a rule node into the appropriate chains within the graph">The node is prepended to the watch chains for each of the two literals it
+watches.
+
+Assertions are skipped because they only depend on a single package and
+have no alternative literal that could be true, so there is no need to
+watch changes in any literals.</description>
+      <param description="The rule node to be inserted into the graph" type="object" variable="$node">
+        <type full="Composer\DependencyResolver\RuleWatchNode" namespace="Composer\DependencyResolver" name="RuleWatchNode"/>
+      </param>
+    </docblock>
+    <parameter name="node" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\RuleWatchNode" namespace="Composer\DependencyResolver" name="RuleWatchNode"/>
+    </parameter>
+  </method>
+  <method name="propagateLiteral" start="79" end="123" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Propagates a decision on a literal to all rules watching the literal">If a decision, e.g. +A has been made, then all rules containing -A, e.g.
+(-A|+B|+C) now need to satisfy at least one of the other literals, so
+that the rule as a whole becomes true, since with +A applied the rule
+is now (false|+B|+C) so essentially (+B|+C).
+
+This means that all rules watching the literal -A need to be updated to
+watch 2 other literals which can still be satisfied instead. So literals
+that conflict with previously made decisions are not an option.
+
+Alternatively it can occur that a unit clause results: e.g. if in the
+above example the rule was (-A|+B), then A turning true means that
+B must now be decided true as well.</description>
+      <param description="The literal which was decided (A in our example)" type="int" variable="$decidedLiteral"/>
+      <param description="The level at which the decision took place and at which" type="int" variable="$level">all resulting decisions should be made.</param>
+      <param description="Used to check previous decisions and to" type="object" variable="$decisions">register decisions resulting from propagation<type full="Composer\DependencyResolver\Decisions" namespace="Composer\DependencyResolver" name="Decisions"/></param>
+      <return description="If a conflict is found the conflicting rule is returned" type="object">
+        <type full="Composer\DependencyResolver\Rule|null" namespace="Composer\DependencyResolver" name="Rule|null"/>
+      </return>
+    </docblock>
+    <parameter name="decidedLiteral" byreference="false" type="{unknown}"/>
+    <parameter name="level" byreference="false" type="{unknown}"/>
+    <parameter name="decisions" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="we invert the decided literal here, example:" line="81"/>
+      <comment value="A was decided =&gt; (-A|B) now requires B to be true, so we look for" line="82"/>
+      <comment value="rules which are fulfilled by -A, rather than A." line="83"/>
+    </inline>
+  </method>
+  <method name="moveWatch" start="134" end="143" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Moves a rule node from one watch chain to another">The rule node's watched literals are updated accordingly.</description>
+      <param description="A literal the node used to watch" type="int" variable="$fromLiteral"/>
+      <param description="A literal the node should watch now" type="int" variable="$toLiteral"/>
+      <param description="The rule node to be moved" type="object" variable="$node">
+        <type full="Composer\DependencyResolver\RuleWatchNode" namespace="Composer\DependencyResolver" name="RuleWatchNode"/>
+      </param>
+    </docblock>
+    <parameter name="fromLiteral" byreference="false" type="{unknown}"/>
+    <parameter name="toLiteral" byreference="false" type="{unknown}"/>
+    <parameter name="node" byreference="false" type="{unknown}"/>
+  </method>
+</class>

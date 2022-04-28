@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures\ControlSignatureSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures" name="ControlSignatureSniff" abstract="false" final="false" start="14" end="48">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Standards/PEAR/Sniffs/ControlStructures" file="ControlSignatureSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Standards/PEAR/Sniffs/ControlStructures/ControlSignatureSniff.php" size="1164" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="371418345fb9547650268df14fd4c0ae8aa9d2e8" relative="vendor/squizlabs/php_codesniffer/src/Standards/PEAR/Sniffs/ControlStructures/ControlSignatureSniff.php"/>
+  <extends full="PHP_CodeSniffer\Sniffs\AbstractPatternSniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractPatternSniff"/>
+  <member name="ignoreComments" default="true" type="boolean" visibility="public" static="false" line="22">
+    <docblock>
+      <description compact="If true, comments will be ignored if they are found in the code."/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <method name="getPatterns" start="30" end="45" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns the patterns that this test wishes to verify."/>
+      <return type="array" of="object">
+        <type full="PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures\string" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures" name="string"/>
+      </return>
+    </docblock>
+  </method>
+  <parent full="PHP_CodeSniffer\Sniffs\AbstractPatternSniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractPatternSniff">
+    <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+    <member name="ignoreComments" default="false" type="boolean" visibility="public" static="false" line="25">
+      <docblock>
+        <description compact="If true, comments will be ignored if they are found in the code."/>
+        <var type="boolean"/>
+      </docblock>
+    </member>
+    <member name="currFile" default="''" type="string" visibility="protected" static="false" line="32">
+      <docblock>
+        <description compact="The current file being checked."/>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <constructor name="__construct" start="63" end="72" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Constructs a AbstractPatternSniff."/>
+        <param description="If true, comments will be ignored." type="boolean" variable="$ignoreComments"/>
+      </docblock>
+      <parameter name="ignoreComments" byreference="false" type="{unknown}" default="NULL"/>
+      <inline>
+        <comment value="This is here for backwards compatibility." line="65"/>
+      </inline>
+    </constructor>
+    <method name="register" start="84" end="113" abstract="false" final="true" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens to listen to.">Classes extending &lt;i&gt;AbstractPatternTest&lt;/i&gt; should implement the
+&lt;i&gt;getPatterns()&lt;/i&gt; method to register the patterns they wish to test.</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\int" namespace="PHP_CodeSniffer\Sniffs" name="int"/>
+        </return>
+        <see value="process()"/>
+      </docblock>
+      <inline>
+        <comment value="end foreach" line="109"/>
+      </inline>
+    </method>
+    <method name="process" start="187" end="238" abstract="false" final="true" static="false" visibility="public">
+      <docblock>
+        <description compact="Processes the test."/>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token occurred.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the tokens stack" type="int" variable="$stackPtr">where the listening token type
+                                              was found.</param>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Sniffs\void" namespace="PHP_CodeSniffer\Sniffs" name="void"/>
+        </return>
+        <see value="register()"/>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="If the type is not set, then it must have been a token registered" line="204"/>
+        <comment value="with registerSupplementary()." line="205"/>
+        <comment value="Loop over each pattern that is listening to the current token type" line="212"/>
+        <comment value="that we are processing." line="213"/>
+      </inline>
+    </method>
+    <method name="processPattern" start="255" end="690" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Processes the pattern and verifies the code at $stackPtr."/>
+        <param description="Information about the pattern used" type="array" variable="$patternInfo">for checking, which includes are
+                                                parsed token representation of the
+                                                pattern.</param>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token occurred.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the tokens stack where" type="int" variable="$stackPtr">the listening token type was found.</param>
+        <return type="array"/>
+      </docblock>
+      <parameter name="patternInfo" byreference="false" type="{unknown}"/>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="end if" line="413"/>
+        <comment value="end for" line="681"/>
+      </inline>
+    </method>
+    <method name="prepareError" start="701" end="714" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Prepares an error for the specified patternCode."/>
+        <param description="The actual found string in the code." type="string" variable="$found"/>
+        <param description="The expected pattern code." type="string" variable="$patternCode"/>
+        <return description="The error message." type="string"/>
+      </docblock>
+      <parameter name="found" byreference="false" type="{unknown}"/>
+      <parameter name="patternCode" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getPatterns" start="722" end="722" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Returns the patterns that should be checked."/>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\string" namespace="PHP_CodeSniffer\Sniffs" name="string"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="registerSupplementary" start="735" end="739" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Registers any supplementary tokens that this test might wish to process.">A sniff may wish to register supplementary tests when it wishes to group
+an arbitrary validation that cannot be performed using a pattern, with
+other pattern tests.</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\int" namespace="PHP_CodeSniffer\Sniffs" name="int"/>
+        </return>
+        <see value="processSupplementary()"/>
+      </docblock>
+    </method>
+    <method name="processSupplementary" start="753" end="756" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Processes any tokens registered with registerSupplementary()."/>
+        <param description="The PHP_CodeSniffer file where to" type="object" variable="$phpcsFile">process the skip.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the tokens stack to" type="int" variable="$stackPtr">process.</param>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Sniffs\void" namespace="PHP_CodeSniffer\Sniffs" name="void"/>
+        </return>
+        <see value="registerSupplementary()"/>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

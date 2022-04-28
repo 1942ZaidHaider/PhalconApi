@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Nette\Utils\Type" namespace="Nette\Utils" name="Type" abstract="false" final="true" start="18" end="252">
+  <file path="../vendor/nette/utils/src/Utils" file="Type.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/nette/utils/src/Utils/Type.php" size="6180" time="2022-01-24T11:29:14+00:00" unixtime="1643023754" sha1="cecf1c8a08e044d37a0d868144b0d6894194f767" relative="vendor/nette/utils/src/Utils/Type.php"/>
+  <docblock>
+    <description compact="PHP type reflection."/>
+  </docblock>
+  <member name="types" visibility="private" static="false" line="21">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="single" visibility="private" static="false" line="24">
+    <docblock>
+      <var type="object">
+        <type full="Nette\Utils\bool" namespace="Nette\Utils" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="kind" visibility="private" static="false" line="27">
+    <docblock>
+      <var description="|, &amp;" type="string"/>
+    </docblock>
+  </member>
+  <method name="fromReflection" start="35" end="66" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Creates a Type object based on reflection. Resolves self, static and parent to the actual class name.">If the subject has no type, it returns null.</description>
+      <param type="object" variable="$reflection">
+        <type full="\ReflectionFunctionAbstract|\ReflectionParameter|\ReflectionProperty" namespace="\ReflectionFunctionAbstract|\ReflectionParameter|" name="ReflectionProperty"/>
+      </param>
+    </docblock>
+    <return type="object" nullable="true">
+      <type full="Nette\Utils\Type" namespace="Nette\Utils" name="Type"/>
+    </return>
+    <parameter name="reflection" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="fromString" start="72" end="89" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Creates the Type object according to the text notation."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Nette\Utils\Type" namespace="Nette\Utils" name="Type"/>
+    </return>
+    <parameter name="type" byreference="false" type="string"/>
+  </method>
+  <method name="resolve" start="96" end="108" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Resolves 'self', 'static' and 'parent' to the actual class name."/>
+      <param type="object" variable="$reflection">
+        <type full="\ReflectionFunctionAbstract|\ReflectionParameter|\ReflectionProperty" namespace="\ReflectionFunctionAbstract|\ReflectionParameter|" name="ReflectionProperty"/>
+      </param>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="type" byreference="false" type="string"/>
+    <parameter name="reflection" byreference="false" type="{unknown}"/>
+  </method>
+  <constructor name="__construct" start="111" end="120" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="types" byreference="false" type="array"/>
+    <parameter name="kind" byreference="false" type="string" default="'|'"/>
+  </constructor>
+  <method name="__toString" start="123" end="128" abstract="false" final="false" static="false" visibility="public">
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="getNames" start="135" end="138" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the array of subtypes that make up the compound type as strings."/>
+      <return type="array" of="object">
+        <type full="Nette\Utils\string" namespace="Nette\Utils" name="string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getTypes" start="145" end="148" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the array of subtypes that make up the compound type as Type objects:"/>
+      <return type="array" of="object">
+        <type full="Nette\Utils\self" namespace="Nette\Utils" name="self"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getSingleName" start="154" end="159" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the type name for single types, otherwise null."/>
+    </docblock>
+    <return type="string" nullable="true"/>
+  </method>
+  <method name="isUnion" start="165" end="168" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true whether it is a union type."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isIntersection" start="174" end="177" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true whether it is an intersection type."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isSingle" start="183" end="186" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true whether it is a single type. Simple nullable types are also considered to be single types."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isBuiltin" start="192" end="195" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true whether the type is both a single and a PHP built-in type."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isClass" start="201" end="204" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true whether the type is both a single and a class name."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isClassKeyword" start="210" end="213" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Determines if type is special class name self/parent/static."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="allows" start="219" end="251" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Verifies type compatibility. For example, it checks if a value of a certain type could be passed as a parameter."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="type" byreference="false" type="string"/>
+  </method>
+</class>

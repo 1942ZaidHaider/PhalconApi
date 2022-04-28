@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="SlevomatCodingStandard\Sniffs\Classes\TraitUseSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="TraitUseSpacingSniff" abstract="false" final="false" start="23" end="300">
+  <file path="../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Classes" file="TraitUseSpacingSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Classes/TraitUseSpacingSniff.php" size="9264" time="2020-10-05T12:39:37+00:00" unixtime="1601901577" sha1="4ddd2f71a38ee4b3171d514e6872c06d3fe00fa2" relative="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Classes/TraitUseSpacingSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="CODE_INCORRECT_LINES_COUNT_BEFORE_FIRST_USE" value="'IncorrectLinesCountBeforeFirstUse'"/>
+  <constant type="string" name="CODE_INCORRECT_LINES_COUNT_BETWEEN_USES" value="'IncorrectLinesCountBetweenUses'"/>
+  <constant type="string" name="CODE_INCORRECT_LINES_COUNT_AFTER_LAST_USE" value="'IncorrectLinesCountAfterLastUse'"/>
+  <member name="linesCountBeforeFirstUse" default="1" type="integer" visibility="public" static="false" line="31">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="linesCountBeforeFirstUseWhenFirstInClass" default="NULL" visibility="public" static="false" line="34">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="linesCountBetweenUses" default="0" type="integer" visibility="public" static="false" line="37">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="linesCountAfterLastUse" default="1" type="integer" visibility="public" static="false" line="40">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="linesCountAfterLastUseWhenLastInClass" default="1" type="integer" visibility="public" static="false" line="43">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <method name="register" start="48" end="55" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="(int|string)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\Classes" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="62" end="73" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <phpcssuppress value="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$classPointer"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="classPointer" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="checkLinesBeforeFirstUse" start="75" end="145" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="firstUsePointer" byreference="false" type="int"/>
+  </method>
+  <method name="checkLinesAfterLastUse" start="147" end="204" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="lastUsePointer" byreference="false" type="int"/>
+  </method>
+  <method name="checkLinesBetweenUses" start="210" end="298" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="array" variable="$usePointers" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Classes\int" namespace="SlevomatCodingStandard\Sniffs\Classes" name="int"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="usePointers" byreference="false" type="array"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

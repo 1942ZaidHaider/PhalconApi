@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Console\Input\InputOption" namespace="Symfony\Component\Console\Input" name="InputOption" abstract="false" final="false" start="22" end="231">
+  <file path="../vendor/symfony/console/Input" file="InputOption.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/console/Input/InputOption.php" size="6741" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="1299b7473de3ec08e6a71d952efb808ddfb24e97" relative="vendor/symfony/console/Input/InputOption.php"/>
+  <docblock>
+    <description compact="Represents a command line option."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+  </docblock>
+  <constant type="integer" name="VALUE_NONE" value="1">
+    <docblock>
+      <description compact="Do not accept input for the option (e.g. --yell). This is the default behavior of options."/>
+    </docblock>
+  </constant>
+  <constant type="integer" name="VALUE_REQUIRED" value="2">
+    <docblock>
+      <description compact="A value must be passed when the option is used (e.g. --iterations=5 or -i5)."/>
+    </docblock>
+  </constant>
+  <constant type="integer" name="VALUE_OPTIONAL" value="4">
+    <docblock>
+      <description compact="The option may or may not have a value (e.g. --yell or --yell=loud)."/>
+    </docblock>
+  </constant>
+  <constant type="integer" name="VALUE_IS_ARRAY" value="8">
+    <docblock>
+      <description compact="The option accepts multiple values (e.g. --dir=/foo --dir=/bar)."/>
+    </docblock>
+  </constant>
+  <constant type="integer" name="VALUE_NEGATABLE" value="16">
+    <docblock>
+      <description compact="The option may have either positive or negative value (e.g. --ansi or --no-ansi)."/>
+    </docblock>
+  </constant>
+  <member name="name" visibility="private" static="false" line="49"/>
+  <member name="shortcut" visibility="private" static="false" line="50"/>
+  <member name="mode" visibility="private" static="false" line="51"/>
+  <member name="default" visibility="private" static="false" line="52"/>
+  <member name="description" visibility="private" static="false" line="53"/>
+  <constructor name="__construct" start="62" end="108" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The shortcuts, can be null, a string of shortcuts delimited by | or an array of shortcuts" type="object" variable="$shortcut">
+        <type full="Symfony\Component\Console\Input\string|array|null" namespace="Symfony\Component\Console\Input" name="string|array|null"/>
+      </param>
+      <param description="The option mode: One of the VALUE_* constants" type="object" variable="$mode">
+        <type full="Symfony\Component\Console\Input\int|null" namespace="Symfony\Component\Console\Input" name="int|null"/>
+      </param>
+      <param description="The default value (must be null for self::VALUE_NONE)" type="object" variable="$default">
+        <type full="Symfony\Component\Console\Input\string|bool|int|float|array|null" namespace="Symfony\Component\Console\Input" name="string|bool|int|float|array|null"/>
+      </param>
+      <throws description="If option mode is invalid or incompatible" type="object">
+        <type full="Symfony\Component\Console\Exception\InvalidArgumentException" namespace="Symfony\Component\Console\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+    <parameter name="shortcut" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="mode" byreference="false" type="int" default="NULL"/>
+    <parameter name="description" byreference="false" type="string" default="''"/>
+    <parameter name="default" byreference="false" type="{unknown}" default="NULL"/>
+  </constructor>
+  <method name="getShortcut" start="115" end="118" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the option shortcut."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Input\string|null" namespace="Symfony\Component\Console\Input" name="string|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getName" start="125" end="128" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the option name."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="acceptValue" start="135" end="138" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true if the option accepts a value."/>
+      <return description="true if value mode is not self::VALUE_NONE, false otherwise" type="object">
+        <type full="Symfony\Component\Console\Input\bool" namespace="Symfony\Component\Console\Input" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isValueRequired" start="145" end="148" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true if the option requires a value."/>
+      <return description="true if value mode is self::VALUE_REQUIRED, false otherwise" type="object">
+        <type full="Symfony\Component\Console\Input\bool" namespace="Symfony\Component\Console\Input" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isValueOptional" start="155" end="158" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true if the option takes an optional value."/>
+      <return description="true if value mode is self::VALUE_OPTIONAL, false otherwise" type="object">
+        <type full="Symfony\Component\Console\Input\bool" namespace="Symfony\Component\Console\Input" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isArray" start="165" end="168" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true if the option can take multiple values."/>
+      <return description="true if mode is self::VALUE_IS_ARRAY, false otherwise" type="object">
+        <type full="Symfony\Component\Console\Input\bool" namespace="Symfony\Component\Console\Input" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isNegatable" start="170" end="173" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="setDefault" start="178" end="193" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$default">
+        <type full="Symfony\Component\Console\Input\string|bool|int|float|array|null" namespace="Symfony\Component\Console\Input" name="string|bool|int|float|array|null"/>
+      </param>
+    </docblock>
+    <parameter name="default" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="getDefault" start="200" end="203" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the default value."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Input\string|bool|int|float|array|null" namespace="Symfony\Component\Console\Input" name="string|bool|int|float|array|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getDescription" start="210" end="213" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the description text."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="equals" start="220" end="230" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks whether the given option equals this one."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Input\bool" namespace="Symfony\Component\Console\Input" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="option" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Input\self" namespace="Symfony\Component\Console\Input" name="self"/>
+    </parameter>
+  </method>
+</class>

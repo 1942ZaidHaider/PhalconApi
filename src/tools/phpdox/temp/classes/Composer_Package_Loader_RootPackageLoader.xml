@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Package\Loader\RootPackageLoader" namespace="Composer\Package\Loader" name="RootPackageLoader" abstract="false" final="false" start="33" end="266">
+  <file path="../vendor/composer/composer/src/Composer/Package/Loader" file="RootPackageLoader.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Package/Loader/RootPackageLoader.php" size="10373" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="84e16be62e911c73478116a4c78f0d4b98f22065" relative="vendor/composer/composer/src/Composer/Package/Loader/RootPackageLoader.php"/>
+  <docblock>
+    <description compact="ArrayLoader built for the sole purpose of loading the root package">Sets additional defaults and loads repositories</description>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <extends full="Composer\Package\Loader\ArrayLoader" namespace="Composer\Package\Loader" name="ArrayLoader"/>
+  <member name="manager" visibility="private" static="false" line="38">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="config" visibility="private" static="false" line="43">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="versionGuesser" visibility="private" static="false" line="48">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Package\Version\VersionGuesser" namespace="Composer\Package\Version" name="VersionGuesser"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="io" visibility="private" static="false" line="53">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="55" end="63" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="manager" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="parser" byreference="false" type="object" default="NULL">
+      <type full="Composer\Package\Version\VersionParser" namespace="Composer\Package\Version" name="VersionParser"/>
+    </parameter>
+    <parameter name="versionGuesser" byreference="false" type="object" default="NULL">
+      <type full="Composer\Package\Version\VersionGuesser" namespace="Composer\Package\Version" name="VersionGuesser"/>
+    </parameter>
+    <parameter name="io" byreference="false" type="object" default="NULL">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </constructor>
+  <method name="load" start="71" end="181" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="package data" type="array" variable="$config"/>
+      <param description="FQCN to be instantiated" type="string" variable="$class"/>
+      <param description="cwd of the root package to be used to guess the version if it is not provided" type="string" variable="$cwd"/>
+      <return type="object">
+        <type full="Composer\Package\RootPackageInterface" namespace="Composer\Package" name="RootPackageInterface"/>
+      </return>
+    </docblock>
+    <parameter name="config" byreference="false" type="array"/>
+    <parameter name="class" byreference="false" type="string" default="'Composer\Package\RootPackage'"/>
+    <parameter name="cwd" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="extractAliases" start="183" end="199" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="requires" byreference="false" type="array"/>
+    <parameter name="aliases" byreference="false" type="array"/>
+  </method>
+  <method name="extractStabilityFlags" start="201" end="252" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="requires" byreference="false" type="array"/>
+    <parameter name="stabilityFlags" byreference="false" type="array"/>
+    <parameter name="minimumStability" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="extractReferences" start="254" end="265" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="requires" byreference="false" type="array"/>
+    <parameter name="references" byreference="false" type="array"/>
+  </method>
+  <parent full="Composer\Package\Loader\ArrayLoader" namespace="Composer\Package\Loader" name="ArrayLoader">
+    <implements full="Composer\Package\Loader\LoaderInterface" namespace="Composer\Package\Loader" name="LoaderInterface"/>
+    <member name="versionParser" visibility="protected" static="false" line="29"/>
+    <member name="loadOptions" visibility="protected" static="false" line="30"/>
+    <constructor name="__construct" start="32" end="39" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="parser" byreference="false" type="object" default="NULL">
+        <type full="Composer\Semver\VersionParser" namespace="Composer\Semver" name="VersionParser"/>
+      </parameter>
+      <parameter name="loadOptions" byreference="false" type="boolean" default="false"/>
+    </constructor>
+    <method name="load" start="41" end="226" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="config" byreference="false" type="array"/>
+      <parameter name="class" byreference="false" type="string" default="'Composer\Package\CompletePackage'"/>
+      <inline>
+        <comment value="handle already normalized versions" line="50"/>
+      </inline>
+    </method>
+    <method name="parseLinks" start="235" end="252" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param description="source package name" type="string" variable="$source"/>
+        <param description="source package version (pretty version ideally)" type="string" variable="$sourceVersion"/>
+        <param description="link description (e.g. requires, replaces, ..)" type="string" variable="$description"/>
+        <param description="array of package name =&gt; constraint mappings" type="array" variable="$links"/>
+        <return type="array" of="object">
+          <type full="Composer\Package\Loader\Link" namespace="Composer\Package\Loader" name="Link"/>
+        </return>
+      </docblock>
+      <parameter name="source" byreference="false" type="{unknown}"/>
+      <parameter name="sourceVersion" byreference="false" type="{unknown}"/>
+      <parameter name="description" byreference="false" type="{unknown}"/>
+      <parameter name="links" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getBranchAlias" start="260" end="296" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Retrieves a branch alias (dev-master =&gt; 1.0.x-dev for example) if it exists"/>
+        <param description="the entire package config" type="array" variable="$config"/>
+        <return description="normalized version of the branch alias or null if there is none" type="object">
+          <type full="Composer\Package\Loader\string|null" namespace="Composer\Package\Loader" name="string|null"/>
+        </return>
+      </docblock>
+      <parameter name="config" byreference="false" type="array"/>
+    </method>
+  </parent>
+  <interface full="Composer\Package\Loader\LoaderInterface" namespace="Composer\Package\Loader" name="LoaderInterface">
+    <method name="load" start="29" end="29" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Converts a package from an array to a real instance"/>
+        <param description="Package config" type="array" variable="$package"/>
+        <param description="Package class to use" type="string" variable="$class"/>
+        <return type="object">
+          <type full="\Composer\Package\PackageInterface" namespace="\Composer\Package" name="PackageInterface"/>
+        </return>
+      </docblock>
+      <parameter name="package" byreference="false" type="array"/>
+      <parameter name="class" byreference="false" type="string" default="'Composer\Package\CompletePackage'"/>
+    </method>
+  </interface>
+</class>

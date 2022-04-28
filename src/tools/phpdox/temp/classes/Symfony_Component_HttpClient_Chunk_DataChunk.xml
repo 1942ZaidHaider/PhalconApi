@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\Chunk\DataChunk" namespace="Symfony\Component\HttpClient\Chunk" name="DataChunk" abstract="false" final="false" start="21" end="87">
+  <file path="../vendor/symfony/http-client/Chunk" file="DataChunk.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/Chunk/DataChunk.php" size="1450" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="bda8a8f4e1b70242a24e02fc39f7c70559782ba1" relative="vendor/symfony/http-client/Chunk/DataChunk.php"/>
+  <docblock>
+    <description/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+    <internal/>
+  </docblock>
+  <implements full="Symfony\Contracts\HttpClient\ChunkInterface" namespace="Symfony\Contracts\HttpClient" name="ChunkInterface"/>
+  <member name="offset" default="0" type="integer" visibility="private" static="false" line="23"/>
+  <member name="content" default="''" type="string" visibility="private" static="false" line="24"/>
+  <constructor name="__construct" start="26" end="30" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="offset" byreference="false" type="integer" default="0"/>
+    <parameter name="content" byreference="false" type="string" default="''"/>
+  </constructor>
+  <method name="isTimeout" start="35" end="38" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isFirst" start="43" end="46" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isLast" start="51" end="54" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="getInformationalStatus" start="59" end="62" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="array" nullable="true"/>
+  </method>
+  <method name="getContent" start="67" end="70" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="getOffset" start="75" end="78" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="getError" start="83" end="86" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="string" nullable="true"/>
+  </method>
+  <extenders>
+    <extender full="Symfony\Component\HttpClient\Chunk\LastChunk" namespace="Symfony\Component\HttpClient\Chunk" name="LastChunk"/>
+    <extender full="Symfony\Component\HttpClient\Chunk\ServerSentEvent" namespace="Symfony\Component\HttpClient\Chunk" name="ServerSentEvent"/>
+    <extender full="Symfony\Component\HttpClient\Chunk\FirstChunk" namespace="Symfony\Component\HttpClient\Chunk" name="FirstChunk"/>
+    <extender full="Symfony\Component\HttpClient\Chunk\InformationalChunk" namespace="Symfony\Component\HttpClient\Chunk" name="InformationalChunk"/>
+  </extenders>
+  <interface full="Symfony\Contracts\HttpClient\ChunkInterface" namespace="Symfony\Contracts\HttpClient" name="ChunkInterface">
+    <method name="isTimeout" start="32" end="32" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Tells when the idle timeout has been reached."/>
+        <throws description="on a network error" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="isFirst" start="39" end="39" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Tells when headers just arrived."/>
+        <throws description="on a network error or when the idle timeout is reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="isLast" start="46" end="46" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Tells when the body just completed."/>
+        <throws description="on a network error or when the idle timeout is reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="getInformationalStatus" start="53" end="53" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns a [status code, headers] tuple when a 1xx status code was just received."/>
+        <throws description="on a network error or when the idle timeout is reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="array" nullable="true"/>
+    </method>
+    <method name="getContent" start="60" end="60" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the content of the response chunk."/>
+        <throws description="on a network error or when the idle timeout is reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="getOffset" start="65" end="65" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the offset of the chunk in the response body."/>
+      </docblock>
+      <return type="int" nullable="false"/>
+    </method>
+    <method name="getError" start="70" end="70" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="In case of error, returns the message that describes it."/>
+      </docblock>
+      <return type="string" nullable="true"/>
+    </method>
+  </interface>
+</class>

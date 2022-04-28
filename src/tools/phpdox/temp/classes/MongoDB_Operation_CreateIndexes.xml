@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\CreateIndexes" namespace="MongoDB\Operation" name="CreateIndexes" abstract="false" final="false" start="44" end="204">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="CreateIndexes.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/CreateIndexes.php" size="6953" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="0e07220b49654954f4e682b936d09d507a75d967" relative="vendor/mongodb/mongodb/src/Operation/CreateIndexes.php"/>
+  <docblock>
+    <description compact="Operation for the createIndexes command."/>
+    <api/>
+    <see value="\MongoDB\Collection::createIndex()"/>
+    <see value="\MongoDB\Collection::createIndexes()"/>
+    <see value="http://docs.mongodb.org/manual/reference/command/createIndexes/"/>
+  </docblock>
+  <implements full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+  <member name="wireVersionForCommitQuorum" default="9" type="integer" visibility="private" static="true" line="47">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="databaseName" visibility="private" static="false" line="50">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="collectionName" visibility="private" static="false" line="53">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="indexes" default="" type="array" visibility="private" static="false" line="56">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="options" default="" type="array" visibility="private" static="false" line="59">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="83" end="128" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a createIndexes command.">Supported options:
+
+ * commitQuorum (integer|string): Specifies how many data-bearing members
+   of a replica set, including the primary, must complete the index
+   builds successfully before the primary marks the indexes as ready.
+
+ * maxTimeMS (integer): The maximum amount of time to allow the query to
+   run.
+
+ * session (MongoDB\Driver\Session): Client session.
+
+ * writeConcern (MongoDB\Driver\WriteConcern): Write concern.</description>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Collection name" type="string" variable="$collectionName"/>
+      <param description="List of index specifications" type="array" variable="$indexes" of="object">
+        <type full="MongoDB\Operation\array" namespace="MongoDB\Operation" name="array"/>
+      </param>
+      <param description="Command options" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="indexes" byreference="false" type="array"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="execute" start="139" end="151" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation."/>
+      <see value="Executable::execute()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return description="The names of the created indexes" type="array" of="object">
+        <type full="MongoDB\Operation\string" namespace="MongoDB\Operation" name="string"/>
+      </return>
+      <throws description="if write concern is used and unsupported" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="createOptions" start="159" end="172" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create options for executing the command."/>
+      <see value="http://php.net/manual/en/mongodb-driver-server.executewritecommand.php"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="executeCommand" start="181" end="203" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create one or more indexes for the collection using the createIndexes command."/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <interface full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable">
+    <method name="execute" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Execute the operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+</class>

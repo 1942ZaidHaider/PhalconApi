@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Console\Helper\Table" namespace="Symfony\Component\Console\Helper" name="Table" abstract="false" final="false" start="30" end="915">
+  <file path="../vendor/symfony/console/Helper" file="Table.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/console/Helper/Table.php" size="29637" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="e711ae05516abcf34d6a6cf49f680aa82316755f" relative="vendor/symfony/console/Helper/Table.php"/>
+  <docblock>
+    <description compact="Provides helpers to display a table."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+    <author value="Саша Стаменковић &lt;umpirsky@gmail.com&gt;"/>
+    <author value="Abdellatif Ait boudad &lt;a.aitboudad@gmail.com&gt;"/>
+    <author value="Max Grigorian &lt;maxakawizard@gmail.com&gt;"/>
+    <author value="Dany Maillard &lt;danymaillard93b@gmail.com&gt;"/>
+  </docblock>
+  <constant type="integer" name="SEPARATOR_TOP" value="0"/>
+  <constant type="integer" name="SEPARATOR_TOP_BOTTOM" value="1"/>
+  <constant type="integer" name="SEPARATOR_MID" value="2"/>
+  <constant type="integer" name="SEPARATOR_BOTTOM" value="3"/>
+  <constant type="integer" name="BORDER_OUTSIDE" value="0"/>
+  <constant type="integer" name="BORDER_INSIDE" value="1"/>
+  <member name="headerTitle" visibility="private" static="false" line="39"/>
+  <member name="footerTitle" visibility="private" static="false" line="40"/>
+  <member name="headers" default="" type="array" visibility="private" static="false" line="45">
+    <docblock>
+      <description compact="Table headers."/>
+    </docblock>
+  </member>
+  <member name="rows" default="" type="array" visibility="private" static="false" line="50">
+    <docblock>
+      <description compact="Table rows."/>
+    </docblock>
+  </member>
+  <member name="horizontal" default="false" type="boolean" visibility="private" static="false" line="51"/>
+  <member name="effectiveColumnWidths" default="" type="array" visibility="private" static="false" line="56">
+    <docblock>
+      <description compact="Column widths cache."/>
+    </docblock>
+  </member>
+  <member name="numberOfColumns" visibility="private" static="false" line="63">
+    <docblock>
+      <description compact="Number of columns cache."/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="output" visibility="private" static="false" line="68">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="style" visibility="private" static="false" line="73">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="columnStyles" default="" type="array" visibility="private" static="false" line="78">
+    <docblock>
+      <description/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="columnWidths" default="" type="array" visibility="private" static="false" line="85">
+    <docblock>
+      <description compact="User set column widths."/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="columnMaxWidths" default="" type="array" visibility="private" static="false" line="86"/>
+  <member name="styles" visibility="private" static="true" line="91">
+    <docblock>
+      <description/>
+      <var description="TableStyle&gt;|null" type="object">
+        <type full="Symfony\Component\Console\Helper\array&lt;string" namespace="Symfony\Component\Console\Helper" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="rendered" default="false" type="boolean" visibility="private" static="false" line="93"/>
+  <constructor name="__construct" start="95" end="104" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+  </constructor>
+  <method name="setStyleDefinition" start="109" end="116" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Sets a style definition."/>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+    <parameter name="style" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+    </parameter>
+  </method>
+  <method name="getStyleDefinition" start="123" end="134" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Gets a style definition by name."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="setStyle" start="143" end="148" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets table style."/>
+      <param description="The style name or a TableStyle instance" type="object" variable="$name">
+        <type full="Symfony\Component\Console\Helper\TableStyle|string" namespace="Symfony\Component\Console\Helper" name="TableStyle|string"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getStyle" start="155" end="158" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the current table style."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setColumnStyle" start="167" end="172" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets table column style."/>
+      <param description="The style name or a TableStyle instance" type="object" variable="$name">
+        <type full="Symfony\Component\Console\Helper\TableStyle|string" namespace="Symfony\Component\Console\Helper" name="TableStyle|string"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="columnIndex" byreference="false" type="int"/>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getColumnStyle" start="181" end="184" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the current style for a column.">If style was not set, it returns the global table style.</description>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+      </return>
+    </docblock>
+    <parameter name="columnIndex" byreference="false" type="int"/>
+  </method>
+  <method name="setColumnWidth" start="191" end="196" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the minimum width of a column."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="columnIndex" byreference="false" type="int"/>
+    <parameter name="width" byreference="false" type="int"/>
+  </method>
+  <method name="setColumnWidths" start="203" end="211" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the minimum width of all columns."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="widths" byreference="false" type="array"/>
+  </method>
+  <method name="setColumnMaxWidth" start="221" end="230" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the maximum width of a column.">Any cell within this column which contents exceeds the specified width will be wrapped into multiple lines, while
+formatted strings are preserved.</description>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\Table" namespace="Symfony\Component\Console\Helper" name="Table"/>
+    </return>
+    <parameter name="columnIndex" byreference="false" type="int"/>
+    <parameter name="width" byreference="false" type="int"/>
+  </method>
+  <method name="setHeaders" start="235" end="245" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="headers" byreference="false" type="array"/>
+  </method>
+  <method name="setRows" start="247" end="252" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="rows" byreference="false" type="array"/>
+  </method>
+  <method name="addRows" start="257" end="264" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="rows" byreference="false" type="array"/>
+  </method>
+  <method name="addRow" start="269" end="284" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="row" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="appendRow" start="291" end="305" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds a row to the table, and re-renders the table."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\Table" namespace="Symfony\Component\Console\Helper" name="Table"/>
+    </return>
+    <parameter name="row" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setRow" start="310" end="315" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="column" byreference="false" type="{unknown}"/>
+    <parameter name="row" byreference="false" type="array"/>
+  </method>
+  <method name="setHeaderTitle" start="320" end="325" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\Table" namespace="Symfony\Component\Console\Helper" name="Table"/>
+    </return>
+    <parameter name="title" byreference="false" nullable="true" type="string"/>
+  </method>
+  <method name="setFooterTitle" start="330" end="335" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\Table" namespace="Symfony\Component\Console\Helper" name="Table"/>
+    </return>
+    <parameter name="title" byreference="false" nullable="true" type="string"/>
+  </method>
+  <method name="setHorizontal" start="340" end="345" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\Table" namespace="Symfony\Component\Console\Helper" name="Table"/>
+    </return>
+    <parameter name="horizontal" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="render" start="360" end="445" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Renders table to output.">Example:
+
+    +---------------+-----------------------+------------------+
+    | ISBN          | Title                 | Author           |
+    +---------------+-----------------------+------------------+
+    | 99921-58-10-7 | Divine Comedy         | Dante Alighieri  |
+    | 9971-5-0210-0 | A Tale of Two Cities  | Charles Dickens  |
+    | 960-425-059-0 | The Lord of the Rings | J. R. R. Tolkien |
+    +---------------+-----------------------+------------------+</description>
+    </docblock>
+  </method>
+  <method name="renderRowSeparator" start="454" end="500" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Renders horizontal header separator.">Example:
+
+    +-----+-----------+-------+</description>
+    </docblock>
+    <parameter name="type" byreference="false" type="{unknown}" default="" constant="self::SEPARATOR_MID"/>
+    <parameter name="title" byreference="false" type="string" default="NULL"/>
+    <parameter name="titleFormat" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="renderColumnSeparator" start="505" end="510" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Renders vertical column separator."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="type" byreference="false" type="{unknown}" default="" constant="self::BORDER_OUTSIDE"/>
+  </method>
+  <method name="renderRow" start="519" end="533" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Renders table row.">Example:
+
+    | 9971-5-0210-0 | A Tale of Two Cities  | Charles Dickens  |</description>
+    </docblock>
+    <parameter name="row" byreference="false" type="array"/>
+    <parameter name="cellFormat" byreference="false" type="string"/>
+    <parameter name="firstCellFormat" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="renderCell" start="538" end="587" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Renders table cell with padding."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="row" byreference="false" type="array"/>
+    <parameter name="column" byreference="false" type="int"/>
+    <parameter name="cellFormat" byreference="false" type="string"/>
+    <inline>
+      <comment value="str_pad won't work properly with multi-byte strings, we need to fix the padding" line="549"/>
+    </inline>
+  </method>
+  <method name="calculateNumberOfColumns" start="592" end="604" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Calculate number of columns for this table."/>
+    </docblock>
+    <parameter name="rows" byreference="false" type="array"/>
+  </method>
+  <method name="buildTableRows" start="606" end="655" abstract="false" final="false" static="false" visibility="private">
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\TableRows" namespace="Symfony\Component\Console\Helper" name="TableRows"/>
+    </return>
+    <parameter name="rows" byreference="false" type="array"/>
+  </method>
+  <method name="calculateRowCount" start="657" end="670" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="fillNextRows" start="677" end="726" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="fill rows that contains rowspan &gt; 1."/>
+      <throws type="object">
+        <type full="Symfony\Component\Console\Exception\InvalidArgumentException" namespace="Symfony\Component\Console\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="rows" byreference="false" type="array"/>
+    <parameter name="line" byreference="false" type="int"/>
+  </method>
+  <method name="fillCells" start="731" end="746" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="fill cells for a row that contains colspan &gt; 1."/>
+    </docblock>
+    <parameter name="row" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Helper\iterable" namespace="Symfony\Component\Console\Helper" name="iterable"/>
+    </parameter>
+  </method>
+  <method name="copyRow" start="748" end="759" abstract="false" final="false" static="false" visibility="private">
+    <return type="array" nullable="false"/>
+    <parameter name="rows" byreference="false" type="array"/>
+    <parameter name="line" byreference="false" type="int"/>
+  </method>
+  <method name="getNumberOfColumns" start="764" end="772" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Gets number of columns by row."/>
+    </docblock>
+    <return type="int" nullable="false"/>
+    <parameter name="row" byreference="false" type="array"/>
+  </method>
+  <method name="getRowColumns" start="777" end="788" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Gets list of columns for the given row."/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="row" byreference="false" type="array"/>
+  </method>
+  <method name="calculateColumnsWidth" start="793" end="822" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Calculates columns widths."/>
+    </docblock>
+    <parameter name="groups" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Helper\iterable" namespace="Symfony\Component\Console\Helper" name="iterable"/>
+    </parameter>
+  </method>
+  <method name="getColumnSeparatorWidth" start="824" end="827" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="getCellWidth" start="829" end="842" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+    <parameter name="row" byreference="false" type="array"/>
+    <parameter name="column" byreference="false" type="int"/>
+  </method>
+  <method name="cleanup" start="847" end="851" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Called after rendering to cleanup cache data."/>
+    </docblock>
+  </method>
+  <method name="initStyles" start="856" end="901" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <return description="TableStyle&gt;" type="object">
+        <type full="Symfony\Component\Console\Helper\array&lt;string" namespace="Symfony\Component\Console\Helper" name="array&lt;string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="resolveStyle" start="903" end="914" abstract="false" final="false" static="false" visibility="private">
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+    </return>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+</class>

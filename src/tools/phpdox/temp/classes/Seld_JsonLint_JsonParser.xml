@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Seld\JsonLint\JsonParser" namespace="Seld\JsonLint" name="JsonParser" abstract="false" final="false" start="28" end="584">
+  <file path="../vendor/seld/jsonlint/src/Seld/JsonLint" file="JsonParser.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/seld/jsonlint/src/Seld/JsonLint/JsonParser.php" size="23159" time="2022-04-01T13:37:23+00:00" unixtime="1648820243" sha1="cdc9d2e9b2790cb792fbd5e9fe184fe955134397" relative="vendor/seld/jsonlint/src/Seld/JsonLint/JsonParser.php"/>
+  <docblock>
+    <description compact="Parser class">Example:
+
+$parser = new JsonParser();
+// returns null if it's valid json, or an error object
+$parser-&gt;lint($json);
+// returns parsed json, like json_decode does, but slower, throws exceptions on failure.
+$parser-&gt;parse($json);
+
+Ported from https://github.com/zaach/jsonlint</description>
+  </docblock>
+  <constant type="integer" name="DETECT_KEY_CONFLICTS" value="1"/>
+  <constant type="integer" name="ALLOW_DUPLICATE_KEYS" value="2"/>
+  <constant type="integer" name="PARSE_TO_ASSOC" value="4"/>
+  <member name="lexer" visibility="private" static="false" line="35">
+    <docblock>
+      <var type="object">
+        <type full="Seld\JsonLint\Lexer" namespace="Seld\JsonLint" name="Lexer"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="flags" visibility="private" static="false" line="41">
+    <docblock>
+      <description/>
+      <var type="int"/>
+      <psalm value="-var int-mask-of&lt;self::*&gt;"/>
+    </docblock>
+  </member>
+  <member name="stack" visibility="private" static="false" line="43">
+    <docblock>
+      <var type="object">
+        <type full="Seld\JsonLint\list&lt;int&gt;" namespace="Seld\JsonLint" name="list&lt;int&gt;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="vstack" visibility="private" static="false" line="45">
+    <docblock>
+      <var type="object">
+        <type full="Seld\JsonLint\list&lt;stdClass|array&lt;mixed&gt;|int|bool|float|string|null&gt;" namespace="Seld\JsonLint" name="list&lt;stdClass|array&lt;mixed&gt;|int|bool|float|string|null&gt;"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="lstack" visibility="private" static="false" line="47">
+    <docblock>
+      <var description="int, first_column: int, last_line: int, last_column: int}&gt;" type="object">
+        <type full="Seld\JsonLint\list&lt;array{first_line:" namespace="Seld\JsonLint" name="list&lt;array{first_line:"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="symbols" default="" type="array" visibility="private" static="false" line="52">
+    <docblock>
+      <description/>
+      <phpstan value="-var array&lt;string, int&gt;"/>
+    </docblock>
+  </member>
+  <member name="terminals_" default="" type="array" visibility="private" static="false" line="85">
+    <docblock>
+      <description/>
+      <phpstan value="-var array&lt;int, string&gt;"/>
+      <const/>
+    </docblock>
+  </member>
+  <member name="productions_" default="" type="array" visibility="private" static="false" line="105">
+    <docblock>
+      <description/>
+      <phpstan value="-var array&lt;int&lt;1,21&gt;, array{int, int}&gt;"/>
+      <const/>
+    </docblock>
+  </member>
+  <member name="table" default="" type="array" visibility="private" static="false" line="133">
+    <docblock>
+      <description/>
+      <var description="31&gt;, array&lt;int, array&lt;int&gt;|int&gt;&gt; List of stateID=&gt;symbolID=&gt;actionIDs|actionID" type="object">
+        <type full="Seld\JsonLint\array&lt;int&lt;0" namespace="Seld\JsonLint" name="array&lt;int&lt;0"/>
+      </var>
+      <const/>
+    </docblock>
+  </member>
+  <member name="defaultActions" default="" type="array" visibility="private" static="false" line="172">
+    <docblock>
+      <description/>
+      <var description="array{2, 6}}" type="object">
+        <type full="Seld\JsonLint\array{16:" namespace="Seld\JsonLint" name="array{16:"/>
+      </var>
+      <const/>
+    </docblock>
+  </member>
+  <method name="lint" start="181" end="189" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="JSON string" type="string" variable="$input"/>
+      <param description="Bitmask of parse/lint options (see constants of this class)" type="int" variable="$flags"/>
+      <return description="null if no error is found, a ParsingException containing all details otherwise" type="object">
+        <type full="Seld\JsonLint\null|ParsingException" namespace="Seld\JsonLint" name="null|ParsingException"/>
+      </return>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+    <parameter name="flags" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="parse" start="197" end="393" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="JSON string" type="string" variable="$input"/>
+      <param description="Bitmask of parse/lint options (see constants of this class)" type="int" variable="$flags"/>
+      <return type="mixed"/>
+      <throws type="object">
+        <type full="Seld\JsonLint\ParsingException" namespace="Seld\JsonLint" name="ParsingException"/>
+      </throws>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+    <parameter name="flags" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="parseError" start="400" end="403" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="string" variable="$str"/>
+      <param description="string token: string|int, line: int, loc: array{first_line: int, first_column: int, last_line: int, last_column: int}, expected: string[]}|null $hash" type="object">
+        <type full="Seld\JsonLint\array{text:" namespace="Seld\JsonLint" name="array{text:"/>
+      </param>
+      <return type="object">
+        <type full="Seld\JsonLint\never" namespace="Seld\JsonLint" name="never"/>
+      </return>
+    </docblock>
+    <parameter name="str" byreference="false" type="{unknown}"/>
+    <parameter name="hash" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="performAction" start="413" end="530" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$currentToken">
+        <type full="Seld\JsonLint\stdClass|array&lt;mixed&gt;|int|bool|float|string|null" namespace="Seld\JsonLint" name="stdClass|array&lt;mixed&gt;|int|bool|float|string|null"/>
+      </param>
+      <param type="string" variable="$yytext"/>
+      <param type="int" variable="$yyleng"/>
+      <param type="int" variable="$yylineno"/>
+      <param type="int" variable="$yystate"/>
+      <return description="stdClass|array&lt;mixed&gt;|int|bool|float|string|null|Undefined}" type="object">
+        <type full="Seld\JsonLint\array{stdClass|array&lt;mixed&gt;|int|bool|float|string|null" namespace="Seld\JsonLint" name="array{stdClass|array&lt;mixed&gt;|int|bool|float|string|null"/>
+      </return>
+    </docblock>
+    <parameter name="currentToken" byreference="false" type="{unknown}"/>
+    <parameter name="yytext" byreference="false" type="{unknown}"/>
+    <parameter name="yyleng" byreference="false" type="{unknown}"/>
+    <parameter name="yylineno" byreference="false" type="{unknown}"/>
+    <parameter name="yystate" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="stringInterpolation" start="536" end="558" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$match"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="match" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="popStack" start="564" end="569" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="int" variable="$n"/>
+      <return type="object">
+        <type full="Seld\JsonLint\void" namespace="Seld\JsonLint" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="n" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="failOnBOM" start="575" end="583" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$input"/>
+      <return type="object">
+        <type full="Seld\JsonLint\void" namespace="Seld\JsonLint" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="UTF-8 ByteOrderMark sequence" line="577"/>
+    </inline>
+  </method>
+</class>

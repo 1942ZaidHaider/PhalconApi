@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Firebase\JWT\JWK" namespace="Firebase\JWT" name="JWK" abstract="false" final="false" start="21" end="183">
+  <file path="../vendor/firebase/php-jwt/src" file="JWK.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/firebase/php-jwt/src/JWK.php" size="5956" time="2022-04-21T14:37:18+00:00" unixtime="1650551838" sha1="34c15e07d7da05d6455548b3d1da82c7104d221a" relative="vendor/firebase/php-jwt/src/JWK.php"/>
+  <docblock>
+    <description compact="JSON Web Key implementation, based on this spec: https://tools.ietf.org/html/draft-ietf-jose-json-web-key-41">PHP version 5</description>
+    <category value="Authentication"/>
+    <package value="Authentication_JWT"/>
+    <author value="Bui Sy Nguyen &lt;nguyenbs@gmail.com&gt;"/>
+    <license name="http://opensource.org/licenses/BSD-3-Clause 3-clause BSD"/>
+    <link value="https://github.com/firebase/php-jwt"/>
+  </docblock>
+  <method name="parseKeySet" start="36" end="60" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Parse a set of JWK keys"/>
+      <param description="The JSON Web Key Set as an associative array" type="object" variable="$jwks">
+        <type full="Firebase\JWT\array&lt;mixed&gt;" namespace="Firebase\JWT" name="array&lt;mixed&gt;"/>
+      </param>
+      <return description="Key&gt; An associative array of key IDs (kid) to Key objects" type="object">
+        <type full="Firebase\JWT\array&lt;string" namespace="Firebase\JWT" name="array&lt;string"/>
+      </return>
+      <throws description="Provided JWK Set is empty" type="object">
+        <type full="InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="Provided JWK Set was invalid" type="object">
+        <type full="UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+      <throws description="OpenSSL failure" type="object">
+        <type full="DomainException" namespace="" name="DomainException"/>
+      </throws>
+      <uses value="parseKey"/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="jwks" byreference="false" type="array"/>
+  </method>
+  <method name="parseKey" start="75" end="115" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Parse a JWK key"/>
+      <param description="An individual JWK" type="object" variable="$jwk">
+        <type full="Firebase\JWT\array&lt;mixed&gt;" namespace="Firebase\JWT" name="array&lt;mixed&gt;"/>
+      </param>
+      <return description="The key object for the JWK" type="object">
+        <type full="Firebase\JWT\Key" namespace="Firebase\JWT" name="Key"/>
+      </return>
+      <throws description="Provided JWK is empty" type="object">
+        <type full="InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="Provided JWK was invalid" type="object">
+        <type full="UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+      <throws description="OpenSSL failure" type="object">
+        <type full="DomainException" namespace="" name="DomainException"/>
+      </throws>
+      <uses value="createPemFromModulusAndExponent"/>
+    </docblock>
+    <return type="object" nullable="true">
+      <type full="Firebase\JWT\Key" namespace="Firebase\JWT" name="Key"/>
+    </return>
+    <parameter name="jwk" byreference="false" type="array"/>
+  </method>
+  <method name="createPemFromModulusAndExponent" start="127" end="162" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Create a public key represented in PEM format from RSA modulus and exponent information"/>
+      <param description="The RSA modulus encoded in Base64" type="string" variable="$n"/>
+      <param description="The RSA exponent encoded in Base64" type="string" variable="$e"/>
+      <return description="The RSA public key represented in PEM format" type="string"/>
+      <uses value="encodeLength"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="n" byreference="false" type="string"/>
+    <parameter name="e" byreference="false" type="string"/>
+    <inline>
+      <comment value="sequence(oid(1.2.840.113549.1.1.1), null)) = rsaEncryption." line="145"/>
+      <comment value="hex version of MA0GCSqGSIb3DQEBAQUA" line="146"/>
+    </inline>
+  </method>
+  <method name="encodeLength" start="173" end="182" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="DER-encode the length">DER supports lengths up to (2**8)**127, however, we'll only support lengths up to (2**8)**4.  See
+{@link http://itu.int/ITU-T/studygroups/com17/languages/X.690-0207.pdf#p=13 X.690 paragraph 8.1.3} for more information.</description>
+      <param type="int" variable="$length"/>
+      <return type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="length" byreference="false" type="int"/>
+  </method>
+</class>

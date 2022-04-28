@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\GridFS\ReadableStream" namespace="MongoDB\GridFS" name="ReadableStream" abstract="false" final="false" start="38" end="322">
+  <file path="../vendor/mongodb/mongodb/src/GridFS" file="ReadableStream.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/GridFS/ReadableStream.php" size="9344" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="b1c4932114fbf49daec06713b97773eed9179e24" relative="vendor/mongodb/mongodb/src/GridFS/ReadableStream.php"/>
+  <docblock>
+    <description compact="ReadableStream abstracts the process of reading a GridFS file."/>
+    <internal/>
+  </docblock>
+  <member name="buffer" visibility="private" static="false" line="41">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\GridFS\string|null" namespace="MongoDB\GridFS" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="bufferOffset" default="0" type="integer" visibility="private" static="false" line="44">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="chunkSize" visibility="private" static="false" line="47">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="chunkOffset" default="0" type="integer" visibility="private" static="false" line="50">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="chunksIterator" visibility="private" static="false" line="53">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\GridFS\CursorInterface|null" namespace="MongoDB\GridFS" name="CursorInterface|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="collectionWrapper" visibility="private" static="false" line="56">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\GridFS\CollectionWrapper" namespace="MongoDB\GridFS" name="CollectionWrapper"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="expectedLastChunkSize" default="0" type="integer" visibility="private" static="false" line="59">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\GridFS\float|integer" namespace="MongoDB\GridFS" name="float|integer"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="file" visibility="private" static="false" line="62">
+    <docblock>
+      <var type="object">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="length" visibility="private" static="false" line="65">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="numChunks" default="0" type="integer" visibility="private" static="false" line="68">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="77" end="101" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a readable GridFS stream."/>
+      <param description="GridFS collection wrapper" type="object" variable="$collectionWrapper">
+        <type full="MongoDB\GridFS\CollectionWrapper" namespace="MongoDB\GridFS" name="CollectionWrapper"/>
+      </param>
+      <param description="GridFS file document" type="object" variable="$file">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </param>
+      <throws type="object">
+        <type full="MongoDB\GridFS\Exception\CorruptFileException" namespace="MongoDB\GridFS\Exception" name="CorruptFileException"/>
+      </throws>
+    </docblock>
+    <parameter name="collectionWrapper" byreference="false" type="object">
+      <type full="MongoDB\GridFS\CollectionWrapper" namespace="MongoDB\GridFS" name="CollectionWrapper"/>
+    </parameter>
+    <parameter name="file" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </constructor>
+  <method name="__debugInfo" start="109" end="116" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return internal properties for debugging purposes."/>
+      <see value="http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.debuginfo"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="close" start="118" end="121" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="Nothing to do" line="120"/>
+    </inline>
+  </method>
+  <method name="getFile" start="128" end="131" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the stream's file document."/>
+      <return type="object">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getSize" start="138" end="141" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the stream's size in bytes."/>
+      <return type="integer"/>
+    </docblock>
+  </method>
+  <method name="isEOF" start="148" end="155" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return whether the current read position is at the end of the stream."/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+  <method name="readBytes" start="167" end="194" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Read bytes from the stream.">Note: this method may return a string smaller than the requested length
+if data is not available to be read.</description>
+      <param description="Number of bytes to read" type="integer" variable="$length"/>
+      <return type="string"/>
+      <throws description="if $length is negative" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="length" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="seek" start="202" end="244" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Seeks the chunk and buffer offsets for the next read operation."/>
+      <param type="integer" variable="$offset"/>
+      <throws description="if $offset is out of range" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="offset" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Compute the offsets for the chunk and buffer (i.e. chunk data) from" line="208"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="which we will expect to read after seeking. If the chunk offset" line="209"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="changed, we'll also need to reset the buffer." line="210"/>
+      <comment value="Clear the buffer since the current chunk will be changed" line="224"/>
+      <comment value="If we are seeking to a previous chunk, we need to reinitialize the" line="227"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="chunk iterator." line="228"/>
+      <comment value="If we are seeking to a subsequent chunk, we do not need to" line="236"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="reinitalize the chunk iterator. Instead, we can simply move forward" line="237"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="to $this-&gt;chunkOffset." line="238"/>
+    </inline>
+  </method>
+  <method name="tell" start="253" end="256" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the current position of the stream.">This is the offset within the stream where the next byte would be read.</description>
+      <return type="integer"/>
+    </docblock>
+  </method>
+  <method name="initBufferFromCurrentChunk" start="264" end="293" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Initialize the buffer to the current chunk's data."/>
+      <return description="Whether there was a current chunk to read" type="boolean"/>
+      <throws description="if an expected chunk could not be read successfully" type="object">
+        <type full="MongoDB\GridFS\Exception\CorruptFileException" namespace="MongoDB\GridFS\Exception" name="CorruptFileException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="initBufferFromNextChunk" start="301" end="312" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Advance to the next chunk and initialize the buffer to its data."/>
+      <return description="Whether there was a next chunk to read" type="boolean"/>
+      <throws description="if an expected chunk could not be read successfully" type="object">
+        <type full="MongoDB\GridFS\Exception\CorruptFileException" namespace="MongoDB\GridFS\Exception" name="CorruptFileException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="initChunksIterator" start="317" end="321" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Initializes the chunk iterator starting from the current offset."/>
+    </docblock>
+  </method>
+</class>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Tokenizer\TokensAnalyzer" namespace="PhpCsFixer\Tokenizer" name="TokensAnalyzer" abstract="false" final="true" start="28" end="822">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Tokenizer" file="TokensAnalyzer.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Tokenizer/TokensAnalyzer.php" size="25254" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="ca6ecfb73506b61797472857b3abf058db259b84" relative="vendor/friendsofphp/php-cs-fixer/src/Tokenizer/TokensAnalyzer.php"/>
+  <docblock>
+    <description compact="Analyzer of Tokens collection.">Its role is to provide the ability to analyze collection.</description>
+    <author value="Dariusz Rumiński &lt;dariusz.ruminski@gmail.com&gt;"/>
+    <author value="Gregor Harlan &lt;gharlan@web.de&gt;"/>
+    <author value="SpacePossum"/>
+    <internal/>
+  </docblock>
+  <member name="tokens" visibility="private" static="false" line="35">
+    <docblock>
+      <description compact="Tokens collection instance."/>
+      <var type="object">
+        <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="gotoLabelAnalyzer" visibility="private" static="false" line="40">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Tokenizer\?GotoLabelAnalyzer" namespace="PhpCsFixer\Tokenizer" name="?GotoLabelAnalyzer"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="42" end="45" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+  </constructor>
+  <method name="getClassyElements" start="54" end="68" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get indexes of methods and properties in classy code (classes, interfaces and traits)."/>
+      <param description="TODO on v3 remove flag and return the imports" type="object" variable="$returnTraitsImports">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </param>
+      <return type="array" of="object">
+        <type full="PhpCsFixer\Tokenizer\array" namespace="PhpCsFixer\Tokenizer" name="array"/>
+      </return>
+    </docblock>
+    <parameter name="returnTraitsImports" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="getImportUseIndexes" start="77" end="112" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get indexes of namespace uses."/>
+      <param description="Return namespace uses per namespace" type="object" variable="$perNamespace">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </param>
+      <return type="array" of="object">
+        <type full="PhpCsFixer\Tokenizer\int[]|int[]" namespace="PhpCsFixer\Tokenizer" name="int[]|int[]"/>
+      </return>
+    </docblock>
+    <parameter name="perNamespace" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="isArray" start="121" end="124" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if there is an array at given index."/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isArrayMultiLine" start="135" end="150" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if the array at index is multiline.">This only checks the root-level of the array.</description>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Skip only when its an array, for short arrays we need the brace for correct" line="143"/>
+      <comment value="level counting" line="144"/>
+    </inline>
+  </method>
+  <method name="isBlockMultiline" start="157" end="187" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getMethodAttributes" start="202" end="268" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the attributes of the method under the given index.">The array has the following items:
+'visibility' int|null  T_PRIVATE, T_PROTECTED or T_PUBLIC
+'static'     bool
+'abstract'   bool
+'final'      bool</description>
+      <param description="Token index of the method (T_FUNCTION)" type="int" variable="$index"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isAnonymousClass" start="277" end="288" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if there is an anonymous class under given index."/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isLambda" start="297" end="316" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if the function under given index is a lambda."/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="skip &amp; for `function &amp; () {}` syntax" line="309"/>
+    </inline>
+  </method>
+  <method name="isConstantInvocation" start="325" end="418" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if the T_STRING under given index is a constant invocation."/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="`FOO &amp; $bar` could be:" line="354"/>
+      <comment value="- function reference parameter: function baz(Foo &amp; $bar) {}" line="355"/>
+      <comment value="- bit operator: $x = FOO &amp; $bar;" line="356"/>
+      <comment value="check for `extends`/`implements`/`use` list" line="365"/>
+      <comment value="check for array in double quoted string: `&quot;..$foo[bar]..&quot;`" line="377"/>
+      <comment value="check for attribute: `#[Foo]`" line="386"/>
+      <comment value="check for goto label" line="394"/>
+      <comment value="check for non-capturing catches" line="405"/>
+    </inline>
+  </method>
+  <method name="isUnarySuccessorOperator" start="427" end="448" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if there is an unary successor operator under given index."/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isUnaryPredecessorOperator" start="457" end="534" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if there is an unary predecessor operator under given index."/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isBinaryOperator" start="543" end="627" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if there is a binary operator under given index."/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isWhilePartOfDoWhile" start="637" end="655" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if `T_WHILE` token at given index is `do { ... } while ();` syntax and not `while () { ...}`."/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isSuperGlobal" start="662" end="683" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="findClassyElements" start="697" end="821" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Find classy elements.">Searches in tokens from the classy (start) index till the end (index) of the classy.
+Returns an array; first value is the index until the method has analysed (int), second the found classy elements (array).</description>
+      <param description="classy index" type="int" variable="$classIndex"/>
+      <param type="int" variable="$index"/>
+      <param type="object" variable="$returnTraitsImports">
+        <type full="PhpCsFixer\Tokenizer\bool" namespace="PhpCsFixer\Tokenizer" name="bool"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="classIndex" byreference="false" type="{unknown}"/>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+    <parameter name="returnTraitsImports" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="skip the classy index itself" line="702"/>
+    </inline>
+  </method>
+</class>

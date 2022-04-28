@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Tests\Core\Tokenizer\BackfillMatchTokenTest" namespace="PHP_CodeSniffer\Tests\Core\Tokenizer" name="BackfillMatchTokenTest" abstract="false" final="false" start="16" end="529">
+  <file path="../vendor/squizlabs/php_codesniffer/tests/Core/Tokenizer" file="BackfillMatchTokenTest.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/tests/Core/Tokenizer/BackfillMatchTokenTest.php" size="21404" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="dff2d9013eb625ea6b95827da60a5ddd588810bb" relative="vendor/squizlabs/php_codesniffer/tests/Core/Tokenizer/BackfillMatchTokenTest.php"/>
+  <extends full="PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest" namespace="PHP_CodeSniffer\Tests\Core" name="AbstractMethodUnitTest"/>
+  <method name="testMatchExpression" start="33" end="46" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Test tokenization of match expressions."/>
+      <param description="The comment prefacing the target token." type="string" variable="$testMarker"/>
+      <param description="The expected offset of the scope opener in relation to the testMarker." type="int" variable="$openerOffset"/>
+      <param description="The expected offset of the scope closer in relation to the testMarker." type="int" variable="$closerOffset"/>
+      <param description="The token content to look for." type="string" variable="$testContent"/>
+      <dataprovider value="dataMatchExpression"/>
+      <covers value="PHP_CodeSniffer\Tokenizers\PHP::tokenize"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tests\Core\Tokenizer\void" namespace="PHP_CodeSniffer\Tests\Core\Tokenizer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="testMarker" byreference="false" type="{unknown}"/>
+    <parameter name="openerOffset" byreference="false" type="{unknown}"/>
+    <parameter name="closerOffset" byreference="false" type="{unknown}"/>
+    <parameter name="testContent" byreference="false" type="string" default="'match'"/>
+  </method>
+  <method name="dataMatchExpression" start="56" end="198" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Data provider."/>
+      <see value="testMatchExpression()"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="testNotAMatchStructure" start="214" end="236" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Verify that &quot;match&quot; keywords which are not match control structures get tokenized as T_STRING and don't have the extra token array indexes."/>
+      <param description="The comment prefacing the target token." type="string" variable="$testMarker"/>
+      <param description="The token content to look for." type="string" variable="$testContent"/>
+      <dataprovider value="dataNotAMatchStructure"/>
+      <covers value="PHP_CodeSniffer\Tokenizers\PHP::tokenize"/>
+      <covers value="PHP_CodeSniffer\Tokenizers\PHP::processAdditional"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tests\Core\Tokenizer\void" namespace="PHP_CodeSniffer\Tests\Core\Tokenizer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="testMarker" byreference="false" type="{unknown}"/>
+    <parameter name="testContent" byreference="false" type="string" default="'match'"/>
+  </method>
+  <method name="dataNotAMatchStructure" start="246" end="316" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Data provider."/>
+      <see value="testNotAMatchStructure()"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="testSwitchExpression" start="332" end="339" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Verify that the tokenization of switch structures is not affected by the backfill."/>
+      <param description="The comment prefacing the target token." type="string" variable="$testMarker"/>
+      <param description="The expected offset of the scope opener in relation to the testMarker." type="int" variable="$openerOffset"/>
+      <param description="The expected offset of the scope closer in relation to the testMarker." type="int" variable="$closerOffset"/>
+      <dataprovider value="dataSwitchExpression"/>
+      <covers value="PHP_CodeSniffer\Tokenizers\PHP::tokenize"/>
+      <covers value="PHP_CodeSniffer\Tokenizers\PHP::processAdditional"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tests\Core\Tokenizer\void" namespace="PHP_CodeSniffer\Tests\Core\Tokenizer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="testMarker" byreference="false" type="{unknown}"/>
+    <parameter name="openerOffset" byreference="false" type="{unknown}"/>
+    <parameter name="closerOffset" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="dataSwitchExpression" start="349" end="369" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Data provider."/>
+      <see value="testSwitchExpression()"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="testSwitchCaseVersusMatch" start="386" end="392" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Verify that the tokenization of a switch case/default structure containing a match structure or contained *in* a match structure is not affected by the backfill."/>
+      <param description="The comment prefacing the target token." type="string" variable="$testMarker"/>
+      <param description="The expected offset of the scope opener in relation to the testMarker." type="int" variable="$openerOffset"/>
+      <param description="The expected offset of the scope closer in relation to the testMarker." type="int" variable="$closerOffset"/>
+      <dataprovider value="dataSwitchCaseVersusMatch"/>
+      <covers value="PHP_CodeSniffer\Tokenizers\PHP::tokenize"/>
+      <covers value="PHP_CodeSniffer\Tokenizers\PHP::processAdditional"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tests\Core\Tokenizer\void" namespace="PHP_CodeSniffer\Tests\Core\Tokenizer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="testMarker" byreference="false" type="{unknown}"/>
+    <parameter name="openerOffset" byreference="false" type="{unknown}"/>
+    <parameter name="closerOffset" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="dataSwitchCaseVersusMatch" start="402" end="432" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Data provider."/>
+      <see value="testSwitchCaseVersusMatch()"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="scopeTestHelper" start="452" end="496" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Helper function to verify that all scope related array indexes for a control structure are set correctly."/>
+      <param description="The control structure token to check." type="string" variable="$token"/>
+      <param description="The expected offset of the scope opener in relation to" type="int" variable="$openerOffset">the control structure token.</param>
+      <param description="The expected offset of the scope closer in relation to" type="int" variable="$closerOffset">the control structure token.</param>
+      <param description="Whether to skip the scope closer check." type="object" variable="$skipScopeCloserCheck">This should be set to "true" when testing nested arrow functions,
+                                    where the "inner" arrow function shares a scope closer with the
+                                    "outer" arrow function, as the 'scope_condition' for the scope closer
+                                    of the "inner" arrow function will point to the "outer" arrow function.<type full="PHP_CodeSniffer\Tests\Core\Tokenizer\bool" namespace="PHP_CodeSniffer\Tests\Core\Tokenizer" name="bool"/></param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tests\Core\Tokenizer\void" namespace="PHP_CodeSniffer\Tests\Core\Tokenizer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="token" byreference="false" type="{unknown}"/>
+    <parameter name="openerOffset" byreference="false" type="{unknown}"/>
+    <parameter name="closerOffset" byreference="false" type="{unknown}"/>
+    <parameter name="skipScopeCloserCheck" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="parenthesisTestHelper" start="507" end="526" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Helper function to verify that all parenthesis related array indexes for a control structure token are set correctly."/>
+      <param description="The position of the control structure token." type="int" variable="$token"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tests\Core\Tokenizer\void" namespace="PHP_CodeSniffer\Tests\Core\Tokenizer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="token" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest" namespace="PHP_CodeSniffer\Tests\Core" name="AbstractMethodUnitTest">
+    <extends full="PHPUnit\Framework\TestCase" namespace="PHPUnit\Framework" name="TestCase" unresolved="true"/>
+    <member name="fileExtension" default="'inc'" type="string" visibility="protected" static="true" line="28">
+      <docblock>
+        <description compact="The file extension of the test case file (without leading dot).">This allows child classes to overrule the default `inc` with, for instance,
+`js` or `css` when applicable.</description>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <member name="phpcsFile" visibility="protected" static="true" line="35">
+      <docblock>
+        <description compact="The \PHP_CodeSniffer\Files\File object containing the parsed contents of the test case file."/>
+        <var type="object">
+          <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+        </var>
+      </docblock>
+    </member>
+    <method name="setUpBeforeClass" start="46" end="65" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Initialize &amp; tokenize \PHP_CodeSniffer\Files\File with code from the test case file.">The test case file for a unit test class has to be in the same directory
+directory and use the same file name as the test class, using the .inc extension.</description>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Tests\Core\void" namespace="PHP_CodeSniffer\Tests\Core" name="void"/>
+        </return>
+      </docblock>
+      <inline>
+        <comment value="Default to a file with the same name as the test class. Extension is property based." line="53"/>
+        <comment value="Make sure the file gets parsed correctly based on the file type." line="58"/>
+      </inline>
+    </method>
+    <method name="tearDownAfterClass" start="73" end="77" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Clean up after finished test."/>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Tests\Core\void" namespace="PHP_CodeSniffer\Tests\Core" name="void"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getTargetToken" start="92" end="137" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get the token pointer for a target token based on a specific comment found on the line before.">Note: the test delimiter comment MUST start with "/* test" to allow this function to
+distinguish between comments used *in* a test and test delimiters.</description>
+        <param description="The delimiter comment to look for." type="string" variable="$commentString"/>
+        <param description="The type of token(s) to look for." type="object" variable="$tokenType">
+          <type full="PHP_CodeSniffer\Tests\Core\int|string|array" namespace="PHP_CodeSniffer\Tests\Core" name="int|string|array"/>
+        </param>
+        <param description="Optional. The token content for the target token." type="string" variable="$tokenContent"/>
+        <return type="int"/>
+      </docblock>
+      <parameter name="commentString" byreference="false" type="{unknown}"/>
+      <parameter name="tokenType" byreference="false" type="{unknown}"/>
+      <parameter name="tokenContent" byreference="false" type="{unknown}" default="NULL"/>
+      <inline>
+        <comment value="Limit the token finding to between this and the next delimiter comment." line="106"/>
+      </inline>
+    </method>
+  </parent>
+</class>

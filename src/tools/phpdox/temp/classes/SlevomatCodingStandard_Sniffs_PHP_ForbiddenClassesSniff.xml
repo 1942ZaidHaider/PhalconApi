@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="SlevomatCodingStandard\Sniffs\PHP\ForbiddenClassesSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="ForbiddenClassesSniff" abstract="false" final="false" start="31" end="280">
+  <file path="../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/PHP" file="ForbiddenClassesSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/PHP/ForbiddenClassesSniff.php" size="8465" time="2020-10-05T12:39:37+00:00" unixtime="1601901577" sha1="e4e76f6a9e2fe27905a555efd6d0a93bf07e76c1" relative="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/PHP/ForbiddenClassesSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="CODE_FORBIDDEN_CLASS" value="'ForbiddenClass'"/>
+  <constant type="string" name="CODE_FORBIDDEN_PARENT_CLASS" value="'ForbiddenParentClass'"/>
+  <constant type="string" name="CODE_FORBIDDEN_INTERFACE" value="'ForbiddenInterface'"/>
+  <constant type="string" name="CODE_FORBIDDEN_TRAIT" value="'ForbiddenTrait'"/>
+  <member name="forbiddenClasses" default="" type="array" visibility="public" static="false" line="40">
+    <docblock>
+      <var description="(string|null)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="forbiddenExtends" default="" type="array" visibility="public" static="false" line="43">
+    <docblock>
+      <var description="(string|null)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="forbiddenInterfaces" default="" type="array" visibility="public" static="false" line="46">
+    <docblock>
+      <var description="(string|null)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="forbiddenTraits" default="" type="array" visibility="public" static="false" line="49">
+    <docblock>
+      <var description="(string|null)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="keywordReferences" default="" type="array" visibility="private" static="true" line="52">
+    <docblock>
+      <var type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;string&gt;" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;string&gt;"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="register" start="57" end="83" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="(int|string)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="90" end="138" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <phpcssuppress value="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$tokenPointer"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="tokenPointer" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="checkReferences" start="147" end="212" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$tokenPointer"/>
+      <param description="string startPointer: int|null, endPointer: int|null}[] $references" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array{fullyQualifiedName:" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array{fullyQualifiedName:"/>
+      </param>
+      <param description="(string|null)&gt; $forbiddenNames" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;string"/>
+      </param>
+      <param type="object" variable="$isFixable">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\bool" namespace="SlevomatCodingStandard\Sniffs\PHP" name="bool"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="tokenPointer" byreference="false" type="int"/>
+    <parameter name="references" byreference="false" type="array"/>
+    <parameter name="forbiddenNames" byreference="false" type="array"/>
+    <parameter name="isFixable" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="isTraitsConflictResolutionToken" start="218" end="221" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param description="array&lt;int int|string&gt;|int|string&gt; $token" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;string"/>
+      </param>
+      <return type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\bool" namespace="SlevomatCodingStandard\Sniffs\PHP" name="bool"/>
+      </return>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="token" byreference="false" type="array"/>
+  </method>
+  <method name="getAllReferences" start="229" end="255" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$startPointer"/>
+      <param type="int" variable="$endPointer"/>
+      <return description="string, startPointer: int|null, endPointer: int|null}[]" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array{fullyQualifiedName:" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array{fullyQualifiedName:"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="startPointer" byreference="false" type="int"/>
+    <parameter name="endPointer" byreference="false" type="int"/>
+    <inline>
+      <comment value="Always ignore first token" line="231"/>
+    </inline>
+  </method>
+  <method name="normalizeInputOption" start="261" end="269" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param description="(string|null)&gt; $option" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;string"/>
+      </param>
+      <return description="(string|null)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\PHP\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\PHP" name="array&lt;string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="option" byreference="false" type="array"/>
+  </method>
+  <method name="normalizeClassName" start="271" end="278" abstract="false" final="false" static="true" visibility="private">
+    <return type="string" nullable="true"/>
+    <parameter name="typeName" byreference="false" nullable="true" type="string"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

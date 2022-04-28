@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Reports\Gitblame" namespace="PHP_CodeSniffer\Reports" name="Gitblame" abstract="false" final="false" start="15" end="91">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Reports" file="Gitblame.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Reports/Gitblame.php" size="2197" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="9356e3f660a45e4dcaa6f28b4dcd373dde005c3d" relative="vendor/squizlabs/php_codesniffer/src/Reports/Gitblame.php"/>
+  <extends full="PHP_CodeSniffer\Reports\VersionControl" namespace="PHP_CodeSniffer\Reports" name="VersionControl"/>
+  <member name="reportName" default="'GIT'" type="string" visibility="protected" static="false" line="23">
+    <docblock>
+      <description compact="The name of the report we want in the output"/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <method name="getAuthor" start="33" end="57" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Extract the author from a blame line."/>
+      <param description="Line to parse." type="string" variable="$line"/>
+      <return description="string or false if impossible to recover." type="mixed"/>
+    </docblock>
+    <parameter name="line" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getBlameContent" start="68" end="88" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Gets the blame output."/>
+      <param description="File to blame." type="string" variable="$filename"/>
+      <return type="array"/>
+      <throws type="object">
+        <type full="\PHP_CodeSniffer\Exceptions\DeepExitException" namespace="\PHP_CodeSniffer\Exceptions" name="DeepExitException"/>
+      </throws>
+    </docblock>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="PHP_CodeSniffer\Reports\VersionControl" namespace="PHP_CodeSniffer\Reports" name="VersionControl">
+    <implements full="PHP_CodeSniffer\Reports\Report" namespace="PHP_CodeSniffer\Reports" name="Report"/>
+    <member name="reportName" default="'VERSION CONTROL'" type="string" visibility="protected" static="false" line="24">
+      <docblock>
+        <description compact="The name of the report we want in the output."/>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <method name="generateFileReport" start="41" end="131" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Generate a partial report for a single processed file.">Function should return TRUE if it printed or stored data about the file
+and FALSE if it ignored the file. Returning TRUE indicates that the file and
+its data should be counted in the grand totals.</description>
+        <param description="Prepared report data." type="array" variable="$report"/>
+        <param description="The file being reported on." type="object" variable="$phpcsFile">
+          <type full="\PHP_CodeSniffer\File" namespace="\PHP_CodeSniffer" name="File"/>
+        </param>
+        <param description="Show sources?" type="object" variable="$showSources">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </param>
+        <param description="Maximum allowed line width." type="int" variable="$width"/>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="report" byreference="false" type="{unknown}"/>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="showSources" byreference="false" type="boolean" default="false"/>
+      <parameter name="width" byreference="false" type="integer" default="80"/>
+      <inline>
+        <comment value="end foreach" line="87"/>
+        <comment value="Now go through and give the authors some credit for" line="89"/>
+        <comment value="all the lines that do not have errors." line="90"/>
+        <comment value="end foreach" line="111"/>
+      </inline>
+    </method>
+    <method name="generate" start="150" end="353" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Prints the author of all errors and warnings, as given by &quot;version control blame&quot;."/>
+        <param description="Any partial report data that was returned from" type="string" variable="$cachedData">generateFileReport during the run.</param>
+        <param description="Total number of files processed during the run." type="int" variable="$totalFiles"/>
+        <param description="Total number of errors found during the run." type="int" variable="$totalErrors"/>
+        <param description="Total number of warnings found during the run." type="int" variable="$totalWarnings"/>
+        <param description="Total number of problems that can be fixed." type="int" variable="$totalFixable"/>
+        <param description="Show sources?" type="object" variable="$showSources">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </param>
+        <param description="Maximum allowed line width." type="int" variable="$width"/>
+        <param description="Are we running in interactive mode?" type="object" variable="$interactive">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </param>
+        <param description="Is the report being printed to screen?" type="object" variable="$toScreen">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </param>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Reports\void" namespace="PHP_CodeSniffer\Reports" name="void"/>
+        </return>
+      </docblock>
+      <parameter name="cachedData" byreference="false" type="{unknown}"/>
+      <parameter name="totalFiles" byreference="false" type="{unknown}"/>
+      <parameter name="totalErrors" byreference="false" type="{unknown}"/>
+      <parameter name="totalWarnings" byreference="false" type="{unknown}"/>
+      <parameter name="totalFixable" byreference="false" type="{unknown}"/>
+      <parameter name="showSources" byreference="false" type="boolean" default="false"/>
+      <parameter name="width" byreference="false" type="integer" default="80"/>
+      <parameter name="interactive" byreference="false" type="boolean" default="false"/>
+      <parameter name="toScreen" byreference="false" type="boolean" default="true"/>
+      <inline>
+        <comment value="end foreach" line="216"/>
+        <comment value="Make sure the report width isn't too big." line="218"/>
+        <comment value="end foreach" line="322"/>
+      </inline>
+    </method>
+    <method name="getAuthor" start="363" end="363" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Extract the author from a blame line."/>
+        <param description="Line to parse." type="string" variable="$line"/>
+        <return description="string or false if impossible to recover." type="mixed"/>
+      </docblock>
+      <parameter name="line" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getBlameContent" start="373" end="373" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Gets the blame output."/>
+        <param description="File to blame." type="string" variable="$filename"/>
+        <return type="array"/>
+      </docblock>
+      <parameter name="filename" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+  <interface full="PHP_CodeSniffer\Reports\Report" namespace="PHP_CodeSniffer\Reports" name="Report">
+    <method name="generateFileReport" start="32" end="32" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Generate a partial report for a single processed file.">Function should return TRUE if it printed or stored data about the file
+and FALSE if it ignored the file. Returning TRUE indicates that the file and
+its data should be counted in the grand totals.</description>
+        <param description="Prepared report data." type="array" variable="$report"/>
+        <param description="The file being reported on." type="object" variable="$phpcsFile">
+          <type full="\PHP_CodeSniffer\File" namespace="\PHP_CodeSniffer" name="File"/>
+        </param>
+        <param description="Show sources?" type="object" variable="$showSources">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </param>
+        <param description="Maximum allowed line width." type="int" variable="$width"/>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="report" byreference="false" type="{unknown}"/>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="showSources" byreference="false" type="boolean" default="false"/>
+      <parameter name="width" byreference="false" type="integer" default="80"/>
+    </method>
+    <method name="generate" start="51" end="61" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Generate the actual report."/>
+        <param description="Any partial report data that was returned from" type="string" variable="$cachedData">generateFileReport during the run.</param>
+        <param description="Total number of files processed during the run." type="int" variable="$totalFiles"/>
+        <param description="Total number of errors found during the run." type="int" variable="$totalErrors"/>
+        <param description="Total number of warnings found during the run." type="int" variable="$totalWarnings"/>
+        <param description="Total number of problems that can be fixed." type="int" variable="$totalFixable"/>
+        <param description="Show sources?" type="object" variable="$showSources">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </param>
+        <param description="Maximum allowed line width." type="int" variable="$width"/>
+        <param description="Are we running in interactive mode?" type="object" variable="$interactive">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </param>
+        <param description="Is the report being printed to screen?" type="object" variable="$toScreen">
+          <type full="PHP_CodeSniffer\Reports\bool" namespace="PHP_CodeSniffer\Reports" name="bool"/>
+        </param>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Reports\void" namespace="PHP_CodeSniffer\Reports" name="void"/>
+        </return>
+      </docblock>
+      <parameter name="cachedData" byreference="false" type="{unknown}"/>
+      <parameter name="totalFiles" byreference="false" type="{unknown}"/>
+      <parameter name="totalErrors" byreference="false" type="{unknown}"/>
+      <parameter name="totalWarnings" byreference="false" type="{unknown}"/>
+      <parameter name="totalFixable" byreference="false" type="{unknown}"/>
+      <parameter name="showSources" byreference="false" type="boolean" default="false"/>
+      <parameter name="width" byreference="false" type="integer" default="80"/>
+      <parameter name="interactive" byreference="false" type="boolean" default="false"/>
+      <parameter name="toScreen" byreference="false" type="boolean" default="true"/>
+    </method>
+  </interface>
+</class>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\DependencyResolver\DefaultPolicy" namespace="Composer\DependencyResolver" name="DefaultPolicy" abstract="false" final="false" start="24" end="285">
+  <file path="../vendor/composer/composer/src/Composer/DependencyResolver" file="DefaultPolicy.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/DependencyResolver/DefaultPolicy.php" size="9351" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="64218f7285deb3dcb74f40be0a4df91020d5800a" relative="vendor/composer/composer/src/Composer/DependencyResolver/DefaultPolicy.php"/>
+  <docblock>
+    <description/>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <implements full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+  <member name="preferStable" visibility="private" static="false" line="26"/>
+  <member name="preferLowest" visibility="private" static="false" line="27"/>
+  <constructor name="__construct" start="29" end="33" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="preferStable" byreference="false" type="boolean" default="false"/>
+    <parameter name="preferLowest" byreference="false" type="boolean" default="false"/>
+  </constructor>
+  <method name="versionCompare" start="35" end="45" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="a" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="b" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="operator" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="findUpdatePackages" start="47" end="58" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="installedMap" byreference="false" type="array"/>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="mustMatchName" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="getPriority" start="60" end="63" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="selectPreferredPackages" start="65" end="92" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="installedMap" byreference="false" type="array"/>
+    <parameter name="literals" byreference="false" type="array"/>
+    <parameter name="requiredPackage" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="now sort the result across all packages to respect replaces across packages" line="86"/>
+    </inline>
+  </method>
+  <method name="groupLiteralsByNamePreferInstalled" start="94" end="112" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="installedMap" byreference="false" type="array"/>
+    <parameter name="literals" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="compareByPriorityPreferInstalled" start="117" end="172" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <protected/>
+    </docblock>
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="installedMap" byreference="false" type="array"/>
+    <parameter name="a" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="b" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="requiredPackage" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="ignoreReplace" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="replaces" start="184" end="196" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Checks if source replaces a package with the same name as target.">Replace constraints are ignored. This method should only be used for
+prioritisation, not for actual constraint verification.</description>
+      <param type="object" variable="$source">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param type="object" variable="$target">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return type="object">
+        <type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="source" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="target" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="pruneToBestVersion" start="198" end="219" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="literals" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="pruneToHighestPriorityOrInstalled" start="224" end="250" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Assumes that installed packages come first and then all highest priority packages"/>
+    </docblock>
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="installedMap" byreference="false" type="array"/>
+    <parameter name="literals" byreference="false" type="array"/>
+  </method>
+  <method name="pruneRemoteAliases" start="257" end="284" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Assumes that locally aliased (in root package requires) packages take priority over branch-alias ones">If no package is a local alias, nothing happens</description>
+    </docblock>
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="literals" byreference="false" type="array"/>
+  </method>
+  <interface full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface">
+    <method name="versionCompare" start="22" end="22" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="a" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="b" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="operator" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="findUpdatePackages" start="24" end="24" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="pool" byreference="false" type="object">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </parameter>
+      <parameter name="installedMap" byreference="false" type="array"/>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+    </method>
+    <method name="selectPreferredPackages" start="26" end="26" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="pool" byreference="false" type="object">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </parameter>
+      <parameter name="installedMap" byreference="false" type="array"/>
+      <parameter name="literals" byreference="false" type="array"/>
+      <parameter name="requiredPackage" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+  </interface>
+</class>

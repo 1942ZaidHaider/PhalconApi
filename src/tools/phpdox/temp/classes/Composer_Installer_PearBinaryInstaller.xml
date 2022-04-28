@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Installer\PearBinaryInstaller" namespace="Composer\Installer" name="PearBinaryInstaller" abstract="false" final="false" start="25" end="144">
+  <file path="../vendor/composer/composer/src/Composer/Installer" file="PearBinaryInstaller.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Installer/PearBinaryInstaller.php" size="4948" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="92f0ef79fd2464183ccbf0d4d993f331103af31b" relative="vendor/composer/composer/src/Composer/Installer/PearBinaryInstaller.php"/>
+  <docblock>
+    <description compact="Utility to handle installation of package &quot;bin&quot;/binaries for PEAR packages"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <extends full="Composer\Installer\BinaryInstaller" namespace="Composer\Installer" name="BinaryInstaller"/>
+  <member name="installer" visibility="private" static="false" line="27"/>
+  <member name="vendorDir" visibility="private" static="false" line="28"/>
+  <constructor name="__construct" start="38" end="43" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param type="string" variable="$binDir"/>
+      <param type="string" variable="$vendorDir"/>
+      <param type="string" variable="$binCompat"/>
+      <param type="object" variable="$filesystem">
+        <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+      </param>
+      <param type="object" variable="$installer">
+        <type full="Composer\Installer\PearInstaller" namespace="Composer\Installer" name="PearInstaller"/>
+      </param>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="binDir" byreference="false" type="{unknown}"/>
+    <parameter name="vendorDir" byreference="false" type="{unknown}"/>
+    <parameter name="binCompat" byreference="false" type="{unknown}"/>
+    <parameter name="filesystem" byreference="false" type="object">
+      <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+    </parameter>
+    <parameter name="installer" byreference="false" type="object">
+      <type full="Composer\Installer\PearInstaller" namespace="Composer\Installer" name="PearInstaller"/>
+    </parameter>
+  </constructor>
+  <method name="getBinaries" start="45" end="58" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="initializeBinDir" start="60" end="67" abstract="false" final="false" static="false" visibility="protected"/>
+  <method name="generateWindowsProxyCode" start="69" end="103" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="bin" byreference="false" type="{unknown}"/>
+    <parameter name="link" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="generateWindowsPhpProxyCode" start="105" end="121" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="generateUnixyPhpProxyCode" start="123" end="143" abstract="false" final="false" static="false" visibility="private"/>
+  <parent full="Composer\Installer\BinaryInstaller" namespace="Composer\Installer" name="BinaryInstaller">
+    <member name="binDir" visibility="protected" static="false" line="31"/>
+    <member name="binCompat" visibility="protected" static="false" line="32"/>
+    <member name="io" visibility="protected" static="false" line="33"/>
+    <member name="filesystem" visibility="protected" static="false" line="34"/>
+    <constructor name="__construct" start="42" end="48" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param type="object" variable="$io">
+          <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+        </param>
+        <param type="string" variable="$binDir"/>
+        <param type="string" variable="$binCompat"/>
+        <param type="object" variable="$filesystem">
+          <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+        </param>
+      </docblock>
+      <parameter name="io" byreference="false" type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </parameter>
+      <parameter name="binDir" byreference="false" type="{unknown}"/>
+      <parameter name="binCompat" byreference="false" type="{unknown}"/>
+      <parameter name="filesystem" byreference="false" type="object" default="NULL">
+        <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+      </parameter>
+    </constructor>
+    <method name="installBinaries" start="50" end="95" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="installPath" byreference="false" type="{unknown}"/>
+      <parameter name="warnOnOverwrite" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="removeBinaries" start="97" end="119" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <inline>
+        <comment value="attempt removing the bin dir in case it is left empty" line="115"/>
+      </inline>
+    </method>
+    <method name="determineBinaryCaller" start="121" end="135" abstract="false" final="false" static="true" visibility="public">
+      <parameter name="bin" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getBinaries" start="137" end="140" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+    </method>
+    <method name="installFullBinaries" start="142" end="156" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="binPath" byreference="false" type="{unknown}"/>
+      <parameter name="link" byreference="false" type="{unknown}"/>
+      <parameter name="bin" byreference="false" type="{unknown}"/>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <inline>
+        <comment value="add unixy support for cygwin and similar environments" line="144"/>
+      </inline>
+    </method>
+    <method name="installSymlinkBinaries" start="158" end="163" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="binPath" byreference="false" type="{unknown}"/>
+      <parameter name="link" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="installUnixyProxyBinaries" start="165" end="168" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="binPath" byreference="false" type="{unknown}"/>
+      <parameter name="link" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="initializeBinDir" start="170" end="174" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="generateWindowsProxyCode" start="176" end="185" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="bin" byreference="false" type="{unknown}"/>
+      <parameter name="link" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="generateUnixyProxyCode" start="187" end="213" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="bin" byreference="false" type="{unknown}"/>
+      <parameter name="link" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+</class>

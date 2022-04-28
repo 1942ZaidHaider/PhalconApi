@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Package\Version\VersionSelector" namespace="Composer\Package\Version" name="VersionSelector" abstract="false" final="false" start="30" end="182">
+  <file path="../vendor/composer/composer/src/Composer/Package/Version" file="VersionSelector.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Package/Version/VersionSelector.php" size="6759" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="e0821e5c62ca592f08cccb2844e501121c6b6a3a" relative="vendor/composer/composer/src/Composer/Package/Version/VersionSelector.php"/>
+  <docblock>
+    <description compact="Selects the best possible version for a package"/>
+    <author value="Ryan Weaver &lt;ryan@knpuniversity.com&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <member name="pool" visibility="private" static="false" line="32"/>
+  <member name="parser" visibility="private" static="false" line="34"/>
+  <constructor name="__construct" start="36" end="39" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+  </constructor>
+  <method name="findBestCandidate" start="51" end="107" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Given a package name and optional version, returns the latest PackageInterface that matches."/>
+      <param type="string" variable="$packageName"/>
+      <param type="string" variable="$targetPackageVersion"/>
+      <param type="string" variable="$targetPhpVersion"/>
+      <param type="string" variable="$preferredStability"/>
+      <return type="object">
+        <type full="Composer\Package\Version\PackageInterface|bool" namespace="Composer\Package\Version" name="PackageInterface|bool"/>
+      </return>
+    </docblock>
+    <parameter name="packageName" byreference="false" type="{unknown}"/>
+    <parameter name="targetPackageVersion" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="targetPhpVersion" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="preferredStability" byreference="false" type="string" default="'stable'"/>
+    <inline>
+      <comment value="select highest version if we have many" line="73"/>
+    </inline>
+  </method>
+  <method name="findRecommendedRequireVersion" start="124" end="144" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Given a concrete version, this returns a ~ constraint (when possible) that should be used, for example, in composer.json.">For example:
+ * 1.2.1         -&gt; ^1.2
+ * 1.2           -&gt; ^1.2
+ * v3.2.1        -&gt; ^3.2
+ * 2.0-beta.1    -&gt; ^2.0@beta
+ * dev-master    -&gt; ^2.1@dev      (dev version with alias)
+ * dev-master    -&gt; dev-master    (dev versions are untouched)</description>
+      <param type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="transformVersion" start="146" end="172" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="version" byreference="false" type="{unknown}"/>
+    <parameter name="prettyVersion" byreference="false" type="{unknown}"/>
+    <parameter name="stability" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="attempt to transform 2.1.1 to 2.1" line="148"/>
+      <comment value="this allows you to upgrade through minor versions" line="149"/>
+      <comment value="check to see if we have a semver-looking version" line="152"/>
+      <comment value="append stability flag if not default" line="165"/>
+      <comment value="2.1 -&gt; ^2.1" line="170"/>
+    </inline>
+  </method>
+  <method name="getParser" start="174" end="181" abstract="false" final="false" static="false" visibility="private"/>
+</class>

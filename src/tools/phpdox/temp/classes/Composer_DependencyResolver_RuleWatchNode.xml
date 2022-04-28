@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\DependencyResolver\RuleWatchNode" namespace="Composer\DependencyResolver" name="RuleWatchNode" abstract="false" final="false" start="22" end="113">
+  <file path="../vendor/composer/composer/src/Composer/DependencyResolver" file="RuleWatchNode.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/DependencyResolver/RuleWatchNode.php" size="2780" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="f1caa8d25f227bd4bfe1610a914f0e8043dc8eac" relative="vendor/composer/composer/src/Composer/DependencyResolver/RuleWatchNode.php"/>
+  <docblock>
+    <description compact="Wrapper around a Rule which keeps track of the two literals it watches">Used by RuleWatchGraph to store rules in two RuleWatchChains.</description>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+  </docblock>
+  <member name="watch1" visibility="public" static="false" line="24"/>
+  <member name="watch2" visibility="public" static="false" line="25"/>
+  <member name="rule" visibility="protected" static="false" line="27"/>
+  <constructor name="__construct" start="34" end="43" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Creates a new node watching the first and second literals of the rule."/>
+      <param description="The rule to wrap" type="object" variable="$rule">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </param>
+    </docblock>
+    <parameter name="rule" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="watch2OnHighest" start="53" end="72" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Places the second watch on the rule's literal, decided at the highest level">Useful for learned rules where the literal for the highest rule is most
+likely to quickly lead to further decisions.</description>
+      <param description="The decisions made so far by the solver" type="object" variable="$decisions">
+        <type full="Composer\DependencyResolver\Decisions" namespace="Composer\DependencyResolver" name="Decisions"/>
+      </param>
+    </docblock>
+    <parameter name="decisions" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Decisions" namespace="Composer\DependencyResolver" name="Decisions"/>
+    </parameter>
+    <inline>
+      <comment value="if there are only 2 elements, both are being watched anyway" line="57"/>
+    </inline>
+  </method>
+  <method name="getRule" start="79" end="82" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the rule this node wraps"/>
+      <return type="object">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getOtherWatch" start="90" end="97" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Given one watched literal, this method returns the other watched literal"/>
+      <param description="The watched literal that should not be returned" type="int" variable="$literal"/>
+      <return description="A literal" type="int"/>
+    </docblock>
+    <parameter name="literal" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="moveWatch" start="105" end="112" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Moves a watch from one literal to another"/>
+      <param description="The previously watched literal" type="int" variable="$from"/>
+      <param description="The literal to be watched now" type="int" variable="$to"/>
+    </docblock>
+    <parameter name="from" byreference="false" type="{unknown}"/>
+    <parameter name="to" byreference="false" type="{unknown}"/>
+  </method>
+</class>

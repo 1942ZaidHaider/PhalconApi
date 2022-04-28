@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Tokenizer\Analyzer\CommentsAnalyzer" namespace="PhpCsFixer\Tokenizer\Analyzer" name="CommentsAnalyzer" abstract="false" final="true" start="26" end="322">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Tokenizer/Analyzer" file="CommentsAnalyzer.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Tokenizer/Analyzer/CommentsAnalyzer.php" size="8936" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="5a80359702b18e8c5c1de77dde43fd14e5884e9f" relative="vendor/friendsofphp/php-cs-fixer/src/Tokenizer/Analyzer/CommentsAnalyzer.php"/>
+  <docblock>
+    <description/>
+    <author value="Kuba Werłos &lt;werlos@gmail.com&gt;"/>
+    <author value="SpacePossum"/>
+    <internal/>
+  </docblock>
+  <constant type="integer" name="TYPE_HASH" value="1"/>
+  <constant type="integer" name="TYPE_DOUBLE_SLASH" value="2"/>
+  <constant type="integer" name="TYPE_SLASH_ASTERISK" value="3"/>
+  <method name="isHeaderComment" start="37" end="65" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\Analyzer\bool" namespace="PhpCsFixer\Tokenizer\Analyzer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isBeforeStructuralElement" start="76" end="120" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if comment at given index precedes structural element."/>
+      <see value="https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc.md#3-definitions"/>
+      <param type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\Analyzer\bool" namespace="PhpCsFixer\Tokenizer\Analyzer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getCommentBlockIndices" start="129" end="162" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return array of indices that are part of a comment started at given index."/>
+      <param description="T_COMMENT index" type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\Analyzer\null|array" namespace="PhpCsFixer\Tokenizer\Analyzer" name="null|array"/>
+      </return>
+    </docblock>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isStructuralElement" start="169" end="189" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <see value="https://github.com/phpDocumentor/fig-standards/blob/master/proposed/phpdoc.md#3-definitions"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\Analyzer\bool" namespace="PhpCsFixer\Tokenizer\Analyzer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="token" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Token" namespace="PhpCsFixer\Tokenizer" name="Token"/>
+    </parameter>
+  </method>
+  <method name="isValidControl" start="199" end="229" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Checks control structures (for, foreach, if, switch, while) for correct docblock usage."/>
+      <param description="docs Token" type="object" variable="$docsToken">
+        <type full="PhpCsFixer\Tokenizer\Token" namespace="PhpCsFixer\Tokenizer" name="Token"/>
+      </param>
+      <param description="index of control structure Token" type="int" variable="$controlIndex"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\Analyzer\bool" namespace="PhpCsFixer\Tokenizer\Analyzer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+    <parameter name="docsToken" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Token" namespace="PhpCsFixer\Tokenizer" name="Token"/>
+    </parameter>
+    <parameter name="controlIndex" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isValidLanguageConstruct" start="239" end="269" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Checks variable assignments through `list()`, `print()` etc. calls for correct docblock usage."/>
+      <param description="docs Token" type="object" variable="$docsToken">
+        <type full="PhpCsFixer\Tokenizer\Token" namespace="PhpCsFixer\Tokenizer" name="Token"/>
+      </param>
+      <param description="index of variable Token" type="int" variable="$languageConstructIndex"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\Analyzer\bool" namespace="PhpCsFixer\Tokenizer\Analyzer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+    <parameter name="docsToken" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Token" namespace="PhpCsFixer\Tokenizer" name="Token"/>
+    </parameter>
+    <parameter name="languageConstructIndex" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isValidVariable" start="278" end="287" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Checks variable assignments for correct docblock usage."/>
+      <param description="index of variable Token" type="int" variable="$index"/>
+      <return type="object">
+        <type full="PhpCsFixer\Tokenizer\Analyzer\bool" namespace="PhpCsFixer\Tokenizer\Analyzer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getCommentType" start="294" end="305" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$content"/>
+      <return type="int"/>
+    </docblock>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getLineBreakCount" start="313" end="321" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="int" variable="$whiteStart"/>
+      <param type="int" variable="$whiteEnd"/>
+      <return type="int"/>
+    </docblock>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+    <parameter name="whiteStart" byreference="false" type="{unknown}"/>
+    <parameter name="whiteEnd" byreference="false" type="{unknown}"/>
+  </method>
+</class>

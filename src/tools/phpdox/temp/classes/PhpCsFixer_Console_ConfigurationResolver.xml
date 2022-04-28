@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Console\ConfigurationResolver" namespace="PhpCsFixer\Console" name="ConfigurationResolver" abstract="false" final="true" start="55" end="991">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Console" file="ConfigurationResolver.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Console/ConfigurationResolver.php" size="28655" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="7ce7d1dff56c280edbe640a591cd518cc3d1cd35" relative="vendor/friendsofphp/php-cs-fixer/src/Console/ConfigurationResolver.php"/>
+  <docblock>
+    <description compact="The resolver that resolves configuration to use by command line options and config."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+    <author value="Katsuhiro Ogawa &lt;ko.fivestar@gmail.com&gt;"/>
+    <author value="Dariusz Rumiński &lt;dariusz.ruminski@gmail.com&gt;"/>
+    <internal/>
+  </docblock>
+  <constant type="string" name="PATH_MODE_OVERRIDE" value="'override'"/>
+  <constant type="string" name="PATH_MODE_INTERSECTION" value="'intersection'"/>
+  <member name="allowRisky" visibility="private" static="false" line="63">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|bool" namespace="PhpCsFixer\Console" name="null|bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="config" visibility="private" static="false" line="68">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|ConfigInterface" namespace="PhpCsFixer\Console" name="null|ConfigInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="configFile" visibility="private" static="false" line="73">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|string" namespace="PhpCsFixer\Console" name="null|string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="cwd" visibility="private" static="false" line="78">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="defaultConfig" visibility="private" static="false" line="83">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\ConfigInterface" namespace="PhpCsFixer" name="ConfigInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="reporter" visibility="private" static="false" line="88">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|ReporterInterface" namespace="PhpCsFixer\Console" name="null|ReporterInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="isStdIn" visibility="private" static="false" line="93">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|bool" namespace="PhpCsFixer\Console" name="null|bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="isDryRun" visibility="private" static="false" line="98">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|bool" namespace="PhpCsFixer\Console" name="null|bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="fixers" visibility="private" static="false" line="103">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="PhpCsFixer\Console\null|FixerInterface" namespace="PhpCsFixer\Console" name="null|FixerInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="configFinderIsOverridden" visibility="private" static="false" line="108">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|bool" namespace="PhpCsFixer\Console" name="null|bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="toolInfo" visibility="private" static="false" line="113">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\ToolInfoInterface" namespace="PhpCsFixer" name="ToolInfoInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="options" default="" type="array" visibility="private" static="false" line="118">
+    <docblock>
+      <description/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="cacheFile" visibility="private" static="false" line="135"/>
+  <member name="cacheManager" visibility="private" static="false" line="140">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|CacheManagerInterface" namespace="PhpCsFixer\Console" name="null|CacheManagerInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="differ" visibility="private" static="false" line="145">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|DifferInterface" namespace="PhpCsFixer\Console" name="null|DifferInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="directory" visibility="private" static="false" line="150">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|Directory" namespace="PhpCsFixer\Console" name="null|Directory"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="finder" visibility="private" static="false" line="155">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|iterable" namespace="PhpCsFixer\Console" name="null|iterable"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="format" visibility="private" static="false" line="157"/>
+  <member name="linter" visibility="private" static="false" line="162">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|Linter" namespace="PhpCsFixer\Console" name="null|Linter"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="path" visibility="private" static="false" line="164"/>
+  <member name="progress" visibility="private" static="false" line="169">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|string" namespace="PhpCsFixer\Console" name="null|string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ruleSet" visibility="private" static="false" line="174">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|RuleSet" namespace="PhpCsFixer\Console" name="null|RuleSet"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="usingCache" visibility="private" static="false" line="179">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Console\null|bool" namespace="PhpCsFixer\Console" name="null|bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="fixerFactory" visibility="private" static="false" line="184">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\FixerFactory" namespace="PhpCsFixer" name="FixerFactory"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="189" end="202" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$cwd"/>
+    </docblock>
+    <parameter name="config" byreference="false" type="object">
+      <type full="PhpCsFixer\ConfigInterface" namespace="PhpCsFixer" name="ConfigInterface"/>
+    </parameter>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="cwd" byreference="false" type="{unknown}"/>
+    <parameter name="toolInfo" byreference="false" type="object">
+      <type full="PhpCsFixer\ToolInfoInterface" namespace="PhpCsFixer" name="ToolInfoInterface"/>
+    </parameter>
+  </constructor>
+  <method name="getCacheFile" start="207" end="222" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Console\null|string" namespace="PhpCsFixer\Console" name="null|string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getCacheManager" start="227" end="251" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Cache\CacheManagerInterface" namespace="PhpCsFixer\Cache" name="CacheManagerInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getConfig" start="256" end="294" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\ConfigInterface" namespace="PhpCsFixer" name="ConfigInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getConfigFile" start="299" end="306" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Console\null|string" namespace="PhpCsFixer\Console" name="null|string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getDiffer" start="311" end="353" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Differ\DifferInterface" namespace="PhpCsFixer\Differ" name="DifferInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getDirectory" start="358" end="376" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Cache\DirectoryInterface" namespace="PhpCsFixer\Cache" name="DirectoryInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getFixers" start="381" end="410" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="An array of FixerInterface" type="array" of="object">
+        <type full="PhpCsFixer\Console\FixerInterface" namespace="PhpCsFixer\Console" name="FixerInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getLinter" start="415" end="422" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Linter\LinterInterface" namespace="PhpCsFixer\Linter" name="LinterInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getPath" start="429" end="465" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns path."/>
+      <return type="array" of="object">
+        <type full="PhpCsFixer\Console\string" namespace="PhpCsFixer\Console" name="string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getProgress" start="472" end="506" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <throws type="object">
+        <type full="PhpCsFixer\ConfigurationException\InvalidConfigurationException" namespace="PhpCsFixer\ConfigurationException" name="InvalidConfigurationException"/>
+      </throws>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getReporter" start="511" end="530" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Console\Report\FixReport\ReporterInterface" namespace="PhpCsFixer\Console\Report\FixReport" name="ReporterInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getRiskyAllowed" start="535" end="546" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Console\bool" namespace="PhpCsFixer\Console" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getRules" start="553" end="556" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns rules."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="getUsingCache" start="561" end="574" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Console\bool" namespace="PhpCsFixer\Console" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getFinder" start="576" end="583" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="isDryRun" start="590" end="602" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns dry-run flag."/>
+      <return type="object">
+        <type full="PhpCsFixer\Console\bool" namespace="PhpCsFixer\Console" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="shouldStopOnViolation" start="604" end="607" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="configFinderIsOverridden" start="612" end="619" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Console\bool" namespace="PhpCsFixer\Console" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="computeConfigFiles" start="626" end="666" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Compute file candidates for config file."/>
+      <return type="array" of="object">
+        <type full="PhpCsFixer\Console\string" namespace="PhpCsFixer\Console" name="string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="createFixerFactory" start="671" end="682" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\FixerFactory" namespace="PhpCsFixer" name="FixerFactory"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getFormat" start="687" end="696" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getRuleSet" start="698" end="708" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="isStdIn" start="713" end="720" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\Console\bool" namespace="PhpCsFixer\Console" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="iterableToTraversable" start="727" end="730" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$iterable">
+        <type full="PhpCsFixer\Console\iterable" namespace="PhpCsFixer\Console" name="iterable"/>
+      </param>
+      <return type="object">
+        <type full="\Traversable" namespace="" name="Traversable"/>
+      </return>
+    </docblock>
+    <parameter name="iterable" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="parseRules" start="737" end="773" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Compute rules."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="validateRules" start="778" end="837" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <throws type="object">
+        <type full="PhpCsFixer\ConfigurationException\InvalidConfigurationException" namespace="PhpCsFixer\ConfigurationException" name="InvalidConfigurationException"/>
+      </throws>
+    </docblock>
+    <parameter name="rules" byreference="false" type="array"/>
+    <inline>
+      <comment value="Create a ruleset that contains all configured rules, even when they originally have been disabled." line="780"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="@see RuleSet::resolveSet()" line="781"/>
+    </inline>
+  </method>
+  <method name="resolveFinder" start="842" end="939" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Apply path on config instance."/>
+    </docblock>
+  </method>
+  <method name="setOption" start="947" end="954" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Set option that will be resolved."/>
+      <param type="string" variable="$name"/>
+      <param type="mixed" variable="$value"/>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="resolveOptionBooleanValue" start="961" end="985" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$optionName"/>
+      <return type="object">
+        <type full="PhpCsFixer\Console\bool" namespace="PhpCsFixer\Console" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="optionName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="separatedContextLessInclude" start="987" end="990" abstract="false" final="false" static="true" visibility="private">
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+</class>

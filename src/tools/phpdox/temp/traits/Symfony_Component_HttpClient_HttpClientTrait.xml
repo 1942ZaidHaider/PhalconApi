@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trait xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait" abstract="false" final="false" start="24" end="684">
+  <file path="../vendor/symfony/http-client" file="HttpClientTrait.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/HttpClientTrait.php" size="27185" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="1c6250dc25ea949860de273bdc05a125be69490a" relative="vendor/symfony/http-client/HttpClientTrait.php"/>
+  <docblock>
+    <description compact="Provides the common logic from writing HttpClientInterface implementations.">All private methods are static to prevent implementers from creating memory leaks via circular references.</description>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <member name="CHUNK_SIZE" default="16372" type="integer" visibility="private" static="true" line="26"/>
+  <method name="withOptions" start="31" end="37" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait"/>
+    </return>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <method name="prepareRequest" start="44" end="182" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Validates and normalizes method, URL and options, and merges them with defaults."/>
+      <throws description="When a not-supported option is found" type="object">
+        <type full="Symfony\Component\HttpClient\Exception\InvalidArgumentException" namespace="Symfony\Component\HttpClient\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="method" byreference="false" nullable="true" type="string"/>
+    <parameter name="url" byreference="false" nullable="true" type="string"/>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="defaultOptions" byreference="false" type="array" default=""/>
+    <parameter name="allowExtraOptions" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Validate on_progress" line="119"/>
+      <comment value="Finalize normalization of options" line="172"/>
+    </inline>
+  </method>
+  <method name="mergeDefaultOptions" start="187" end="257" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <throws description="When an invalid option is found" type="object">
+        <type full="Symfony\Component\HttpClient\Exception\InvalidArgumentException" namespace="Symfony\Component\HttpClient\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="defaultOptions" byreference="false" type="array"/>
+    <parameter name="allowExtraOptions" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Option &quot;query&quot; is never inherited from defaults" line="204"/>
+      <comment value="Look for unsupported options" line="229"/>
+    </inline>
+  </method>
+  <method name="normalizeHeaders" start="264" end="300" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\HttpClient\string[]" namespace="Symfony\Component\HttpClient" name="string[]"/>
+      </return>
+      <throws description="When an invalid header is found" type="object">
+        <type full="Symfony\Component\HttpClient\Exception\InvalidArgumentException" namespace="Symfony\Component\HttpClient\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="headers" byreference="false" type="array"/>
+  </method>
+  <method name="normalizeBody" start="309" end="371" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$body">
+        <type full="Symfony\Component\HttpClient\array|string|resource|\Traversable|\Closure" namespace="Symfony\Component\HttpClient\array|string|resource|\Traversable|" name="Closure"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\HttpClient\string|resource|\Closure" namespace="Symfony\Component\HttpClient\string|resource|" name="Closure"/>
+      </return>
+      <throws description="When an invalid body is passed" type="object">
+        <type full="Symfony\Component\HttpClient\Exception\InvalidArgumentException" namespace="Symfony\Component\HttpClient\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="body" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="dechunk" start="373" end="387" abstract="false" final="false" static="true" visibility="private">
+    <return type="string" nullable="false"/>
+    <parameter name="body" byreference="false" type="string"/>
+  </method>
+  <method name="normalizePeerFingerprint" start="394" end="413" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$fingerprint" of="object">
+        <type full="Symfony\Component\HttpClient\string|string" namespace="Symfony\Component\HttpClient" name="string|string"/>
+      </param>
+      <throws description="When an invalid fingerprint is passed" type="object">
+        <type full="Symfony\Component\HttpClient\Exception\InvalidArgumentException" namespace="Symfony\Component\HttpClient\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="fingerprint" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="jsonEncode" start="420" end="435" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="mixed" variable="$value"/>
+      <throws description="When the value cannot be json-encoded" type="object">
+        <type full="Symfony\Component\HttpClient\Exception\InvalidArgumentException" namespace="Symfony\Component\HttpClient\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <parameter name="flags" byreference="false" type="int" default="NULL"/>
+    <parameter name="maxDepth" byreference="false" type="integer" default="512"/>
+  </method>
+  <method name="resolveUrl" start="444" end="500" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Resolves a URL against a base URI."/>
+      <see value="https://tools.ietf.org/html/rfc3986#section-5.2.2"/>
+      <throws description="When an invalid URL is passed" type="object">
+        <type full="Symfony\Component\HttpClient\Exception\InvalidArgumentException" namespace="Symfony\Component\HttpClient\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="url" byreference="false" type="array"/>
+    <parameter name="base" byreference="false" nullable="true" type="array"/>
+    <parameter name="queryDefaults" byreference="false" type="array" default=""/>
+  </method>
+  <method name="parseUrl" start="507" end="558" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Parses a URL and fixes its encoding if needed."/>
+      <throws description="When an invalid URL is passed" type="object">
+        <type full="Symfony\Component\HttpClient\Exception\InvalidArgumentException" namespace="Symfony\Component\HttpClient\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="url" byreference="false" type="string"/>
+    <parameter name="query" byreference="false" type="array" default=""/>
+    <parameter name="allowedSchemes" byreference="false" type="array" default=""/>
+  </method>
+  <method name="removeDotSegments" start="565" end="586" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Removes dot-segments from a path."/>
+      <see value="https://tools.ietf.org/html/rfc3986#section-5.2.4"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="string"/>
+  </method>
+  <method name="mergeQueryString" start="593" end="628" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Merges and encodes a query array with a query string."/>
+      <throws description="When an invalid query-string value is passed" type="object">
+        <type full="Symfony\Component\HttpClient\Exception\InvalidArgumentException" namespace="Symfony\Component\HttpClient\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="true"/>
+    <parameter name="queryString" byreference="false" nullable="true" type="string"/>
+    <parameter name="queryArray" byreference="false" type="array"/>
+    <parameter name="replace" byreference="false" type="bool"/>
+  </method>
+  <method name="getProxy" start="633" end="670" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Loads proxy configuration from the same environment variables as curl when no proxy is explicitly set."/>
+    </docblock>
+    <return type="array" nullable="true"/>
+    <parameter name="proxy" byreference="false" nullable="true" type="string"/>
+    <parameter name="url" byreference="false" type="array"/>
+    <parameter name="noProxy" byreference="false" nullable="true" type="string"/>
+  </method>
+  <method name="shouldBuffer" start="672" end="683" abstract="false" final="false" static="true" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="headers" byreference="false" type="array"/>
+  </method>
+  <users>
+    <class full="Symfony\Component\HttpClient\AmpHttpClient" namespace="Symfony\Component\HttpClient" name="AmpHttpClient"/>
+    <class full="Symfony\Component\HttpClient\ScopingHttpClient" namespace="Symfony\Component\HttpClient" name="ScopingHttpClient"/>
+    <class full="Symfony\Component\HttpClient\MockHttpClient" namespace="Symfony\Component\HttpClient" name="MockHttpClient"/>
+    <class full="Symfony\Component\HttpClient\CachingHttpClient" namespace="Symfony\Component\HttpClient" name="CachingHttpClient"/>
+    <class full="Symfony\Component\HttpClient\NoPrivateNetworkHttpClient" namespace="Symfony\Component\HttpClient" name="NoPrivateNetworkHttpClient"/>
+    <class full="Symfony\Component\HttpClient\CurlHttpClient" namespace="Symfony\Component\HttpClient" name="CurlHttpClient"/>
+    <class full="Symfony\Component\HttpClient\NativeHttpClient" namespace="Symfony\Component\HttpClient" name="NativeHttpClient"/>
+  </users>
+</trait>

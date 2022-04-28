@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\GridFS\WritableStream" namespace="MongoDB\GridFS" name="WritableStream" abstract="false" final="false" start="46" end="318">
+  <file path="../vendor/mongodb/mongodb/src/GridFS" file="WritableStream.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/GridFS/WritableStream.php" size="9239" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="6b98678c4d9c6551e781b5e6ffbd0c7a06af5455" relative="vendor/mongodb/mongodb/src/GridFS/WritableStream.php"/>
+  <docblock>
+    <description compact="WritableStream abstracts the process of writing a GridFS file."/>
+    <internal/>
+  </docblock>
+  <member name="defaultChunkSizeBytes" default="261120" type="integer" visibility="private" static="true" line="49">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="buffer" default="''" type="string" visibility="private" static="false" line="52">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="chunkOffset" default="0" type="integer" visibility="private" static="false" line="55">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="chunkSize" visibility="private" static="false" line="58">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="disableMD5" visibility="private" static="false" line="61">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="collectionWrapper" visibility="private" static="false" line="64">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\GridFS\CollectionWrapper" namespace="MongoDB\GridFS" name="CollectionWrapper"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="file" visibility="private" static="false" line="67">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="hashCtx" visibility="private" static="false" line="70">
+    <docblock>
+      <var type="resource"/>
+    </docblock>
+  </member>
+  <member name="isClosed" default="false" type="boolean" visibility="private" static="false" line="73">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="length" default="0" type="integer" visibility="private" static="false" line="76">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="106" end="151" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a writable GridFS stream.">Supported options:
+
+ * _id (mixed): File document identifier. Defaults to a new ObjectId.
+
+ * aliases (array of strings): DEPRECATED An array of aliases.
+   Applications wishing to store aliases should add an aliases field to
+   the metadata document instead.
+
+ * chunkSizeBytes (integer): The chunk size in bytes. Defaults to
+   261120 (i.e. 255 KiB).
+
+ * disableMD5 (boolean): When true, no MD5 sum will be generated.
+   Defaults to "false".
+
+ * contentType (string): DEPRECATED content type to be stored with the
+   file. This information should now be added to the metadata.
+
+ * metadata (document): User data for the "metadata" field of the files
+   collection document.</description>
+      <param description="GridFS collection wrapper" type="object" variable="$collectionWrapper">
+        <type full="MongoDB\GridFS\CollectionWrapper" namespace="MongoDB\GridFS" name="CollectionWrapper"/>
+      </param>
+      <param description="Filename" type="string" variable="$filename"/>
+      <param description="Upload options" type="array" variable="$options"/>
+      <throws type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="collectionWrapper" byreference="false" type="object">
+      <type full="MongoDB\GridFS\CollectionWrapper" namespace="MongoDB\GridFS" name="CollectionWrapper"/>
+    </parameter>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="__debugInfo" start="159" end="166" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return internal properties for debugging purposes."/>
+      <see value="http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.debuginfo"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="close" start="171" end="184" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Closes an active stream and flushes all buffered data to GridFS."/>
+    </docblock>
+  </method>
+  <method name="getFile" start="191" end="194" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the stream's file document."/>
+      <return type="object">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getSize" start="203" end="206" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the stream's size in bytes.">Note: this value will increase as more data is written to the stream.</description>
+      <return type="integer"/>
+    </docblock>
+  </method>
+  <method name="tell" start="218" end="221" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the current position of the stream.">This is the offset within the stream where the next byte would be
+written. Since seeking is not supported and writes are appended, this is
+always the end of the stream.</description>
+      <see value="WritableStream::getSize()"/>
+      <return type="integer"/>
+    </docblock>
+  </method>
+  <method name="writeBytes" start="232" end="252" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Inserts binary data into GridFS via chunks.">Data will be buffered internally until chunkSizeBytes are accumulated, at
+which point a chunk document will be inserted and the buffer reset.</description>
+      <param description="Binary data to write" type="string" variable="$data"/>
+      <return type="integer"/>
+    </docblock>
+    <parameter name="data" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="abort" start="254" end="263" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="fileCollectionInsert" start="268" end="286" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+  <method name="insertChunkFromBuffer" start="288" end="317" abstract="false" final="false" static="false" visibility="private"/>
+</class>

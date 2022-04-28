@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Tokenizers\PHP" namespace="PHP_CodeSniffer\Tokenizers" name="PHP" abstract="false" final="false" start="14" end="3289">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Tokenizers" file="PHP.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Tokenizers/PHP.php" size="137992" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="bdbad4782db5fb5f793cc5266eb950705774cd48" relative="vendor/squizlabs/php_codesniffer/src/Tokenizers/PHP.php"/>
+  <extends full="PHP_CodeSniffer\Tokenizers\Tokenizer" namespace="PHP_CodeSniffer\Tokenizers" name="Tokenizer"/>
+  <member name="scopeOpeners" default="" type="array" visibility="public" static="false" line="27">
+    <docblock>
+      <description compact="A list of tokens that are allowed to open a scope.">This array also contains information about what kind of token the scope
+opener uses to open and close the scope, if the token strictly requires
+an opener, if the token can share a scope closer, and who it can be shared
+with. An example of a token that shares a scope closer is a CASE scope.</description>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="endScopeTokens" default="" type="array" visibility="public" static="false" line="286">
+    <docblock>
+      <description compact="A list of tokens that end the scope.">This array is just a unique collection of the end tokens
+from the scopeOpeners array. The data is duplicated here to
+save time during parsing of the file.</description>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="knownLengths" default="" type="array" visibility="public" static="false" line="304">
+    <docblock>
+      <description compact="Known lengths of tokens."/>
+      <var description="int&gt;" type="object">
+        <type full="PHP_CodeSniffer\Tokenizers\array&lt;int" namespace="PHP_CodeSniffer\Tokenizers" name="array&lt;int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="tstringContexts" default="" type="array" visibility="protected" static="false" line="462">
+    <docblock>
+      <description compact="Contexts in which keywords should always be tokenized as T_STRING."/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="resolveTokenCache" default="" type="array" visibility="private" static="true" line="486">
+    <docblock>
+      <description compact="A cache of different token types, resolved into arrays."/>
+      <var type="array"/>
+      <see value="standardiseToken()"/>
+    </docblock>
+  </member>
+  <method name="tokenize" start="499" end="2141" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Creates an array of tokens when given some PHP code.">Starts by using token_get_all() but does a lot of extra processing
+to insert information about the context of the token.</description>
+      <param description="The string to tokenize." type="string" variable="$string"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="string" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end for" line="2133"/>
+    </inline>
+  </method>
+  <method name="processAdditional" start="2156" end="2963" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Performs additional processing after main tokenizing.">This additional processing checks for CASE statements that are using curly
+braces for scope openers and closers. It also turns some T_FUNCTION tokens
+into T_CLOSURE when they are not standard function definitions. It also
+detects short array syntax and converts those square brackets into new tokens.
+It also corrects some usage of the static and class keywords. It also
+assigns tokens to function return types.</description>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tokenizers\void" namespace="PHP_CodeSniffer\Tokenizers" name="void"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="end for" line="2957"/>
+    </inline>
+  </method>
+  <method name="standardiseToken" start="2974" end="3041" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Takes a token produced from &lt;code&gt;token_get_all()&lt;/code&gt; and produces a more uniform token."/>
+      <param description="The token to convert." type="object" variable="$token">
+        <type full="PHP_CodeSniffer\Tokenizers\string|array" namespace="PHP_CodeSniffer\Tokenizers" name="string|array"/>
+      </param>
+      <return description="The new token." type="array"/>
+    </docblock>
+    <parameter name="token" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end if" line="3036"/>
+    </inline>
+  </method>
+  <method name="resolveSimpleToken" start="3055" end="3149" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Converts simple tokens into a format that conforms to complex tokens produced by token_get_all().">Simple tokens are tokens that are not in array form when produced from
+token_get_all().</description>
+      <param description="The simple token to convert." type="string" variable="$token"/>
+      <return description="The new token in array format." type="array"/>
+    </docblock>
+    <parameter name="token" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end switch" line="3141"/>
+    </inline>
+  </method>
+  <method name="findCloser" start="3163" end="3186" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Finds a &quot;closer&quot; token (closing parenthesis or square bracket for example) Handle parenthesis balancing while searching for closing token"/>
+      <param description="The list of tokens to iterate searching the closing token (as returned by token_get_all)" type="array" variable="$tokens"/>
+      <param description="The starting position" type="int" variable="$start"/>
+      <param description="The opening character" type="array" variable="$openerTokens" of="object">
+        <type full="PHP_CodeSniffer\Tokenizers\string|string" namespace="PHP_CodeSniffer\Tokenizers" name="string|string"/>
+      </param>
+      <param description="The closing character" type="string" variable="$closerChar"/>
+      <return description="The position of the closing token, if found. NULL otherwise." type="object">
+        <type full="PHP_CodeSniffer\Tokenizers\int|null" namespace="PHP_CodeSniffer\Tokenizers" name="int|null"/>
+      </return>
+    </docblock>
+    <parameter name="tokens" byreference="true" type="array"/>
+    <parameter name="start" byreference="false" type="{unknown}"/>
+    <parameter name="openerTokens" byreference="false" type="{unknown}"/>
+    <parameter name="closerChar" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="parsePhpAttribute" start="3198" end="3249" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="PHP 8 attributes parser for PHP &lt; 8 Handles single-line and multiline attributes."/>
+      <param description="The original array of tokens (as returned by token_get_all)" type="array" variable="$tokens"/>
+      <param description="The current position in token array" type="int" variable="$stackPtr"/>
+      <return description="The array of parsed attribute tokens" type="object">
+        <type full="PHP_CodeSniffer\Tokenizers\array|null" namespace="PHP_CodeSniffer\Tokenizers" name="array|null"/>
+      </return>
+    </docblock>
+    <parameter name="tokens" byreference="true" type="array"/>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Go looking for the close bracket." line="3222"/>
+    </inline>
+  </method>
+  <method name="createAttributesNestingMap" start="3257" end="3286" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Creates a map for the attributes tokens that surround other tokens."/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Tokenizers\void" namespace="PHP_CodeSniffer\Tokenizers" name="void"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="end for" line="3284"/>
+    </inline>
+  </method>
+  <extenders>
+    <extender full="PHP_CodeSniffer\Tokenizers\CSS" namespace="PHP_CodeSniffer\Tokenizers" name="CSS"/>
+  </extenders>
+  <parent full="PHP_CodeSniffer\Tokenizers\Tokenizer" namespace="PHP_CodeSniffer\Tokenizers" name="Tokenizer">
+    <member name="config" default="NULL" visibility="protected" static="false" line="23">
+      <docblock>
+        <description compact="The config data for the run."/>
+        <var type="object">
+          <type full="\PHP_CodeSniffer\Config" namespace="\PHP_CodeSniffer" name="Config"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="eolChar" default="" type="array" visibility="protected" static="false" line="30">
+      <docblock>
+        <description compact="The EOL char used in the content."/>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <member name="tokens" default="" type="array" visibility="protected" static="false" line="37">
+      <docblock>
+        <description compact="A token-based representation of the content."/>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <member name="numTokens" default="0" type="integer" visibility="protected" static="false" line="44">
+      <docblock>
+        <description compact="The number of tokens in the tokens array."/>
+        <var type="integer"/>
+      </docblock>
+    </member>
+    <member name="scopeOpeners" default="" type="array" visibility="public" static="false" line="51">
+      <docblock>
+        <description compact="A list of tokens that are allowed to open a scope."/>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <member name="endScopeTokens" default="" type="array" visibility="public" static="false" line="58">
+      <docblock>
+        <description compact="A list of tokens that end the scope."/>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <member name="knownLengths" default="" type="array" visibility="public" static="false" line="65">
+      <docblock>
+        <description compact="Known lengths of tokens."/>
+        <var description="int&gt;" type="object">
+          <type full="PHP_CodeSniffer\Tokenizers\array&lt;int" namespace="PHP_CodeSniffer\Tokenizers" name="array&lt;int"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="ignoredLines" default="" type="array" visibility="public" static="false" line="72">
+      <docblock>
+        <description compact="A list of lines being ignored due to error suppression comments."/>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <constructor name="__construct" start="85" end="105" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Initialise and run the tokenizer."/>
+        <param description="The content to tokenize," type="string" variable="$content"/>
+        <param description="| null $config  The config data for the run." type="object">
+          <type full="\PHP_CodeSniffer\Config" namespace="\PHP_CodeSniffer" name="Config"/>
+        </param>
+        <param description="The EOL char used in the content." type="string" variable="$eolChar"/>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Tokenizers\void" namespace="PHP_CodeSniffer\Tokenizers" name="void"/>
+        </return>
+        <throws description="If the file appears to be minified." type="object">
+          <type full="\PHP_CodeSniffer\Exceptions\TokenizerException" namespace="\PHP_CodeSniffer\Exceptions" name="TokenizerException"/>
+        </throws>
+      </docblock>
+      <parameter name="content" byreference="false" type="{unknown}"/>
+      <parameter name="config" byreference="false" type="{unknown}"/>
+      <parameter name="eolChar" byreference="false" type="string" default="'\n'"/>
+      <inline>
+        <comment value="Allow the tokenizer to do additional processing if required." line="102"/>
+      </inline>
+    </constructor>
+    <method name="isMinifiedContent" start="116" end="129" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Checks the content to see if it looks minified."/>
+        <param description="The content to tokenize." type="string" variable="$content"/>
+        <param description="The EOL char used in the content." type="string" variable="$eolChar"/>
+        <return type="boolean"/>
+      </docblock>
+      <parameter name="content" byreference="false" type="{unknown}"/>
+      <parameter name="eolChar" byreference="false" type="string" default="'\n'"/>
+      <inline>
+        <comment value="Minified files often have a very large number of characters per line" line="118"/>
+        <comment value="and cause issues when tokenizing." line="119"/>
+      </inline>
+    </method>
+    <method name="getTokens" start="137" end="141" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the array of tokens."/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="tokenize" start="151" end="151" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Creates an array of tokens when given some content."/>
+        <param description="The string to tokenize." type="string" variable="$string"/>
+        <return type="array"/>
+      </docblock>
+      <parameter name="string" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="processAdditional" start="159" end="159" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Performs additional processing after main tokenizing."/>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Tokenizers\void" namespace="PHP_CodeSniffer\Tokenizers" name="void"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="replaceTabsInToken" start="583" end="655" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Replaces tabs in original token content with spaces.">Each tab can represent between 1 and $config-&gt;tabWidth spaces,
+so this cannot be a straight string replace. The original content
+is placed into an orig_content index and the new token length is also
+set in the length index.</description>
+        <param description="The token to replace tabs inside." type="array" variable="$token"/>
+        <param description="The character to use to represent the start of a tab." type="string" variable="$prefix"/>
+        <param description="The character to use to represent the end of a tab." type="string" variable="$padding"/>
+        <param description="The number of spaces each tab represents." type="int" variable="$tabWidth"/>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Tokenizers\void" namespace="PHP_CodeSniffer\Tokenizers" name="void"/>
+        </return>
+      </docblock>
+      <parameter name="token" byreference="true" type="{unknown}"/>
+      <parameter name="prefix" byreference="false" type="string" default="' '"/>
+      <parameter name="padding" byreference="false" type="string" default="' '"/>
+      <parameter name="tabWidth" byreference="false" type="{unknown}" default="NULL"/>
+      <inline>
+        <comment value="end if" line="649"/>
+      </inline>
+    </method>
+  </parent>
+</class>

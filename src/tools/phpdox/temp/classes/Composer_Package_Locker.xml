@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Package\Locker" namespace="Composer\Package" name="Locker" abstract="false" final="false" start="33" end="452">
+  <file path="../vendor/composer/composer/src/Composer/Package" file="Locker.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Package/Locker.php" size="15306" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="308d8bb6090e48ea94148c9fa693845df7911d18" relative="vendor/composer/composer/src/Composer/Package/Locker.php"/>
+  <docblock>
+    <description compact="Reads/writes project lockfile (composer.lock)."/>
+    <author value="Konstantin Kudryashiv &lt;ever.zet@gmail.com&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <member name="lockFile" visibility="private" static="false" line="35"/>
+  <member name="repositoryManager" visibility="private" static="false" line="36"/>
+  <member name="installationManager" visibility="private" static="false" line="37"/>
+  <member name="hash" visibility="private" static="false" line="38"/>
+  <member name="contentHash" visibility="private" static="false" line="39"/>
+  <member name="loader" visibility="private" static="false" line="40"/>
+  <member name="dumper" visibility="private" static="false" line="41"/>
+  <member name="process" visibility="private" static="false" line="42"/>
+  <member name="lockDataCache" visibility="private" static="false" line="43"/>
+  <constructor name="__construct" start="54" end="64" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initializes packages locker."/>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param description="lockfile loader" type="object" variable="$lockFile">
+        <type full="Composer\Json\JsonFile" namespace="Composer\Json" name="JsonFile"/>
+      </param>
+      <param description="repository manager instance" type="object" variable="$repositoryManager">
+        <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+      </param>
+      <param description="installation manager instance" type="object" variable="$installationManager">
+        <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+      </param>
+      <param description="The contents of the composer file" type="string" variable="$composerFileContents"/>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="lockFile" byreference="false" type="object">
+      <type full="Composer\Json\JsonFile" namespace="Composer\Json" name="JsonFile"/>
+    </parameter>
+    <parameter name="repositoryManager" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager"/>
+    </parameter>
+    <parameter name="installationManager" byreference="false" type="object">
+      <type full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager"/>
+    </parameter>
+    <parameter name="composerFileContents" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="getContentHash" start="73" end="103" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the md5 hash of the sorted content of the composer file."/>
+      <param description="The contents of the composer file." type="string" variable="$composerFileContents"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="composerFileContents" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isLocked" start="110" end="119" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks whether locker has been locked (lockfile found)."/>
+      <return type="object">
+        <type full="Composer\Package\bool" namespace="Composer\Package" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isFresh" start="126" end="142" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks whether the lock file is still up to date with the current hash"/>
+      <return type="object">
+        <type full="Composer\Package\bool" namespace="Composer\Package" name="bool"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="BC support for old lock files without content-hash" line="135"/>
+      <comment value="should not be reached unless the lock file is corrupted, so assume it's out of date" line="140"/>
+    </inline>
+  </method>
+  <method name="getLockedRepository" start="151" end="178" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Searches and returns an array of locked packages, retrieved from registered repositories."/>
+      <param description="true to retrieve the locked dev packages" type="object" variable="$withDevReqs">
+        <type full="Composer\Package\bool" namespace="Composer\Package" name="bool"/>
+      </param>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return type="object">
+        <type full="\Composer\Repository\RepositoryInterface" namespace="\Composer\Repository" name="RepositoryInterface"/>
+      </return>
+    </docblock>
+    <parameter name="withDevReqs" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="getPlatformRequirements" start="186" end="212" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the platform requirements stored in the lock file"/>
+      <param description="if true, the platform requirements from the require-dev block are also returned" type="object" variable="$withDevReqs">
+        <type full="Composer\Package\bool" namespace="Composer\Package" name="bool"/>
+      </param>
+      <return type="array" of="object">
+        <type full="\Composer\Package\Link" namespace="\Composer\Package" name="Link"/>
+      </return>
+    </docblock>
+    <parameter name="withDevReqs" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="getMinimumStability" start="214" end="219" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getStabilityFlags" start="221" end="226" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getPreferStable" start="228" end="235" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="return null if not set to allow caller logic to choose the" line="232"/>
+      <comment value="right behavior since old lock files have no prefer-stable" line="233"/>
+    </inline>
+  </method>
+  <method name="getPreferLowest" start="237" end="244" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="return null if not set to allow caller logic to choose the" line="241"/>
+      <comment value="right behavior since old lock files have no prefer-lowest" line="242"/>
+    </inline>
+  </method>
+  <method name="getPlatformOverrides" start="246" end="251" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="getAliases" start="253" end="270" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="forward compatibility with Composer 2 lock files created" line="261"/>
+      <comment value="before https://github.com/composer/composer/issues/9337 was fixed" line="262"/>
+    </inline>
+  </method>
+  <method name="getLockData" start="272" end="283" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="setLockData" start="301" end="361" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Locks provided data into lockfile."/>
+      <param description="array of packages" type="array" variable="$packages"/>
+      <param description="array of dev packages or null if installed without --dev" type="mixed" variable="$devPackages"/>
+      <param description="array of package name =&gt; constraint for required platform packages" type="array" variable="$platformReqs"/>
+      <param description="array of package name =&gt; constraint for dev-required platform packages" type="mixed" variable="$platformDevReqs"/>
+      <param description="array of aliases" type="array" variable="$aliases"/>
+      <param type="string" variable="$minimumStability"/>
+      <param type="array" variable="$stabilityFlags"/>
+      <param type="object" variable="$preferStable">
+        <type full="Composer\Package\bool" namespace="Composer\Package" name="bool"/>
+      </param>
+      <param type="object" variable="$preferLowest">
+        <type full="Composer\Package\bool" namespace="Composer\Package" name="bool"/>
+      </param>
+      <param type="array" variable="$platformOverrides"/>
+      <return type="object">
+        <type full="Composer\Package\bool" namespace="Composer\Package" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="packages" byreference="false" type="array"/>
+    <parameter name="devPackages" byreference="false" type="{unknown}"/>
+    <parameter name="platformReqs" byreference="false" type="array"/>
+    <parameter name="platformDevReqs" byreference="false" type="{unknown}"/>
+    <parameter name="aliases" byreference="false" type="array"/>
+    <parameter name="minimumStability" byreference="false" type="{unknown}"/>
+    <parameter name="stabilityFlags" byreference="false" type="array"/>
+    <parameter name="preferStable" byreference="false" type="{unknown}"/>
+    <parameter name="preferLowest" byreference="false" type="{unknown}"/>
+    <parameter name="platformOverrides" byreference="false" type="array"/>
+  </method>
+  <method name="lockPackages" start="363" end="413" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="packages" byreference="false" type="array"/>
+  </method>
+  <method name="getPackageTime" start="421" end="451" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns the packages's datetime for its source reference."/>
+      <param description="The package to scan." type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return description="The formatted datetime or null if none was found." type="object">
+        <type full="Composer\Package\string|null" namespace="Composer\Package" name="string|null"/>
+      </return>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+</class>

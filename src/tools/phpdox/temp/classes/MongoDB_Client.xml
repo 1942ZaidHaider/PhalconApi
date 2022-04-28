@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Client" namespace="MongoDB" name="Client" abstract="false" final="false" start="45" end="424">
+  <file path="../vendor/mongodb/mongodb/src" file="Client.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Client.php" size="13883" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="bc57332db1d7563ed54cb8a614018c27642ba12d" relative="vendor/mongodb/mongodb/src/Client.php"/>
+  <member name="defaultTypeMap" default="" type="array" visibility="private" static="true" line="48">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="handshakeSeparator" default="' / '" type="string" visibility="private" static="true" line="55">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="version" visibility="private" static="true" line="58">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\string|null" namespace="MongoDB" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="manager" visibility="private" static="false" line="61">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="readConcern" visibility="private" static="false" line="64">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\ReadConcern" namespace="MongoDB\Driver" name="ReadConcern"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="readPreference" visibility="private" static="false" line="67">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="uri" visibility="private" static="false" line="70">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="typeMap" visibility="private" static="false" line="73">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="writeConcern" visibility="private" static="false" line="76">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\WriteConcern" namespace="MongoDB\Driver" name="WriteConcern"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="101" end="128" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a new Client instance.">This is the preferred class for connecting to a MongoDB server or
+cluster of servers. It serves as a gateway for accessing individual
+databases and collections.
+
+Supported driver-specific options:
+
+ * typeMap (array): Default type map for cursors and BSON documents.
+
+Other options are documented in MongoDB\Driver\Manager::__construct().</description>
+      <see value="http://docs.mongodb.org/manual/reference/connection-string/"/>
+      <see value="http://php.net/manual/en/mongodb-driver-manager.construct.php"/>
+      <see value="http://php.net/manual/en/mongodb.persistence.php#mongodb.persistence.typemaps"/>
+      <param description="MongoDB connection string" type="string" variable="$uri"/>
+      <param description="Additional connection string options" type="array" variable="$uriOptions"/>
+      <param description="Driver-specific options" type="array" variable="$driverOptions"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="for parameter/option parsing errors in the driver" type="object">
+        <type full="MongoDB\Driver\Exception\InvalidArgumentException" namespace="MongoDB\Driver\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="uri" byreference="false" type="string" default="'mongodb://127.0.0.1/'"/>
+    <parameter name="uriOptions" byreference="false" type="array" default=""/>
+    <parameter name="driverOptions" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="__debugInfo" start="136" end="144" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return internal properties for debugging purposes."/>
+      <see value="http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.debuginfo"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="__get" start="158" end="161" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Select a database.">Note: databases whose names contain special characters (e.g. "-") may
+be selected with complex syntax (e.g. $client-&gt;{"that-database"}) or
+{@link selectDatabase()}.</description>
+      <see value="http://php.net/oop5.overloading#object.get"/>
+      <see value="http://php.net/types.string#language.types.string.parsing.complex"/>
+      <param description="Name of the database to select" type="string" variable="$databaseName"/>
+      <return type="object">
+        <type full="MongoDB\Database" namespace="MongoDB" name="Database"/>
+      </return>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="__toString" start="168" end="171" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the connection string (i.e. URI)."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="createClientEncryption" start="180" end="191" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns a ClientEncryption instance for explicit encryption and decryption"/>
+      <param description="Encryption options" type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\Driver\ClientEncryption" namespace="MongoDB\Driver" name="ClientEncryption"/>
+      </return>
+    </docblock>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <method name="dropDatabase" start="204" end="219" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Drop a database."/>
+      <see value="DropDatabase::__construct() for supported options"/>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Additional options" type="array" variable="$options"/>
+      <return description="Command result document" type="object">
+        <type full="MongoDB\array|object" namespace="MongoDB" name="array|object"/>
+      </return>
+      <throws description="if options are unsupported on the selected server" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getManager" start="226" end="229" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the Manager."/>
+      <return type="object">
+        <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getReadConcern" start="237" end="240" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the read concern for this client."/>
+      <see value="http://php.net/manual/en/mongodb-driver-readconcern.isdefault.php"/>
+      <return type="object">
+        <type full="MongoDB\Driver\ReadConcern" namespace="MongoDB\Driver" name="ReadConcern"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getReadPreference" start="247" end="250" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the read preference for this client."/>
+      <return type="object">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getTypeMap" start="257" end="260" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the type map for this client."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="getWriteConcern" start="268" end="271" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the write concern for this client."/>
+      <see value="http://php.net/manual/en/mongodb-driver-writeconcern.isdefault.php"/>
+      <return type="object">
+        <type full="MongoDB\Driver\WriteConcern" namespace="MongoDB\Driver" name="WriteConcern"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="listDatabaseNames" start="281" end="287" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="List database names."/>
+      <see value="ListDatabaseNames::__construct() for supported options"/>
+      <throws description="if the command response was malformed" type="object">
+        <type full="MongoDB\Exception\UnexpectedValueException" namespace="MongoDB\Exception" name="UnexpectedValueException"/>
+      </throws>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Iterator" namespace="" name="Iterator"/>
+    </return>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="listDatabases" start="299" end="305" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="List databases."/>
+      <see value="ListDatabases::__construct() for supported options"/>
+      <param type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\Model\DatabaseInfoIterator" namespace="MongoDB\Model" name="DatabaseInfoIterator"/>
+      </return>
+      <throws description="if the command response was malformed" type="object">
+        <type full="MongoDB\Exception\UnexpectedValueException" namespace="MongoDB\Exception" name="UnexpectedValueException"/>
+      </throws>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="selectCollection" start="317" end="322" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Select a collection."/>
+      <see value="Collection::__construct() for supported options"/>
+      <param description="Name of the database containing the collection" type="string" variable="$databaseName"/>
+      <param description="Name of the collection to select" type="string" variable="$collectionName"/>
+      <param description="Collection constructor options" type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\Collection" namespace="MongoDB" name="Collection"/>
+      </return>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="selectDatabase" start="333" end="338" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Select a database."/>
+      <see value="Database::__construct() for supported options"/>
+      <param description="Name of the database to select" type="string" variable="$databaseName"/>
+      <param description="Database constructor options" type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\Database" namespace="MongoDB" name="Database"/>
+      </return>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="startSession" start="347" end="350" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Start a new client session."/>
+      <see value="http://php.net/manual/en/mongodb-driver-manager.startsession.php"/>
+      <param description="Session options" type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\Driver\Session" namespace="MongoDB\Driver" name="Session"/>
+      </return>
+    </docblock>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="watch" start="361" end="380" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Create a change stream for watching changes to the cluster."/>
+      <see value="Watch::__construct() for supported options"/>
+      <param description="List of pipeline operations" type="array" variable="$pipeline"/>
+      <param description="Command options" type="array" variable="$options"/>
+      <return type="object">
+        <type full="MongoDB\ChangeStream" namespace="MongoDB" name="ChangeStream"/>
+      </return>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="pipeline" byreference="false" type="array" default=""/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getVersion" start="382" end="393" abstract="false" final="false" static="true" visibility="private">
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="mergeDriverInfo" start="395" end="423" abstract="false" final="false" static="false" visibility="private">
+    <return type="array" nullable="false"/>
+    <parameter name="driver" byreference="false" type="array"/>
+  </method>
+</class>

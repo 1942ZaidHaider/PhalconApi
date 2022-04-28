@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\DependencyResolver\Solver" namespace="Composer\DependencyResolver" name="Solver" abstract="false" final="false" start="22" end="872">
+  <file path="../vendor/composer/composer/src/Composer/DependencyResolver" file="Solver.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/DependencyResolver/Solver.php" size="27467" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="dd74dd1210744cea4b9bbf350c20615fc50ca5e5" relative="vendor/composer/composer/src/Composer/DependencyResolver/Solver.php"/>
+  <docblock>
+    <description/>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+  </docblock>
+  <constant type="integer" name="BRANCH_LITERALS" value="0"/>
+  <constant type="integer" name="BRANCH_LEVEL" value="1"/>
+  <member name="policy" visibility="protected" static="false" line="28">
+    <docblock>
+      <var type="object">
+        <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="pool" visibility="protected" static="false" line="30">
+    <docblock>
+      <var type="object">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="installed" visibility="protected" static="false" line="32">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="rules" visibility="protected" static="false" line="34">
+    <docblock>
+      <var type="object">
+        <type full="Composer\DependencyResolver\RuleSet" namespace="Composer\DependencyResolver" name="RuleSet"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ruleSetGenerator" visibility="protected" static="false" line="36">
+    <docblock>
+      <var type="object">
+        <type full="Composer\DependencyResolver\RuleSetGenerator" namespace="Composer\DependencyResolver" name="RuleSetGenerator"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="jobs" visibility="protected" static="false" line="38">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="updateMap" default="" type="array" visibility="protected" static="false" line="41">
+    <docblock>
+      <var type="array" of="object">
+        <type full="Composer\DependencyResolver\int" namespace="Composer\DependencyResolver" name="int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="watchGraph" visibility="protected" static="false" line="43">
+    <docblock>
+      <var type="object">
+        <type full="Composer\DependencyResolver\RuleWatchGraph" namespace="Composer\DependencyResolver" name="RuleWatchGraph"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="decisions" visibility="protected" static="false" line="45">
+    <docblock>
+      <var type="object">
+        <type full="Composer\DependencyResolver\Decisions" namespace="Composer\DependencyResolver" name="Decisions"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="installedMap" visibility="protected" static="false" line="47">
+    <docblock>
+      <var type="array" of="object">
+        <type full="Composer\DependencyResolver\int" namespace="Composer\DependencyResolver" name="int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="propagateIndex" visibility="protected" static="false" line="50">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="branches" default="" type="array" visibility="protected" static="false" line="52">
+    <docblock>
+      <var type="array" of="object">
+        <type full="Composer\DependencyResolver\array" namespace="Composer\DependencyResolver" name="array"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="problems" default="" type="array" visibility="protected" static="false" line="54">
+    <docblock>
+      <var type="array" of="object">
+        <type full="Composer\DependencyResolver\Problem" namespace="Composer\DependencyResolver" name="Problem"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="learnedPool" default="" type="array" visibility="protected" static="false" line="56">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="learnedWhy" default="" type="array" visibility="protected" static="false" line="58">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="testFlagLearnedPositiveLiteral" default="false" type="boolean" visibility="public" static="false" line="61">
+    <docblock>
+      <var type="object">
+        <type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="io" visibility="protected" static="false" line="64">
+    <docblock>
+      <var type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="72" end="79" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$policy">
+        <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+      </param>
+      <param type="object" variable="$pool">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </param>
+      <param type="object" variable="$installed">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+    </docblock>
+    <parameter name="policy" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+    </parameter>
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="installed" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </constructor>
+  <method name="getRuleSetSize" start="84" end="87" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  <method name="makeAssertionRuleDecisions" start="91" end="160" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="setupInstalledMap" start="162" end="168" abstract="false" final="false" static="false" visibility="protected"/>
+  <method name="checkForRootRequireProblems" start="173" end="205" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="object" variable="$ignorePlatformReqs">
+        <type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="ignorePlatformReqs" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="solve" start="212" end="249" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$request">
+        <type full="Composer\DependencyResolver\Request" namespace="Composer\DependencyResolver" name="Request"/>
+      </param>
+      <param type="object" variable="$ignorePlatformReqs">
+        <type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="request" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Request" namespace="Composer\DependencyResolver" name="Request"/>
+    </parameter>
+    <parameter name="ignorePlatformReqs" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="make decisions based on job/update assertions" line="226"/>
+      <comment value="decide to remove everything that's installed and undecided" line="235"/>
+    </inline>
+  </method>
+  <method name="propagate" start="260" end="279" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Makes a decision and propagates it to all rules.">Evaluates each term affected by the decision (linked through watches)
+If we find unit rules we make new decisions based on them</description>
+      <param type="int" variable="$level"/>
+      <return description="A rule on conflict, otherwise null." type="object">
+        <type full="Composer\DependencyResolver\Rule|null" namespace="Composer\DependencyResolver" name="Rule|null"/>
+      </return>
+    </docblock>
+    <parameter name="level" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="revert" start="286" end="308" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Reverts a decision at the given level."/>
+      <param type="int" variable="$level"/>
+    </docblock>
+    <parameter name="level" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setPropagateLearn" start="329" end="375" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="setpropagatelearn">add free decision (a positive literal) to decision queue
+increase level and propagate decision
+return if no conflict.
+
+in conflict case, analyze conflict rule, add resulting
+rule to learnt rule set, make decision from learnt
+rule (always unit) and re-propagate.
+
+returns the new solver level or 0 if unsolvable</description>
+      <param type="int" variable="$level"/>
+      <param type="object" variable="$literal">
+        <type full="Composer\DependencyResolver\string|int" namespace="Composer\DependencyResolver" name="string|int"/>
+      </param>
+      <param type="object" variable="$disableRules">
+        <type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/>
+      </param>
+      <param type="object" variable="$rule">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </param>
+      <return type="int"/>
+    </docblock>
+    <parameter name="level" byreference="false" type="{unknown}"/>
+    <parameter name="literal" byreference="false" type="{unknown}"/>
+    <parameter name="disableRules" byreference="false" type="{unknown}"/>
+    <parameter name="rule" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+    </parameter>
+  </method>
+  <method name="selectAndInstall" start="384" end="397" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="int" variable="$level"/>
+      <param type="array" variable="$decisionQueue"/>
+      <param type="object" variable="$disableRules">
+        <type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/>
+      </param>
+      <param type="object" variable="$rule">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </param>
+      <return type="int"/>
+    </docblock>
+    <parameter name="level" byreference="false" type="{unknown}"/>
+    <parameter name="decisionQueue" byreference="false" type="array"/>
+    <parameter name="disableRules" byreference="false" type="{unknown}"/>
+    <parameter name="rule" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+    </parameter>
+    <inline>
+      <comment value="choose best package to install from decisionQueue" line="386"/>
+      <comment value="if there are multiple candidates, then branch" line="391"/>
+    </inline>
+  </method>
+  <method name="analyze" start="404" end="511" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="int" variable="$level"/>
+      <param type="object" variable="$rule">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </param>
+      <return type="array"/>
+    </docblock>
+    <parameter name="level" byreference="false" type="{unknown}"/>
+    <parameter name="rule" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+    </parameter>
+  </method>
+  <method name="analyzeUnsolvableRule" start="517" end="538" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$problem">
+        <type full="Composer\DependencyResolver\Problem" namespace="Composer\DependencyResolver" name="Problem"/>
+      </param>
+      <param type="object" variable="$conflictRule">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </param>
+    </docblock>
+    <parameter name="problem" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Problem" namespace="Composer\DependencyResolver" name="Problem"/>
+    </parameter>
+    <parameter name="conflictRule" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+    </parameter>
+  </method>
+  <method name="analyzeUnsolvable" start="545" end="600" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$conflictRule">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </param>
+      <param type="object" variable="$disableRules">
+        <type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/>
+      </param>
+      <return type="int"/>
+    </docblock>
+    <parameter name="conflictRule" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+    </parameter>
+    <parameter name="disableRules" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="disableProblem" start="605" end="622" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$why">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </param>
+    </docblock>
+    <parameter name="why" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+    </parameter>
+    <inline>
+      <comment value="disable all rules of this job" line="615"/>
+    </inline>
+  </method>
+  <method name="resetSolver" start="624" end="633" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="enableDisableLearnedRules" start="642" end="662" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="enable/disable learnt rules">we have enabled or disabled some of our rules. We now re-enable all
+of our learnt rules except the ones that were learnt from rules that
+are now disabled.</description>
+    </docblock>
+  </method>
+  <method name="runSat" start="667" end="871" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$disableRules">
+        <type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="disableRules" byreference="false" type="boolean" default="true"/>
+    <inline>
+      <comment value="here's the main loop:" line="671"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="1) propagate new decisions (only needed once)" line="672"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="2) fulfill jobs" line="673"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="3) fulfill all unresolved rules" line="674"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="4) minimalize solution if we had choices" line="675"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="if we encounter a problem, we rewind to a safe level and restart" line="676"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="with step 1" line="677"/>
+      <todo value="this makes $disableRules always false; determine the rationale and possibly remove dead code?" line="682"/>
+    </inline>
+  </method>
+</class>

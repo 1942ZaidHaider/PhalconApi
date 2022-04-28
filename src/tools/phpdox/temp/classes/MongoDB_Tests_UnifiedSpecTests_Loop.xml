@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\UnifiedSpecTests\Loop" namespace="MongoDB\Tests\UnifiedSpecTests" name="Loop" abstract="false" final="true" start="23" end="181">
+  <file path="../vendor/mongodb/mongodb/tests/UnifiedSpecTests" file="Loop.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/UnifiedSpecTests/Loop.php" size="5745" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="c9f0e1e4028c48c78ff656b08f2967714c65c213" relative="vendor/mongodb/mongodb/tests/UnifiedSpecTests/Loop.php"/>
+  <member name="allowIteration" default="true" type="boolean" visibility="private" static="true" line="26">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="sleepUsecBetweenIterations" default="0" type="integer" visibility="private" static="true" line="29">
+    <docblock>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="context" visibility="private" static="false" line="32">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\Context" namespace="MongoDB\Tests\UnifiedSpecTests" name="Context"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="operations" default="" type="array" visibility="private" static="false" line="35">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="errorList" visibility="private" static="false" line="38">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Model\BSONArray" namespace="MongoDB\Model" name="BSONArray"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="failureList" visibility="private" static="false" line="41">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Model\BSONArray" namespace="MongoDB\Model" name="BSONArray"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="numSuccessfulOperationsEntityId" visibility="private" static="false" line="44">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="numIterationsEntityId" visibility="private" static="false" line="47">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="49" end="75" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="operations" byreference="false" type="array"/>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\UnifiedSpecTests\Context" namespace="MongoDB\Tests\UnifiedSpecTests" name="Context"/>
+    </parameter>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="execute" start="77" end="125" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="allowIteration" start="132" end="135" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Allow or prohibit loop operations from starting a new iteration.">This function is primarily used by the Atlas testing workload executor.</description>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="allowIteration" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="setSleepUsecBetweenIterations" start="142" end="147" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Set time to sleep between iterations.">This can be used to limit CPU usage during workload execution.</description>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="usec" byreference="false" type="int"/>
+  </method>
+  <method name="handleErrorOrFailure" start="149" end="167" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="e" byreference="false" type="object">
+      <type full="Throwable" namespace="" name="Throwable"/>
+    </parameter>
+    <inline>
+      <comment value="The constructor will either initialize both lists or leave them both" line="151"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="unset. If unset, exceptions should not be logged and instead" line="152"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* interrupt the loop." line="153"/>
+      <comment value="Failures and errors are differentiated according to the logic in" line="158"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="PHPUnit\Framework\TestCase::runBare(). Other PHPUnit exceptions have" line="159"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* already been excluded by logic in execute()." line="160"/>
+    </inline>
+  </method>
+  <method name="initializeListEntity" start="169" end="180" abstract="false" final="false" static="false" visibility="private">
+    <return type="object" nullable="false">
+      <type full="MongoDB\Model\BSONArray" namespace="MongoDB\Model" name="BSONArray"/>
+    </return>
+    <parameter name="id" byreference="false" type="string"/>
+  </method>
+</class>

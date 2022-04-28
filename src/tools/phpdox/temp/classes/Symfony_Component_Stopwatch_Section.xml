@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Stopwatch\Section" namespace="Symfony\Component\Stopwatch" name="Section" abstract="false" final="false" start="19" end="185">
+  <file path="../vendor/symfony/stopwatch" file="Section.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/stopwatch/Section.php" size="4004" time="2022-02-18T16:06:09+00:00" unixtime="1645200369" sha1="eab6af912bc81ad895c7cc8badaf1582cf5b7824" relative="vendor/symfony/stopwatch/Section.php"/>
+  <docblock>
+    <description compact="Stopwatch section."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+  </docblock>
+  <member name="events" default="" type="array" visibility="private" static="false" line="24">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="origin" visibility="private" static="false" line="29">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Symfony\Component\Stopwatch\float|null" namespace="Symfony\Component\Stopwatch" name="float|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="morePrecision" visibility="private" static="false" line="34">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Symfony\Component\Stopwatch\bool" namespace="Symfony\Component\Stopwatch" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="id" visibility="private" static="false" line="39">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="children" default="" type="array" visibility="private" static="false" line="44">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\Section" namespace="Symfony\Component\Stopwatch" name="Section"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="50" end="54" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="Set the origin of the events in this section, use null to set their origin to their start time" type="object" variable="$origin">
+        <type full="Symfony\Component\Stopwatch\float|null" namespace="Symfony\Component\Stopwatch" name="float|null"/>
+      </param>
+      <param description="If true, time is stored as float to keep the original microsecond precision" type="object" variable="$morePrecision">
+        <type full="Symfony\Component\Stopwatch\bool" namespace="Symfony\Component\Stopwatch" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="origin" byreference="false" type="float" default="NULL"/>
+    <parameter name="morePrecision" byreference="false" type="boolean" default="false"/>
+  </constructor>
+  <method name="get" start="61" end="70" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the child section."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\self|null" namespace="Symfony\Component\Stopwatch" name="self|null"/>
+      </return>
+    </docblock>
+    <parameter name="id" byreference="false" type="string"/>
+  </method>
+  <method name="open" start="79" end="86" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Creates or re-opens a child section."/>
+      <param description="Null to create a new section, the identifier to re-open an existing one" type="object" variable="$id">
+        <type full="Symfony\Component\Stopwatch\string|null" namespace="Symfony\Component\Stopwatch" name="string|null"/>
+      </param>
+      <return resolution="self" type="object">
+        <type full="Symfony\Component\Stopwatch\Section" namespace="Symfony\Component\Stopwatch" name="Section"/>
+      </return>
+    </docblock>
+    <parameter name="id" byreference="false" nullable="true" type="string"/>
+  </method>
+  <method name="getId" start="91" end="94" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="setId" start="101" end="106" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the session identifier."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\$this" namespace="Symfony\Component\Stopwatch" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="id" byreference="false" type="string"/>
+  </method>
+  <method name="startEvent" start="113" end="120" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Starts an event."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+    <parameter name="category" byreference="false" nullable="true" type="string"/>
+  </method>
+  <method name="isEventStarted" start="127" end="130" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if the event was started."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\bool" namespace="Symfony\Component\Stopwatch" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="stopEvent" start="139" end="146" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stops an event."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+      <throws description="When the event has not been started" type="object">
+        <type full="\LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="lap" start="155" end="158" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stops then restarts an event."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+      <throws description="When the event has not been started" type="object">
+        <type full="\LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="getEvent" start="167" end="174" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns a specific event by name."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+      <throws description="When the event is not known" type="object">
+        <type full="\LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+    <parameter name="name" byreference="false" type="string"/>
+  </method>
+  <method name="getEvents" start="181" end="184" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the events from this section."/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent"/>
+      </return>
+    </docblock>
+  </method>
+</class>

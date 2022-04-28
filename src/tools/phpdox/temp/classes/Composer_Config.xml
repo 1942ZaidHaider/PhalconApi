@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Config" namespace="Composer" name="Config" abstract="false" final="false" start="24" end="487">
+  <file path="../vendor/composer/composer/src/Composer" file="Config.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Config.php" size="16711" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="79e6cfa6f9434f09cd3ab226a946ca61e13e75cd" relative="vendor/composer/composer/src/Composer/Config.php"/>
+  <docblock>
+    <description/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <constant type="integer" name="RELATIVE_PATHS" value="1"/>
+  <member name="defaultConfig" default="" type="array" visibility="public" static="true" line="28"/>
+  <member name="defaultRepositories" default="" type="array" visibility="public" static="true" line="76"/>
+  <member name="config" visibility="private" static="false" line="84"/>
+  <member name="baseDir" visibility="private" static="false" line="85"/>
+  <member name="repositories" visibility="private" static="false" line="86"/>
+  <member name="configSource" visibility="private" static="false" line="88">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Config\ConfigSourceInterface" namespace="Composer\Config" name="ConfigSourceInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="authConfigSource" visibility="private" static="false" line="90">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Config\ConfigSourceInterface" namespace="Composer\Config" name="ConfigSourceInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="useEnvironment" visibility="private" static="false" line="91"/>
+  <member name="warnedHosts" default="" type="array" visibility="private" static="false" line="92"/>
+  <constructor name="__construct" start="98" end="105" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="Use COMPOSER_ environment variables to replace config settings" type="object" variable="$useEnvironment">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </param>
+      <param description="Optional base directory of the config" type="string" variable="$baseDir"/>
+    </docblock>
+    <parameter name="useEnvironment" byreference="false" type="boolean" default="true"/>
+    <parameter name="baseDir" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="load defaults" line="100"/>
+    </inline>
+  </constructor>
+  <method name="setConfigSource" start="107" end="110" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="source" byreference="false" type="object">
+      <type full="Composer\Config\ConfigSourceInterface" namespace="Composer\Config" name="ConfigSourceInterface"/>
+    </parameter>
+  </method>
+  <method name="getConfigSource" start="112" end="115" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="setAuthConfigSource" start="117" end="120" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="source" byreference="false" type="object">
+      <type full="Composer\Config\ConfigSourceInterface" namespace="Composer\Config" name="ConfigSourceInterface"/>
+    </parameter>
+  </method>
+  <method name="getAuthConfigSource" start="122" end="125" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="merge" start="132" end="192" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Merges new config values with the existing ones (overriding)"/>
+      <param type="array" variable="$config"/>
+    </docblock>
+    <parameter name="config" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="override defaults with given config" line="134"/>
+    </inline>
+  </method>
+  <method name="getRepositories" start="197" end="200" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="get" start="210" end="347" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns a setting"/>
+      <param type="string" variable="$key"/>
+      <param description="Options (see class constants)" type="int" variable="$flags"/>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="flags" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="all" start="349" end="359" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="flags" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="raw" start="361" end="367" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="has" start="375" end="378" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks whether a setting exists"/>
+      <param type="string" variable="$key"/>
+      <return type="object">
+        <type full="Composer\bool" namespace="Composer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="process" start="387" end="398" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Replaces {$refs} inside a config string"/>
+      <param description="a config string that can contain {$refs-to-other-config}" type="object" variable="$value">
+        <type full="Composer\string|int|null" namespace="Composer" name="string|int|null"/>
+      </param>
+      <param description="Options (see class constants)" type="int" variable="$flags"/>
+      <return type="object">
+        <type full="Composer\string|int|null" namespace="Composer" name="string|int|null"/>
+      </return>
+    </docblock>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <parameter name="flags" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="realpath" start="408" end="415" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Turns relative paths in absolute paths without realpath()">Since the dirs might not exist yet we can not call realpath or it will fail.</description>
+      <param type="string" variable="$path"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getComposerEnv" start="426" end="433" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Reads the value of a Composer environment variable">This should be used to read COMPOSER_ environment variables
+that overload config values.</description>
+      <param type="string" variable="$var"/>
+      <return type="object">
+        <type full="Composer\string|bool" namespace="Composer" name="string|bool"/>
+      </return>
+    </docblock>
+    <parameter name="var" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="disableRepoByName" start="435" end="442" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="prohibitUrlByConfig" start="450" end="470" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Validates that the passed URL is allowed to be used by current config, or throws an exception."/>
+      <param type="string" variable="$url"/>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+    </docblock>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+    <parameter name="io" byreference="false" type="object" default="NULL">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <inline>
+      <comment value="Return right away if the URL is malformed or custom (see issue #5173)" line="452"/>
+      <comment value="Extract scheme and throw exception on known insecure protocols" line="457"/>
+    </inline>
+  </method>
+  <method name="disableProcessTimeout" start="482" end="486" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Used by long-running custom scripts in composer.json">"scripts": {
+  "watch": [
+    "Composer\\Config::disableProcessTimeout",
+    "vendor/bin/long-running-script --watch"
+  ]
+}</description>
+    </docblock>
+    <inline>
+      <comment value="Override global timeout set earlier by environment or config" line="484"/>
+    </inline>
+  </method>
+</class>

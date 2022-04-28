@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Process\Pipes\AbstractPipes" namespace="Symfony\Component\Process\Pipes" name="AbstractPipes" abstract="true" final="false" start="21" end="180">
+  <file path="../vendor/symfony/process/Pipes" file="AbstractPipes.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/process/Pipes/AbstractPipes.php" size="5074" time="2022-04-08T05:07:18+00:00" unixtime="1649394438" sha1="cc084303654eb82ef9ba0adb2c55b115accaff37" relative="vendor/symfony/process/Pipes/AbstractPipes.php"/>
+  <docblock>
+    <description/>
+    <author value="Romain Neutron &lt;imprec@gmail.com&gt;"/>
+    <internal/>
+  </docblock>
+  <implements full="Symfony\Component\Process\Pipes\PipesInterface" namespace="Symfony\Component\Process\Pipes" name="PipesInterface"/>
+  <member name="pipes" default="" type="array" visibility="public" static="false" line="23"/>
+  <member name="inputBuffer" default="''" type="string" visibility="private" static="false" line="25"/>
+  <member name="input" visibility="private" static="false" line="26"/>
+  <member name="blocked" default="true" type="boolean" visibility="private" static="false" line="27"/>
+  <member name="lastError" visibility="private" static="false" line="28"/>
+  <constructor name="__construct" start="33" end="42" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$input">
+        <type full="Symfony\Component\Process\Pipes\resource|string|int|float|bool|\Iterator|null" namespace="Symfony\Component\Process\Pipes\resource|string|int|float|bool|" name="Iterator|null"/>
+      </param>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="close" start="47" end="55" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+  </method>
+  <method name="hasSystemCallBeenInterrupted" start="60" end="67" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns true if a system call has been interrupted."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <inline>
+      <comment value="stream_select returns false when the `select` system call is interrupted by an incoming signal" line="65"/>
+    </inline>
+  </method>
+  <method name="unblock" start="72" end="86" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Unblocks streams."/>
+    </docblock>
+  </method>
+  <method name="write" start="93" end="171" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Writes input to stdin."/>
+      <throws description="When an input iterator yields a non supported value" type="object">
+        <type full="Symfony\Component\Process\Exception\InvalidArgumentException" namespace="Symfony\Component\Process\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="array" nullable="true"/>
+    <inline>
+      <comment value="let's have a look if something changed in streams" line="123"/>
+      <comment value="no input to read on resource, buffer is empty" line="161"/>
+    </inline>
+  </method>
+  <method name="handleError" start="176" end="179" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <internal/>
+    </docblock>
+    <parameter name="type" byreference="false" type="int"/>
+    <parameter name="msg" byreference="false" type="string"/>
+  </method>
+  <extenders>
+    <extender full="Symfony\Component\Process\Pipes\WindowsPipes" namespace="Symfony\Component\Process\Pipes" name="WindowsPipes"/>
+    <extender full="Symfony\Component\Process\Pipes\UnixPipes" namespace="Symfony\Component\Process\Pipes" name="UnixPipes"/>
+  </extenders>
+  <interface full="Symfony\Component\Process\Pipes\PipesInterface" namespace="Symfony\Component\Process\Pipes" name="PipesInterface">
+    <constant type="{unknown}" name="CHUNK_SIZE" value="16384"/>
+    <method name="getDescriptors" start="28" end="28" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns an array of descriptors for the use of proc_open."/>
+      </docblock>
+      <return type="array" nullable="false"/>
+    </method>
+    <method name="getFiles" start="35" end="35" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns an array of filenames indexed by their related stream in case these pipes use temporary files."/>
+        <return type="array" of="object">
+          <type full="Symfony\Component\Process\Pipes\string" namespace="Symfony\Component\Process\Pipes" name="string"/>
+        </return>
+      </docblock>
+      <return type="array" nullable="false"/>
+    </method>
+    <method name="readAndWrite" start="45" end="45" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Reads data in file handles and pipes."/>
+        <param description="Whether to use blocking calls or not" type="object" variable="$blocking">
+          <type full="Symfony\Component\Process\Pipes\bool" namespace="Symfony\Component\Process\Pipes" name="bool"/>
+        </param>
+        <param description="Whether to close pipes if they've reached EOF" type="object" variable="$close">
+          <type full="Symfony\Component\Process\Pipes\bool" namespace="Symfony\Component\Process\Pipes" name="bool"/>
+        </param>
+        <return description="An array of read data indexed by their fd" type="array" of="object">
+          <type full="Symfony\Component\Process\Pipes\string" namespace="Symfony\Component\Process\Pipes" name="string"/>
+        </return>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="blocking" byreference="false" type="bool"/>
+      <parameter name="close" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="areOpen" start="50" end="50" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns if the current state has open file handles or pipes."/>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="haveReadSupport" start="55" end="55" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns if pipes are able to read output."/>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="close" start="60" end="60" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Closes file handles and pipes."/>
+      </docblock>
+    </method>
+  </interface>
+</class>

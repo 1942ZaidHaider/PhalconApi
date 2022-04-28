@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels\IncludeSystemSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels" name="IncludeSystemSniff" abstract="false" final="false" start="16" end="314">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Standards/MySource/Sniffs/Channels" file="IncludeSystemSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Standards/MySource/Sniffs/Channels/IncludeSystemSniff.php" size="13138" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="4d4a185c10d7664d26cd5e116e2adaa12f5618b3" relative="vendor/squizlabs/php_codesniffer/src/Standards/MySource/Sniffs/Channels/IncludeSystemSniff.php"/>
+  <extends full="PHP_CodeSniffer\Sniffs\AbstractScopeSniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractScopeSniff"/>
+  <member name="ignore" default="" type="array" visibility="private" static="false" line="24">
+    <docblock>
+      <description compact="A list of classes that don't need to be included."/>
+      <var type="array" of="object">
+        <type full="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels\string" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="47" end="51" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs an AbstractScopeSniff."/>
+    </docblock>
+  </constructor>
+  <method name="processTokenWithinScope" start="63" end="192" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Processes the function tokens within the class."/>
+      <param description="The file where this token was found." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position where the token was found." type="integer" variable="$stackPtr"/>
+      <param description="The current scope opener token." type="integer" variable="$currScope"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels\void" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="currScope" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Determine the name of the class that the static function" line="67"/>
+      <comment value="is being called on." line="68"/>
+      <comment value="Don't process class names represented by variables as this can be" line="76"/>
+      <comment value="an inexact science." line="77"/>
+      <comment value="Go searching for includeSystem and includeAsset calls within this" line="108"/>
+      <comment value="function, or the inclusion of .inc files, which" line="109"/>
+      <comment value="would be library files." line="110"/>
+      <comment value="Now go searching for includeSystem, includeAsset or require/include" line="123"/>
+      <comment value="calls outside our scope. If we are in a class, look outside the" line="124"/>
+      <comment value="class. If we are not, look outside the function." line="125"/>
+      <comment value="If we are in a testing class, we might have also included" line="148"/>
+      <comment value="some systems and classes in our setUp() method." line="149"/>
+      <comment value="end if" line="173"/>
+      <comment value="end if" line="184"/>
+    </inline>
+  </method>
+  <method name="processTokenOutsideScope" start="204" end="278" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Processes a token within the scope that this test is listening to."/>
+      <param description="The file where the token was found." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position in the stack where" type="int" variable="$stackPtr">this token was found.</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels\void" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Some systems are always available." line="224"/>
+      <comment value="Go searching for includeSystem, includeAsset or require/include" line="240"/>
+      <comment value="calls outside our scope." line="241"/>
+      <comment value="end for" line="264"/>
+    </inline>
+  </method>
+  <method name="getIncludedClassFromToken" start="291" end="311" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Determines the included class name from given token."/>
+      <param description="The file where this token was found." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The array of file tokens." type="array" variable="$tokens"/>
+      <param description="The position in the tokens array of the" type="int" variable="$stackPtr">potentially included class.</param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="tokens" byreference="false" type="array"/>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="PHP_CodeSniffer\Sniffs\AbstractScopeSniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractScopeSniff">
+    <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+    <constructor name="__construct" start="71" end="97" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Constructs a new AbstractScopeTest."/>
+        <param description="The type of scope the test wishes to listen to." type="array" variable="$scopeTokens"/>
+        <param description="The tokens that the test wishes to listen to" type="array" variable="$tokens">within the scope.</param>
+        <param description="If true this test will also alert the" type="boolean" variable="$listenOutside">extending class when a token is found outside
+                              the scope, by calling the
+                              processTokenOutsideScope method.</param>
+        <throws description="If the specified tokens arrays are empty" type="object">or invalid.<type full="\PHP_CodeSniffer\Exceptions\RuntimeException" namespace="\PHP_CodeSniffer\Exceptions" name="RuntimeException"/></throws>
+      </docblock>
+      <parameter name="scopeTokens" byreference="false" type="array"/>
+      <parameter name="tokens" byreference="false" type="array"/>
+      <parameter name="listenOutside" byreference="false" type="boolean" default="false"/>
+    </constructor>
+    <method name="register" start="110" end="114" abstract="false" final="true" static="false" visibility="public">
+      <docblock>
+        <description compact="The method that is called to register the tokens this test wishes to listen to.">DO NOT OVERRIDE THIS METHOD. Use the constructor of this class to register
+for the desired tokens and scope.</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\int" namespace="PHP_CodeSniffer\Sniffs" name="int"/>
+        </return>
+        <see value="__constructor()"/>
+      </docblock>
+    </method>
+    <method name="process" start="130" end="153" abstract="false" final="true" static="false" visibility="public">
+      <docblock>
+        <description compact="Processes the tokens that this test is listening for."/>
+        <param description="The file where this token was found." type="object" variable="$phpcsFile">
+          <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+        </param>
+        <param description="The position in the stack where this" type="int" variable="$stackPtr">token was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return ($phpcsFile-&gt;numTokens + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+        <see value="processTokenWithinScope()"/>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="processTokenWithinScope" start="172" end="172" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Processes a token that is found within the scope that this test is listening to."/>
+        <param description="The file where this token was found." type="object" variable="$phpcsFile">
+          <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+        </param>
+        <param description="The position in the stack where this" type="int" variable="$stackPtr">token was found.</param>
+        <param description="The position in the tokens array that" type="int" variable="$currScope">opened the scope that this test is
+                                              listening for.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return ($phpcsFile-&gt;numTokens + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+      <parameter name="currScope" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="processTokenOutsideScope" start="188" end="188" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Processes a token that is found outside the scope that this test is listening to."/>
+        <param description="The file where this token was found." type="object" variable="$phpcsFile">
+          <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+        </param>
+        <param description="The position in the stack where this" type="int" variable="$stackPtr">token was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

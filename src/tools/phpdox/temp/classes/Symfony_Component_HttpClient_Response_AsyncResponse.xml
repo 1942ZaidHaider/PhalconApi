@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\Response\AsyncResponse" namespace="Symfony\Component\HttpClient\Response" name="AsyncResponse" abstract="false" final="true" start="30" end="475">
+  <file path="../vendor/symfony/http-client/Response" file="AsyncResponse.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/Response/AsyncResponse.php" size="16604" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="0ec789bbd7c62c9dfbfd47a1c937014f438f6bb4" relative="vendor/symfony/http-client/Response/AsyncResponse.php"/>
+  <docblock>
+    <description compact="Provides a single extension point to process a response's content stream."/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <implements full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+  <implements full="Symfony\Component\HttpClient\Response\StreamableInterface" namespace="Symfony\Component\HttpClient\Response" name="StreamableInterface"/>
+  <uses full="Symfony\Component\HttpClient\Response\CommonResponseTrait" namespace="Symfony\Component\HttpClient\Response" name="CommonResponseTrait" start="32" end="32"/>
+  <constant type="integer" name="FIRST_CHUNK_YIELDED" value="1"/>
+  <constant type="integer" name="LAST_CHUNK_YIELDED" value="2"/>
+  <member name="client" visibility="private" static="false" line="37"/>
+  <member name="response" visibility="private" static="false" line="38"/>
+  <member name="info" default="" type="array" visibility="private" static="false" line="39"/>
+  <member name="passthru" visibility="private" static="false" line="40"/>
+  <member name="stream" visibility="private" static="false" line="41"/>
+  <member name="yieldedState" visibility="private" static="false" line="42"/>
+  <constructor name="__construct" start="47" end="88" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="AsyncContext): ?\Iterator $passthru" type="object">
+        <type full="Symfony\Component\HttpClient\Response\?callable(ChunkInterface" namespace="Symfony\Component\HttpClient\Response" name="?callable(ChunkInterface"/>
+      </param>
+    </docblock>
+    <parameter name="client" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+    </parameter>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="url" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array"/>
+    <parameter name="passthru" byreference="false" type="callable" default="NULL"/>
+  </constructor>
+  <method name="getStatusCode" start="90" end="97" abstract="false" final="false" static="false" visibility="public">
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="getHeaders" start="99" end="112" abstract="false" final="false" static="false" visibility="public">
+    <return type="array" nullable="false"/>
+    <parameter name="throw" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="getInfo" start="114" end="121" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="type" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="toStream" start="126" end="144" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="throw" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="cancel" start="149" end="174" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <destructor name="__destruct" start="176" end="204" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="stream" start="209" end="312" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <internal/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Generator" namespace="" name="Generator"/>
+    </return>
+    <parameter name="responses" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\iterable" namespace="Symfony\Component\HttpClient\Response" name="iterable"/>
+    </parameter>
+    <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+    <parameter name="class" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="passthru" start="317" end="336" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param description="AsyncResponse&gt;|null $asyncMap" type="object">
+        <type full="\SplObjectStorage&lt;ResponseInterface" namespace="" name="SplObjectStorage&lt;ResponseInterface"/>
+      </param>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Generator" namespace="" name="Generator"/>
+    </return>
+    <parameter name="client" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+    </parameter>
+    <parameter name="r" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\self" namespace="Symfony\Component\HttpClient\Response" name="self"/>
+    </parameter>
+    <parameter name="chunk" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\ChunkInterface" namespace="Symfony\Contracts\HttpClient" name="ChunkInterface"/>
+    </parameter>
+    <parameter name="asyncMap" byreference="false" type="object" default="NULL">
+      <type full="SplObjectStorage" namespace="" name="SplObjectStorage"/>
+    </parameter>
+  </method>
+  <method name="passthruStream" start="341" end="439" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param description="AsyncResponse&gt;|null $asyncMap" type="object">
+        <type full="\SplObjectStorage&lt;ResponseInterface" namespace="" name="SplObjectStorage&lt;ResponseInterface"/>
+      </param>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Generator" namespace="" name="Generator"/>
+    </return>
+    <parameter name="response" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </parameter>
+    <parameter name="r" byreference="false" type="object">
+      <type full="Symfony\Component\HttpClient\Response\self" namespace="Symfony\Component\HttpClient\Response" name="self"/>
+    </parameter>
+    <parameter name="chunk" byreference="false" nullable="true" type="object">
+      <type full="Symfony\Contracts\HttpClient\ChunkInterface" namespace="Symfony\Contracts\HttpClient" name="ChunkInterface"/>
+    </parameter>
+    <parameter name="asyncMap" byreference="false" nullable="true" type="object">
+      <type full="SplObjectStorage" namespace="" name="SplObjectStorage"/>
+    </parameter>
+  </method>
+  <method name="openBuffer" start="441" end="469" abstract="false" final="false" static="false" visibility="private">
+    <return type="object" nullable="true">
+      <type full="Throwable" namespace="" name="Throwable"/>
+    </return>
+  </method>
+  <method name="close" start="471" end="474" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+  </method>
+  <interface full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface">
+    <method name="getStatusCode" start="33" end="33" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the HTTP status code of the response."/>
+        <throws description="when a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="int" nullable="false"/>
+    </method>
+    <method name="getHeaders" start="47" end="47" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the HTTP headers of the response."/>
+        <param description="Whether an exception should be thrown on 3/4/5xx status codes" type="object" variable="$throw">
+          <type full="Symfony\Contracts\HttpClient\bool" namespace="Symfony\Contracts\HttpClient" name="bool"/>
+        </param>
+        <return description="The headers of the response keyed by header names in lowercase" type="array" of="object">
+          <type full="Symfony\Contracts\HttpClient\string[]" namespace="Symfony\Contracts\HttpClient" name="string[]"/>
+        </return>
+        <throws description="When a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+        <throws description="On a 3xx when $throw is true and the &quot;max_redirects&quot; option has been reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="RedirectionExceptionInterface"/>
+        </throws>
+        <throws description="On a 4xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ClientExceptionInterface"/>
+        </throws>
+        <throws description="On a 5xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ServerExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="getContent" start="59" end="59" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the response body as a string."/>
+        <param description="Whether an exception should be thrown on 3/4/5xx status codes" type="object" variable="$throw">
+          <type full="Symfony\Contracts\HttpClient\bool" namespace="Symfony\Contracts\HttpClient" name="bool"/>
+        </param>
+        <throws description="When a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+        <throws description="On a 3xx when $throw is true and the &quot;max_redirects&quot; option has been reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="RedirectionExceptionInterface"/>
+        </throws>
+        <throws description="On a 4xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ClientExceptionInterface"/>
+        </throws>
+        <throws description="On a 5xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ServerExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="string" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="toArray" start="72" end="72" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the response body decoded as array, typically from a JSON payload."/>
+        <param description="Whether an exception should be thrown on 3/4/5xx status codes" type="object" variable="$throw">
+          <type full="Symfony\Contracts\HttpClient\bool" namespace="Symfony\Contracts\HttpClient" name="bool"/>
+        </param>
+        <throws description="When the body cannot be decoded to an array" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="DecodingExceptionInterface"/>
+        </throws>
+        <throws description="When a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+        <throws description="On a 3xx when $throw is true and the &quot;max_redirects&quot; option has been reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="RedirectionExceptionInterface"/>
+        </throws>
+        <throws description="On a 4xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ClientExceptionInterface"/>
+        </throws>
+        <throws description="On a 5xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ServerExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="cancel" start="79" end="79" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Closes the response stream and all related buffers.">No further chunk will be yielded after this method has been called.</description>
+      </docblock>
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="getInfo" start="108" end="108" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns info coming from the transport layer.">This method SHOULD NOT throw any ExceptionInterface and SHOULD be non-blocking.
+The returned info is "live": it can be empty and can change from one call to
+another, as the request/response progresses.
+
+The following info MUST be returned:
+ - canceled (bool) - true if the response was canceled using ResponseInterface::cancel(), false otherwise
+ - error (string|null) - the error message when the transfer was aborted, null otherwise
+ - http_code (int) - the last response code or 0 when it is not known yet
+ - http_method (string) - the HTTP verb of the last request
+ - redirect_count (int) - the number of redirects followed while executing the request
+ - redirect_url (string|null) - the resolved location of redirect responses, null otherwise
+ - response_headers (array) - an array modelled after the special $http_response_header variable
+ - start_time (float) - the time when the request was sent or 0.0 when it's pending
+ - url (string) - the last effective URL of the request
+ - user_data (mixed) - the value of the "user_data" request option, null if not set
+
+When the "capture_peer_cert_chain" option is true, the "peer_certificate_chain"
+attribute SHOULD list the peer certificates as an array of OpenSSL X.509 resources.
+
+Other info SHOULD be named after curl_getinfo()'s associative return value.</description>
+        <return description="An array of all available info, or one of them when $type is" type="mixed">provided, or null when an unsupported type is requested</return>
+      </docblock>
+      <parameter name="type" byreference="false" type="string" default="NULL"/>
+    </method>
+  </interface>
+  <interface full="Symfony\Component\HttpClient\Response\StreamableInterface" namespace="Symfony\Component\HttpClient\Response" name="StreamableInterface">
+    <method name="toStream" start="34" end="34" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Casts the response to a PHP stream resource."/>
+        <return type="resource"/>
+        <throws description="When a network error occurs" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+        <throws description="On a 3xx when $throw is true and the &quot;max_redirects&quot; option has been reached" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="RedirectionExceptionInterface"/>
+        </throws>
+        <throws description="On a 4xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ClientExceptionInterface"/>
+        </throws>
+        <throws description="On a 5xx when $throw is true" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="ServerExceptionInterface"/>
+        </throws>
+      </docblock>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+  </interface>
+  <trait full="Symfony\Component\HttpClient\Response\CommonResponseTrait" namespace="Symfony\Component\HttpClient\Response" name="CommonResponseTrait">
+    <method name="getContent" start="41" end="76" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="toArray" start="81" end="111" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="toStream" start="116" end="128" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <parameter name="throw" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="__sleep" start="130" end="133" abstract="false" final="false" static="false" visibility="public">
+      <return type="array" nullable="false"/>
+    </method>
+    <method name="__wakeup" start="135" end="138" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="close" start="143" end="143" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Closes the response and all its network handles."/>
+      </docblock>
+      <return type="void" nullable="false"/>
+    </method>
+  </trait>
+</class>

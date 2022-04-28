@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Installer\InstallationManager" namespace="Composer\Installer" name="InstallationManager" abstract="false" final="false" start="35" end="326">
+  <file path="../vendor/composer/composer/src/Composer/Installer" file="InstallationManager.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Installer/InstallationManager.php" size="10767" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="507b1c7de98fe7e229d45ef207edeb5b289aa06f" relative="vendor/composer/composer/src/Composer/Installer/InstallationManager.php"/>
+  <docblock>
+    <description compact="Package operation manager."/>
+    <author value="Konstantin Kudryashov &lt;ever.zet@gmail.com&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+  </docblock>
+  <member name="installers" default="" type="array" visibility="private" static="false" line="37"/>
+  <member name="cache" default="" type="array" visibility="private" static="false" line="38"/>
+  <member name="notifiablePackages" default="" type="array" visibility="private" static="false" line="39"/>
+  <method name="reset" start="41" end="44" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="addInstaller" start="51" end="55" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds installer"/>
+      <param description="installer instance" type="object" variable="$installer">
+        <type full="Composer\Installer\InstallerInterface" namespace="Composer\Installer" name="InstallerInterface"/>
+      </param>
+    </docblock>
+    <parameter name="installer" byreference="false" type="object">
+      <type full="Composer\Installer\InstallerInterface" namespace="Composer\Installer" name="InstallerInterface"/>
+    </parameter>
+  </method>
+  <method name="removeInstaller" start="62" end="68" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Removes installer"/>
+      <param description="installer instance" type="object" variable="$installer">
+        <type full="Composer\Installer\InstallerInterface" namespace="Composer\Installer" name="InstallerInterface"/>
+      </param>
+    </docblock>
+    <parameter name="installer" byreference="false" type="object">
+      <type full="Composer\Installer\InstallerInterface" namespace="Composer\Installer" name="InstallerInterface"/>
+    </parameter>
+  </method>
+  <method name="disablePlugins" start="77" end="86" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Disables plugins.">We prevent any plugins from being instantiated by simply
+deactivating the installer for them. This ensure that no third-party
+code is ever executed.</description>
+    </docblock>
+  </method>
+  <method name="getInstaller" start="96" end="111" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns installer for a specific package type."/>
+      <param description="package type" type="string" variable="$type"/>
+      <throws description="if installer for provided type is not registered" type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <return type="object">
+        <type full="Composer\Installer\InstallerInterface" namespace="Composer\Installer" name="InstallerInterface"/>
+      </return>
+    </docblock>
+    <parameter name="type" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isPackageInstalled" start="121" end="128" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks whether provided package is installed in one of the registered installers."/>
+      <param description="repository in which to check" type="object" variable="$repo">
+        <type full="Composer\Repository\InstalledRepositoryInterface" namespace="Composer\Repository" name="InstalledRepositoryInterface"/>
+      </param>
+      <param description="package instance" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Installer\bool" namespace="Composer\Installer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\InstalledRepositoryInterface" namespace="Composer\Repository" name="InstalledRepositoryInterface"/>
+    </parameter>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="ensureBinariesPresence" start="136" end="149" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Install binary for the given package.">If the installer associated to this package doesn't handle that function, it'll do nothing.</description>
+      <param description="Package instance" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <inline>
+      <comment value="if the given installer support installing binaries" line="145"/>
+    </inline>
+  </method>
+  <method name="execute" start="157" end="161" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Executes solver operation."/>
+      <param description="repository in which to check" type="object" variable="$repo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param description="operation instance" type="object" variable="$operation">
+        <type full="Composer\DependencyResolver\Operation\OperationInterface" namespace="Composer\DependencyResolver\Operation" name="OperationInterface"/>
+      </param>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="operation" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Operation\OperationInterface" namespace="Composer\DependencyResolver\Operation" name="OperationInterface"/>
+    </parameter>
+  </method>
+  <method name="install" start="169" end="175" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Executes install operation."/>
+      <param description="repository in which to check" type="object" variable="$repo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param description="operation instance" type="object" variable="$operation">
+        <type full="Composer\DependencyResolver\Operation\InstallOperation" namespace="Composer\DependencyResolver\Operation" name="InstallOperation"/>
+      </param>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="operation" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Operation\InstallOperation" namespace="Composer\DependencyResolver\Operation" name="InstallOperation"/>
+    </parameter>
+  </method>
+  <method name="update" start="183" end="199" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Executes update operation."/>
+      <param description="repository in which to check" type="object" variable="$repo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param description="operation instance" type="object" variable="$operation">
+        <type full="Composer\DependencyResolver\Operation\UpdateOperation" namespace="Composer\DependencyResolver\Operation" name="UpdateOperation"/>
+      </param>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="operation" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Operation\UpdateOperation" namespace="Composer\DependencyResolver\Operation" name="UpdateOperation"/>
+    </parameter>
+  </method>
+  <method name="uninstall" start="207" end="212" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Uninstalls package."/>
+      <param description="repository in which to check" type="object" variable="$repo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param description="operation instance" type="object" variable="$operation">
+        <type full="Composer\DependencyResolver\Operation\UninstallOperation" namespace="Composer\DependencyResolver\Operation" name="UninstallOperation"/>
+      </param>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="operation" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Operation\UninstallOperation" namespace="Composer\DependencyResolver\Operation" name="UninstallOperation"/>
+    </parameter>
+  </method>
+  <method name="markAliasInstalled" start="220" end="227" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Executes markAliasInstalled operation."/>
+      <param description="repository in which to check" type="object" variable="$repo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param description="operation instance" type="object" variable="$operation">
+        <type full="Composer\DependencyResolver\Operation\MarkAliasInstalledOperation" namespace="Composer\DependencyResolver\Operation" name="MarkAliasInstalledOperation"/>
+      </param>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="operation" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Operation\MarkAliasInstalledOperation" namespace="Composer\DependencyResolver\Operation" name="MarkAliasInstalledOperation"/>
+    </parameter>
+  </method>
+  <method name="markAliasUninstalled" start="235" end="240" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Executes markAlias operation."/>
+      <param description="repository in which to check" type="object" variable="$repo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param description="operation instance" type="object" variable="$operation">
+        <type full="Composer\DependencyResolver\Operation\MarkAliasUninstalledOperation" namespace="Composer\DependencyResolver\Operation" name="MarkAliasUninstalledOperation"/>
+      </param>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="operation" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Operation\MarkAliasUninstalledOperation" namespace="Composer\DependencyResolver\Operation" name="MarkAliasUninstalledOperation"/>
+    </parameter>
+  </method>
+  <method name="getInstallPath" start="248" end="253" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the installation path of a package"/>
+      <param type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return description="path" type="string"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="notifyInstalls" start="255" end="318" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+  </method>
+  <method name="markForNotification" start="320" end="325" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+</class>

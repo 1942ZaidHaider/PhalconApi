@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\XdebugHandler\Process" namespace="Composer\XdebugHandler" name="Process" abstract="false" final="false" start="21" end="181">
+  <file path="../vendor/composer/xdebug-handler/src" file="Process.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/xdebug-handler/src/Process.php" size="5274" time="2021-03-25T17:01:18+00:00" unixtime="1616691678" sha1="4a065fcd8c2681d8a37383e179d66b7a2682b6eb" relative="vendor/composer/xdebug-handler/src/Process.php"/>
+  <docblock>
+    <description compact="Provides utility functions to prepare a child process command-line and set environment variables in that process."/>
+    <author value="John Stevenson &lt;john-stevenson@blueyonder.co.uk&gt;"/>
+    <internal/>
+  </docblock>
+  <method name="addColorOption" start="33" end="66" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns an array of parameters, including a color option if required">A color option is needed because child process output is piped.</description>
+      <param description="The script parameters" type="array" variable="$args"/>
+      <param description="The long option to force color output" type="string" variable="$colorOption"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="args" byreference="false" type="array"/>
+    <parameter name="colorOption" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check for NO_COLOR variable (https://no-color.org/)" line="53"/>
+    </inline>
+  </method>
+  <method name="escape" start="80" end="109" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Escapes a string to be used as a shell argument.">From https://github.com/johnstevenson/winbox-args
+MIT Licensed (c) John Stevenson &lt;john-stevenson@blueyonder.co.uk&gt;</description>
+      <param description="The argument to be escaped" type="string" variable="$arg"/>
+      <param description="Additionally escape cmd.exe meta characters" type="object" variable="$meta">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </param>
+      <param description="The argument is the module to invoke" type="object" variable="$module">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </param>
+      <return description="The escaped argument" type="string"/>
+    </docblock>
+    <parameter name="arg" byreference="false" type="{unknown}"/>
+    <parameter name="meta" byreference="false" type="boolean" default="true"/>
+    <parameter name="module" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="supportsColor" start="121" end="146" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns true if the output stream supports colors">This is tricky on Windows, because Cygwin, Msys2 etc emulate pseudo
+terminals via named pipes, so we can only check the environment.</description>
+      <param description="A valid CLI output stream" type="mixed" variable="$output"/>
+      <return type="object">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="output" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check if formatted mode is S_IFCHR" line="144"/>
+    </inline>
+  </method>
+  <method name="setEnv" start="156" end="180" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Makes putenv environment changes available in $_SERVER and $_ENV"/>
+      <param type="string" variable="$name"/>
+      <param description="A false value unsets the variable" type="object" variable="$value">
+        <type full="Composer\XdebugHandler\string|false" namespace="Composer\XdebugHandler" name="string|false"/>
+      </param>
+      <return description="Whether the environment variable was set" type="object">
+        <type full="Composer\XdebugHandler\bool" namespace="Composer\XdebugHandler" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="value" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Update $_ENV if it is being used" line="170"/>
+    </inline>
+  </method>
+</class>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="SlevomatCodingStandard\Sniffs\Files\TypeNameMatchesFileNameSniff" namespace="SlevomatCodingStandard\Sniffs\Files" name="TypeNameMatchesFileNameSniff" abstract="false" final="false" start="28" end="196">
+  <file path="../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Files" file="TypeNameMatchesFileNameSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Files/TypeNameMatchesFileNameSniff.php" size="5019" time="2020-10-05T12:39:37+00:00" unixtime="1601901577" sha1="ab747718070ee5f0270adeae4928f7eb2c987e23" relative="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Files/TypeNameMatchesFileNameSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="CODE_NO_MATCH_BETWEEN_TYPE_NAME_AND_FILE_NAME" value="'NoMatchBetweenTypeNameAndFileName'"/>
+  <member name="rootNamespaces" default="" type="array" visibility="public" static="false" line="34">
+    <docblock>
+      <var description="string&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\Files" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="skipDirs" default="" type="array" visibility="public" static="false" line="37">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string" namespace="SlevomatCodingStandard\Sniffs\Files" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ignoredNamespaces" default="" type="array" visibility="public" static="false" line="40">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string" namespace="SlevomatCodingStandard\Sniffs\Files" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="extensions" default="" type="array" visibility="public" static="false" line="43">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string" namespace="SlevomatCodingStandard\Sniffs\Files" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="normalizedRootNamespaces" visibility="private" static="false" line="46">
+    <docblock>
+      <var description="string&gt;|null" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\array&lt;string" namespace="SlevomatCodingStandard\Sniffs\Files" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="normalizedSkipDirs" visibility="private" static="false" line="49">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string[]|nu" namespace="SlevomatCodingStandard\Sniffs\Files" name="string[]|nu"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="normalizedIgnoredNamespaces" visibility="private" static="false" line="52">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string[]|nu" namespace="SlevomatCodingStandard\Sniffs\Files" name="string[]|nu"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="normalizedExtensions" visibility="private" static="false" line="55">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string[]|nu" namespace="SlevomatCodingStandard\Sniffs\Files" name="string[]|nu"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="namespaceExtractor" visibility="private" static="false" line="58">
+    <docblock>
+      <var type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\FilepathNamespaceExtractor" namespace="SlevomatCodingStandard\Sniffs\Files" name="FilepathNamespaceExtractor"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="register" start="63" end="70" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="(int|string)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\Files" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="77" end="115" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <phpcssuppress value="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$typePointer"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="typePointer" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getRootNamespaces" start="120" end="145" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return description="path(string) =&gt; namespace" type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string" namespace="SlevomatCodingStandard\Sniffs\Files" name="string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getSkipDirs" start="150" end="157" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string" namespace="SlevomatCodingStandard\Sniffs\Files" name="string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getIgnoredNamespaces" start="162" end="169" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string" namespace="SlevomatCodingStandard\Sniffs\Files" name="string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getExtensions" start="174" end="181" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Files\string" namespace="SlevomatCodingStandard\Sniffs\Files" name="string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="getNamespaceExtractor" start="183" end="194" abstract="false" final="false" static="false" visibility="private">
+    <return type="object" nullable="false">
+      <type full="SlevomatCodingStandard\Sniffs\Files\FilepathNamespaceExtractor" namespace="SlevomatCodingStandard\Sniffs\Files" name="FilepathNamespaceExtractor"/>
+    </return>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

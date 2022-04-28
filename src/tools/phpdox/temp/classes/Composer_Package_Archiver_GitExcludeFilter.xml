@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Package\Archiver\GitExcludeFilter" namespace="Composer\Package\Archiver" name="GitExcludeFilter" abstract="false" final="false" start="22" end="79">
+  <file path="../vendor/composer/composer/src/Composer/Package/Archiver" file="GitExcludeFilter.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Package/Archiver/GitExcludeFilter.php" size="2105" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="06f19b45cc4bf7795bb56adc4057deb68d13c533" relative="vendor/composer/composer/src/Composer/Package/Archiver/GitExcludeFilter.php"/>
+  <docblock>
+    <description compact="An exclude filter that processes gitignore and gitattributes">It respects export-ignore git attributes</description>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+  </docblock>
+  <extends full="Composer\Package\Archiver\BaseExcludeFilter" namespace="Composer\Package\Archiver" name="BaseExcludeFilter"/>
+  <constructor name="__construct" start="29" end="48" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Parses .gitignore and .gitattributes files if they exist"/>
+      <param type="string" variable="$sourcePath"/>
+    </docblock>
+    <parameter name="sourcePath" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="parseGitIgnoreLine" start="57" end="60" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Callback line parser which process gitignore lines"/>
+      <param description="A line from .gitignore" type="string" variable="$line"/>
+      <return description="An exclude pattern for filter()" type="array"/>
+    </docblock>
+    <parameter name="line" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="parseGitAttributesLine" start="69" end="78" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Callback parser which finds export-ignore rules in git attribute lines"/>
+      <param description="A line from .gitattributes" type="string" variable="$line"/>
+      <return description="An exclude pattern for filter()" type="object">
+        <type full="Composer\Package\Archiver\array|null" namespace="Composer\Package\Archiver" name="array|null"/>
+      </return>
+    </docblock>
+    <parameter name="line" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="Composer\Package\Archiver\BaseExcludeFilter" namespace="Composer\Package\Archiver" name="BaseExcludeFilter">
+    <member name="sourcePath" visibility="protected" static="false" line="25">
+      <docblock>
+        <description/>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <member name="excludePatterns" visibility="protected" static="false" line="30">
+      <docblock>
+        <description/>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <constructor name="__construct" start="35" end="39" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param description="Directory containing sources to be filtered" type="string" variable="$sourcePath"/>
+      </docblock>
+      <parameter name="sourcePath" byreference="false" type="{unknown}"/>
+    </constructor>
+    <method name="filter" start="51" end="68" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks the given path against all exclude patterns in this filter">Negated patterns overwrite exclude decisions of previous filters.</description>
+        <param description="The file's path relative to the sourcePath" type="string" variable="$relativePath"/>
+        <param description="Whether a previous filter wants to exclude this file" type="object" variable="$exclude">
+          <type full="Composer\Package\Archiver\bool" namespace="Composer\Package\Archiver" name="bool"/>
+        </param>
+        <return description="Whether the file should be excluded" type="object">
+          <type full="Composer\Package\Archiver\bool" namespace="Composer\Package\Archiver" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="relativePath" byreference="false" type="{unknown}"/>
+      <parameter name="exclude" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="parseLines" start="78" end="97" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Processes a file containing exclude rules of different formats per line"/>
+        <param description="A set of lines to be parsed" type="array" variable="$lines"/>
+        <param description="The parser to be used on each line" type="object" variable="$lineParser">
+          <type full="Composer\Package\Archiver\callable" namespace="Composer\Package\Archiver" name="callable"/>
+        </param>
+        <return description="Exclude patterns to be used in filter()" type="array"/>
+      </docblock>
+      <parameter name="lines" byreference="false" type="array"/>
+      <parameter name="lineParser" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="generatePatterns" start="106" end="114" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Generates a set of exclude patterns for filter() from gitignore rules"/>
+        <param description="A list of exclude rules in gitignore syntax" type="array" variable="$rules"/>
+        <return description="Exclude patterns" type="array"/>
+      </docblock>
+      <parameter name="rules" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="generatePattern" start="123" end="147" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Generates an exclude pattern for filter() from a gitignore rule"/>
+        <param description="An exclude rule in gitignore syntax" type="string" variable="$rule"/>
+        <return description="An exclude pattern" type="array"/>
+      </docblock>
+      <parameter name="rule" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="remove delimiters as well as caret (^) and dollar sign ($) from the regex" line="143"/>
+      </inline>
+    </method>
+  </parent>
+</class>

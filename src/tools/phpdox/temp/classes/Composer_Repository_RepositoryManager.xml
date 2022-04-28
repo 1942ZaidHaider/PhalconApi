@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Repository\RepositoryManager" namespace="Composer\Repository" name="RepositoryManager" abstract="false" final="false" start="28" end="189">
+  <file path="../vendor/composer/composer/src/Composer/Repository" file="RepositoryManager.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Repository/RepositoryManager.php" size="6082" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="87f3729fababd43a71be613f6c7023c8457a93af" relative="vendor/composer/composer/src/Composer/Repository/RepositoryManager.php"/>
+  <docblock>
+    <description compact="Repositories manager."/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+    <author value="Konstantin Kudryashov &lt;ever.zet@gmail.com&gt;"/>
+    <author value="François Pluchino &lt;francois.pluchino@opendisplay.com&gt;"/>
+  </docblock>
+  <member name="localRepository" visibility="private" static="false" line="30"/>
+  <member name="repositories" default="" type="array" visibility="private" static="false" line="31"/>
+  <member name="repositoryClasses" default="" type="array" visibility="private" static="false" line="32"/>
+  <member name="io" visibility="private" static="false" line="33"/>
+  <member name="config" visibility="private" static="false" line="34"/>
+  <member name="eventDispatcher" visibility="private" static="false" line="35"/>
+  <member name="rfs" visibility="private" static="false" line="36"/>
+  <constructor name="__construct" start="38" end="44" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="eventDispatcher" byreference="false" type="object" default="NULL">
+      <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+    </parameter>
+    <parameter name="rfs" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+    </parameter>
+  </constructor>
+  <method name="findPackage" start="54" end="64" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Searches for a package by it's name and version in managed repositories."/>
+      <param description="package name" type="string" variable="$name"/>
+      <param description="package version or version constraint to match against" type="object" variable="$constraint">
+        <type full="Composer\Repository\string|\Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Repository\string|\Composer\Semver\Constraint" name="ConstraintInterface"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Repository\PackageInterface|null" namespace="Composer\Repository" name="PackageInterface|null"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="constraint" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="findPackages" start="74" end="83" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Searches for all packages matching a name and optionally a version in managed repositories."/>
+      <param description="package name" type="string" variable="$name"/>
+      <param description="package version or version constraint to match against" type="object" variable="$constraint">
+        <type full="Composer\Repository\string|\Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Repository\string|\Composer\Semver\Constraint" name="ConstraintInterface"/>
+      </param>
+      <return type="array" of="object">
+        <type full="Composer\Repository\PackageInterface" namespace="Composer\Repository" name="PackageInterface"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="constraint" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addRepository" start="90" end="93" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds repository"/>
+      <param description="repository instance" type="object" variable="$repository">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+    </docblock>
+    <parameter name="repository" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+  </method>
+  <method name="prependRepository" start="102" end="105" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds a repository to the beginning of the chain">This is useful when injecting additional repositories that should trump Packagist, e.g. from a plugin.</description>
+      <param description="repository instance" type="object" variable="$repository">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+    </docblock>
+    <parameter name="repository" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+  </method>
+  <method name="createRepository" start="116" end="147" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns a new repository for a specific installation type."/>
+      <param description="repository type" type="string" variable="$type"/>
+      <param description="repository configuration" type="array" variable="$config"/>
+      <param description="repository name" type="string" variable="$name"/>
+      <throws description="if repository for provided type is not registered" type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <return type="object">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </return>
+    </docblock>
+    <parameter name="type" byreference="false" type="{unknown}"/>
+    <parameter name="config" byreference="false" type="{unknown}"/>
+    <parameter name="name" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="setRepositoryClass" start="155" end="158" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stores repository class for a specific installation type."/>
+      <param description="installation type" type="string" variable="$type"/>
+      <param description="class name of the repo implementation" type="string" variable="$class"/>
+    </docblock>
+    <parameter name="type" byreference="false" type="{unknown}"/>
+    <parameter name="class" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getRepositories" start="165" end="168" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns all repositories, except local one."/>
+      <return type="array" of="object">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setLocalRepository" start="175" end="178" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets local repository for the project."/>
+      <param description="repository instance" type="object" variable="$repository">
+        <type full="Composer\Repository\WritableRepositoryInterface" namespace="Composer\Repository" name="WritableRepositoryInterface"/>
+      </param>
+    </docblock>
+    <parameter name="repository" byreference="false" type="object">
+      <type full="Composer\Repository\WritableRepositoryInterface" namespace="Composer\Repository" name="WritableRepositoryInterface"/>
+    </parameter>
+  </method>
+  <method name="getLocalRepository" start="185" end="188" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns local repository for the project."/>
+      <return type="object">
+        <type full="Composer\Repository\WritableRepositoryInterface" namespace="Composer\Repository" name="WritableRepositoryInterface"/>
+      </return>
+    </docblock>
+  </method>
+</class>

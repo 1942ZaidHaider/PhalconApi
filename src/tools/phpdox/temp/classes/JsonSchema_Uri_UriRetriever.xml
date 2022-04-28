@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="JsonSchema\Uri\UriRetriever" namespace="JsonSchema\Uri" name="UriRetriever" abstract="false" final="false" start="25" end="349">
+  <file path="../vendor/justinrainbow/json-schema/src/JsonSchema/Uri" file="UriRetriever.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/justinrainbow/json-schema/src/JsonSchema/Uri/UriRetriever.php" size="9402" time="2022-04-13T08:02:27+00:00" unixtime="1649836947" sha1="ae5a08c3db750f96ac4705f3b2476d3df018bd79" relative="vendor/justinrainbow/json-schema/src/JsonSchema/Uri/UriRetriever.php"/>
+  <docblock>
+    <description compact="Retrieves JSON Schema URIs"/>
+    <author value="Tyler Akins &lt;fidian@rumkin.com&gt;"/>
+  </docblock>
+  <implements full="JsonSchema\UriRetrieverInterface" namespace="JsonSchema" name="UriRetrieverInterface"/>
+  <member name="translationMap" default="" type="array" visibility="protected" static="false" line="30">
+    <docblock>
+      <description/>
+      <var description="Map of URL translations" type="array"/>
+    </docblock>
+  </member>
+  <member name="allowedInvalidContentTypeEndpoints" default="" type="array" visibility="protected" static="false" line="38">
+    <docblock>
+      <description/>
+      <var description="A list of endpoints for media type check exclusion" type="array"/>
+    </docblock>
+  </member>
+  <member name="uriRetriever" default="NULL" visibility="protected" static="false" line="46">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="JsonSchema\Uri\null|UriRetrieverInterface" namespace="JsonSchema\Uri" name="null|UriRetrieverInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="schemaCache" default="" type="array" visibility="private" static="false" line="53">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="JsonSchema\Uri\array|object" namespace="JsonSchema\Uri" name="array|object"/>
+      </var>
+      <see value="loadSchema"/>
+    </docblock>
+  </member>
+  <method name="addInvalidContentTypeEndpoint" start="60" end="63" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds an endpoint to the media type validation exclusion list"/>
+      <param type="string" variable="$endpoint"/>
+    </docblock>
+    <parameter name="endpoint" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="confirmMediaType" start="73" end="93" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Guarantee the correct media type was encountered"/>
+      <param type="object" variable="$uriRetriever">
+        <type full="JsonSchema\Uri\Retrievers\UriRetrieverInterface" namespace="JsonSchema\Uri\Retrievers" name="UriRetrieverInterface"/>
+      </param>
+      <param type="string" variable="$uri"/>
+      <return type="object">
+        <type full="JsonSchema\Uri\bool|void" namespace="JsonSchema\Uri" name="bool|void"/>
+      </return>
+    </docblock>
+    <parameter name="uriRetriever" byreference="false" type="{unknown}"/>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getUriRetriever" start="103" end="110" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get a URI Retriever">If none is specified, sets a default FileGetContents retriever and
+returns that object.</description>
+      <return type="object">
+        <type full="JsonSchema\Uri\Retrievers\UriRetrieverInterface" namespace="JsonSchema\Uri\Retrievers" name="UriRetrieverInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="resolvePointer" start="126" end="159" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Resolve a schema based on pointer">URIs can have a fragment at the end in the format of
+#/path/to/object and we are to look up the 'path' property of
+the first object then the 'to' and 'object' properties.</description>
+      <param description="JSON Schema contents" type="object" variable="$jsonSchema"/>
+      <param description="JSON Schema URI" type="string" variable="$uri"/>
+      <throws type="object">
+        <type full="JsonSchema\Exception\ResourceNotFoundException" namespace="JsonSchema\Exception" name="ResourceNotFoundException"/>
+      </throws>
+      <return description="JSON Schema after walking down the fragment pieces" type="object"/>
+    </docblock>
+    <parameter name="jsonSchema" byreference="false" type="{unknown}"/>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="retrieve" start="164" end="191" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+    <parameter name="baseUri" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="translate" byreference="false" type="boolean" default="true"/>
+    <inline>
+      <comment value="fetch URL without #fragment" line="169"/>
+      <comment value="apply URI translations" line="176"/>
+      <comment value="Use the JSON pointer if specified" line="183"/>
+    </inline>
+  </method>
+  <method name="loadSchema" start="201" end="219" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Fetch a schema from the given URI, json-decode it and return it.">Caches schema objects.</description>
+      <param description="Absolute URI" type="string" variable="$fetchUri"/>
+      <return description="JSON schema object" type="object"/>
+    </docblock>
+    <parameter name="fetchUri" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setUriRetriever" start="228" end="233" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set the URI Retriever"/>
+      <param type="object" variable="$uriRetriever">
+        <type full="JsonSchema\Uri\Retrievers\UriRetrieverInterface" namespace="JsonSchema\Uri\Retrievers" name="UriRetrieverInterface"/>
+      </param>
+      <return description="for chaining" type="object">
+        <type full="JsonSchema\Uri\$this" namespace="JsonSchema\Uri" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="uriRetriever" byreference="false" type="object">
+      <type full="JsonSchema\Uri\Retrievers\UriRetrieverInterface" namespace="JsonSchema\Uri\Retrievers" name="UriRetrieverInterface"/>
+    </parameter>
+  </method>
+  <method name="parse" start="242" end="264" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Parses a URI into five main components"/>
+      <param type="string" variable="$uri"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="generate" start="273" end="288" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Builds a URI based on n array with the main components"/>
+      <param type="array" variable="$components"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="components" byreference="false" type="array"/>
+  </method>
+  <method name="resolve" start="298" end="313" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Resolves a URI"/>
+      <param description="Absolute or relative" type="string" variable="$uri"/>
+      <param description="Optional base URI" type="string" variable="$baseUri"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+    <parameter name="baseUri" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="isValid" start="320" end="325" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$uri"/>
+      <return type="object">
+        <type full="JsonSchema\Uri\bool" namespace="JsonSchema\Uri" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setTranslation" start="330" end="333" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set a URL translation rule"/>
+    </docblock>
+    <parameter name="from" byreference="false" type="{unknown}"/>
+    <parameter name="to" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="translate" start="338" end="348" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Apply URI translation rules"/>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="translate references to local files within the json-schema package" line="344"/>
+    </inline>
+  </method>
+  <interface full="JsonSchema\UriRetrieverInterface" namespace="JsonSchema" name="UriRetrieverInterface">
+    <method name="retrieve" start="25" end="25" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Retrieve a URI"/>
+        <param description="JSON Schema URI" type="string" variable="$uri"/>
+        <param type="object" variable="$baseUri">
+          <type full="JsonSchema\null|string" namespace="JsonSchema" name="null|string"/>
+        </param>
+        <return description="JSON Schema contents" type="object"/>
+      </docblock>
+      <parameter name="uri" byreference="false" type="{unknown}"/>
+      <parameter name="baseUri" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+  </interface>
+</class>

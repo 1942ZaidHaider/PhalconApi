@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Util\NoProxyPattern" namespace="Composer\Util" name="NoProxyPattern" abstract="false" final="false" start="20" end="435">
+  <file path="../vendor/composer/composer/src/Composer/Util" file="NoProxyPattern.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Util/NoProxyPattern.php" size="10683" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="ea28f4347086e63249b2e5e1eea48f4807309d6d" relative="vendor/composer/composer/src/Composer/Util/NoProxyPattern.php"/>
+  <docblock>
+    <description compact="Tests URLs against NO_PROXY patterns"/>
+  </docblock>
+  <member name="hostNames" default="" type="array" visibility="protected" static="false" line="25">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Util\string" namespace="Composer\Util" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="rules" default="" type="array" visibility="protected" static="false" line="30">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Util\object" namespace="Composer\Util" name="object"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="noproxy" visibility="protected" static="false" line="35">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Composer\Util\bool" namespace="Composer\Util" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="40" end="44" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="NO_PROXY pattern" type="string" variable="$pattern"/>
+    </docblock>
+    <parameter name="pattern" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="test" start="53" end="70" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns true if a URL matches the NO_PROXY pattern"/>
+      <param type="string" variable="$url"/>
+      <return type="object">
+        <type full="Composer\Util\bool" namespace="Composer\Util" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getUrlData" start="79" end="106" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns false is the url cannot be parsed, otherwise a data object"/>
+      <param type="string" variable="$url"/>
+      <return type="object">
+        <type full="Composer\Util\bool|stdclass" namespace="Composer\Util" name="bool|stdclass"/>
+      </return>
+    </docblock>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="match" start="117" end="146" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns true if the url is matched by a rule"/>
+      <param type="int" variable="$index"/>
+      <param type="string" variable="$hostName"/>
+      <param type="string" variable="$url"/>
+      <return type="object">
+        <type full="Composer\Util\bool" namespace="Composer\Util" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+    <parameter name="hostName" byreference="false" type="{unknown}"/>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="matchRange" start="156" end="169" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns true if the target ip is in the network range"/>
+      <param type="object" variable="$network">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </param>
+      <param type="object" variable="$target">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Util\bool" namespace="Composer\Util" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="network" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="target" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="getRule" start="179" end="195" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Finds or creates rule data for a hostname"/>
+      <param type="int" variable="$index"/>
+      <param type="string" variable="$hostName"/>
+      <return description="Null if the hostname is invalid" type="object">
+        <type full="Composer\Util\{null|stdClass}" namespace="Composer\Util" name="{null|stdClass}"/>
+      </return>
+    </docblock>
+    <parameter name="index" byreference="false" type="{unknown}"/>
+    <parameter name="hostName" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="ipCheckData" start="206" end="243" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Creates an object containing IP data if the host is an IP address"/>
+      <param type="string" variable="$host"/>
+      <param description="Set by method if IP address found" type="object" variable="$ipdata">
+        <type full="Composer\Util\null|stdclass" namespace="Composer\Util" name="null|stdclass"/>
+      </param>
+      <param description="Whether a CIDR prefix-length is expected" type="object" variable="$allowPrefix">
+        <type full="Composer\Util\bool" namespace="Composer\Util" name="bool"/>
+      </param>
+      <return description="False if the host contains invalid data" type="object">
+        <type full="Composer\Util\bool" namespace="Composer\Util" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="host" byreference="false" type="{unknown}"/>
+    <parameter name="ipdata" byreference="true" type="{unknown}"/>
+    <parameter name="allowPrefix" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Check for a CIDR prefix-length" line="213"/>
+      <comment value="See if this is an ip address" line="224"/>
+    </inline>
+  </method>
+  <method name="ipGetAddr" start="255" end="262" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns an array of the IP in_addr and its byte size">IPv4 addresses are always mapped to IPv6, which simplifies handling
+and comparison.</description>
+      <param type="string" variable="$host"/>
+      <return description="in_addr, size" type="array" of="object">
+        <type full="Composer\Util\mixed" namespace="Composer\Util" name="mixed"/>
+      </return>
+    </docblock>
+    <parameter name="host" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="ipGetMask" start="272" end="287" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Returns the binary network mask mapped to IPv6"/>
+      <param description="CIDR prefix-length" type="string" variable="$prefix"/>
+      <param description="Byte size of in_addr" type="int" variable="$size"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="prefix" byreference="false" type="{unknown}"/>
+    <parameter name="size" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="ipGetNetwork" start="298" end="312" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Calculates and returns the network and mask"/>
+      <param description="IP in_addr" type="string" variable="$rangeIp"/>
+      <param description="Byte size of in_addr" type="int" variable="$size"/>
+      <param description="CIDR prefix-length" type="string" variable="$prefix"/>
+      <return description="network in_addr, binary mask" type="array" of="object">
+        <type full="Composer\Util\string" namespace="Composer\Util" name="string"/>
+      </return>
+    </docblock>
+    <parameter name="rangeIp" byreference="false" type="{unknown}"/>
+    <parameter name="size" byreference="false" type="{unknown}"/>
+    <parameter name="prefix" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Get the network from the address and mask" line="302"/>
+    </inline>
+  </method>
+  <method name="ipMapTo6" start="322" end="330" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Maps an IPv4 address to IPv6"/>
+      <param description="in_addr" type="string" variable="$binary"/>
+      <param description="Byte size of in_addr" type="int" variable="$size"/>
+      <return description="Mapped or existing in_addr" type="string"/>
+    </docblock>
+    <parameter name="binary" byreference="false" type="{unknown}"/>
+    <parameter name="size" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="makeData" start="341" end="349" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Creates a rule data object"/>
+      <param type="string" variable="$host"/>
+      <param type="int" variable="$port"/>
+      <param type="object" variable="$ipdata">
+        <type full="Composer\Util\null|stdclass" namespace="Composer\Util" name="null|stdclass"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Util\stdclass" namespace="Composer\Util" name="stdclass"/>
+      </return>
+    </docblock>
+    <parameter name="host" byreference="false" type="{unknown}"/>
+    <parameter name="port" byreference="false" type="{unknown}"/>
+    <parameter name="ipdata" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="makeIpData" start="360" end="367" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Creates an ip data object"/>
+      <param description="in_addr" type="string" variable="$ip"/>
+      <param description="Byte size of in_addr" type="int" variable="$size"/>
+      <param description="Network mask" type="object" variable="$netmask">
+        <type full="Composer\Util\null|string" namespace="Composer\Util" name="null|string"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Util\stdclass" namespace="Composer\Util" name="stdclass"/>
+      </return>
+    </docblock>
+    <parameter name="ip" byreference="false" type="{unknown}"/>
+    <parameter name="size" byreference="false" type="{unknown}"/>
+    <parameter name="netmask" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="splitHostPort" start="376" end="416" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Splits the hostname into host and port components"/>
+      <param type="string" variable="$hostName"/>
+      <return description="host, port, if there was error" type="array" of="object">
+        <type full="Composer\Util\mixed" namespace="Composer\Util" name="mixed"/>
+      </return>
+    </docblock>
+    <parameter name="hostName" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="host, port, err" line="378"/>
+      <comment value="Check for square-bracket notation" line="383"/>
+    </inline>
+  </method>
+  <method name="validateInt" start="425" end="434" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Wrapper around filter_var FILTER_VALIDATE_INT"/>
+      <param type="string" variable="$int"/>
+      <param type="int" variable="$min"/>
+      <param type="int" variable="$max"/>
+    </docblock>
+    <parameter name="int" byreference="false" type="{unknown}"/>
+    <parameter name="min" byreference="false" type="{unknown}"/>
+    <parameter name="max" byreference="false" type="{unknown}"/>
+  </method>
+</class>

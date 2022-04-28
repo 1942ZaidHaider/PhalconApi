@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Nette\Utils\Strings" namespace="Nette\Utils" name="Strings" abstract="false" final="false" start="19" end="569">
+  <file path="../vendor/nette/utils/src/Utils" file="Strings.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/nette/utils/src/Utils/Strings.php" size="18702" time="2022-01-24T11:29:14+00:00" unixtime="1643023754" sha1="2c5fc5ca2390510a53ce40a9ef02e3a3f805fd89" relative="vendor/nette/utils/src/Utils/Strings.php"/>
+  <docblock>
+    <description compact="String tools library."/>
+  </docblock>
+  <uses full="Nette\StaticClass" namespace="Nette" name="StaticClass" start="21" end="21"/>
+  <constant type="string" name="TRIM_CHARACTERS" value="&quot; \t\n\r\0\x0B\u{A0}&quot;"/>
+  <method name="checkEncoding" start="29" end="32" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Checks if the string is valid in UTF-8 encoding."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+  </method>
+  <method name="fixEncoding" start="38" end="42" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Removes all invalid UTF-8 characters from a string."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <inline>
+      <comment value="removes xD800-xDFFF, x110000 and higher" line="40"/>
+    </inline>
+  </method>
+  <method name="chr" start="49" end="58" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns a specific character in UTF-8 from code point (number in range 0x0000..D7FF or 0xE000..10FFFF)."/>
+      <throws description="if code point is not in valid range" type="object">
+        <type full="Nette\Utils\Nette\InvalidArgumentException" namespace="Nette\Utils\Nette" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="code" byreference="false" type="int"/>
+  </method>
+  <method name="startsWith" start="64" end="67" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Starts the $haystack string with the prefix $needle?"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="haystack" byreference="false" type="string"/>
+    <parameter name="needle" byreference="false" type="string"/>
+  </method>
+  <method name="endsWith" start="73" end="76" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Ends the $haystack string with the suffix $needle?"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="haystack" byreference="false" type="string"/>
+    <parameter name="needle" byreference="false" type="string"/>
+  </method>
+  <method name="contains" start="82" end="85" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Does $haystack contain $needle?"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="haystack" byreference="false" type="string"/>
+    <parameter name="needle" byreference="false" type="string"/>
+  </method>
+  <method name="substring" start="92" end="105" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns a part of UTF-8 string specified by starting position and length. If start is negative, the returned string will start at the start'th character from the end of string."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <parameter name="start" byreference="false" type="int"/>
+    <parameter name="length" byreference="false" nullable="true" type="int" default="NULL"/>
+  </method>
+  <method name="normalize" start="112" end="131" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Removes control characters, normalizes line breaks to `\n`, removes leading and trailing blank lines, trims end spaces on lines, normalizes UTF-8 to the normal form of NFC."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <inline>
+      <comment value="convert to compressed normal form (NFC)" line="114"/>
+      <comment value="remove control characters; leave \t + \n" line="121"/>
+      <comment value="right trim" line="124"/>
+      <comment value="leading and trailing blank lines" line="127"/>
+    </inline>
+  </method>
+  <method name="normalizeNewLines" start="137" end="140" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Standardize line endings to unix-like."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+  </method>
+  <method name="toAscii" start="146" end="205" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Converts UTF-8 string to ASCII, ie removes diacritics etc."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <inline>
+      <comment value="remove control characters and check UTF-8 validity" line="159"/>
+      <comment value="transliteration (by Transliterator and iconv) is not optimal, replace some characters directly" line="162"/>
+      <comment value="„ “ ” ‚ ‘ ’ ° Я я Ю ю Ä Ö Ü ẞ ä ö ü ß" line="163"/>
+    </inline>
+  </method>
+  <method name="webalize" start="212" end="222" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Modifies the UTF-8 string to the form used in the URL, ie removes diacritics and replaces all characters except letters of the English alphabet and numbers with a hyphens."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <parameter name="charlist" byreference="false" nullable="true" type="string" default="NULL"/>
+    <parameter name="lower" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="truncate" start="229" end="245" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Truncates a UTF-8 string to given maximal length, while trying not to split whole words. Only if the string is truncated, an ellipsis (or something else set with third argument) is appended to the string."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <parameter name="maxLen" byreference="false" type="int"/>
+    <parameter name="append" byreference="false" type="string" default="&quot;\u{2026}&quot;"/>
+  </method>
+  <method name="indent" start="252" end="259" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Indents a multiline text from the left. Second argument sets how many indentation chars should be used, while the indent itself is the third argument (*tab* by default)."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <parameter name="level" byreference="false" type="integer" default="1"/>
+    <parameter name="chars" byreference="false" type="string" default="&quot;\t&quot;"/>
+  </method>
+  <method name="lower" start="265" end="268" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Converts all characters of UTF-8 string to lower case."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+  </method>
+  <method name="firstLower" start="274" end="277" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Converts the first character of a UTF-8 string to lower case and leaves the other characters unchanged."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+  </method>
+  <method name="upper" start="283" end="286" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Converts all characters of a UTF-8 string to upper case."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+  </method>
+  <method name="firstUpper" start="292" end="295" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Converts the first character of a UTF-8 string to upper case and leaves the other characters unchanged."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+  </method>
+  <method name="capitalize" start="301" end="304" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Converts the first character of every word of a UTF-8 string to upper case and the others to lower case."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+  </method>
+  <method name="compare" start="312" end="328" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Compares two UTF-8 strings or their parts, without taking character case into account. If length is null, whole strings are compared, if it is negative, the corresponding number of characters from the end of the strings is compared, otherwise the appropriate number of characters from the beginning is compared."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="left" byreference="false" type="string"/>
+    <parameter name="right" byreference="false" type="string"/>
+    <parameter name="length" byreference="false" nullable="true" type="int" default="NULL"/>
+  </method>
+  <method name="findPrefix" start="335" end="351" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Finds the common prefix of strings or returns empty string if the prefix was not found."/>
+      <param type="array" variable="$strings" of="object">
+        <type full="Nette\Utils\string" namespace="Nette\Utils" name="string"/>
+      </param>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="strings" byreference="false" type="array"/>
+  </method>
+  <method name="length" start="358" end="363" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns number of characters (not bytes) in UTF-8 string.">That is the number of Unicode code points which may differ from the number of graphemes.</description>
+    </docblock>
+    <return type="int" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+  </method>
+  <method name="trim" start="369" end="373" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Removes all left and right side spaces (or the characters passed as second argument) from a UTF-8 encoded string."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <parameter name="charlist" byreference="false" type="{unknown}" default="" constant="self::TRIM_CHARACTERS"/>
+  </method>
+  <method name="padLeft" start="379" end="384" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Pads a UTF-8 string to given length by prepending the $pad string to the beginning."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <parameter name="length" byreference="false" type="int"/>
+    <parameter name="pad" byreference="false" type="string" default="' '"/>
+  </method>
+  <method name="padRight" start="390" end="395" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Pads UTF-8 string to given length by appending the $pad string to the end."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+    <parameter name="length" byreference="false" type="int"/>
+    <parameter name="pad" byreference="false" type="string" default="' '"/>
+  </method>
+  <method name="reverse" start="401" end="408" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Reverses UTF-8 string."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="s" byreference="false" type="string"/>
+  </method>
+  <method name="before" start="415" end="421" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns part of $haystack before $nth occurence of $needle or returns null if the needle was not found.">Negative value means searching from the end.</description>
+    </docblock>
+    <return type="string" nullable="true"/>
+    <parameter name="haystack" byreference="false" type="string"/>
+    <parameter name="needle" byreference="false" type="string"/>
+    <parameter name="nth" byreference="false" type="integer" default="1"/>
+  </method>
+  <method name="after" start="428" end="434" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns part of $haystack after $nth occurence of $needle or returns null if the needle was not found.">Negative value means searching from the end.</description>
+    </docblock>
+    <return type="string" nullable="true"/>
+    <parameter name="haystack" byreference="false" type="string"/>
+    <parameter name="needle" byreference="false" type="string"/>
+    <parameter name="nth" byreference="false" type="integer" default="1"/>
+  </method>
+  <method name="indexOf" start="441" end="447" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns position in characters of $nth occurence of $needle in $haystack or null if the $needle was not found.">Negative value of `$nth` means searching from the end.</description>
+    </docblock>
+    <return type="int" nullable="true"/>
+    <parameter name="haystack" byreference="false" type="string"/>
+    <parameter name="needle" byreference="false" type="string"/>
+    <parameter name="nth" byreference="false" type="integer" default="1"/>
+  </method>
+  <method name="pos" start="453" end="481" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Returns position in characters of $nth occurence of $needle in $haystack or null if the needle was not found."/>
+    </docblock>
+    <return type="int" nullable="true"/>
+    <parameter name="haystack" byreference="false" type="string"/>
+    <parameter name="needle" byreference="false" type="string"/>
+    <parameter name="nth" byreference="false" type="integer" default="1"/>
+  </method>
+  <method name="split" start="488" end="491" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Splits a string into array by the regular expression. Parenthesized expression in the delimiter are captured.">Parameter $flags can be any combination of PREG_SPLIT_NO_EMPTY and PREG_OFFSET_CAPTURE flags.</description>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="subject" byreference="false" type="string"/>
+    <parameter name="pattern" byreference="false" type="string"/>
+    <parameter name="flags" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="match" start="498" end="507" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Checks if given string matches a regular expression pattern and returns an array with first found match and each subpattern.">Parameter $flags can be any combination of PREG_OFFSET_CAPTURE and PREG_UNMATCHED_AS_NULL flags.</description>
+    </docblock>
+    <return type="array" nullable="true"/>
+    <parameter name="subject" byreference="false" type="string"/>
+    <parameter name="pattern" byreference="false" type="string"/>
+    <parameter name="flags" byreference="false" type="integer" default="0"/>
+    <parameter name="offset" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="matchAll" start="514" end="526" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Finds all occurrences matching regular expression pattern and returns a two-dimensional array. Result is array of matches (ie uses by default PREG_SET_ORDER).">Parameter $flags can be any combination of PREG_OFFSET_CAPTURE, PREG_UNMATCHED_AS_NULL and PREG_PATTERN_ORDER flags.</description>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="subject" byreference="false" type="string"/>
+    <parameter name="pattern" byreference="false" type="string"/>
+    <parameter name="flags" byreference="false" type="integer" default="0"/>
+    <parameter name="offset" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="replace" start="534" end="549" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Replaces all occurrences matching regular expression $pattern which can be string or array in the form `pattern =&gt; replacement`."/>
+      <param type="object" variable="$pattern">
+        <type full="Nette\Utils\string|array" namespace="Nette\Utils" name="string|array"/>
+      </param>
+      <param type="object" variable="$replacement">
+        <type full="Nette\Utils\string|callable" namespace="Nette\Utils" name="string|callable"/>
+      </param>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="subject" byreference="false" type="string"/>
+    <parameter name="pattern" byreference="false" type="{unknown}"/>
+    <parameter name="replacement" byreference="false" type="string" default="''"/>
+    <parameter name="limit" byreference="false" type="integer" default="1"/>
+  </method>
+  <method name="pcre" start="553" end="568" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <internal/>
+    </docblock>
+    <parameter name="func" byreference="false" type="string"/>
+    <parameter name="args" byreference="false" type="array"/>
+  </method>
+  <trait full="Nette\StaticClass" namespace="Nette" name="StaticClass">
+    <constructor name="__construct" start="22" end="25" abstract="false" final="true" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return type="object">
+          <type full="Nette\never" namespace="Nette" name="never"/>
+        </return>
+        <throws type="object">
+          <type full="\Error" namespace="" name="Error"/>
+        </throws>
+      </docblock>
+    </constructor>
+    <method name="__callStatic" start="33" end="36" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Call to undefined static method."/>
+        <return type="object">
+          <type full="Nette\void" namespace="Nette" name="void"/>
+        </return>
+        <throws type="object">
+          <type full="Nette\MemberAccessException" namespace="Nette" name="MemberAccessException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+      <parameter name="args" byreference="false" type="array"/>
+    </method>
+  </trait>
+</class>

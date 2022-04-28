@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="ScopeIndentSniff" abstract="false" final="false" start="17" end="1575">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/WhiteSpace" file="ScopeIndentSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/WhiteSpace/ScopeIndentSniff.php" size="70378" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="2d806f34cdbc21b22c5059e442386654da6cf5aa" relative="vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/WhiteSpace/ScopeIndentSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <member name="supportedTokenizers" default="" type="array" visibility="public" static="false" line="25">
+    <docblock>
+      <description compact="A list of tokenizers this sniff supports."/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="indent" default="4" type="integer" visibility="public" static="false" line="35">
+    <docblock>
+      <description compact="The number of spaces code should be indented."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="exact" default="false" type="boolean" visibility="public" static="false" line="45">
+    <docblock>
+      <description compact="Does the indent need to be exactly right?">If TRUE, indent needs to be exactly $indent spaces. If FALSE,
+indent needs to be at least $indent spaces (but can be more).</description>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="tabIndent" default="false" type="boolean" visibility="public" static="false" line="56">
+    <docblock>
+      <description compact="Should tabs be used for indenting?">If TRUE, fixes will be made using tabs instead of spaces.
+The size of each tab is important, so it should be specified
+using the --tab-width CLI argument.</description>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="tabWidth" default="NULL" visibility="private" static="false" line="63">
+    <docblock>
+      <description compact="The --tab-width CLI value that is being used."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="ignoreIndentationTokens" default="" type="array" visibility="public" static="false" line="75">
+    <docblock>
+      <description compact="List of tokens not needing to be checked for indentation.">Useful to allow Sniffs based on this to easily ignore/skip some
+tokens from verification. For example, inline HTML sections
+or PHP open/close tags can escape from here and have their own
+rules elsewhere.</description>
+      <var type="array" of="object">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\int" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="ignoreIndentation" default="" type="array" visibility="private" static="false" line="85">
+    <docblock>
+      <description compact="List of tokens not needing to be checked for indentation.">This is a cached copy of the public version of this var, which
+can be set in a ruleset file, and some core ignored tokens.</description>
+      <var type="array" of="object">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\int" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="nonIndentingScopes" default="" type="array" visibility="protected" static="false" line="92">
+    <docblock>
+      <description compact="Any scope openers that should not cause an indent."/>
+      <var type="array" of="object">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\int" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="debug" default="false" type="boolean" visibility="private" static="false" line="99">
+    <docblock>
+      <description compact="Show debug output for this sniff."/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <method name="register" start="107" end="115" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns an array of tokens this test wants to listen for."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="process" start="127" end="1485" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes this test, when one of its tokens is encountered."/>
+      <param description="All the tokens found in the document." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token" type="int" variable="$stackPtr">in the stack passed in $tokens.</param>
+      <return type="int"/>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end if" line="179"/>
+      <comment value="end for" line="1480"/>
+      <comment value="Don't process the rest of the file." line="1482"/>
+    </inline>
+  </method>
+  <method name="adjustIndent" start="1500" end="1572" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Processes this test, when one of its tokens is encountered."/>
+      <param description="All the tokens found in the document." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token" type="int" variable="$stackPtr">in the stack passed in $tokens.</param>
+      <param description="The length of the new indent." type="int" variable="$length"/>
+      <param description="The difference in length between" type="int" variable="$change">the old and new indent.</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\bool" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="length" byreference="false" type="{unknown}"/>
+    <parameter name="change" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="We don't adjust indents outside of PHP." line="1504"/>
+      <comment value="end if" line="1568"/>
+    </inline>
+  </method>
+  <extenders>
+    <extender full="PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace\ScopeIndentSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace" name="ScopeIndentSniff"/>
+  </extenders>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

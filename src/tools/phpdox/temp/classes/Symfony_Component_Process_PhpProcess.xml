@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Process\PhpProcess" namespace="Symfony\Component\Process" name="PhpProcess" abstract="false" final="false" start="26" end="72">
+  <file path="../vendor/symfony/process" file="PhpProcess.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/process/PhpProcess.php" size="2462" time="2022-04-08T05:07:18+00:00" unixtime="1649394438" sha1="b6909d6834712f0567c017b93344379558fd3875" relative="vendor/symfony/process/PhpProcess.php"/>
+  <docblock>
+    <description compact="PhpProcess runs a PHP script in an independent process.">$p = new PhpProcess('&lt;?php echo "foo"; ?&gt;');
+    $p-&gt;run();
+    print $p-&gt;getOutput()."\n";</description>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+  </docblock>
+  <extends full="Symfony\Component\Process\Process" namespace="Symfony\Component\Process" name="Process"/>
+  <constructor name="__construct" start="35" end="51" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The PHP script to run (as a string)" type="string" variable="$script"/>
+      <param description="The working directory or null to use the working dir of the current PHP process" type="object" variable="$cwd">
+        <type full="Symfony\Component\Process\string|null" namespace="Symfony\Component\Process" name="string|null"/>
+      </param>
+      <param description="The environment variables or null to use the same environment as the current PHP process" type="object" variable="$env">
+        <type full="Symfony\Component\Process\array|null" namespace="Symfony\Component\Process" name="array|null"/>
+      </param>
+      <param description="The timeout in seconds" type="int" variable="$timeout"/>
+      <param description="Path to the PHP binary to use with any additional arguments" type="object" variable="$php">
+        <type full="Symfony\Component\Process\array|null" namespace="Symfony\Component\Process" name="array|null"/>
+      </param>
+    </docblock>
+    <parameter name="script" byreference="false" type="string"/>
+    <parameter name="cwd" byreference="false" type="string" default="NULL"/>
+    <parameter name="env" byreference="false" type="array" default="NULL"/>
+    <parameter name="timeout" byreference="false" type="integer" default="60"/>
+    <parameter name="php" byreference="false" type="array" default="NULL"/>
+  </constructor>
+  <method name="fromShellCommandline" start="56" end="59" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="command" byreference="false" type="string"/>
+    <parameter name="cwd" byreference="false" type="string" default="NULL"/>
+    <parameter name="env" byreference="false" type="array" default="NULL"/>
+    <parameter name="input" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="timeout" byreference="false" nullable="true" type="integer" default="60"/>
+  </method>
+  <method name="start" start="64" end="71" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="callback" byreference="false" type="callable" default="NULL"/>
+    <parameter name="env" byreference="false" type="array" default=""/>
+  </method>
+  <parent full="Symfony\Component\Process\Process" namespace="Symfony\Component\Process" name="Process">
+    <implements full="IteratorAggregate" namespace="" name="IteratorAggregate"/>
+    <constant type="{unknown}" name="ERR" value="'err'"/>
+    <constant type="{unknown}" name="OUT" value="'out'"/>
+    <constant type="{unknown}" name="STATUS_READY" value="'ready'"/>
+    <constant type="{unknown}" name="STATUS_STARTED" value="'started'"/>
+    <constant type="{unknown}" name="STATUS_TERMINATED" value="'terminated'"/>
+    <constant type="{unknown}" name="STDIN" value="0"/>
+    <constant type="{unknown}" name="STDOUT" value="1"/>
+    <constant type="{unknown}" name="STDERR" value="2"/>
+    <constant type="{unknown}" name="TIMEOUT_PRECISION" value="0.2"/>
+    <constant type="{unknown}" name="ITER_NON_BLOCKING" value="1"/>
+    <constant type="{unknown}" name="ITER_KEEP_OUTPUT" value="2"/>
+    <constant type="{unknown}" name="ITER_SKIP_OUT" value="4"/>
+    <constant type="{unknown}" name="ITER_SKIP_ERR" value="8"/>
+    <member name="exitCodes" default="" type="array" visibility="public" static="true" line="91">
+      <docblock>
+        <description compact="Exit codes translation table.">User-defined errors must use exit codes in the 64-113 range.</description>
+      </docblock>
+    </member>
+    <constructor name="__construct" start="143" end="167" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param description="The command to run and its arguments listed as separate entries" type="array" variable="$command"/>
+        <param description="The working directory or null to use the working dir of the current PHP process" type="object" variable="$cwd">
+          <type full="Symfony\Component\Process\string|null" namespace="Symfony\Component\Process" name="string|null"/>
+        </param>
+        <param description="The environment variables or null to use the same environment as the current PHP process" type="object" variable="$env">
+          <type full="Symfony\Component\Process\array|null" namespace="Symfony\Component\Process" name="array|null"/>
+        </param>
+        <param description="The input as stream resource, scalar or \Traversable, or null for no input" type="mixed" variable="$input"/>
+        <param description="The timeout in seconds or null to disable" type="object" variable="$timeout">
+          <type full="Symfony\Component\Process\int|float|null" namespace="Symfony\Component\Process" name="int|float|null"/>
+        </param>
+        <throws description="When proc_open is not installed" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+      <parameter name="command" byreference="false" type="array"/>
+      <parameter name="cwd" byreference="false" type="string" default="NULL"/>
+      <parameter name="env" byreference="false" type="array" default="NULL"/>
+      <parameter name="input" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="timeout" byreference="false" nullable="true" type="integer" default="60"/>
+      <inline>
+        <comment value="on Windows, if the cwd changed via chdir(), proc_open defaults to the dir where PHP was started" line="152"/>
+        <comment value="on Gnu/Linux, PHP builds with --enable-maintainer-zts are also affected" line="153"/>
+        <comment value="@see : https://bugs.php.net/51800" line="154"/>
+        <comment value="@see : https://bugs.php.net/50524" line="155"/>
+      </inline>
+    </constructor>
+    <method name="fromShellCommandline" start="192" end="198" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Creates a Process instance as a command-line to be run in a shell wrapper.">Command-lines are parsed by the shell of your OS (/bin/sh on Unix-like, cmd.exe on Windows.)
+This allows using e.g. pipes or conditional execution. In this mode, signals are sent to the
+shell wrapper and not to your commands.
+
+In order to inject dynamic values into command-lines, we strongly recommend using placeholders.
+This will save escaping values, which is not portable nor secure anyway:
+
+  $process = Process::fromShellCommandline('my_command "${:MY_VAR}"');
+  $process-&gt;run(null, ['MY_VAR' =&gt; $theValue]);</description>
+        <param description="The command line to pass to the shell of the OS" type="string" variable="$command"/>
+        <param description="The working directory or null to use the working dir of the current PHP process" type="object" variable="$cwd">
+          <type full="Symfony\Component\Process\string|null" namespace="Symfony\Component\Process" name="string|null"/>
+        </param>
+        <param description="The environment variables or null to use the same environment as the current PHP process" type="object" variable="$env">
+          <type full="Symfony\Component\Process\array|null" namespace="Symfony\Component\Process" name="array|null"/>
+        </param>
+        <param description="The input as stream resource, scalar or \Traversable, or null for no input" type="mixed" variable="$input"/>
+        <param description="The timeout in seconds or null to disable" type="object" variable="$timeout">
+          <type full="Symfony\Component\Process\int|float|null" namespace="Symfony\Component\Process" name="int|float|null"/>
+        </param>
+        <return resolution="static" type="object">
+          <type full="Symfony\Component\Process\PhpProcess" namespace="Symfony\Component\Process" name="PhpProcess"/>
+        </return>
+        <throws description="When proc_open is not installed" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+      <parameter name="command" byreference="false" type="string"/>
+      <parameter name="cwd" byreference="false" type="string" default="NULL"/>
+      <parameter name="env" byreference="false" type="array" default="NULL"/>
+      <parameter name="input" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="timeout" byreference="false" nullable="true" type="integer" default="60"/>
+    </method>
+    <method name="__sleep" start="203" end="206" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="__wakeup" start="208" end="211" abstract="false" final="false" static="false" visibility="public"/>
+    <destructor name="__destruct" start="213" end="220" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="__clone" start="222" end="225" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="run" start="250" end="255" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Runs the process.">The callback receives the type of output (out or err) and
+some bytes from the output in real-time. It allows to have feedback
+from the independent process during execution.
+
+The STDOUT and STDERR are also available after the process is finished
+via the getOutput() and getErrorOutput() methods.</description>
+        <param description="A PHP callback to run whenever there is some" type="object" variable="$callback">output available on STDOUT or STDERR<type full="Symfony\Component\Process\callable|null" namespace="Symfony\Component\Process" name="callable|null"/></param>
+        <return description="The exit status code" type="int"/>
+        <throws description="When process can't be launched" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <throws description="When process is already running" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <throws description="When process timed out" type="object">
+          <type full="Symfony\Component\Process\Exception\ProcessTimedOutException" namespace="Symfony\Component\Process\Exception" name="ProcessTimedOutException"/>
+        </throws>
+        <throws description="When process stopped after receiving signal" type="object">
+          <type full="Symfony\Component\Process\Exception\ProcessSignaledException" namespace="Symfony\Component\Process\Exception" name="ProcessSignaledException"/>
+        </throws>
+        <throws description="In case a callback is provided and output has been disabled" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+        <final/>
+      </docblock>
+      <return type="int" nullable="false"/>
+      <parameter name="callback" byreference="false" type="callable" default="NULL"/>
+      <parameter name="env" byreference="false" type="array" default=""/>
+    </method>
+    <method name="mustRun" start="269" end="276" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Runs the process.">This is identical to run() except that an exception is thrown if the process
+exits with a non-zero exit code.</description>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+        <throws description="if the process didn't terminate successfully" type="object">
+          <type full="Symfony\Component\Process\Exception\ProcessFailedException" namespace="Symfony\Component\Process\Exception" name="ProcessFailedException"/>
+        </throws>
+        <final/>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Component\Process\Process" namespace="Symfony\Component\Process" name="Process"/>
+      </return>
+      <parameter name="callback" byreference="false" type="callable" default="NULL"/>
+      <parameter name="env" byreference="false" type="array" default=""/>
+    </method>
+    <method name="start" start="297" end="369" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Starts the process and returns after writing the input to STDIN.">This method blocks until all STDIN data is sent to the process then it
+returns while the process runs in the background.
+
+The termination of the process can be awaited with wait().
+
+The callback receives the type of output (out or err) and some bytes from
+the output in real-time while writing the standard input to the process.
+It allows to have feedback from the independent process during execution.</description>
+        <param description="A PHP callback to run whenever there is some" type="object" variable="$callback">output available on STDOUT or STDERR<type full="Symfony\Component\Process\callable|null" namespace="Symfony\Component\Process" name="callable|null"/></param>
+        <throws description="When process can't be launched" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <throws description="When process is already running" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <throws description="In case a callback is provided and output has been disabled" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+      <parameter name="callback" byreference="false" type="callable" default="NULL"/>
+      <parameter name="env" byreference="false" type="array" default=""/>
+    </method>
+    <method name="restart" start="388" end="398" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Restarts the process.">Be warned that the process is cloned before being started.</description>
+        <param description="A PHP callback to run whenever there is some" type="object" variable="$callback">output available on STDOUT or STDERR<type full="Symfony\Component\Process\callable|null" namespace="Symfony\Component\Process" name="callable|null"/></param>
+        <return resolution="static" type="object">
+          <type full="Symfony\Component\Process\PhpProcess" namespace="Symfony\Component\Process" name="PhpProcess"/>
+        </return>
+        <throws description="When process can't be launched" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <throws description="When process is already running" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <see value="start()"/>
+        <final/>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Component\Process\Process" namespace="Symfony\Component\Process" name="Process"/>
+      </return>
+      <parameter name="callback" byreference="false" type="callable" default="NULL"/>
+      <parameter name="env" byreference="false" type="array" default=""/>
+    </method>
+    <method name="wait" start="415" end="445" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Waits for the process to terminate.">The callback receives the type of output (out or err) and some bytes
+from the output in real-time while writing the standard input to the process.
+It allows to have feedback from the independent process during execution.</description>
+        <param description="A valid PHP callback" type="object" variable="$callback">
+          <type full="Symfony\Component\Process\callable|null" namespace="Symfony\Component\Process" name="callable|null"/>
+        </param>
+        <return description="The exitcode of the process" type="int"/>
+        <throws description="When process timed out" type="object">
+          <type full="Symfony\Component\Process\Exception\ProcessTimedOutException" namespace="Symfony\Component\Process\Exception" name="ProcessTimedOutException"/>
+        </throws>
+        <throws description="When process stopped after receiving signal" type="object">
+          <type full="Symfony\Component\Process\Exception\ProcessSignaledException" namespace="Symfony\Component\Process\Exception" name="ProcessSignaledException"/>
+        </throws>
+        <throws description="When process is not yet started" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+      <parameter name="callback" byreference="false" type="callable" default="NULL"/>
+    </method>
+    <method name="waitUntil" start="458" end="491" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Waits until the callback returns true.">The callback receives the type of output (out or err) and some bytes
+from the output in real-time while writing the standard input to the process.
+It allows to have feedback from the independent process during execution.</description>
+        <throws description="When process timed out" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <throws description="When process is not yet started" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+        <throws description="In case the timeout was reached" type="object">
+          <type full="Symfony\Component\Process\Exception\ProcessTimedOutException" namespace="Symfony\Component\Process\Exception" name="ProcessTimedOutException"/>
+        </throws>
+      </docblock>
+      <return type="bool" nullable="false"/>
+      <parameter name="callback" byreference="false" type="callable"/>
+    </method>
+    <method name="getPid" start="498" end="501" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the Pid (process identifier), if applicable."/>
+        <return description="The process id if running, null otherwise" type="object">
+          <type full="Symfony\Component\Process\int|null" namespace="Symfony\Component\Process" name="int|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="signal" start="514" end="519" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sends a POSIX signal to the process."/>
+        <param description="A valid POSIX signal (see https://php.net/pcntl.constants)" type="int" variable="$signal"/>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+        <throws description="In case the process is not running" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+        <throws description="In case --enable-sigchild is activated and the process can't be killed" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <throws description="In case of failure" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+      </docblock>
+      <parameter name="signal" byreference="false" type="int"/>
+    </method>
+    <method name="disableOutput" start="529" end="541" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Disables fetching output and error output from the underlying process."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+        <throws description="In case the process is already running" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <throws description="if an idle timeout is set" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="enableOutput" start="550" end="559" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Enables fetching output and error output from the underlying process."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+        <throws description="In case the process is already running" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="isOutputDisabled" start="566" end="569" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns true in case the output is disabled, false otherwise."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getOutput" start="579" end="588" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the current output of the process (STDOUT)."/>
+        <return type="string"/>
+        <throws description="in case the output has been disabled" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+        <throws description="In case the process is not started" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="getIncrementalOutput" start="601" end="613" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the output incrementally.">In comparison with the getOutput method which always return the whole
+output, this one returns the new output since the last call.</description>
+        <return type="string"/>
+        <throws description="in case the output has been disabled" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+        <throws description="In case the process is not started" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="getIterator" start="626" end="671" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="flags" byreference="false" type="integer" default="0"/>
+    </method>
+    <method name="clearOutput" start="678" end="685" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Clears the process output."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getErrorOutput" start="695" end="704" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the current error output of the process (STDERR)."/>
+        <return type="string"/>
+        <throws description="in case the output has been disabled" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+        <throws description="In case the process is not started" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="getIncrementalErrorOutput" start="718" end="730" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the errorOutput incrementally.">In comparison with the getErrorOutput method which always return the
+whole error output, this one returns the new error output since the last
+call.</description>
+        <return type="string"/>
+        <throws description="in case the output has been disabled" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+        <throws description="In case the process is not started" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="clearErrorOutput" start="737" end="744" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Clears the process output."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getExitCode" start="751" end="756" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the exit code returned by the process."/>
+        <return description="The exit status code, null if the Process is not terminated" type="object">
+          <type full="Symfony\Component\Process\int|null" namespace="Symfony\Component\Process" name="int|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getExitCodeText" start="769" end="776" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns a string representation for the exit code returned by the process.">This method relies on the Unix exit code status standardization
+and might not be relevant for other operating systems.</description>
+        <return description="A string representation for the exit status code, null if the Process is not terminated" type="object">
+          <type full="Symfony\Component\Process\string|null" namespace="Symfony\Component\Process" name="string|null"/>
+        </return>
+        <see value="http://tldp.org/LDP/abs/html/exitcodes.html"/>
+        <see value="http://en.wikipedia.org/wiki/Unix_signal"/>
+      </docblock>
+    </method>
+    <method name="isSuccessful" start="783" end="786" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks if the process ended successfully."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="hasBeenSignaled" start="797" end="802" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns true if the child process has been terminated by an uncaught signal.">It always returns false on Windows.</description>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+        <throws description="In case the process is not terminated" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="getTermSignal" start="814" end="823" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the number of the signal that caused the child process to terminate its execution.">It is only meaningful if hasBeenSignaled() returns true.</description>
+        <return type="int"/>
+        <throws description="In case --enable-sigchild is activated" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+        <throws description="In case the process is not terminated" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="hasBeenStopped" start="834" end="839" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns true if the child process has been stopped by a signal.">It always returns false on Windows.</description>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+        <throws description="In case the process is not terminated" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="getStopSignal" start="850" end="855" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the number of the signal that caused the child process to stop its execution.">It is only meaningful if hasBeenStopped() returns true.</description>
+        <return type="int"/>
+        <throws description="In case the process is not terminated" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="isRunning" start="862" end="871" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks if the process is currently running."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="isStarted" start="878" end="881" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks if the process has been started with no regard to the current state."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="isTerminated" start="888" end="893" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks if the process is terminated."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getStatus" start="902" end="907" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the process status.">The status is one of: ready, started, terminated.</description>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="stop" start="917" end="944" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Stops the process."/>
+        <param description="The timeout in seconds" type="object" variable="$timeout">
+          <type full="Symfony\Component\Process\int|float" namespace="Symfony\Component\Process" name="int|float"/>
+        </param>
+        <param description="A POSIX signal to send in case the process has not stop at timeout, default is SIGKILL (9)" type="int" variable="$signal"/>
+        <return description="The exit-code of the process or null if it's not running" type="object">
+          <type full="Symfony\Component\Process\int|null" namespace="Symfony\Component\Process" name="int|null"/>
+        </return>
+      </docblock>
+      <parameter name="timeout" byreference="false" type="integer" default="10"/>
+      <parameter name="signal" byreference="false" type="int" default="NULL"/>
+    </method>
+    <method name="addOutput" start="951" end="958" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds a line to the STDOUT stream."/>
+        <internal/>
+      </docblock>
+      <parameter name="line" byreference="false" type="string"/>
+    </method>
+    <method name="addErrorOutput" start="965" end="972" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds a line to the STDERR stream."/>
+        <internal/>
+      </docblock>
+      <parameter name="line" byreference="false" type="string"/>
+    </method>
+    <method name="getLastOutputTime" start="977" end="980" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the last output time in seconds."/>
+      </docblock>
+      <return type="float" nullable="true"/>
+    </method>
+    <method name="getCommandLine" start="987" end="990" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the command line to be executed."/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="getTimeout" start="997" end="1000" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the process timeout in seconds (max. runtime)."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\float|null" namespace="Symfony\Component\Process" name="float|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getIdleTimeout" start="1007" end="1010" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the process idle timeout in seconds (max. time since last output)."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\float|null" namespace="Symfony\Component\Process" name="float|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="setTimeout" start="1021" end="1026" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the process timeout (max. runtime) in seconds.">To disable the timeout, set this value to null.</description>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+        <throws description="if the timeout is negative" type="object">
+          <type full="Symfony\Component\Process\Exception\InvalidArgumentException" namespace="Symfony\Component\Process\Exception" name="InvalidArgumentException"/>
+        </throws>
+      </docblock>
+      <parameter name="timeout" byreference="false" nullable="true" type="float"/>
+    </method>
+    <method name="setIdleTimeout" start="1038" end="1047" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the process idle timeout (max. time since last output) in seconds.">To disable the timeout, set this value to null.</description>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+        <throws description="if the output is disabled" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+        <throws description="if the timeout is negative" type="object">
+          <type full="Symfony\Component\Process\Exception\InvalidArgumentException" namespace="Symfony\Component\Process\Exception" name="InvalidArgumentException"/>
+        </throws>
+      </docblock>
+      <parameter name="timeout" byreference="false" nullable="true" type="float"/>
+    </method>
+    <method name="setTty" start="1056" end="1069" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Enables or disables the TTY mode."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+        <throws description="In case the TTY mode is not supported" type="object">
+          <type full="Symfony\Component\Process\Exception\RuntimeException" namespace="Symfony\Component\Process\Exception" name="RuntimeException"/>
+        </throws>
+      </docblock>
+      <parameter name="tty" byreference="false" type="bool"/>
+    </method>
+    <method name="isTty" start="1076" end="1079" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks if the TTY mode is enabled."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="setPty" start="1086" end="1091" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets PTY mode."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="bool" byreference="false" type="bool"/>
+    </method>
+    <method name="isPty" start="1098" end="1101" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns PTY state."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getWorkingDirectory" start="1108" end="1117" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the working directory."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\string|null" namespace="Symfony\Component\Process" name="string|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="setWorkingDirectory" start="1124" end="1129" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the current working directory."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="cwd" byreference="false" type="string"/>
+    </method>
+    <method name="getEnv" start="1136" end="1139" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the environment variables."/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="setEnv" start="1148" end="1153" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the environment variables."/>
+        <param description="The new environment variables" type="object" variable="$env">
+          <type full="Symfony\Component\Process\array&lt;string|\Stringable&gt;" namespace="Symfony\Component\Process\array&lt;string|" name="Stringable&gt;"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="env" byreference="false" type="array"/>
+    </method>
+    <method name="getInput" start="1160" end="1163" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the Process input."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\resource|string|\Iterator|null" namespace="Symfony\Component\Process\resource|string|" name="Iterator|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="setInput" start="1176" end="1185" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the input.">This content will be passed to the underlying process standard input.</description>
+        <param description="The content" type="object" variable="$input">
+          <type full="Symfony\Component\Process\string|int|float|bool|resource|\Traversable|null" namespace="Symfony\Component\Process\string|int|float|bool|resource|" name="Traversable|null"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Process\$this" namespace="Symfony\Component\Process" name="$this"/>
+        </return>
+        <throws description="In case the process is running" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+      <parameter name="input" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="checkTimeout" start="1195" end="1212" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Performs a check between the timeout definition and the time the process started.">In case you run a background process (with the start method), you should
+trigger this method regularly to ensure the process timeout</description>
+        <throws description="In case the timeout was reached" type="object">
+          <type full="Symfony\Component\Process\Exception\ProcessTimedOutException" namespace="Symfony\Component\Process\Exception" name="ProcessTimedOutException"/>
+        </throws>
+      </docblock>
+    </method>
+    <method name="getStartTime" start="1217" end="1224" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <throws description="in case process is not started" type="object">
+          <type full="Symfony\Component\Process\Exception\LogicException" namespace="Symfony\Component\Process\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+      <return type="float" nullable="false"/>
+    </method>
+    <method name="setOptions" start="1234" end="1250" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Defines options to pass to the underlying proc_open()."/>
+        <see value="https://php.net/proc_open for the options supported by PHP. Enabling the &quot;create_new_console&quot; option allows a subprocess to continue to run after the main process exited, on both Windows and *nix"/>
+      </docblock>
+      <parameter name="options" byreference="false" type="array"/>
+    </method>
+    <method name="isTtySupported" start="1255" end="1264" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns whether TTY is supported on the current operating system."/>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="isPtySupported" start="1271" end="1284" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns whether PTY is supported on the current operating system."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="buildCallback" start="1313" end="1332" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Builds up the callback used by wait().">The callbacks adds all occurred output to the specific buffer and calls
+the user callback (if present) with the received output.</description>
+        <param description="The user defined PHP callback" type="object" variable="$callback">
+          <type full="Symfony\Component\Process\callable|null" namespace="Symfony\Component\Process" name="callable|null"/>
+        </param>
+        <return type="object">
+          <type full="\Closure" namespace="" name="Closure"/>
+        </return>
+      </docblock>
+      <parameter name="callback" byreference="false" type="callable" default="NULL"/>
+    </method>
+    <method name="updateStatus" start="1339" end="1357" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Updates the status of the process, reads pipes."/>
+        <param description="Whether to use a blocking read call" type="object" variable="$blocking">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </param>
+      </docblock>
+      <parameter name="blocking" byreference="false" type="bool"/>
+    </method>
+    <method name="isSigchildEnabled" start="1364" end="1378" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Returns whether PHP has been compiled with the '--enable-sigchild' option or not."/>
+        <return type="object">
+          <type full="Symfony\Component\Process\bool" namespace="Symfony\Component\Process" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+  </parent>
+  <interface full="IteratorAggregate" namespace="" name="IteratorAggregate">
+    <extends full="Traversable" namespace="" name="Traversable"/>
+    <method name="getIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Retrieve an external iterator"/>
+      <return type="Traversable"/>
+    </docblock>
+  </method>
+  </interface>
+</class>

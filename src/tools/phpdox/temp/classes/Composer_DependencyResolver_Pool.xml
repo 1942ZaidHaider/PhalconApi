@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool" abstract="false" final="false" start="34" end="387">
+  <file path="../vendor/composer/composer/src/Composer/DependencyResolver" file="Pool.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/DependencyResolver/Pool.php" size="14445" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="382521232512bfc3a78c7d408c90da7b852d95c6" relative="vendor/composer/composer/src/Composer/DependencyResolver/Pool.php"/>
+  <docblock>
+    <description compact="A package pool contains repositories that provide packages."/>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <implements full="Countable" namespace="" name="Countable"/>
+  <constant type="integer" name="MATCH_NAME" value="1"/>
+  <constant type="integer" name="MATCH_NONE" value="0"/>
+  <constant type="integer" name="MATCH" value="1"/>
+  <constant type="integer" name="MATCH_PROVIDE" value="2"/>
+  <constant type="integer" name="MATCH_REPLACE" value="3"/>
+  <constant type="integer" name="MATCH_FILTERED" value="4"/>
+  <member name="repositories" default="" type="array" visibility="protected" static="false" line="43"/>
+  <member name="providerRepos" default="" type="array" visibility="protected" static="false" line="44"/>
+  <member name="packages" default="" type="array" visibility="protected" static="false" line="45"/>
+  <member name="packageByName" default="" type="array" visibility="protected" static="false" line="46"/>
+  <member name="packageByExactName" default="" type="array" visibility="protected" static="false" line="47"/>
+  <member name="acceptableStabilities" visibility="protected" static="false" line="48"/>
+  <member name="stabilityFlags" visibility="protected" static="false" line="49"/>
+  <member name="versionParser" visibility="protected" static="false" line="50"/>
+  <member name="providerCache" default="" type="array" visibility="protected" static="false" line="51"/>
+  <member name="filterRequires" visibility="protected" static="false" line="52"/>
+  <member name="whitelist" default="NULL" visibility="protected" static="false" line="53"/>
+  <member name="id" default="1" type="integer" visibility="protected" static="false" line="54"/>
+  <constructor name="__construct" start="56" end="72" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="minimumStability" byreference="false" type="string" default="'stable'"/>
+    <parameter name="stabilityFlags" byreference="false" type="array" default=""/>
+    <parameter name="filterRequires" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="setAllowList" start="74" end="78" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="allowList" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="call original method for BC" line="76"/>
+    </inline>
+  </method>
+  <method name="setWhitelist" start="83" end="87" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <deprecated value="use setAllowList instead"/>
+    </docblock>
+    <parameter name="whitelist" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addRepository" start="95" end="148" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds a repository and its packages to this package pool"/>
+      <param description="A package repository" type="object" variable="$repo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <param type="array" variable="$rootAliases"/>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+    <parameter name="rootAliases" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getPriority" start="150" end="159" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+  </method>
+  <method name="packageById" start="167" end="170" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Retrieves the package object for a given package id."/>
+      <param type="int" variable="$id"/>
+      <return type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </return>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="count" start="175" end="178" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns how many packages have been loaded into the pool"/>
+    </docblock>
+  </method>
+  <method name="whatProvides" start="191" end="203" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Searches all packages providing the given package name and match the constraint"/>
+      <param description="The package name to be searched for" type="string" variable="$name"/>
+      <param description="A constraint that all returned" type="object" variable="$constraint">packages must match or null to return all<type full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface"/></param>
+      <param description="Whether the name of returned packages" type="object" variable="$mustMatchName">must match the given name<type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/></param>
+      <param description="If enabled, filterRequires and stability matching is ignored" type="object" variable="$bypassFilters">
+        <type full="Composer\DependencyResolver\bool" namespace="Composer\DependencyResolver" name="bool"/>
+      </param>
+      <return description="A set of packages" type="array" of="object">
+        <type full="Composer\DependencyResolver\PackageInterface" namespace="Composer\DependencyResolver" name="PackageInterface"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="constraint" byreference="false" type="object" default="NULL">
+      <type full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface"/>
+    </parameter>
+    <parameter name="mustMatchName" byreference="false" type="boolean" default="false"/>
+    <parameter name="bypassFilters" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="computeWhatProvides" start="208" end="286" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <see value="whatProvides"/>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="constraint" byreference="false" type="{unknown}"/>
+    <parameter name="mustMatchName" byreference="false" type="boolean" default="false"/>
+    <parameter name="bypassFilters" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="if a package with the required name exists, we ignore providers" line="280"/>
+    </inline>
+  </method>
+  <method name="literalToPackage" start="288" end="293" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="literal" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="literalToPrettyString" start="295" end="306" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="literal" byreference="false" type="{unknown}"/>
+    <parameter name="installedMap" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isPackageAcceptable" start="308" end="323" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="stability" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="match" start="334" end="386" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if the package matches the given constraint directly or through provided or replaced packages"/>
+      <param type="object" variable="$candidate">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="Name of the package to be matched" type="string" variable="$name"/>
+      <param description="The constraint to verify" type="object" variable="$constraint">
+        <type full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface"/>
+      </param>
+      <return description="One of the MATCH* constants of this class or 0 if there is no match" type="int"/>
+    </docblock>
+    <parameter name="candidate" byreference="false" type="{unknown}"/>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="constraint" byreference="false" type="object" default="NULL">
+      <type full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface"/>
+    </parameter>
+    <parameter name="bypassFilters" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="aliases create multiple replaces/provides for one target so they can not use the shortcut below" line="360"/>
+    </inline>
+  </method>
+  <interface full="Countable" namespace="" name="Countable">
+    <method name="count" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Count elements of an object"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  </interface>
+</class>

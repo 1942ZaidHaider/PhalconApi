@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="Psr\Cache\CacheItemPoolInterface" namespace="Psr\Cache" name="CacheItemPoolInterface" abstract="false" final="false" start="14" end="138">
+  <file path="../vendor/psr/cache/src" file="CacheItemPoolInterface.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/psr/cache/src/CacheItemPoolInterface.php" size="4389" time="2016-08-06T20:24:11+00:00" unixtime="1470515051" sha1="1581bee49eb4adac908e0e2c01921181ad838916" relative="vendor/psr/cache/src/CacheItemPoolInterface.php"/>
+  <docblock>
+    <description compact="CacheItemPoolInterface generates CacheItemInterface objects.">The primary purpose of Cache\CacheItemPoolInterface is to accept a key from
+the Calling Library and return the associated Cache\CacheItemInterface object.
+It is also the primary point of interaction with the entire cache collection.
+All configuration and initialization of the Pool is left up to an
+Implementing Library.</description>
+  </docblock>
+  <method name="getItem" start="32" end="32" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns a Cache Item representing the specified key.">This method must always return a CacheItemInterface object, even in case of
+a cache miss. It MUST NOT return null.</description>
+      <param type="string" variable="$key">The key for which to return the corresponding Cache Item.</param>
+      <throws type="object">If the $key string is not a legal value a \Psr\Cache\InvalidArgumentException
+  MUST be thrown.<type full="Psr\Cache\InvalidArgumentException" namespace="Psr\Cache" name="InvalidArgumentException"/></throws>
+      <return type="object">The corresponding Cache Item.<type full="Psr\Cache\CacheItemInterface" namespace="Psr\Cache" name="CacheItemInterface"/></return>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getItems" start="50" end="50" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns a traversable set of cache items."/>
+      <param type="array" variable="$keys" of="object">An indexed array of keys of items to retrieve.<type full="Psr\Cache\string" namespace="Psr\Cache" name="string"/></param>
+      <throws type="object">If any of the keys in $keys are not a legal value a \Psr\Cache\InvalidArgumentException
+  MUST be thrown.<type full="Psr\Cache\InvalidArgumentException" namespace="Psr\Cache" name="InvalidArgumentException"/></throws>
+      <return type="object">A traversable collection of Cache Items keyed by the cache keys of
+  each item. A Cache item will be returned for each key, even if that
+  key is not found. However, if no keys are specified then an empty
+  traversable MUST be returned instead.<type full="Psr\Cache\array|\Traversable" namespace="Psr\Cache\array|" name="Traversable"/></return>
+    </docblock>
+    <parameter name="keys" byreference="false" type="array" default=""/>
+  </method>
+  <method name="hasItem" start="69" end="69" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Confirms if the cache contains specified cache item.">Note: This method MAY avoid retrieving the cached value for performance reasons.
+This could result in a race condition with CacheItemInterface::get(). To avoid
+such situation use CacheItemInterface::isHit() instead.</description>
+      <param type="string" variable="$key">The key for which to check existence.</param>
+      <throws type="object">If the $key string is not a legal value a \Psr\Cache\InvalidArgumentException
+  MUST be thrown.<type full="Psr\Cache\InvalidArgumentException" namespace="Psr\Cache" name="InvalidArgumentException"/></throws>
+      <return type="object">True if item exists in the cache, false otherwise.<type full="Psr\Cache\bool" namespace="Psr\Cache" name="bool"/></return>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="clear" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Deletes all items in the pool."/>
+      <return type="object">True if the pool was successfully cleared. False if there was an error.<type full="Psr\Cache\bool" namespace="Psr\Cache" name="bool"/></return>
+    </docblock>
+  </method>
+  <method name="deleteItem" start="92" end="92" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Removes the item from the pool."/>
+      <param type="string" variable="$key">The key to delete.</param>
+      <throws type="object">If the $key string is not a legal value a \Psr\Cache\InvalidArgumentException
+  MUST be thrown.<type full="Psr\Cache\InvalidArgumentException" namespace="Psr\Cache" name="InvalidArgumentException"/></throws>
+      <return type="object">True if the item was successfully removed. False if there was an error.<type full="Psr\Cache\bool" namespace="Psr\Cache" name="bool"/></return>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="deleteItems" start="107" end="107" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Removes multiple items from the pool."/>
+      <param type="array" variable="$keys" of="object">An array of keys that should be removed from the pool.<type full="Psr\Cache\string" namespace="Psr\Cache" name="string"/></param>
+      <throws type="object">If any of the keys in $keys are not a legal value a \Psr\Cache\InvalidArgumentException
+  MUST be thrown.<type full="Psr\Cache\InvalidArgumentException" namespace="Psr\Cache" name="InvalidArgumentException"/></throws>
+      <return type="object">True if the items were successfully removed. False if there was an error.<type full="Psr\Cache\bool" namespace="Psr\Cache" name="bool"/></return>
+    </docblock>
+    <parameter name="keys" byreference="false" type="array"/>
+  </method>
+  <method name="save" start="118" end="118" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Persists a cache item immediately."/>
+      <param type="object" variable="$item">The cache item to save.<type full="Psr\Cache\CacheItemInterface" namespace="Psr\Cache" name="CacheItemInterface"/></param>
+      <return type="object">True if the item was successfully persisted. False if there was an error.<type full="Psr\Cache\bool" namespace="Psr\Cache" name="bool"/></return>
+    </docblock>
+    <parameter name="item" byreference="false" type="object">
+      <type full="Psr\Cache\CacheItemInterface" namespace="Psr\Cache" name="CacheItemInterface"/>
+    </parameter>
+  </method>
+  <method name="saveDeferred" start="129" end="129" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets a cache item to be persisted later."/>
+      <param type="object" variable="$item">The cache item to save.<type full="Psr\Cache\CacheItemInterface" namespace="Psr\Cache" name="CacheItemInterface"/></param>
+      <return type="object">False if the item could not be queued or if a commit was attempted and failed. True otherwise.<type full="Psr\Cache\bool" namespace="Psr\Cache" name="bool"/></return>
+    </docblock>
+    <parameter name="item" byreference="false" type="object">
+      <type full="Psr\Cache\CacheItemInterface" namespace="Psr\Cache" name="CacheItemInterface"/>
+    </parameter>
+  </method>
+  <method name="commit" start="137" end="137" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Persists any deferred cache items."/>
+      <return type="object">True if all not-yet-saved items were successfully saved or there were none. False otherwise.<type full="Psr\Cache\bool" namespace="Psr\Cache" name="bool"/></return>
+    </docblock>
+  </method>
+</interface>

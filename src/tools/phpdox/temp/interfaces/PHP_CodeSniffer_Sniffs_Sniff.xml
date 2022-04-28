@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff" abstract="false" final="false" start="19" end="80">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Sniffs" file="Sniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Sniffs/Sniff.php" size="2797" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="494e2f86513520d882080af0ae9bbf1f34317e03" relative="vendor/squizlabs/php_codesniffer/src/Sniffs/Sniff.php"/>
+  <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+      <return type="array" of="object">
+        <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+      </return>
+      <see value="Tokens.php"/>
+    </docblock>
+  </method>
+  <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+      <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+      <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+      <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+  </method>
+  <implementors>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\AbstractControlStructureSpacing" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="AbstractControlStructureSpacing"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="AssignmentInConditionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\EarlyExitSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="EarlyExitSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\BlockControlStructureSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="BlockControlStructureSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\LanguageConstructWithParenthesesSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="LanguageConstructWithParenthesesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEmptySniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="DisallowEmptySniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\RequireMultiLineTernaryOperatorSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="RequireMultiLineTernaryOperatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\AbstractLineCondition" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="AbstractLineCondition"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\UselessIfConditionWithReturnSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="UselessIfConditionWithReturnSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\RequireNullCoalesceOperatorSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="RequireNullCoalesceOperatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\RequireYodaComparisonSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="RequireYodaComparisonSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="DisallowYodaComparisonSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\NewWithParenthesesSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="NewWithParenthesesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\RequireShortTernaryOperatorSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="RequireShortTernaryOperatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\UselessTernaryOperatorSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="UselessTernaryOperatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\RequireMultiLineConditionSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="RequireMultiLineConditionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\RequireTernaryOperatorSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="RequireTernaryOperatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\RequireSingleLineConditionSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="RequireSingleLineConditionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\JumpStatementsSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="JumpStatementsSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\DisallowShortTernaryOperatorSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="DisallowShortTernaryOperatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\DisallowContinueWithoutIntegerOperandInSwitchSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="DisallowContinueWithoutIntegerOperandInSwitchSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\RequireNullCoalesceEqualOperatorSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="RequireNullCoalesceEqualOperatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\ControlStructures\NewWithoutParenthesesSniff" namespace="SlevomatCodingStandard\Sniffs\ControlStructures" name="NewWithoutParenthesesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Whitespaces\DuplicateSpacesSniff" namespace="SlevomatCodingStandard\Sniffs\Whitespaces" name="DuplicateSpacesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\DisallowArrowFunctionSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="DisallowArrowFunctionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\UnusedInheritedVariablePassedToClosureSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="UnusedInheritedVariablePassedToClosureSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\RequireArrowFunctionSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="RequireArrowFunctionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\DisallowEmptyFunctionSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="DisallowEmptyFunctionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="UnusedParameterSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\RequireMultiLineCallSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="RequireMultiLineCallSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\UselessParameterDefaultValueSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="UselessParameterDefaultValueSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\TrailingCommaInCallSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="TrailingCommaInCallSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\AbstractLineCall" namespace="SlevomatCodingStandard\Sniffs\Functions" name="AbstractLineCall"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\ArrowFunctionDeclarationSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="ArrowFunctionDeclarationSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\StaticClosureSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="StaticClosureSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\StrictCallSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="StrictCallSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Functions\RequireSingleLineCallSniff" namespace="SlevomatCodingStandard\Sniffs\Functions" name="RequireSingleLineCallSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="ForbiddenAnnotationsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\DisallowCommentAfterCodeSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="DisallowCommentAfterCodeSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\RequireOneLineDocCommentSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="RequireOneLineDocCommentSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\InlineDocCommentDeclarationSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="InlineDocCommentDeclarationSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\DocCommentSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="DocCommentSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\DisallowOneLinePropertyDocCommentSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="DisallowOneLinePropertyDocCommentSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\EmptyCommentSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="EmptyCommentSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\DeprecatedAnnotationDeclarationSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="DeprecatedAnnotationDeclarationSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\UselessInheritDocCommentSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="UselessInheritDocCommentSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\RequireOneLinePropertyDocCommentSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="RequireOneLinePropertyDocCommentSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\ForbiddenCommentsSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="ForbiddenCommentsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\AbstractRequireOneLineDocComment" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="AbstractRequireOneLineDocComment"/>
+    <class full="SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="UselessFunctionDocCommentSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Arrays\SingleLineArrayWhitespaceSniff" namespace="SlevomatCodingStandard\Sniffs\Arrays" name="SingleLineArrayWhitespaceSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Arrays\TrailingArrayCommaSniff" namespace="SlevomatCodingStandard\Sniffs\Arrays" name="TrailingArrayCommaSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Arrays\MultiLineArrayEndBracketPlacementSniff" namespace="SlevomatCodingStandard\Sniffs\Arrays" name="MultiLineArrayEndBracketPlacementSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Arrays\DisallowImplicitArrayCreationSniff" namespace="SlevomatCodingStandard\Sniffs\Arrays" name="DisallowImplicitArrayCreationSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Variables\DisallowSuperGlobalVariableSniff" namespace="SlevomatCodingStandard\Sniffs\Variables" name="DisallowSuperGlobalVariableSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff" namespace="SlevomatCodingStandard\Sniffs\Variables" name="UnusedVariableSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Variables\DuplicateAssignmentToVariableSniff" namespace="SlevomatCodingStandard\Sniffs\Variables" name="DuplicateAssignmentToVariableSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Variables\UselessVariableSniff" namespace="SlevomatCodingStandard\Sniffs\Variables" name="UselessVariableSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\ClassMemberSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="ClassMemberSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\DisallowMultiPropertyDefinitionSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="DisallowMultiPropertyDefinitionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\ParentCallSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="ParentCallSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\SuperfluousTraitNamingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="SuperfluousTraitNamingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\RequireSingleLineMethodSignatureSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="RequireSingleLineMethodSignatureSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\RequireMultiLineMethodSignatureSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="RequireMultiLineMethodSignatureSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\MethodSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="MethodSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\PropertySpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="PropertySpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\ConstantSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="ConstantSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\AbstractMethodSignature" namespace="SlevomatCodingStandard\Sniffs\Classes" name="AbstractMethodSignature"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\TraitUseDeclarationSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="TraitUseDeclarationSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\SuperfluousExceptionNamingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="SuperfluousExceptionNamingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\AbstractPropertyAndConstantSpacing" namespace="SlevomatCodingStandard\Sniffs\Classes" name="AbstractPropertyAndConstantSpacing"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\SuperfluousInterfaceNamingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="SuperfluousInterfaceNamingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\TraitUseSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="TraitUseSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\DisallowMultiConstantDefinitionSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="DisallowMultiConstantDefinitionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\DisallowLateStaticBindingForConstantsSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="DisallowLateStaticBindingForConstantsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\EmptyLinesAroundClassBracesSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="EmptyLinesAroundClassBracesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\UselessLateStaticBindingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="UselessLateStaticBindingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="UnusedPrivateElementsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\SuperfluousAbstractClassNamingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="SuperfluousAbstractClassNamingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\ModernClassNameReferenceSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="ModernClassNameReferenceSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\SuperfluousErrorNamingSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="SuperfluousErrorNamingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\ClassStructureSniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="ClassStructureSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Classes\ClassConstantVisibilitySniff" namespace="SlevomatCodingStandard\Sniffs\Classes" name="ClassConstantVisibilitySniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Exceptions\DeadCatchSniff" namespace="SlevomatCodingStandard\Sniffs\Exceptions" name="DeadCatchSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff" namespace="SlevomatCodingStandard\Sniffs\Exceptions" name="ReferenceThrowableOnlySniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\UseSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="UseSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\UseFromSameNamespaceSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="UseFromSameNamespaceSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\FullyQualifiedClassNameInAnnotationSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="FullyQualifiedClassNameInAnnotationSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\UseDoesNotStartWithBackslashSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="UseDoesNotStartWithBackslashSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="AlphabeticallySortedUsesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\DisallowGroupUseSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="DisallowGroupUseSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\FullyQualifiedGlobalFunctionsSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="FullyQualifiedGlobalFunctionsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\FullyQualifiedClassNameAfterKeywordSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="FullyQualifiedClassNameAfterKeywordSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\AbstractFullyQualifiedGlobalReference" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="AbstractFullyQualifiedGlobalReference"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\UselessAliasSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="UselessAliasSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\MultipleUsesPerLineSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="MultipleUsesPerLineSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\FullyQualifiedExceptionsSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="FullyQualifiedExceptionsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="UnusedUsesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\NamespaceDeclarationSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="NamespaceDeclarationSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\FullyQualifiedGlobalConstantsSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="FullyQualifiedGlobalConstantsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\UseOnlyWhitelistedNamespacesSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="UseOnlyWhitelistedNamespacesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\NamespaceSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="NamespaceSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\RequireOneNamespaceInFileSniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="RequireOneNamespaceInFileSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff" namespace="SlevomatCodingStandard\Sniffs\Namespaces" name="ReferenceUsedNamesOnlySniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\RequireNowdocSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="RequireNowdocSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\ShortListSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="ShortListSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\DisallowReferenceSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="DisallowReferenceSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\ReferenceSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="ReferenceSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\UselessParenthesesSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="UselessParenthesesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\OptimizedFunctionsWithoutUnpackingSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="OptimizedFunctionsWithoutUnpackingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\UselessSemicolonSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="UselessSemicolonSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\ForbiddenClassesSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="ForbiddenClassesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\DisallowDirectMagicInvokeCallSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="DisallowDirectMagicInvokeCallSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\TypeCastSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="TypeCastSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\PHP\RequireExplicitAssertionSniff" namespace="SlevomatCodingStandard\Sniffs\PHP" name="RequireExplicitAssertionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Files\LineLengthSniff" namespace="SlevomatCodingStandard\Sniffs\Files" name="LineLengthSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Files\TypeNameMatchesFileNameSniff" namespace="SlevomatCodingStandard\Sniffs\Files" name="TypeNameMatchesFileNameSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Operators\DisallowEqualOperatorsSniff" namespace="SlevomatCodingStandard\Sniffs\Operators" name="DisallowEqualOperatorsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Operators\RequireOnlyStandaloneIncrementAndDecrementOperatorsSniff" namespace="SlevomatCodingStandard\Sniffs\Operators" name="RequireOnlyStandaloneIncrementAndDecrementOperatorsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Operators\NegationOperatorSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Operators" name="NegationOperatorSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Operators\RequireCombinedAssignmentOperatorSniff" namespace="SlevomatCodingStandard\Sniffs\Operators" name="RequireCombinedAssignmentOperatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Operators\SpreadOperatorSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Operators" name="SpreadOperatorSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Operators\DisallowIncrementAndDecrementOperatorsSniff" namespace="SlevomatCodingStandard\Sniffs\Operators" name="DisallowIncrementAndDecrementOperatorsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Numbers\RequireNumericLiteralSeparatorSniff" namespace="SlevomatCodingStandard\Sniffs\Numbers" name="RequireNumericLiteralSeparatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\Numbers\DisallowNumericLiteralSeparatorSniff" namespace="SlevomatCodingStandard\Sniffs\Numbers" name="DisallowNumericLiteralSeparatorSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="ParameterTypeHintSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="ReturnTypeHintSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\NullTypeHintOnLastPositionSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="NullTypeHintOnLastPositionSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="PropertyTypeHintSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\UselessConstantTypeHintSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="UselessConstantTypeHintSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\LongTypeHintsSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="LongTypeHintsSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="PropertyTypeHintSpacingSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\DisallowArrayTypeHintSyntaxSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="DisallowArrayTypeHintSyntaxSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="DisallowMixedTypeHintSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="DeclareStrictTypesSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\NullableTypeForNullDefaultValueSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="NullableTypeForNullDefaultValueSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="ReturnTypeHintSniff"/>
+    <class full="SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\TypeHints" name="ParameterTypeHintSpacingSniff"/>
+    <class full="ObjectCalisthenics\Sniffs\ControlStructures\NoElseSniff" namespace="ObjectCalisthenics\Sniffs\ControlStructures" name="NoElseSniff"/>
+    <class full="ObjectCalisthenics\Sniffs\NamingConventions\NoSetterSniff" namespace="ObjectCalisthenics\Sniffs\NamingConventions" name="NoSetterSniff"/>
+    <class full="ObjectCalisthenics\Sniffs\NamingConventions\ElementNameMinimalLengthSniff" namespace="ObjectCalisthenics\Sniffs\NamingConventions" name="ElementNameMinimalLengthSniff"/>
+    <class full="ObjectCalisthenics\Sniffs\CodeAnalysis\OneObjectOperatorPerLineSniff" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="OneObjectOperatorPerLineSniff"/>
+    <class full="ObjectCalisthenics\Sniffs\Classes\ForbiddenPublicPropertySniff" namespace="ObjectCalisthenics\Sniffs\Classes" name="ForbiddenPublicPropertySniff"/>
+    <class full="ObjectCalisthenics\Sniffs\Files\ClassTraitAndInterfaceLengthSniff" namespace="ObjectCalisthenics\Sniffs\Files" name="ClassTraitAndInterfaceLengthSniff"/>
+    <class full="ObjectCalisthenics\Sniffs\Files\FunctionLengthSniff" namespace="ObjectCalisthenics\Sniffs\Files" name="FunctionLengthSniff"/>
+    <class full="ObjectCalisthenics\Sniffs\Metrics\PropertyPerClassLimitSniff" namespace="ObjectCalisthenics\Sniffs\Metrics" name="PropertyPerClassLimitSniff"/>
+    <class full="ObjectCalisthenics\Sniffs\Metrics\MaxNestingLevelSniff" namespace="ObjectCalisthenics\Sniffs\Metrics" name="MaxNestingLevelSniff"/>
+    <class full="ObjectCalisthenics\Sniffs\Metrics\MethodPerClassLimitSniff" namespace="ObjectCalisthenics\Sniffs\Metrics" name="MethodPerClassLimitSniff"/>
+    <class full="PHP_CodeSniffer\Tests\Core\Sniffs\AbstractArraySniffTestable" namespace="PHP_CodeSniffer\Tests\Core\Sniffs" name="AbstractArraySniffTestable"/>
+    <class full="PHP_CodeSniffer\Sniffs\AbstractScopeSniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractScopeSniff"/>
+    <class full="PHP_CodeSniffer\Sniffs\AbstractPatternSniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractPatternSniff"/>
+    <class full="PHP_CodeSniffer\Sniffs\AbstractArraySniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractArraySniff"/>
+    <class full="PHP_CodeSniffer\Sniffs\AbstractVariableSniff" namespace="PHP_CodeSniffer\Sniffs" name="AbstractVariableSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures\MultiLineConditionSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures" name="MultiLineConditionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures\ControlSignatureSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures" name="ControlSignatureSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions\FunctionDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions" name="FunctionDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions\FunctionCallSignatureSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions" name="FunctionCallSignatureSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions\ValidDefaultValueSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions" name="ValidDefaultValueSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\InlineCommentSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting" name="InlineCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FileCommentSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting" name="FileCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\ClassCommentSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting" name="ClassCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FunctionCommentSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting" name="FunctionCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions\ValidFunctionNameSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions" name="ValidFunctionNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions\ValidClassNameSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions" name="ValidClassNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions\ValidVariableNameSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions" name="ValidVariableNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes\ClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes" name="ClassDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Formatting\MultiLineAssignmentSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Formatting" name="MultiLineAssignmentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Files\IncludingFileSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Files" name="IncludingFileSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace\ScopeIndentSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace" name="ScopeIndentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace\ScopeClosingBraceSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace" name="ScopeClosingBraceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace\ObjectOperatorIndentSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace" name="ObjectOperatorIndentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff" namespace="PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods" name="CamelCapsMethodNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR1\Sniffs\Classes\ClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR1\Sniffs\Classes" name="ClassDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR1\Sniffs\Files\SideEffectsSniff" namespace="PHP_CodeSniffer\Standards\PSR1\Sniffs\Files" name="SideEffectsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Zend\Sniffs\NamingConventions\ValidVariableNameSniff" namespace="PHP_CodeSniffer\Standards\Zend\Sniffs\NamingConventions" name="ValidVariableNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Zend\Sniffs\Debug\CodeAnalyzerSniff" namespace="PHP_CodeSniffer\Standards\Zend\Sniffs\Debug" name="CodeAnalyzerSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Zend\Sniffs\Files\ClosingTagSniff" namespace="PHP_CodeSniffer\Standards\Zend\Sniffs\Files" name="ClosingTagSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\ControlStructures\InlineControlStructureSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\ControlStructures" name="InlineControlStructureSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\ControlStructures\DisallowYodaConditionsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\ControlStructures" name="DisallowYodaConditionsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\OpeningFunctionBraceKernighanRitchieSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions" name="OpeningFunctionBraceKernighanRitchieSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\OpeningFunctionBraceBsdAllmanSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions" name="OpeningFunctionBraceBsdAllmanSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\CallTimePassByReferenceSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions" name="CallTimePassByReferenceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\FunctionCallArgumentSpacingSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions" name="FunctionCallArgumentSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting\DocCommentSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting" name="DocCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting\TodoSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting" name="TodoSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting\FixmeSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting" name="FixmeSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions" name="CamelCapsFunctionNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\InterfaceNameSuffixSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions" name="InterfaceNameSuffixSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\UpperCaseConstantNameSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions" name="UpperCaseConstantNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\AbstractClassNamePrefixSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions" name="AbstractClassNamePrefixSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\ConstructorNameSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions" name="ConstructorNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\TraitNameSuffixSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions" name="TraitNameSuffixSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays" name="DisallowLongArraySyntaxSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\ArrayIndentSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays" name="ArrayIndentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays" name="DisallowShortArraySyntaxSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\ForLoopShouldBeWhileLoopSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="ForLoopShouldBeWhileLoopSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyPHPStatementSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="EmptyPHPStatementSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="AssignmentInConditionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnusedFunctionParameterSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="UnusedFunctionParameterSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UselessOverridingMethodSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="UselessOverridingMethodSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\JumbledIncrementerSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="JumbledIncrementerSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\ForLoopWithTestFunctionCallSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="ForLoopWithTestFunctionCallSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnconditionalIfStatementSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="UnconditionalIfStatementSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnnecessaryFinalModifierSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="UnnecessaryFinalModifierSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis" name="EmptyStatementSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Classes\DuplicateClassNameSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Classes" name="DuplicateClassNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Classes\OpeningBraceSameLineSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Classes" name="OpeningBraceSameLineSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\NoSpaceAfterCastSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting" name="NoSpaceAfterCastSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\DisallowMultipleStatementsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting" name="DisallowMultipleStatementsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\SpaceAfterCastSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting" name="SpaceAfterCastSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\SpaceAfterNotSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting" name="SpaceAfterNotSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\SpaceBeforeCastSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting" name="SpaceBeforeCastSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\MultipleStatementAlignmentSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting" name="MultipleStatementAlignmentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\DisallowAlternativePHPTagsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="DisallowAlternativePHPTagsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\BacktickOperatorSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="BacktickOperatorSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\DisallowRequestSuperglobalSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="DisallowRequestSuperglobalSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\DiscourageGotoSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="DiscourageGotoSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseKeywordSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="LowerCaseKeywordSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\CharacterBeforePHPOpeningTagSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="CharacterBeforePHPOpeningTagSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ClosingPHPTagSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="ClosingPHPTagSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\DisallowShortOpenTagSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="DisallowShortOpenTagSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseTypeSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="LowerCaseTypeSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\RequireStrictTypesSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="RequireStrictTypesSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="ForbiddenFunctionsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="LowerCaseConstantSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\DeprecatedFunctionsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="DeprecatedFunctionsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="UpperCaseConstantSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\SAPIUsageSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="SAPIUsageSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\SyntaxSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="SyntaxSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\NoSilencedErrorsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="NoSilencedErrorsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Debug\ClosureLinterSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Debug" name="ClosureLinterSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Debug\CSSLintSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Debug" name="CSSLintSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Debug\JSHintSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Debug" name="JSHintSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Debug\ESLintSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Debug" name="ESLintSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\OneTraitPerFileSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="OneTraitPerFileSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\EndFileNoNewlineSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="EndFileNoNewlineSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\ExecutableFileSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="ExecutableFileSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LowercasedFilenameSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="LowercasedFilenameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\EndFileNewlineSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="EndFileNewlineSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\OneObjectStructurePerFileSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="OneObjectStructurePerFileSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\InlineHTMLSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="InlineHTMLSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="LineLengthSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\ByteOrderMarkSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="ByteOrderMarkSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\OneClassPerFileSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="OneClassPerFileSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineEndingsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="LineEndingsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Files\OneInterfacePerFileSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Files" name="OneInterfacePerFileSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Metrics\NestingLevelSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Metrics" name="NestingLevelSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Metrics\CyclomaticComplexitySniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Metrics" name="CyclomaticComplexitySniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\Strings\UnnecessaryStringConcatSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Strings" name="UnnecessaryStringConcatSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl\SubversionPropertiesSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl" name="SubversionPropertiesSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl\GitMergeConflictSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl" name="GitMergeConflictSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="ScopeIndentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ArbitraryParenthesesSpacingSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="ArbitraryParenthesesSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\SpreadOperatorSpacingAfterSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="SpreadOperatorSpacingAfterSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\IncrementDecrementSpacingSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="IncrementDecrementSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowSpaceIndentSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="DisallowSpaceIndentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\LanguageConstructSpacingSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="LanguageConstructSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowTabIndentSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace" name="DisallowTabIndentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures\ControlStructureSpacingSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures" name="ControlStructureSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures\SwitchDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures" name="SwitchDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures\ElseIfDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures" name="ElseIfDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\FunctionClosingBraceSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods" name="FunctionClosingBraceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\FunctionCallSignatureSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods" name="FunctionCallSignatureSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods" name="MethodDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes" name="PropertyDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes" name="ClassDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\NamespaceDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces" name="NamespaceDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\UseDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces" name="UseDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\EndFileNewlineSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Files" name="EndFileNewlineSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\ClosingTagSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Files" name="ClosingTagSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\LowercaseDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures" name="LowercaseDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ForEachLoopDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures" name="ForEachLoopDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\SwitchDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures" name="SwitchDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ForLoopDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures" name="ForLoopDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ElseIfDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures" name="ElseIfDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ControlSignatureSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures" name="ControlSignatureSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\InlineIfDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures" name="InlineIfDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\FunctionDeclarationArgumentSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions" name="FunctionDeclarationArgumentSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\GlobalFunctionSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions" name="GlobalFunctionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\FunctionDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions" name="FunctionDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\MultiLineFunctionDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions" name="MultiLineFunctionDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\LowercaseFunctionKeywordsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions" name="LowercaseFunctionKeywordsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\FunctionDuplicateArgumentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions" name="FunctionDuplicateArgumentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\EmptyCatchCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="EmptyCatchCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\LongConditionClosingCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="LongConditionClosingCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\InlineCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="InlineCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\FileCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="FileCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\ClosingDeclarationCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="ClosingDeclarationCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\FunctionCommentThrowTagSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="FunctionCommentThrowTagSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\VariableCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="VariableCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\PostStatementCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="PostStatementCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\ClassCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="ClassCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\DocCommentAlignmentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="DocCommentAlignmentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\BlockCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="BlockCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\FunctionCommentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting" name="FunctionCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\NamingConventions\ValidFunctionNameSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\NamingConventions" name="ValidFunctionNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\NamingConventions\ValidVariableNameSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\NamingConventions" name="ValidVariableNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays\ArrayDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays" name="ArrayDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays\ArrayBracketSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays" name="ArrayBracketSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Objects\ObjectInstantiationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Objects" name="ObjectInstantiationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Objects\ObjectMemberCommaSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Objects" name="ObjectMemberCommaSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Objects\DisallowObjectStringIndexSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Objects" name="DisallowObjectStringIndexSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\MemberVarScopeSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope" name="MemberVarScopeSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\StaticThisUsageSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope" name="StaticThisUsageSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\MethodScopeSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope" name="MethodScopeSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ClassFileNameSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes" name="ClassFileNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ValidClassNameSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes" name="ValidClassNameSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\SelfMemberReferenceSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes" name="SelfMemberReferenceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\DuplicatePropertySniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes" name="DuplicatePropertySniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\LowercaseClassKeywordsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes" name="LowercaseClassKeywordsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes" name="ClassDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Formatting\OperatorBracketSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Formatting" name="OperatorBracketSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\ForbiddenStylesSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="ForbiddenStylesSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\DuplicateStyleDefinitionSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="DuplicateStyleDefinitionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\MissingColonSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="MissingColonSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\ShorthandSizeSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="ShorthandSizeSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\ClassDefinitionClosingBraceSpaceSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="ClassDefinitionClosingBraceSpaceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\EmptyStyleDefinitionSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="EmptyStyleDefinitionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\ColourDefinitionSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="ColourDefinitionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\OpacitySniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="OpacitySniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\ColonSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="ColonSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\DuplicateClassDefinitionSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="DuplicateClassDefinitionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\NamedColoursSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="NamedColoursSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\LowercaseStyleDefinitionSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="LowercaseStyleDefinitionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\ClassDefinitionNameSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="ClassDefinitionNameSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\IndentationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="IndentationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\ClassDefinitionOpeningBraceSpaceSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="ClassDefinitionOpeningBraceSpaceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\EmptyClassDefinitionSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="EmptyClassDefinitionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\DisallowMultipleStyleDefinitionsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="DisallowMultipleStyleDefinitionsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS\SemicolonSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS" name="SemicolonSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\HeredocSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="HeredocSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\LowercasePHPFunctionsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="LowercasePHPFunctionsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\DisallowMultipleAssignmentsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="DisallowMultipleAssignmentsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\GlobalKeywordSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="GlobalKeywordSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="CommentedOutCodeSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\NonExecutableCodeSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="NonExecutableCodeSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\InnerFunctionsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="InnerFunctionsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\DiscouragedFunctionsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="DiscouragedFunctionsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\DisallowInlineIfSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="DisallowInlineIfSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\DisallowBooleanStatementSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="DisallowBooleanStatementSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\EvalSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="EvalSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\EmbeddedPhpSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="EmbeddedPhpSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\DisallowComparisonAssignmentSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="DisallowComparisonAssignmentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\DisallowSizeFunctionsInLoopsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="DisallowSizeFunctionsInLoopsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Debug\JavaScriptLintSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Debug" name="JavaScriptLintSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Debug\JSLintSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Debug" name="JSLintSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Files\FileExtensionSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Files" name="FileExtensionSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings\DoubleQuoteUsageSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings" name="DoubleQuoteUsageSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings\EchoedStringsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings" name="EchoedStringsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings\ConcatenationSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings" name="ConcatenationSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Operators\ValidLogicalOperatorsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Operators" name="ValidLogicalOperatorsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Operators\ComparisonOperatorUsageSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Operators" name="ComparisonOperatorUsageSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Operators\IncrementDecrementUsageSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Operators" name="IncrementDecrementUsageSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\FunctionSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="FunctionSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\OperatorSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="OperatorSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\CastSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="CastSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\FunctionOpeningBraceSpaceSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="FunctionOpeningBraceSpaceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LogicalOperatorSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="LogicalOperatorSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ObjectOperatorSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="ObjectOperatorSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\MemberVarSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="MemberVarSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="SuperfluousWhitespaceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ControlStructureSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="ControlStructureSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeKeywordSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="ScopeKeywordSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\FunctionClosingBraceSpaceSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="FunctionClosingBraceSpaceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeClosingBraceSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="ScopeClosingBraceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SemicolonSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="SemicolonSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="LanguageConstructSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\PropertyLabelSpacingSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace" name="PropertyLabelSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Commenting\FunctionCommentSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Commenting" name="FunctionCommentSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels\UnusedSystemSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels" name="UnusedSystemSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels\IncludeSystemSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels" name="IncludeSystemSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels\DisallowSelfActionsSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels" name="DisallowSelfActionsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels\IncludeOwnSystemSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Channels" name="IncludeOwnSystemSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Objects\AssignThisSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Objects" name="AssignThisSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Objects\DisallowNewWidgetSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Objects" name="DisallowNewWidgetSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Objects\CreateWidgetTypeCallbackSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Objects" name="CreateWidgetTypeCallbackSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\CSS\BrowserSpecificStylesSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\CSS" name="BrowserSpecificStylesSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\PHP\AjaxNullComparisonSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\PHP" name="AjaxNullComparisonSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\PHP\ReturnFunctionValueSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\PHP" name="ReturnFunctionValueSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\PHP\EvalObjectFactorySniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\PHP" name="EvalObjectFactorySniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\PHP\GetRequestDataSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\PHP" name="GetRequestDataSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Debug\FirebugConsoleSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Debug" name="FirebugConsoleSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Debug\DebugCodeSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Debug" name="DebugCodeSniff"/>
+    <class full="PHP_CodeSniffer\Standards\MySource\Sniffs\Strings\JoinStringsSniff" namespace="PHP_CodeSniffer\Standards\MySource\Sniffs\Strings" name="JoinStringsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\ControlStructures\ControlStructureSpacingSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\ControlStructures" name="ControlStructureSpacingSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\ControlStructures\BooleanOperatorPlacementSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\ControlStructures" name="BooleanOperatorPlacementSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Properties\ConstantVisibilitySniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Properties" name="ConstantVisibilitySniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Functions\ReturnTypeDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Functions" name="ReturnTypeDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Functions\NullableTypeDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Functions" name="NullableTypeDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes\ClosingBraceSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes" name="ClosingBraceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes\ClassInstantiationSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes" name="ClassInstantiationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes\OpeningBraceSpaceSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes" name="OpeningBraceSpaceSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes\AnonClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes" name="AnonClassDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Namespaces\CompoundNamespaceDepthSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Namespaces" name="CompoundNamespaceDepthSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Traits\UseDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Traits" name="UseDeclarationSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Keywords\ShortFormTypeKeywordsSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Keywords" name="ShortFormTypeKeywordsSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\OpenTagSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Files" name="OpenTagSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\ImportStatementSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Files" name="ImportStatementSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\DeclareStatementSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Files" name="DeclareStatementSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Files" name="FileHeaderSniff"/>
+    <class full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Operators\OperatorSpacingSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Operators" name="OperatorSpacingSniff"/>
+    <class full="NunoMaduro\PhpInsights\Domain\Sniffs\ForbiddenSetterSniff" namespace="NunoMaduro\PhpInsights\Domain\Sniffs" name="ForbiddenSetterSniff"/>
+    <class full="NunoMaduro\PhpInsights\Domain\Insights\SniffDecorator" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="SniffDecorator"/>
+  </implementors>
+</interface>

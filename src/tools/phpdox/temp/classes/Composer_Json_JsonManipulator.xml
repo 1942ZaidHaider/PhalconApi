@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Json\JsonManipulator" namespace="Composer\Json" name="JsonManipulator" abstract="false" final="false" start="20" end="530">
+  <file path="../vendor/composer/composer/src/Composer/Json" file="JsonManipulator.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Json/JsonManipulator.php" size="19719" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="8c68571fb291c080494e260abe95bbdc17879504" relative="vendor/composer/composer/src/Composer/Json/JsonManipulator.php"/>
+  <docblock>
+    <description/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <member name="DEFINES" default="'(?(DEFINE)&#10;       (?&lt;number&gt;   -? (?= [1-9]|0(?!\d) ) \d+ (\.\d+)? ([eE] [+-]? \d+)? )&#10;       (?&lt;boolean&gt;   true | false | null )&#10;       (?&lt;string&gt;    &quot; ([^&quot;\\\\]* | \\\\ [&quot;\\\\bfnrt\/] | \\\\ u [0-9A-Fa-f]{4} )* &quot; )&#10;       (?&lt;array&gt;     \[  (?:  (?&amp;json) \s* (?: , (?&amp;json) \s* )*  )?  \s* \] )&#10;       (?&lt;pair&gt;      \s* (?&amp;string) \s* : (?&amp;json) \s* )&#10;       (?&lt;object&gt;    \{  (?:  (?&amp;pair)  (?: , (?&amp;pair)  )*  )?  \s* \} )&#10;       (?&lt;json&gt;   \s* (?: (?&amp;number) | (?&amp;boolean) | (?&amp;string) | (?&amp;array) | (?&amp;object) ) )&#10;    )'" type="string" visibility="private" static="true" line="22"/>
+  <member name="contents" visibility="private" static="false" line="32"/>
+  <member name="newline" visibility="private" static="false" line="33"/>
+  <member name="indent" visibility="private" static="false" line="34"/>
+  <constructor name="__construct" start="36" end="48" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="contents" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="getContents" start="50" end="53" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="addLink" start="55" end="108" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="type" byreference="false" type="{unknown}"/>
+    <parameter name="package" byreference="false" type="{unknown}"/>
+    <parameter name="constraint" byreference="false" type="{unknown}"/>
+    <parameter name="sortPackages" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="no link of that type yet" line="59"/>
+      <comment value="try to find existing link" line="72"/>
+    </inline>
+  </method>
+  <method name="sortPackages" start="117" end="146" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Sorts packages by importance (platform packages first, then PHP dependencies) and alphabetically."/>
+      <link value="https://getcomposer.org/doc/02-libraries.md#platform-packages"/>
+      <param type="array" variable="$packages"/>
+    </docblock>
+    <parameter name="packages" byreference="true" type="array" default=""/>
+  </method>
+  <method name="addRepository" start="148" end="151" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="config" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="removeRepository" start="153" end="156" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addConfigSetting" start="158" end="161" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="removeConfigSetting" start="163" end="166" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addProperty" start="168" end="183" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="removeProperty" start="185" end="200" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addSubNode" start="202" end="294" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="mainNode" byreference="false" type="{unknown}"/>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="no main node yet" line="211"/>
+      <comment value="main node content not match-able" line="222"/>
+      <comment value="invalid match due to un-regexable content, abort" line="238"/>
+      <comment value="child exists" line="245"/>
+    </inline>
+  </method>
+  <method name="removeSubNode" start="296" end="391" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="mainNode" byreference="false" type="{unknown}"/>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="no node or empty node" line="300"/>
+      <comment value="no node content match-able" line="305"/>
+      <comment value="invalid match due to un-regexable content, abort" line="321"/>
+      <comment value="no node to remove" line="331"/>
+      <comment value="try and find a match for the subkey" line="336"/>
+      <comment value="no child data left, $name was the only key in" line="359"/>
+    </inline>
+  </method>
+  <method name="addMainKey" start="393" end="431" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="key exists already" line="398"/>
+      <comment value="append at the end of the file and keep whitespace" line="412"/>
+      <comment value="append at the end of the file" line="423"/>
+    </inline>
+  </method>
+  <method name="removeMainKey" start="433" end="464" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="key exists already" line="441"/>
+    </inline>
+  </method>
+  <method name="format" start="466" end="489" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="data" byreference="false" type="{unknown}"/>
+    <parameter name="depth" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="detectIndenting" start="491" end="498" abstract="false" final="false" static="false" visibility="protected"/>
+  <method name="pregMatch" start="500" end="529" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="re" byreference="false" type="{unknown}"/>
+    <parameter name="str" byreference="false" type="{unknown}"/>
+    <parameter name="matches" byreference="true" type="array" default=""/>
+  </method>
+</class>

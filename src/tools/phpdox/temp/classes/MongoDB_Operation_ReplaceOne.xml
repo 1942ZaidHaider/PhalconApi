@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\ReplaceOne" namespace="MongoDB\Operation" name="ReplaceOne" abstract="false" final="false" start="38" end="110">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="ReplaceOne.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/ReplaceOne.php" size="3826" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="3cd279b6f948f4a398d448170238b34ae9bced79" relative="vendor/mongodb/mongodb/src/Operation/ReplaceOne.php"/>
+  <docblock>
+    <description compact="Operation for replacing a single document with the update command."/>
+    <api/>
+    <see value="\MongoDB\Collection::replaceOne()"/>
+    <see value="http://docs.mongodb.org/manual/reference/command/update/"/>
+  </docblock>
+  <implements full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+  <member name="update" visibility="private" static="false" line="41">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\Update" namespace="MongoDB\Operation" name="Update"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="74" end="95" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs an update command.">Supported options:
+
+ * bypassDocumentValidation (boolean): If true, allows the write to
+   circumvent document level validation.
+
+ * collation (document): Collation specification.
+
+ * hint (string|document): The index to use. Specify either the index
+   name as a string or the index key pattern as a document. If specified,
+   then the query system will only consider plans using the hinted index.
+
+   This is not supported for server versions &lt; 4.2 and will result in an
+   exception at execution time if used.
+
+ * session (MongoDB\Driver\Session): Client session.
+
+ * upsert (boolean): When true, a new document is created if no document
+   matches the query. The default is false.
+
+ * writeConcern (MongoDB\Driver\WriteConcern): Write concern.</description>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Collection name" type="string" variable="$collectionName"/>
+      <param description="Query by which to filter documents" type="object" variable="$filter">
+        <type full="MongoDB\Operation\array|object" namespace="MongoDB\Operation" name="array|object"/>
+      </param>
+      <param description="Replacement document" type="object" variable="$replacement">
+        <type full="MongoDB\Operation\array|object" namespace="MongoDB\Operation" name="array|object"/>
+      </param>
+      <param description="Command options" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="filter" byreference="false" type="{unknown}"/>
+    <parameter name="replacement" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="execute" start="106" end="109" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation."/>
+      <see value="Executable::execute()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\UpdateResult" namespace="MongoDB" name="UpdateResult"/>
+      </return>
+      <throws description="if collation is used and unsupported" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <interface full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable">
+    <method name="execute" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Execute the operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+</class>

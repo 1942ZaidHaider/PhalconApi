@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="SlevomatCodingStandard\Sniffs\Commenting\DocCommentSpacingSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="DocCommentSpacingSniff" abstract="false" final="false" start="40" end="772">
+  <file path="../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Commenting" file="DocCommentSpacingSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Commenting/DocCommentSpacingSniff.php" size="26073" time="2020-10-05T12:39:37+00:00" unixtime="1601901577" sha1="39376171c62652d493b0c36e9408c5b261f21e7d" relative="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Commenting/DocCommentSpacingSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="CODE_INCORRECT_LINES_COUNT_BEFORE_FIRST_CONTENT" value="'IncorrectLinesCountBeforeFirstContent'"/>
+  <constant type="string" name="CODE_INCORRECT_LINES_COUNT_BETWEEN_DESCRIPTION_AND_ANNOTATIONS" value="'IncorrectLinesCountBetweenDescriptionAndAnnotations'"/>
+  <constant type="string" name="CODE_INCORRECT_LINES_COUNT_BETWEEN_DIFFERENT_ANNOTATIONS_TYPES" value="'IncorrectLinesCountBetweenDifferentAnnotationsTypes'"/>
+  <constant type="string" name="CODE_INCORRECT_LINES_COUNT_BETWEEN_ANNOTATIONS_GROUPS" value="'IncorrectLinesCountBetweenAnnotationsGroups'"/>
+  <constant type="string" name="CODE_INCORRECT_LINES_COUNT_AFTER_LAST_CONTENT" value="'IncorrectLinesCountAfterLastContent'"/>
+  <constant type="string" name="CODE_INCORRECT_ANNOTATIONS_GROUP" value="'IncorrectAnnotationsGroup'"/>
+  <constant type="string" name="CODE_INCORRECT_ORDER_OF_ANNOTATIONS_GROUPS" value="'IncorrectOrderOfAnnotationsGroup'"/>
+  <constant type="string" name="CODE_INCORRECT_ORDER_OF_ANNOTATIONS_IN_GROUP" value="'IncorrectOrderOfAnnotationsInGroup'"/>
+  <member name="linesCountBeforeFirstContent" default="0" type="integer" visibility="public" static="false" line="53">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="linesCountBetweenDescriptionAndAnnotations" default="1" type="integer" visibility="public" static="false" line="56">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="linesCountBetweenDifferentAnnotationsTypes" default="0" type="integer" visibility="public" static="false" line="59">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="linesCountBetweenAnnotationsGroups" default="1" type="integer" visibility="public" static="false" line="62">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="linesCountAfterLastContent" default="0" type="integer" visibility="public" static="false" line="65">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="annotationsGroups" default="" type="array" visibility="public" static="false" line="68">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\string" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="normalizedAnnotationsGroups" default="NULL" visibility="private" static="false" line="71">
+    <docblock>
+      <var type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\string[][]|nu" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="string[][]|nu"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="register" start="76" end="81" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="(int|string)&gt;" type="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="88" end="159" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <phpcssuppress value="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$docCommentOpenerPointer"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentOpenerPointer" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="checkLinesBeforeFirstContent" start="161" end="204" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentOpenerPointer" byreference="false" type="int"/>
+    <parameter name="firstContentStartPointer" byreference="false" type="int"/>
+  </method>
+  <method name="checkLinesBetweenDescriptionAndFirstAnnotation" start="206" end="274" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentOpenerPointer" byreference="false" type="int"/>
+    <parameter name="firstContentStartPointer" byreference="false" type="int"/>
+    <parameter name="firstContentEndPointer" byreference="false" type="int"/>
+    <parameter name="firstAnnotation" byreference="false" nullable="true" type="object">
+      <type full="SlevomatCodingStandard\Helpers\Annotation\Annotation" namespace="SlevomatCodingStandard\Helpers\Annotation" name="Annotation"/>
+    </parameter>
+  </method>
+  <method name="checkLinesBetweenDifferentAnnotationsTypes" start="281" end="349" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$docCommentOpenerPointer"/>
+      <param type="array" variable="$annotations" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\Annotation" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="Annotation"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentOpenerPointer" byreference="false" type="int"/>
+    <parameter name="annotations" byreference="false" type="array"/>
+  </method>
+  <method name="checkAnnotationsGroups" start="356" end="384" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$docCommentOpenerPointer"/>
+      <param type="array" variable="$annotations" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\Annotation" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="Annotation"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentOpenerPointer" byreference="false" type="int"/>
+    <parameter name="annotations" byreference="false" type="array"/>
+  </method>
+  <method name="checkLinesBetweenAnnotationsGroups" start="391" end="452" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$docCommentOpenerPointer"/>
+      <param type="array" variable="$annotationsGroups" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\Annotation[]" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="Annotation[]"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentOpenerPointer" byreference="false" type="int"/>
+    <parameter name="annotationsGroups" byreference="false" type="array"/>
+  </method>
+  <method name="checkAnnotationsGroupsOrder" start="460" end="640" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$docCommentOpenerPointer"/>
+      <param type="array" variable="$annotationsGroups" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\Annotation[]" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="Annotation[]"/>
+      </param>
+      <param type="array" variable="$annotations" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\Annotation" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="Annotation"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentOpenerPointer" byreference="false" type="int"/>
+    <parameter name="annotationsGroups" byreference="false" type="array"/>
+    <parameter name="annotations" byreference="false" type="array"/>
+  </method>
+  <method name="sortAnnotationsToGroups" start="646" end="698" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$annotations" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\Annotation" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="Annotation"/>
+      </param>
+      <return type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\Annotation[]" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="Annotation[]"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="annotations" byreference="false" type="array"/>
+  </method>
+  <method name="isAnnotationNameInAnnotationNamespace" start="700" end="703" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="annotationNamespace" byreference="false" type="string"/>
+    <parameter name="annotationName" byreference="false" type="string"/>
+  </method>
+  <method name="isAnnotationMatched" start="705" end="712" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="annotation" byreference="false" type="object">
+      <type full="SlevomatCodingStandard\Helpers\Annotation\Annotation" namespace="SlevomatCodingStandard\Helpers\Annotation" name="Annotation"/>
+    </parameter>
+    <parameter name="annotationName" byreference="false" type="string"/>
+  </method>
+  <method name="checkLinesAfterLastContent" start="714" end="755" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentOpenerPointer" byreference="false" type="int"/>
+    <parameter name="docCommentCloserPointer" byreference="false" type="int"/>
+    <parameter name="lastContentEndPointer" byreference="false" type="int"/>
+  </method>
+  <method name="getAnnotationsGroups" start="760" end="770" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="SlevomatCodingStandard\Sniffs\Commenting\string[]" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="string[]"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

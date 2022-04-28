@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="NunoMaduro\PhpInsights\Domain\Insights\FixerDecorator" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="FixerDecorator" abstract="false" final="true" start="19" end="145">
+  <file path="../vendor/nunomaduro/phpinsights/src/Domain/Insights" file="FixerDecorator.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/nunomaduro/phpinsights/src/Domain/Insights/FixerDecorator.php" size="3479" time="2021-01-27T19:08:59+00:00" unixtime="1611774539" sha1="e5958227c18adf0c6cdd897eb2fbb12d820429de" relative="vendor/nunomaduro/phpinsights/src/Domain/Insights/FixerDecorator.php"/>
+  <docblock>
+    <description compact="Decorates original php-cs-fixers with additional behavior."/>
+    <internal/>
+  </docblock>
+  <implements full="PhpCsFixer\Fixer\FixerInterface" namespace="PhpCsFixer\Fixer" name="FixerInterface"/>
+  <implements full="NunoMaduro\PhpInsights\Domain\Contracts\Insight" namespace="NunoMaduro\PhpInsights\Domain\Contracts" name="Insight"/>
+  <implements full="NunoMaduro\PhpInsights\Domain\Contracts\HasDetails" namespace="NunoMaduro\PhpInsights\Domain\Contracts" name="HasDetails"/>
+  <member name="fixer" visibility="private" static="false" line="24">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="\PhpCsFixer\Fixer\FixerInterface" namespace="\PhpCsFixer\Fixer" name="FixerInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="exclude" visibility="private" static="false" line="28">
+    <docblock>
+      <description/>
+      <var description="\Symfony\Component\Finder\SplFileInfo&gt;" type="object">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\array&lt;string" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="errors" default="" type="array" visibility="private" static="false" line="32">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\array&lt;\NunoMaduro\PhpInsights\Domain\Details&gt;" namespace="NunoMaduro\PhpInsights\Domain\Insights\array&lt;\NunoMaduro\PhpInsights\Domain" name="Details&gt;"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="41" end="48" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="FixerDecorator constructor."/>
+      <param type="object" variable="$fixer">
+        <type full="\PhpCsFixer\Fixer\FixerInterface" namespace="\PhpCsFixer\Fixer" name="FixerInterface"/>
+      </param>
+      <param type="string" variable="$dir"/>
+      <param type="object" variable="$exclude">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\array&lt;string&gt;" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="array&lt;string&gt;"/>
+      </param>
+    </docblock>
+    <parameter name="fixer" byreference="false" type="object">
+      <type full="PhpCsFixer\Fixer\FixerInterface" namespace="PhpCsFixer\Fixer" name="FixerInterface"/>
+    </parameter>
+    <parameter name="dir" byreference="false" type="string"/>
+    <parameter name="exclude" byreference="false" type="array"/>
+  </constructor>
+  <method name="isCandidate" start="50" end="53" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+  </method>
+  <method name="isRisky" start="55" end="58" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="fix" start="60" end="67" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="SplFileInfo" namespace="" name="SplFileInfo"/>
+    </parameter>
+    <parameter name="tokens" byreference="false" type="object">
+      <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+    </parameter>
+  </method>
+  <method name="getName" start="69" end="72" abstract="false" final="false" static="false" visibility="public">
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="getPriority" start="74" end="77" abstract="false" final="false" static="false" visibility="public">
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="supports" start="79" end="86" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="SplFileInfo" namespace="" name="SplFileInfo"/>
+    </parameter>
+  </method>
+  <method name="hasIssue" start="93" end="96" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if the insight detects an issue."/>
+      <return type="object">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\bool" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="bool"/>
+      </return>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="getTitle" start="103" end="110" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the title of the insight."/>
+      <return type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="getInsightClass" start="117" end="120" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get the class name of Insight used."/>
+      <return type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="getDetails" start="127" end="130" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns the details of the insight."/>
+      <return description="\NunoMaduro\PhpInsights\Domain\Details&gt;" type="object">
+        <type full="NunoMaduro\PhpInsights\Domain\Insights\array&lt;int" namespace="NunoMaduro\PhpInsights\Domain\Insights" name="array&lt;int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="addDiff" start="132" end="137" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="file" byreference="false" type="string"/>
+    <parameter name="diff" byreference="false" type="string"/>
+  </method>
+  <method name="skipFilesFromExcludedFiles" start="139" end="144" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="SplFileInfo" namespace="" name="SplFileInfo"/>
+    </parameter>
+  </method>
+  <interface full="PhpCsFixer\Fixer\FixerInterface" namespace="PhpCsFixer\Fixer" name="FixerInterface">
+    <method name="isCandidate" start="34" end="34" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Check if the fixer is a candidate for given Tokens collection.">Fixer is a candidate when the collection contains tokens that may be fixed
+during fixer work. This could be considered as some kind of bloom filter.
+When this method returns true then to the Tokens collection may or may not
+need a fixing, but when this method returns false then the Tokens collection
+need no fixing for sure.</description>
+        <return type="object">
+          <type full="PhpCsFixer\Fixer\bool" namespace="PhpCsFixer\Fixer" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="tokens" byreference="false" type="object">
+        <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+      </parameter>
+    </method>
+    <method name="isRisky" start="43" end="43" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Check if fixer is risky or not.">Risky fixer could change code behavior!</description>
+        <return type="object">
+          <type full="PhpCsFixer\Fixer\bool" namespace="PhpCsFixer\Fixer" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="fix" start="51" end="51" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Fixes a file."/>
+        <param description="A \SplFileInfo instance" type="object" variable="$file">
+          <type full="\SplFileInfo" namespace="" name="SplFileInfo"/>
+        </param>
+        <param description="Tokens collection" type="object" variable="$tokens">
+          <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+        </param>
+      </docblock>
+      <parameter name="file" byreference="false" type="object">
+        <type full="SplFileInfo" namespace="" name="SplFileInfo"/>
+      </parameter>
+      <parameter name="tokens" byreference="false" type="object">
+        <type full="PhpCsFixer\Tokenizer\Tokens" namespace="PhpCsFixer\Tokenizer" name="Tokens"/>
+      </parameter>
+    </method>
+    <method name="getName" start="60" end="60" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the name of the fixer.">The name must be all lowercase and without any spaces.</description>
+        <return description="The name of the fixer" type="string"/>
+      </docblock>
+    </method>
+    <method name="getPriority" start="69" end="69" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the priority of the fixer.">The default priority is 0 and higher priorities are executed first.</description>
+        <return type="int"/>
+      </docblock>
+    </method>
+    <method name="supports" start="76" end="76" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns true if the file is supported by this fixer."/>
+        <return description="true if the file is supported by this fixer, false otherwise" type="object">
+          <type full="PhpCsFixer\Fixer\bool" namespace="PhpCsFixer\Fixer" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="file" byreference="false" type="object">
+        <type full="SplFileInfo" namespace="" name="SplFileInfo"/>
+      </parameter>
+    </method>
+  </interface>
+  <interface full="NunoMaduro\PhpInsights\Domain\Contracts\Insight" namespace="NunoMaduro\PhpInsights\Domain\Contracts" name="Insight">
+    <method name="hasIssue" start="17" end="17" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks if the insight detects an issue."/>
+        <return type="object">
+          <type full="NunoMaduro\PhpInsights\Domain\Contracts\bool" namespace="NunoMaduro\PhpInsights\Domain\Contracts" name="bool"/>
+        </return>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="getTitle" start="24" end="24" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the title of the insight."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="getInsightClass" start="31" end="31" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get the class name of Insight used."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+  </interface>
+  <interface full="NunoMaduro\PhpInsights\Domain\Contracts\HasDetails" namespace="NunoMaduro\PhpInsights\Domain\Contracts" name="HasDetails">
+    <extends full="NunoMaduro\PhpInsights\Domain\Contracts\Insight" namespace="NunoMaduro\PhpInsights\Domain\Contracts" name="Insight"/>
+    <method name="getDetails" start="17" end="17" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the details of the insight."/>
+        <return description="\NunoMaduro\PhpInsights\Domain\Details&gt;" type="object">
+          <type full="NunoMaduro\PhpInsights\Domain\Contracts\array&lt;int" namespace="NunoMaduro\PhpInsights\Domain\Contracts" name="array&lt;int"/>
+        </return>
+      </docblock>
+      <return type="array" nullable="false"/>
+    </method>
+  </interface>
+</class>

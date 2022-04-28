@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\UnifiedSpecTests\Context" namespace="MongoDB\Tests\UnifiedSpecTests" name="Context" abstract="false" final="true" start="47" end="523">
+  <file path="../vendor/mongodb/mongodb/tests/UnifiedSpecTests" file="Context.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/UnifiedSpecTests/Context.php" size="16495" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="2474b32d77b6165c386b40d0e7d8f10fe823d1bc" relative="vendor/mongodb/mongodb/tests/UnifiedSpecTests/Context.php"/>
+  <docblock>
+    <description compact="Execution context for spec tests.">This object tracks state that would be difficult to store on the test itself
+due to the design of PHPUnit's data providers and setUp/tearDown methods.</description>
+  </docblock>
+  <member name="activeClient" visibility="private" static="false" line="50">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="entityMap" visibility="private" static="false" line="53">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\EntityMap" namespace="MongoDB\Tests\UnifiedSpecTests" name="EntityMap"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="eventCollectors" default="" type="array" visibility="private" static="false" line="56">
+    <docblock>
+      <var type="array" of="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\EventCollector" namespace="MongoDB\Tests\UnifiedSpecTests" name="EventCollector"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="eventObserversByClient" default="" type="array" visibility="private" static="false" line="59">
+    <docblock>
+      <var type="array" of="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\EventObserver" namespace="MongoDB\Tests\UnifiedSpecTests" name="EventObserver"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="internalClient" visibility="private" static="false" line="62">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Client" namespace="MongoDB" name="Client"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="inLoop" default="false" type="boolean" visibility="private" static="false" line="65">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="uri" visibility="private" static="false" line="68">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="70" end="75" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="internalClient" byreference="false" type="object">
+      <type full="MongoDB\Client" namespace="MongoDB" name="Client"/>
+    </parameter>
+    <parameter name="uri" byreference="false" type="string"/>
+  </constructor>
+  <method name="createEntities" start="82" end="121" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Create entities for &quot;createEntities&quot;."/>
+      <param type="array" variable="$createEntities"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="entities" byreference="false" type="array"/>
+  </method>
+  <method name="getEntityMap" start="123" end="126" abstract="false" final="false" static="false" visibility="public">
+    <return type="object" nullable="false">
+      <type full="MongoDB\Tests\UnifiedSpecTests\EntityMap" namespace="MongoDB\Tests\UnifiedSpecTests" name="EntityMap"/>
+    </return>
+  </method>
+  <method name="getInternalClient" start="128" end="131" abstract="false" final="false" static="false" visibility="public">
+    <return type="object" nullable="false">
+      <type full="MongoDB\Client" namespace="MongoDB" name="Client"/>
+    </return>
+  </method>
+  <method name="isActiveClient" start="133" end="136" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="clientId" byreference="false" type="string"/>
+  </method>
+  <method name="setActiveClient" start="138" end="141" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="clientId" byreference="false" nullable="true" type="string" default="NULL"/>
+  </method>
+  <method name="isInLoop" start="143" end="146" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="setInLoop" start="148" end="151" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="inLoop" byreference="false" type="bool"/>
+  </method>
+  <method name="assertExpectedEventsForClients" start="153" end="174" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="expectedEventsForClients" byreference="false" type="array"/>
+  </method>
+  <method name="startEventObservers" start="176" end="181" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="stopEventObservers" start="183" end="188" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="getEventObserverForClient" start="190" end="195" abstract="false" final="false" static="false" visibility="public">
+    <return type="object" nullable="false">
+      <type full="MongoDB\Tests\UnifiedSpecTests\EventObserver" namespace="MongoDB\Tests\UnifiedSpecTests" name="EventObserver"/>
+    </return>
+    <parameter name="id" byreference="false" type="string"/>
+  </method>
+  <method name="startEventCollectors" start="197" end="202" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="stopEventCollectors" start="204" end="209" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="convertReadPreferenceTags" start="212" end="229" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <param type="object" variable="$readPreferenceTags">
+        <type full="MongoDB\Tests\UnifiedSpecTests\string|array" namespace="MongoDB\Tests\UnifiedSpecTests" name="string|array"/>
+      </param>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="readPreferenceTags" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="createClient" start="231" end="312" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="id" byreference="false" type="string"/>
+    <parameter name="o" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <inline>
+      <todo value="Remove this once PHPC-1645 is implemented. Each client needs" line="297"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* its own libmongoc client to facilitate txnNumber assertions." line="298"/>
+    </inline>
+  </method>
+  <method name="createEntityCollector" start="314" end="327" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="clientId" byreference="false" type="string"/>
+    <parameter name="o" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="createCollection" start="329" end="349" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="id" byreference="false" type="string"/>
+    <parameter name="o" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="createDatabase" start="351" end="371" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="id" byreference="false" type="string"/>
+    <parameter name="o" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="createSession" start="373" end="389" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="id" byreference="false" type="string"/>
+    <parameter name="o" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="createBucket" start="391" end="407" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="id" byreference="false" type="string"/>
+    <parameter name="o" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+  </method>
+  <method name="prepareCollectionOrDatabaseOptions" start="409" end="414" abstract="false" final="false" static="true" visibility="private">
+    <return type="array" nullable="false"/>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <method name="prepareBucketOptions" start="416" end="433" abstract="false" final="false" static="true" visibility="private">
+    <return type="array" nullable="false"/>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <method name="prepareSessionOptions" start="435" end="453" abstract="false" final="false" static="true" visibility="private">
+    <return type="array" nullable="false"/>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <method name="prepareDefaultTransactionOptions" start="455" end="464" abstract="false" final="false" static="true" visibility="private">
+    <return type="array" nullable="false"/>
+    <parameter name="options" byreference="false" type="array"/>
+  </method>
+  <method name="removeMultipleMongoses" start="470" end="505" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Removes mongos hosts beyond the first if the URI refers to a sharded cluster. Otherwise, the URI is returned as-is."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="uri" byreference="false" type="string"/>
+    <inline>
+      <comment value="Nothing to do if the URI does not refer to a sharded cluster" line="476"/>
+      <comment value="Nothing to do if the URI already has a single mongos host" line="487"/>
+      <comment value="Re-append port to last host" line="492"/>
+    </inline>
+  </method>
+  <method name="requireMultipleMongoses" start="510" end="522" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Requires multiple mongos hosts if the URI refers to a sharded cluster."/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="uri" byreference="false" type="string"/>
+    <inline>
+      <comment value="Nothing to do if the URI does not refer to a sharded cluster" line="516"/>
+    </inline>
+  </method>
+</class>

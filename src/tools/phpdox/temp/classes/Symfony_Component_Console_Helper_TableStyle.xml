@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle" abstract="false" final="false" start="24" end="376">
+  <file path="../vendor/symfony/console/Helper" file="TableStyle.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/console/Helper/TableStyle.php" size="12679" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="82d06ca70ad8537af008ec0541ba07737b504934" relative="vendor/symfony/console/Helper/TableStyle.php"/>
+  <docblock>
+    <description compact="Defines the styles for a Table."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+    <author value="Саша Стаменковић &lt;umpirsky@gmail.com&gt;"/>
+    <author value="Dany Maillard &lt;danymaillard93b@gmail.com&gt;"/>
+  </docblock>
+  <member name="paddingChar" default="' '" type="string" visibility="private" static="false" line="26"/>
+  <member name="horizontalOutsideBorderChar" default="'-'" type="string" visibility="private" static="false" line="27"/>
+  <member name="horizontalInsideBorderChar" default="'-'" type="string" visibility="private" static="false" line="28"/>
+  <member name="verticalOutsideBorderChar" default="'|'" type="string" visibility="private" static="false" line="29"/>
+  <member name="verticalInsideBorderChar" default="'|'" type="string" visibility="private" static="false" line="30"/>
+  <member name="crossingChar" default="'+'" type="string" visibility="private" static="false" line="31"/>
+  <member name="crossingTopRightChar" default="'+'" type="string" visibility="private" static="false" line="32"/>
+  <member name="crossingTopMidChar" default="'+'" type="string" visibility="private" static="false" line="33"/>
+  <member name="crossingTopLeftChar" default="'+'" type="string" visibility="private" static="false" line="34"/>
+  <member name="crossingMidRightChar" default="'+'" type="string" visibility="private" static="false" line="35"/>
+  <member name="crossingBottomRightChar" default="'+'" type="string" visibility="private" static="false" line="36"/>
+  <member name="crossingBottomMidChar" default="'+'" type="string" visibility="private" static="false" line="37"/>
+  <member name="crossingBottomLeftChar" default="'+'" type="string" visibility="private" static="false" line="38"/>
+  <member name="crossingMidLeftChar" default="'+'" type="string" visibility="private" static="false" line="39"/>
+  <member name="crossingTopLeftBottomChar" default="'+'" type="string" visibility="private" static="false" line="40"/>
+  <member name="crossingTopMidBottomChar" default="'+'" type="string" visibility="private" static="false" line="41"/>
+  <member name="crossingTopRightBottomChar" default="'+'" type="string" visibility="private" static="false" line="42"/>
+  <member name="headerTitleFormat" default="'&lt;fg=black;bg=white;options=bold&gt; %s &lt;/&gt;'" type="string" visibility="private" static="false" line="43"/>
+  <member name="footerTitleFormat" default="'&lt;fg=black;bg=white;options=bold&gt; %s &lt;/&gt;'" type="string" visibility="private" static="false" line="44"/>
+  <member name="cellHeaderFormat" default="'&lt;info&gt;%s&lt;/info&gt;'" type="string" visibility="private" static="false" line="45"/>
+  <member name="cellRowFormat" default="'%s'" type="string" visibility="private" static="false" line="46"/>
+  <member name="cellRowContentFormat" default="' %s '" type="string" visibility="private" static="false" line="47"/>
+  <member name="borderFormat" default="'%s'" type="string" visibility="private" static="false" line="48"/>
+  <member name="padType" default="" type="{unknown}" constant="STR_PAD_RIGHT" visibility="private" static="false" line="49"/>
+  <method name="setPaddingChar" start="56" end="65" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets padding character, used for cell padding."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="paddingChar" byreference="false" type="string"/>
+  </method>
+  <method name="getPaddingChar" start="72" end="75" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets padding character, used for cell padding."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="setHorizontalBorderChars" start="93" end="99" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets horizontal border characters.">&lt;code&gt;
+╔═══════════════╤══════════════════════════╤══════════════════╗
+1 ISBN          2 Title                    │ Author           ║
+╠═══════════════╪══════════════════════════╪══════════════════╣
+║ 99921-58-10-7 │ Divine Comedy            │ Dante Alighieri  ║
+║ 9971-5-0210-0 │ A Tale of Two Cities     │ Charles Dickens  ║
+║ 960-425-059-0 │ The Lord of the Rings    │ J. R. R. Tolkien ║
+║ 80-902734-1-6 │ And Then There Were None │ Agatha Christie  ║
+╚═══════════════╧══════════════════════════╧══════════════════╝
+&lt;/code&gt;</description>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+    </return>
+    <parameter name="outside" byreference="false" type="string"/>
+    <parameter name="inside" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="setVerticalBorderChars" start="118" end="124" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets vertical border characters.">&lt;code&gt;
+╔═══════════════╤══════════════════════════╤══════════════════╗
+║ ISBN          │ Title                    │ Author           ║
+╠═══════1═══════╪══════════════════════════╪══════════════════╣
+║ 99921-58-10-7 │ Divine Comedy            │ Dante Alighieri  ║
+║ 9971-5-0210-0 │ A Tale of Two Cities     │ Charles Dickens  ║
+╟───────2───────┼──────────────────────────┼──────────────────╢
+║ 960-425-059-0 │ The Lord of the Rings    │ J. R. R. Tolkien ║
+║ 80-902734-1-6 │ And Then There Were None │ Agatha Christie  ║
+╚═══════════════╧══════════════════════════╧══════════════════╝
+&lt;/code&gt;</description>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+    </return>
+    <parameter name="outside" byreference="false" type="string"/>
+    <parameter name="inside" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="getBorderChars" start="131" end="139" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets border characters."/>
+      <internal/>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="setCrossingChars" start="172" end="188" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets crossing characters.">Example:
+&lt;code&gt;
+1═══════════════2══════════════════════════2══════════════════3
+║ ISBN          │ Title                    │ Author           ║
+8'══════════════0'═════════════════════════0'═════════════════4'
+║ 99921-58-10-7 │ Divine Comedy            │ Dante Alighieri  ║
+║ 9971-5-0210-0 │ A Tale of Two Cities     │ Charles Dickens  ║
+8───────────────0──────────────────────────0──────────────────4
+║ 960-425-059-0 │ The Lord of the Rings    │ J. R. R. Tolkien ║
+║ 80-902734-1-6 │ And Then There Were None │ Agatha Christie  ║
+7═══════════════6══════════════════════════6══════════════════5
+&lt;/code&gt;</description>
+      <param description="Crossing char (see #0 of example)" type="string" variable="$cross"/>
+      <param description="Top left char (see #1 of example)" type="string" variable="$topLeft"/>
+      <param description="Top mid char (see #2 of example)" type="string" variable="$topMid"/>
+      <param description="Top right char (see #3 of example)" type="string" variable="$topRight"/>
+      <param description="Mid right char (see #4 of example)" type="string" variable="$midRight"/>
+      <param description="Bottom right char (see #5 of example)" type="string" variable="$bottomRight"/>
+      <param description="Bottom mid char (see #6 of example)" type="string" variable="$bottomMid"/>
+      <param description="Bottom left char (see #7 of example)" type="string" variable="$bottomLeft"/>
+      <param description="Mid left char (see #8 of example)" type="string" variable="$midLeft"/>
+      <param description="Top left bottom char (see #8' of example), equals to $midLeft if null" type="object" variable="$topLeftBottom">
+        <type full="Symfony\Component\Console\Helper\string|null" namespace="Symfony\Component\Console\Helper" name="string|null"/>
+      </param>
+      <param description="Top mid bottom char (see #0' of example), equals to $cross if null" type="object" variable="$topMidBottom">
+        <type full="Symfony\Component\Console\Helper\string|null" namespace="Symfony\Component\Console\Helper" name="string|null"/>
+      </param>
+      <param description="Top right bottom char (see #4' of example), equals to $midRight if null" type="object" variable="$topRightBottom">
+        <type full="Symfony\Component\Console\Helper\string|null" namespace="Symfony\Component\Console\Helper" name="string|null"/>
+      </param>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+    </return>
+    <parameter name="cross" byreference="false" type="string"/>
+    <parameter name="topLeft" byreference="false" type="string"/>
+    <parameter name="topMid" byreference="false" type="string"/>
+    <parameter name="topRight" byreference="false" type="string"/>
+    <parameter name="midRight" byreference="false" type="string"/>
+    <parameter name="bottomRight" byreference="false" type="string"/>
+    <parameter name="bottomMid" byreference="false" type="string"/>
+    <parameter name="bottomLeft" byreference="false" type="string"/>
+    <parameter name="midLeft" byreference="false" type="string"/>
+    <parameter name="topLeftBottom" byreference="false" type="string" default="NULL"/>
+    <parameter name="topMidBottom" byreference="false" type="string" default="NULL"/>
+    <parameter name="topRightBottom" byreference="false" type="string" default="NULL"/>
+  </method>
+  <method name="setDefaultCrossingChar" start="195" end="198" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets default crossing character used for each cross."/>
+      <see value="{@link setCrossingChars()} for setting each crossing individually."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+    </return>
+    <parameter name="char" byreference="false" type="string"/>
+  </method>
+  <method name="getCrossingChar" start="205" end="208" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets crossing character."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getCrossingChars" start="215" end="231" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets crossing characters."/>
+      <internal/>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="setCellHeaderFormat" start="238" end="243" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets header cell format."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="cellHeaderFormat" byreference="false" type="string"/>
+  </method>
+  <method name="getCellHeaderFormat" start="250" end="253" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets header cell format."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="setCellRowFormat" start="260" end="265" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets row cell format."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="cellRowFormat" byreference="false" type="string"/>
+  </method>
+  <method name="getCellRowFormat" start="272" end="275" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets row cell format."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="setCellRowContentFormat" start="282" end="287" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets row cell content format."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="cellRowContentFormat" byreference="false" type="string"/>
+  </method>
+  <method name="getCellRowContentFormat" start="294" end="297" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets row cell content format."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="setBorderFormat" start="304" end="309" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets table border format."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="borderFormat" byreference="false" type="string"/>
+  </method>
+  <method name="getBorderFormat" start="316" end="319" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets table border format."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="setPadType" start="326" end="335" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets cell padding type."/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="padType" byreference="false" type="int"/>
+  </method>
+  <method name="getPadType" start="342" end="345" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets cell padding type."/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  <method name="getHeaderTitleFormat" start="347" end="350" abstract="false" final="false" static="false" visibility="public">
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="setHeaderTitleFormat" start="355" end="360" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+    </return>
+    <parameter name="format" byreference="false" type="string"/>
+  </method>
+  <method name="getFooterTitleFormat" start="362" end="365" abstract="false" final="false" static="false" visibility="public">
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="setFooterTitleFormat" start="370" end="375" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Symfony\Component\Console\Helper\$this" namespace="Symfony\Component\Console\Helper" name="$this"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Component\Console\Helper\TableStyle" namespace="Symfony\Component\Console\Helper" name="TableStyle"/>
+    </return>
+    <parameter name="format" byreference="false" type="string"/>
+  </method>
+</class>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Plugin\PluginManager" namespace="Composer\Plugin" name="PluginManager" abstract="false" final="false" start="35" end="406">
+  <file path="../vendor/composer/composer/src/Composer/Plugin" file="PluginManager.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Plugin/PluginManager.php" size="16029" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="d0e311ce1c5ffc85b778c540fd5e0af48aca77d0" relative="vendor/composer/composer/src/Composer/Plugin/PluginManager.php"/>
+  <docblock>
+    <description compact="Plugin manager"/>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <member name="composer" visibility="protected" static="false" line="37"/>
+  <member name="io" visibility="protected" static="false" line="38"/>
+  <member name="globalComposer" visibility="protected" static="false" line="39"/>
+  <member name="versionParser" visibility="protected" static="false" line="40"/>
+  <member name="disablePlugins" default="false" type="boolean" visibility="protected" static="false" line="41"/>
+  <member name="plugins" default="" type="array" visibility="protected" static="false" line="43"/>
+  <member name="registeredPlugins" default="" type="array" visibility="protected" static="false" line="44"/>
+  <member name="classCounter" default="0" type="integer" visibility="private" static="true" line="46"/>
+  <constructor name="__construct" start="56" end="63" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initializes plugin manager"/>
+      <param type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param type="object" variable="$composer">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </param>
+      <param type="object" variable="$globalComposer">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </param>
+      <param type="object" variable="$disablePlugins">
+        <type full="Composer\Plugin\bool" namespace="Composer\Plugin" name="bool"/>
+      </param>
+    </docblock>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="composer" byreference="false" type="object">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+    <parameter name="globalComposer" byreference="false" type="object" default="NULL">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+    <parameter name="disablePlugins" byreference="false" type="boolean" default="false"/>
+  </constructor>
+  <method name="loadInstalledPlugins" start="68" end="82" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Loads all plugins from currently installed plugin packages"/>
+    </docblock>
+  </method>
+  <method name="getPlugins" start="89" end="92" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets all currently active plugin instances"/>
+      <return description="plugins" type="array"/>
+    </docblock>
+  </method>
+  <method name="getGlobalComposer" start="99" end="102" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets global composer or null when main composer is not fully loaded"/>
+      <return type="object">
+        <type full="Composer\Plugin\Composer|null" namespace="Composer\Plugin" name="Composer|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="registerPackage" start="115" end="212" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Register a plugin package, activate it etc.">If it's of type composer-installer it is registered as an installer
+instead for BC</description>
+      <param type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="By default this silently skips plugins that can not be found, but if set to true it fails with an exception" type="object" variable="$failOnMissingClasses">
+        <type full="Composer\Plugin\bool" namespace="Composer\Plugin" name="bool"/>
+      </param>
+      <throws type="object">
+        <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="failOnMissingClasses" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="getPluginApiVersion" start="219" end="222" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Returns the version of the internal composer-plugin-api package."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="addPlugin" start="233" end="242" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds a plugin, activates it and registers it with the event dispatcher">Ideally plugin packages should be registered via registerPackage, but if you use Composer
+programmatically and want to register a plugin class directly this is a valid way
+to do it.</description>
+      <param description="plugin instance" type="object" variable="$plugin">
+        <type full="Composer\Plugin\PluginInterface" namespace="Composer\Plugin" name="PluginInterface"/>
+      </param>
+    </docblock>
+    <parameter name="plugin" byreference="false" type="object">
+      <type full="Composer\Plugin\PluginInterface" namespace="Composer\Plugin" name="PluginInterface"/>
+    </parameter>
+  </method>
+  <method name="loadRepository" start="255" end="270" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Load all plugins and installers from a repository">Note that plugins in the specified repository that rely on events that
+have fired prior to loading will be missed. This means you likely want to
+call this method as early as possible.</description>
+      <param description="Repository to scan for plugins to install" type="object" variable="$repo">
+        <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+      </param>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="repo" byreference="false" type="object">
+      <type full="Composer\Repository\RepositoryInterface" namespace="Composer\Repository" name="RepositoryInterface"/>
+    </parameter>
+  </method>
+  <method name="collectDependencies" start="281" end="297" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Recursively generates a map of package names to packages for all deps"/>
+      <param description="Package pool of installed packages" type="object" variable="$pool">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </param>
+      <param description="Current state of the map for recursion" type="array" variable="$collected"/>
+      <param description="The package to analyze" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <return description="Map of package names to packages" type="array"/>
+    </docblock>
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="collected" byreference="false" type="array"/>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="lookupInstalledPackage" start="309" end="314" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Resolves a package link to a package in the installed pool">Since dependencies are already installed this should always find one.</description>
+      <param description="Pool of installed packages only" type="object" variable="$pool">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </param>
+      <param description="Package link to look up" type="object" variable="$link">
+        <type full="Composer\Package\Link" namespace="Composer\Package" name="Link"/>
+      </param>
+      <return description="The found package" type="object">
+        <type full="Composer\Plugin\PackageInterface|null" namespace="Composer\Plugin" name="PackageInterface|null"/>
+      </return>
+    </docblock>
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="link" byreference="false" type="object">
+      <type full="Composer\Package\Link" namespace="Composer\Package" name="Link"/>
+    </parameter>
+  </method>
+  <method name="getInstallPath" start="324" end="331" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Retrieves the path a package is installed to."/>
+      <param type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="Whether this is a global package" type="object" variable="$global">
+        <type full="Composer\Plugin\bool" namespace="Composer\Plugin" name="bool"/>
+      </param>
+      <return description="Install path" type="string"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="global" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="getCapabilityImplementationClassName" start="339" end="357" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="object" variable="$plugin">
+        <type full="Composer\Plugin\PluginInterface" namespace="Composer\Plugin" name="PluginInterface"/>
+      </param>
+      <param type="string" variable="$capability"/>
+      <throws description="On empty or non-string implementation class name value" type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return description="The fully qualified class of the implementation or null if Plugin is not of Capable type or does not provide it" type="object">
+        <type full="Composer\Plugin\null|string" namespace="Composer\Plugin" name="null|string"/>
+      </return>
+    </docblock>
+    <parameter name="plugin" byreference="false" type="object">
+      <type full="Composer\Plugin\PluginInterface" namespace="Composer\Plugin" name="PluginInterface"/>
+    </parameter>
+    <parameter name="capability" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getPluginCapability" start="367" end="386" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$plugin">
+        <type full="Composer\Plugin\PluginInterface" namespace="Composer\Plugin" name="PluginInterface"/>
+      </param>
+      <param description="The fully qualified name of the API interface which the plugin may provide" type="string" variable="$capabilityClassName">an implementation of.</param>
+      <param description="Arguments passed to Capability's constructor." type="array" variable="$ctorArgs">Keeping it an array will allow future values to be passed w\o changing the signature.</param>
+      <return type="object">
+        <type full="Composer\Plugin\null|Capability" namespace="Composer\Plugin" name="null|Capability"/>
+      </return>
+    </docblock>
+    <parameter name="plugin" byreference="false" type="object">
+      <type full="Composer\Plugin\PluginInterface" namespace="Composer\Plugin" name="PluginInterface"/>
+    </parameter>
+    <parameter name="capabilityClassName" byreference="false" type="{unknown}"/>
+    <parameter name="ctorArgs" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getPluginCapabilities" start="395" end="405" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The fully qualified name of the API interface which the plugin may provide" type="string" variable="$capabilityClassName">an implementation of.</param>
+      <param description="Arguments passed to Capability's constructor." type="array" variable="$ctorArgs">Keeping it an array will allow future values to be passed w\o changing the signature.</param>
+      <return type="array" of="object">
+        <type full="Composer\Plugin\Capability" namespace="Composer\Plugin" name="Capability"/>
+      </return>
+    </docblock>
+    <parameter name="capabilityClassName" byreference="false" type="{unknown}"/>
+    <parameter name="ctorArgs" byreference="false" type="array" default=""/>
+  </method>
+</class>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays\ArrayDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays" name="ArrayDeclarationSniff" abstract="false" final="false" start="16" end="894">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Standards/Squiz/Sniffs/Arrays" file="ArrayDeclarationSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Standards/Squiz/Sniffs/Arrays/ArrayDeclarationSniff.php" size="39242" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="ac13bda4f18b8009364409953b04ee3e5fbe15ce" relative="vendor/squizlabs/php_codesniffer/src/Standards/Squiz/Sniffs/Arrays/ArrayDeclarationSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <method name="register" start="25" end="32" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns an array of tokens this test wants to listen for."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="process" start="44" end="130" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes this sniff, when one of its tokens is encountered."/>
+      <param description="The current file being checked." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token in" type="int" variable="$stackPtr">the stack passed in $tokens.</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays\void" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end if" line="99"/>
+      <comment value="Check for empty arrays." line="101"/>
+    </inline>
+  </method>
+  <method name="processSingleLineArray" start="144" end="304" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes a single-line array definition."/>
+      <param description="The current file being checked." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token" type="int" variable="$stackPtr">in the stack passed in $tokens.</param>
+      <param description="The token that starts the array definition." type="int" variable="$arrayStart"/>
+      <param description="The token that ends the array definition." type="int" variable="$arrayEnd"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays\void" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="{unknown}"/>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="arrayStart" byreference="false" type="{unknown}"/>
+    <parameter name="arrayEnd" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check if there are multiple values. If so, then it has to be multiple lines" line="148"/>
+      <comment value="unless it is contained inside a function call or condition." line="149"/>
+      <comment value="end for" line="175"/>
+      <comment value="Now check each of the double arrows (if any)." line="177"/>
+      <comment value="end while" line="229"/>
+      <comment value="end if" line="302"/>
+    </inline>
+  </method>
+  <method name="processMultiLineArray" start="318" end="891" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes a multi-line array definition."/>
+      <param description="The current file being checked." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token" type="int" variable="$stackPtr">in the stack passed in $tokens.</param>
+      <param description="The token that starts the array definition." type="int" variable="$arrayStart"/>
+      <param description="The token that ends the array definition." type="int" variable="$arrayEnd"/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays\void" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="{unknown}"/>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <parameter name="arrayStart" byreference="false" type="{unknown}"/>
+    <parameter name="arrayEnd" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check the closing bracket is on a new line." line="323"/>
+      <comment value="end if" line="349"/>
+      <comment value="Find all the double arrows that reside in this scope." line="362"/>
+      <comment value="end for" line="524"/>
+      <comment value="Check for multi-line arrays that should be single-line." line="526"/>
+      <comment value="end if" line="583"/>
+      <comment value="This section checks for arrays that don't specify keys." line="585"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="Arrays such as:" line="586"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="array(" line="587"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="'aaa'," line="588"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="'bbb'," line="589"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="'d'," line="590"/>
+      <comment xmlns="http://xml.phpdox.net/src" value=");" line="591"/>
+      <comment value="end if" line="683"/>
+      <comment value="Below the actual indentation of the array is checked." line="685"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="Errors will be thrown when a key is not aligned, when" line="686"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="a double arrow is not aligned, and when a value is not" line="687"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="aligned correctly." line="688"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="If an error is found in one of the above areas, then errors" line="689"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="are not reported for the rest of the line to avoid reporting" line="690"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="spaces and columns incorrectly. Often fixing the first" line="691"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="problem will fix the other 2 anyway." line="692"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="For example:" line="693"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="$a = array(" line="694"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="'index'  =&gt; '2'," line="695"/>
+      <comment xmlns="http://xml.phpdox.net/src" value=");" line="696"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="or" line="697"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="$a = [" line="698"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="'index'  =&gt; '2'," line="699"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="];" line="700"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="In this array, the double arrow is indented too far, but this" line="701"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="will also cause an error in the value's alignment. If the arrow were" line="702"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="to be moved back one space however, then both errors would be fixed." line="703"/>
+      <comment value="end foreach" line="889"/>
+    </inline>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

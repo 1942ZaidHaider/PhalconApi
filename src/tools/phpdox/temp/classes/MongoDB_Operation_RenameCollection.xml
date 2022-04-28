@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\RenameCollection" namespace="MongoDB\Operation" name="RenameCollection" abstract="false" final="false" start="39" end="153">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="RenameCollection.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/RenameCollection.php" size="5263" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="c1f1dac7db6b0c4bb359651a180be9265857689c" relative="vendor/mongodb/mongodb/src/Operation/RenameCollection.php"/>
+  <docblock>
+    <description compact="Operation for the renameCollection command."/>
+    <api/>
+    <see value="\MongoDB\Collection::rename()"/>
+    <see value="\MongoDB\Database::renameCollection()"/>
+    <see value="https://docs.mongodb.org/manual/reference/command/renameCollection/"/>
+  </docblock>
+  <implements full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+  <member name="fromNamespace" visibility="private" static="false" line="42">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="toNamespace" visibility="private" static="false" line="45">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="options" visibility="private" static="false" line="48">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="72" end="97" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs a renameCollection command.">Supported options:
+
+ * session (MongoDB\Driver\Session): Client session.
+
+ * typeMap (array): Type map for BSON deserialization. This will be used
+   for the returned command result document.
+
+ * writeConcern (MongoDB\Driver\WriteConcern): Write concern.
+
+ * dropTarget (boolean): If true, MongoDB will drop the target before
+   renaming the collection.</description>
+      <param description="Database name" type="string" variable="$fromDatabaseName"/>
+      <param description="Collection name" type="string" variable="$fromCollectionName"/>
+      <param description="New database name" type="string" variable="$toDatabaseName"/>
+      <param description="New collection name" type="string" variable="$toCollectionName"/>
+      <param description="Command options" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="fromDatabaseName" byreference="false" type="string"/>
+    <parameter name="fromCollectionName" byreference="false" type="string"/>
+    <parameter name="toDatabaseName" byreference="false" type="string"/>
+    <parameter name="toCollectionName" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="execute" start="108" end="131" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation."/>
+      <see value="Executable::execute()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return description="Command result document" type="object">
+        <type full="MongoDB\Operation\array|object" namespace="MongoDB\Operation" name="array|object"/>
+      </return>
+      <throws description="if write concern is used and unsupported" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Operation\DriverRuntimeException" namespace="MongoDB\Operation" name="DriverRuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="createOptions" start="139" end="152" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create options for executing the command."/>
+      <see value="http://php.net/manual/en/mongodb-driver-server.executewritecommand.php"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <interface full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable">
+    <method name="execute" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Execute the operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+</class>

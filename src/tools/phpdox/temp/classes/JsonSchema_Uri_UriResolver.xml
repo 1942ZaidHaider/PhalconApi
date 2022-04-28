@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="JsonSchema\Uri\UriResolver" namespace="JsonSchema\Uri" name="UriResolver" abstract="false" final="false" start="20" end="175">
+  <file path="../vendor/justinrainbow/json-schema/src/JsonSchema/Uri" file="UriResolver.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/justinrainbow/json-schema/src/JsonSchema/Uri/UriResolver.php" size="4667" time="2022-04-13T08:02:27+00:00" unixtime="1649836947" sha1="e85aab5733be7d3fdd2f80cd1652c41cecdaa883" relative="vendor/justinrainbow/json-schema/src/JsonSchema/Uri/UriResolver.php"/>
+  <docblock>
+    <description compact="Resolves JSON Schema URIs"/>
+    <author value="Sander Coolen &lt;sander@jibber.nl&gt;"/>
+  </docblock>
+  <implements full="JsonSchema\UriResolverInterface" namespace="JsonSchema" name="UriResolverInterface"/>
+  <method name="parse" start="29" end="49" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Parses a URI into five main components"/>
+      <param type="string" variable="$uri"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="generate" start="58" end="72" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Builds a URI based on n array with the main components"/>
+      <param type="array" variable="$components"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="components" byreference="false" type="array"/>
+  </method>
+  <method name="resolve" start="77" end="113" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+    <parameter name="baseUri" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="treat non-uri base as local file path" line="79"/>
+    </inline>
+  </method>
+  <method name="combineRelativePathWithBasePath" start="125" end="147" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Tries to glue a relative path onto an absolute one"/>
+      <param type="string" variable="$relativePath"/>
+      <param type="string" variable="$basePath"/>
+      <throws type="object">
+        <type full="JsonSchema\Exception\UriResolverException" namespace="JsonSchema\Exception" name="UriResolverException"/>
+      </throws>
+      <return description="Merged path" type="string"/>
+    </docblock>
+    <parameter name="relativePath" byreference="false" type="{unknown}"/>
+    <parameter name="basePath" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="normalizePath" start="156" end="162" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Normalizes a URI path component by removing dot-slash and double slashes"/>
+      <param type="string" variable="$path"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isValid" start="169" end="174" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$uri"/>
+      <return type="object">
+        <type full="JsonSchema\Uri\bool" namespace="JsonSchema\Uri" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+  </method>
+  <interface full="JsonSchema\UriResolverInterface" namespace="JsonSchema" name="UriResolverInterface">
+    <method name="resolve" start="25" end="25" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Resolves a URI"/>
+        <param description="Absolute or relative" type="string" variable="$uri"/>
+        <param description="Optional base URI" type="object" variable="$baseUri">
+          <type full="JsonSchema\null|string" namespace="JsonSchema" name="null|string"/>
+        </param>
+        <return description="Absolute URI" type="string"/>
+      </docblock>
+      <parameter name="uri" byreference="false" type="{unknown}"/>
+      <parameter name="baseUri" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+  </interface>
+</class>

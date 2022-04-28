@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="SlevomatCodingStandard\Sniffs\Commenting\RequireOneLinePropertyDocCommentSniff" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="RequireOneLinePropertyDocCommentSniff" abstract="false" final="false" start="12" end="62">
+  <file path="../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Commenting" file="RequireOneLinePropertyDocCommentSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Commenting/RequireOneLinePropertyDocCommentSniff.php" size="1957" time="2020-10-05T12:39:37+00:00" unixtime="1601901577" sha1="4bac3fa9df61b49df63dad32d6d59e8ca75e0cc3" relative="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Commenting/RequireOneLinePropertyDocCommentSniff.php"/>
+  <extends full="SlevomatCodingStandard\Sniffs\Commenting\AbstractRequireOneLineDocComment" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="AbstractRequireOneLineDocComment"/>
+  <constant type="string" name="CODE_MULTI_LINE_PROPERTY_COMMENT" value="'MultiLinePropertyComment'"/>
+  <method name="process" start="22" end="46" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <phpcssuppress value="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+      <param type="object" variable="$phpcsFile">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param type="int" variable="$docCommentStartPointer"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentStartPointer" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Not a property" line="29"/>
+      <comment value="Check that doc comment belongs to the found property" line="34"/>
+      <comment value="Only validate properties without description" line="40"/>
+    </inline>
+  </method>
+  <method name="addError" start="48" end="60" abstract="false" final="false" static="false" visibility="protected">
+    <return type="bool" nullable="false"/>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="docCommentStartPointer" byreference="false" type="int"/>
+  </method>
+  <parent full="SlevomatCodingStandard\Sniffs\Commenting\AbstractRequireOneLineDocComment" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="AbstractRequireOneLineDocComment">
+    <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+    <method name="addError" start="21" end="21" abstract="true" final="false" static="false" visibility="protected">
+      <return type="bool" nullable="false"/>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="docCommentStartPointer" byreference="false" type="int"/>
+    </method>
+    <method name="register" start="26" end="29" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return description="(int|string)&gt;" type="object">
+          <type full="SlevomatCodingStandard\Sniffs\Commenting\array&lt;int" namespace="SlevomatCodingStandard\Sniffs\Commenting" name="array&lt;int"/>
+        </return>
+      </docblock>
+      <return type="array" nullable="false"/>
+    </method>
+    <method name="process" start="36" end="138" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <phpcssuppress value="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+        <param type="object" variable="$phpcsFile">
+          <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+        </param>
+        <param type="int" variable="$docCommentStartPointer"/>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="docCommentStartPointer" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="Only validate properties without description" line="40"/>
+        <comment value="Already one-line" line="48"/>
+        <comment value="Ignore empty lines" line="53"/>
+        <comment value="Looks like a compound doc-comment" line="83"/>
+      </inline>
+    </method>
+  </parent>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

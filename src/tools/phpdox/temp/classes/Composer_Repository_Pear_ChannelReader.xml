@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Repository\Pear\ChannelReader" namespace="Composer\Repository\Pear" name="ChannelReader" abstract="false" final="false" start="24" end="101">
+  <file path="../vendor/composer/composer/src/Composer/Repository/Pear" file="ChannelReader.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Repository/Pear/ChannelReader.php" size="3216" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="dccf372656890a3c6a3c9c3ca4e67d20b88f722e" relative="vendor/composer/composer/src/Composer/Repository/Pear/ChannelReader.php"/>
+  <docblock>
+    <description compact="PEAR Channel package reader.">Reads channel packages info from and builds Package's</description>
+    <author value="Alexey Prilipko &lt;palex@farpost.com&gt;"/>
+  </docblock>
+  <extends full="Composer\Repository\Pear\BaseChannelReader" namespace="Composer\Repository\Pear" name="BaseChannelReader"/>
+  <member name="readerMap" visibility="private" static="false" line="27">
+    <docblock>
+      <var description="of ('xpath test' =&gt; 'rest implementation')" type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="29" end="42" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="rfs" byreference="false" type="object">
+      <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+    </parameter>
+  </constructor>
+  <method name="read" start="51" end="68" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Reads PEAR channel through REST interface and builds list of packages"/>
+      <param description="PEAR Channel url" type="string" variable="$url"/>
+      <throws type="object">
+        <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+      <return type="object">
+        <type full="Composer\Repository\Pear\ChannelInfo" namespace="Composer\Repository\Pear" name="ChannelInfo"/>
+      </return>
+    </docblock>
+    <parameter name="url" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="selectRestVersion" start="77" end="100" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Reads channel supported REST interfaces and selects one of them"/>
+      <param type="object" variable="$channelXml">
+        <type full="\SimpleXMLElement" namespace="" name="SimpleXMLElement"/>
+      </param>
+      <param description="supported PEAR REST protocols" type="array" variable="$supportedVersions" of="object">
+        <type full="Composer\Repository\Pear\string" namespace="Composer\Repository\Pear" name="string"/>
+      </param>
+      <return description="hash with selected version and baseUrl" type="object">
+        <type full="Composer\Repository\Pear\array|null" namespace="Composer\Repository\Pear" name="array|null"/>
+      </return>
+    </docblock>
+    <parameter name="channelXml" byreference="false" type="{unknown}"/>
+    <parameter name="supportedVersions" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="Composer\Repository\Pear\BaseChannelReader" namespace="Composer\Repository\Pear" name="BaseChannelReader">
+    <constant type="{unknown}" name="CHANNEL_NS" value="'http://pear.php.net/channel-1.0'">
+      <docblock>
+        <description compact="PEAR REST Interface namespaces"/>
+      </docblock>
+    </constant>
+    <constant type="{unknown}" name="ALL_CATEGORIES_NS" value="'http://pear.php.net/dtd/rest.allcategories'"/>
+    <constant type="{unknown}" name="CATEGORY_PACKAGES_INFO_NS" value="'http://pear.php.net/dtd/rest.categorypackageinfo'"/>
+    <constant type="{unknown}" name="ALL_PACKAGES_NS" value="'http://pear.php.net/dtd/rest.allpackages'"/>
+    <constant type="{unknown}" name="ALL_RELEASES_NS" value="'http://pear.php.net/dtd/rest.allreleases'"/>
+    <constant type="{unknown}" name="PACKAGE_INFO_NS" value="'http://pear.php.net/dtd/rest.package'"/>
+    <constructor name="__construct" start="39" end="42" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="rfs" byreference="false" type="object">
+        <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+      </parameter>
+    </constructor>
+    <method name="requestContent" start="52" end="61" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Read content from remote filesystem."/>
+        <param description="server" type="string" variable="$origin"/>
+        <param description="relative path to content" type="string" variable="$path"/>
+        <throws type="object">
+          <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+        </throws>
+        <return type="object">
+          <type full="\SimpleXMLElement" namespace="" name="SimpleXMLElement"/>
+        </return>
+      </docblock>
+      <parameter name="origin" byreference="false" type="{unknown}"/>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="requestXml" start="71" end="81" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Read xml content from remote filesystem"/>
+        <param description="server" type="string" variable="$origin"/>
+        <param description="relative path to content" type="string" variable="$path"/>
+        <throws type="object">
+          <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+        </throws>
+        <return type="object">
+          <type full="\SimpleXMLElement" namespace="" name="SimpleXMLElement"/>
+        </return>
+      </docblock>
+      <parameter name="origin" byreference="false" type="{unknown}"/>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="http://components.ez.no/p/packages.xml is malformed. to read it we must ignore parsing errors." line="73"/>
+      </inline>
+    </method>
+  </parent>
+</class>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Semver\Constraint\Constraint" namespace="Composer\Semver\Constraint" name="Constraint" abstract="false" final="false" start="17" end="215">
+  <file path="../vendor/composer/semver/src/Constraint" file="Constraint.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/semver/src/Constraint/Constraint.php" size="5915" time="2020-12-03T15:47:16+00:00" unixtime="1607010436" sha1="db7e1b9042ebbc8676082592ea4b7e555babbc5b" relative="vendor/composer/semver/src/Constraint/Constraint.php"/>
+  <docblock>
+    <description compact="Defines a constraint."/>
+  </docblock>
+  <implements full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface"/>
+  <constant type="{unknown}" name="OP_EQ" value="0"/>
+  <constant type="{unknown}" name="OP_LT" value="1"/>
+  <constant type="{unknown}" name="OP_LE" value="2"/>
+  <constant type="{unknown}" name="OP_GT" value="3"/>
+  <constant type="{unknown}" name="OP_GE" value="4"/>
+  <constant type="{unknown}" name="OP_NE" value="5"/>
+  <member name="transOpStr" default="" type="array" visibility="private" static="true" line="32">
+    <docblock>
+      <description compact="Operator to integer translation table."/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="transOpInt" default="" type="array" visibility="private" static="true" line="48">
+    <docblock>
+      <description compact="Integer to operator translation table."/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="operator" visibility="protected" static="false" line="58">
+    <docblock>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="version" visibility="protected" static="false" line="61">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="prettyString" visibility="protected" static="false" line="64">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <method name="matches" start="71" end="79" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$provider">
+        <type full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Semver\Constraint\bool" namespace="Composer\Semver\Constraint" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="provider" byreference="false" type="object">
+      <type full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface"/>
+    </parameter>
+    <inline>
+      <comment value="turn matching around to find a match" line="77"/>
+    </inline>
+  </method>
+  <method name="setPrettyString" start="84" end="87" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$prettyString"/>
+    </docblock>
+    <parameter name="prettyString" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getPrettyString" start="92" end="99" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getSupportedOperators" start="106" end="109" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Get all supported comparison operators."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <constructor name="__construct" start="119" end="131" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets operator and version to compare with."/>
+      <param type="string" variable="$operator"/>
+      <param type="string" variable="$version"/>
+      <throws description="if invalid operator is given." type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="operator" byreference="false" type="{unknown}"/>
+    <parameter name="version" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="versionCompare" start="143" end="166" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="string" variable="$a"/>
+      <param type="string" variable="$b"/>
+      <param type="string" variable="$operator"/>
+      <param type="object" variable="$compareBranches">
+        <type full="Composer\Semver\Constraint\bool" namespace="Composer\Semver\Constraint" name="bool"/>
+      </param>
+      <throws description="if invalid operator is given." type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <return type="object">
+        <type full="Composer\Semver\Constraint\bool" namespace="Composer\Semver\Constraint" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="a" byreference="false" type="{unknown}"/>
+    <parameter name="b" byreference="false" type="{unknown}"/>
+    <parameter name="operator" byreference="false" type="{unknown}"/>
+    <parameter name="compareBranches" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="when branches are not comparable, we make sure dev branches never match anything" line="160"/>
+    </inline>
+  </method>
+  <method name="matchSpecific" start="174" end="206" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$provider">
+        <type full="Composer\Semver\Constraint\Constraint" namespace="Composer\Semver\Constraint" name="Constraint"/>
+      </param>
+      <param type="object" variable="$compareBranches">
+        <type full="Composer\Semver\Constraint\bool" namespace="Composer\Semver\Constraint" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Semver\Constraint\bool" namespace="Composer\Semver\Constraint" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="provider" byreference="false" type="object">
+      <type full="Composer\Semver\Constraint\Constraint" namespace="Composer\Semver\Constraint" name="Constraint"/>
+    </parameter>
+    <parameter name="compareBranches" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="'!=' operator is match when other operator is not '==' operator or version is not match" line="184"/>
+      <comment value="these kinds of comparisons always have a solution" line="185"/>
+      <comment value="an example for the condition is &lt;= 2.0 &amp; &lt; 1.0" line="191"/>
+      <comment value="these kinds of comparisons always have a solution" line="192"/>
+    </inline>
+  </method>
+  <method name="__toString" start="211" end="214" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <interface full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface">
+    <method name="matches" start="21" end="21" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param type="object" variable="$provider">
+          <type full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface"/>
+        </param>
+        <return type="object">
+          <type full="Composer\Semver\Constraint\bool" namespace="Composer\Semver\Constraint" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="provider" byreference="false" type="object">
+        <type full="Composer\Semver\Constraint\ConstraintInterface" namespace="Composer\Semver\Constraint" name="ConstraintInterface"/>
+      </parameter>
+    </method>
+    <method name="getPrettyString" start="26" end="26" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="__toString" start="31" end="31" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return type="string"/>
+      </docblock>
+    </method>
+  </interface>
+  <extenders>
+    <extender full="Composer\Package\LinkConstraint\VersionConstraint" namespace="Composer\Package\LinkConstraint" name="VersionConstraint"/>
+  </extenders>
+</class>

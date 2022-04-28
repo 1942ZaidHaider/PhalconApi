@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Polyfill\Mbstring\Mbstring" namespace="Symfony\Polyfill\Mbstring" name="Mbstring" abstract="false" final="true" start="68" end="873">
+  <file path="../vendor/symfony/polyfill-mbstring" file="Mbstring.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/polyfill-mbstring/Mbstring.php" size="29167" time="2021-11-30T18:21:41+00:00" unixtime="1638296501" sha1="54e7e2ea75e38add53c0b967097e730423ed392f" relative="vendor/symfony/polyfill-mbstring/Mbstring.php"/>
+  <docblock>
+    <description compact="Partial mbstring implementation in PHP, iconv based, UTF-8 centric.">Implemented:
+- mb_chr                  - Returns a specific character from its Unicode code point
+- mb_convert_encoding     - Convert character encoding
+- mb_convert_variables    - Convert character code in variable(s)
+- mb_decode_mimeheader    - Decode string in MIME header field
+- mb_encode_mimeheader    - Encode string for MIME header XXX NATIVE IMPLEMENTATION IS REALLY BUGGED
+- mb_decode_numericentity - Decode HTML numeric string reference to character
+- mb_encode_numericentity - Encode character to HTML numeric string reference
+- mb_convert_case         - Perform case folding on a string
+- mb_detect_encoding      - Detect character encoding
+- mb_get_info             - Get internal settings of mbstring
+- mb_http_input           - Detect HTTP input character encoding
+- mb_http_output          - Set/Get HTTP output character encoding
+- mb_internal_encoding    - Set/Get internal character encoding
+- mb_list_encodings       - Returns an array of all supported encodings
+- mb_ord                  - Returns the Unicode code point of a character
+- mb_output_handler       - Callback function converts character encoding in output buffer
+- mb_scrub                - Replaces ill-formed byte sequences with substitute characters
+- mb_strlen               - Get string length
+- mb_strpos               - Find position of first occurrence of string in a string
+- mb_strrpos              - Find position of last occurrence of a string in a string
+- mb_str_split            - Convert a string to an array
+- mb_strtolower           - Make a string lowercase
+- mb_strtoupper           - Make a string uppercase
+- mb_substitute_character - Set/Get substitution character
+- mb_substr               - Get part of string
+- mb_stripos              - Finds position of first occurrence of a string within another, case insensitive
+- mb_stristr              - Finds first occurrence of a string within another, case insensitive
+- mb_strrchr              - Finds the last occurrence of a character in a string within another
+- mb_strrichr             - Finds the last occurrence of a character in a string within another, case insensitive
+- mb_strripos             - Finds position of last occurrence of a string within another, case insensitive
+- mb_strstr               - Finds first occurrence of a string within another
+- mb_strwidth             - Return width of string
+- mb_substr_count         - Count the number of substring occurrences
+
+Not implemented:
+- mb_convert_kana         - Convert "kana" one from another ("zen-kaku", "han-kaku" and more)
+- mb_ereg_*               - Regular expression with multibyte support
+- mb_parse_str            - Parse GET/POST/COOKIE data and set global variable
+- mb_preferred_mime_name  - Get MIME charset string
+- mb_regex_encoding       - Returns current encoding for multibyte regex as string
+- mb_regex_set_options    - Set/Get the default options for mbregex functions
+- mb_send_mail            - Send encoded mail
+- mb_split                - Split multibyte string using regular expression
+- mb_strcut               - Get part of string
+- mb_strimwidth           - Get truncated string with specified width</description>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+    <internal/>
+  </docblock>
+  <constant type="{unknown}" name="MB_CASE_FOLD" value="" constant="PHP_INT_MAX"/>
+  <constant type="array" name="CASE_FOLD" value=""/>
+  <member name="encodingList" default="" type="array" visibility="private" static="true" line="77"/>
+  <member name="language" default="'neutral'" type="string" visibility="private" static="true" line="78"/>
+  <member name="internalEncoding" default="'UTF-8'" type="string" visibility="private" static="true" line="79"/>
+  <method name="mb_convert_encoding" start="81" end="117" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="toEncoding" byreference="false" type="{unknown}"/>
+    <parameter name="fromEncoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_convert_variables" start="119" end="129" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="toEncoding" byreference="false" type="{unknown}"/>
+    <parameter name="fromEncoding" byreference="false" type="{unknown}"/>
+    <parameter name="vars" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="mb_decode_mimeheader" start="131" end="134" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="mb_encode_mimeheader" start="136" end="139" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="charset" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="transferEncoding" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="linefeed" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="indent" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_decode_numericentity" start="141" end="199" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="convmap" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_encode_numericentity" start="201" end="269" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="convmap" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="is_hex" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="mb_convert_case" start="271" end="347" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="mode" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_internal_encoding" start="349" end="368" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_language" start="370" end="389" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="lang" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_list_encodings" start="391" end="394" abstract="false" final="false" static="true" visibility="public"/>
+  <method name="mb_encoding_aliases" start="396" end="405" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="encoding" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="mb_check_encoding" start="407" end="417" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="var" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_detect_encoding" start="419" end="453" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="str" byreference="false" type="{unknown}"/>
+    <parameter name="encodingList" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="strict" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="mb_detect_order" start="455" end="482" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="encodingList" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strlen" start="484" end="492" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strpos" start="494" end="513" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="needle" byreference="false" type="{unknown}"/>
+    <parameter name="offset" byreference="false" type="integer" default="0"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strrpos" start="515" end="540" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="needle" byreference="false" type="{unknown}"/>
+    <parameter name="offset" byreference="false" type="integer" default="0"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_str_split" start="542" end="582" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="string" byreference="false" type="{unknown}"/>
+    <parameter name="split_length" byreference="false" type="integer" default="1"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strtolower" start="584" end="587" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strtoupper" start="589" end="592" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_substitute_character" start="594" end="610" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="c" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_substr" start="612" end="636" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="start" byreference="false" type="{unknown}"/>
+    <parameter name="length" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_stripos" start="638" end="644" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="needle" byreference="false" type="{unknown}"/>
+    <parameter name="offset" byreference="false" type="integer" default="0"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_stristr" start="646" end="651" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="needle" byreference="false" type="{unknown}"/>
+    <parameter name="part" byreference="false" type="boolean" default="false"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strrchr" start="653" end="664" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="needle" byreference="false" type="{unknown}"/>
+    <parameter name="part" byreference="false" type="boolean" default="false"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strrichr" start="666" end="672" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="needle" byreference="false" type="{unknown}"/>
+    <parameter name="part" byreference="false" type="boolean" default="false"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strripos" start="674" end="680" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="needle" byreference="false" type="{unknown}"/>
+    <parameter name="offset" byreference="false" type="integer" default="0"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strstr" start="682" end="693" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="needle" byreference="false" type="{unknown}"/>
+    <parameter name="part" byreference="false" type="boolean" default="false"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_get_info" start="695" end="722" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="type" byreference="false" type="string" default="'all'"/>
+  </method>
+  <method name="mb_http_input" start="724" end="727" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="type" byreference="false" type="string" default="''"/>
+  </method>
+  <method name="mb_http_output" start="729" end="732" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_strwidth" start="734" end="745" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_substr_count" start="747" end="750" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="needle" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_output_handler" start="752" end="755" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="contents" byreference="false" type="{unknown}"/>
+    <parameter name="status" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="mb_chr" start="757" end="774" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="code" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="mb_ord" start="776" end="798" abstract="false" final="false" static="true" visibility="public">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="getSubpart" start="800" end="810" abstract="false" final="false" static="true" visibility="private">
+    <parameter name="pos" byreference="false" type="{unknown}"/>
+    <parameter name="part" byreference="false" type="{unknown}"/>
+    <parameter name="haystack" byreference="false" type="{unknown}"/>
+    <parameter name="encoding" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="html_encoding_callback" start="812" end="835" abstract="false" final="false" static="true" visibility="private">
+    <parameter name="m" byreference="false" type="array"/>
+  </method>
+  <method name="title_case" start="837" end="840" abstract="false" final="false" static="true" visibility="private">
+    <parameter name="s" byreference="false" type="array"/>
+  </method>
+  <method name="getData" start="842" end="849" abstract="false" final="false" static="true" visibility="private">
+    <parameter name="file" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getEncoding" start="851" end="872" abstract="false" final="false" static="true" visibility="private">
+    <parameter name="encoding" byreference="false" type="{unknown}"/>
+  </method>
+</class>

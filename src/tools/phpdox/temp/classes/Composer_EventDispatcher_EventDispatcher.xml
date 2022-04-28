@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher" abstract="false" final="false" start="43" end="573">
+  <file path="../vendor/composer/composer/src/Composer/EventDispatcher" file="EventDispatcher.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/EventDispatcher/EventDispatcher.php" size="23534" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="df242817bc0e1869f8dd91ce8492d5a0a660b313" relative="vendor/composer/composer/src/Composer/EventDispatcher/EventDispatcher.php"/>
+  <docblock>
+    <description compact="The Event Dispatcher.">Example in command:
+    $dispatcher = new EventDispatcher($this-&gt;getComposer(), $this-&gt;getApplication()-&gt;getIO());
+    // ...
+    $dispatcher-&gt;dispatch(ScriptEvents::POST_INSTALL_CMD);
+    // ...</description>
+    <author value="François Pluchino &lt;francois.pluchino@opendisplay.com&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+  </docblock>
+  <member name="composer" visibility="protected" static="false" line="45"/>
+  <member name="io" visibility="protected" static="false" line="46"/>
+  <member name="loader" visibility="protected" static="false" line="47"/>
+  <member name="process" visibility="protected" static="false" line="48"/>
+  <member name="listeners" visibility="protected" static="false" line="49"/>
+  <member name="eventStack" visibility="private" static="false" line="50"/>
+  <constructor name="__construct" start="59" end="65" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructor."/>
+      <param description="The composer instance" type="object" variable="$composer">
+        <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+      </param>
+      <param description="The IOInterface instance" type="object" variable="$io">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </param>
+      <param type="object" variable="$process">
+        <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+      </param>
+    </docblock>
+    <parameter name="composer" byreference="false" type="object">
+      <type full="Composer\Composer" namespace="Composer" name="Composer"/>
+    </parameter>
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="process" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+  </constructor>
+  <method name="dispatch" start="75" end="82" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Dispatch an event"/>
+      <param description="An event name" type="string" variable="$eventName"/>
+      <param type="object" variable="$event">
+        <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+      </param>
+      <return description="return code of the executed script if any, for php scripts a false return" type="int">value is changed to 1, anything else to 0</return>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="{unknown}"/>
+    <parameter name="event" byreference="false" type="object" default="NULL">
+      <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+    </parameter>
+  </method>
+  <method name="dispatchScript" start="94" end="97" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Dispatch a script event."/>
+      <param description="The constant in ScriptEvents" type="string" variable="$eventName"/>
+      <param type="object" variable="$devMode">
+        <type full="Composer\EventDispatcher\bool" namespace="Composer\EventDispatcher" name="bool"/>
+      </param>
+      <param description="Arguments passed by the user" type="array" variable="$additionalArgs"/>
+      <param description="Optional flags to pass data not as argument" type="array" variable="$flags"/>
+      <return description="return code of the executed script if any, for php scripts a false return" type="int">value is changed to 1, anything else to 0</return>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="{unknown}"/>
+    <parameter name="devMode" byreference="false" type="boolean" default="false"/>
+    <parameter name="additionalArgs" byreference="false" type="array" default=""/>
+    <parameter name="flags" byreference="false" type="array" default=""/>
+  </method>
+  <method name="dispatchPackageEvent" start="114" end="117" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Dispatch a package event."/>
+      <param description="The constant in PackageEvents" type="string" variable="$eventName"/>
+      <param description="Whether or not we are in dev mode" type="object" variable="$devMode">
+        <type full="Composer\EventDispatcher\bool" namespace="Composer\EventDispatcher" name="bool"/>
+      </param>
+      <param description="The policy" type="object" variable="$policy">
+        <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+      </param>
+      <param description="The pool" type="object" variable="$pool">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </param>
+      <param description="The installed repository" type="object" variable="$installedRepo">
+        <type full="Composer\Repository\CompositeRepository" namespace="Composer\Repository" name="CompositeRepository"/>
+      </param>
+      <param description="The request" type="object" variable="$request">
+        <type full="Composer\DependencyResolver\Request" namespace="Composer\DependencyResolver" name="Request"/>
+      </param>
+      <param description="The list of operations" type="array" variable="$operations"/>
+      <param description="The package being installed/updated/removed" type="object" variable="$operation">
+        <type full="Composer\DependencyResolver\Operation\OperationInterface" namespace="Composer\DependencyResolver\Operation" name="OperationInterface"/>
+      </param>
+      <return description="return code of the executed script if any, for php scripts a false return" type="int">value is changed to 1, anything else to 0</return>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="{unknown}"/>
+    <parameter name="devMode" byreference="false" type="{unknown}"/>
+    <parameter name="policy" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+    </parameter>
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="installedRepo" byreference="false" type="object">
+      <type full="Composer\Repository\CompositeRepository" namespace="Composer\Repository" name="CompositeRepository"/>
+    </parameter>
+    <parameter name="request" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Request" namespace="Composer\DependencyResolver" name="Request"/>
+    </parameter>
+    <parameter name="operations" byreference="false" type="array"/>
+    <parameter name="operation" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Operation\OperationInterface" namespace="Composer\DependencyResolver\Operation" name="OperationInterface"/>
+    </parameter>
+  </method>
+  <method name="dispatchInstallerEvent" start="133" end="136" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Dispatch a installer event."/>
+      <param description="The constant in InstallerEvents" type="string" variable="$eventName"/>
+      <param description="Whether or not we are in dev mode" type="object" variable="$devMode">
+        <type full="Composer\EventDispatcher\bool" namespace="Composer\EventDispatcher" name="bool"/>
+      </param>
+      <param description="The policy" type="object" variable="$policy">
+        <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+      </param>
+      <param description="The pool" type="object" variable="$pool">
+        <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+      </param>
+      <param description="The installed repository" type="object" variable="$installedRepo">
+        <type full="Composer\Repository\CompositeRepository" namespace="Composer\Repository" name="CompositeRepository"/>
+      </param>
+      <param description="The request" type="object" variable="$request">
+        <type full="Composer\DependencyResolver\Request" namespace="Composer\DependencyResolver" name="Request"/>
+      </param>
+      <param description="The list of operations" type="array" variable="$operations"/>
+      <return description="return code of the executed script if any, for php scripts a false return" type="int">value is changed to 1, anything else to 0</return>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="{unknown}"/>
+    <parameter name="devMode" byreference="false" type="{unknown}"/>
+    <parameter name="policy" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+    </parameter>
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+    <parameter name="installedRepo" byreference="false" type="object">
+      <type full="Composer\Repository\CompositeRepository" namespace="Composer\Repository" name="CompositeRepository"/>
+    </parameter>
+    <parameter name="request" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Request" namespace="Composer\DependencyResolver" name="Request"/>
+    </parameter>
+    <parameter name="operations" byreference="false" type="array" default=""/>
+  </method>
+  <method name="doDispatch" start="146" end="274" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Triggers the listeners of an event."/>
+      <param description="The event object to pass to the event handlers/listeners." type="object" variable="$event">
+        <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+      </param>
+      <throws type="object">
+        <type full="\RuntimeException|\Exception" namespace="\RuntimeException|" name="Exception"/>
+      </throws>
+      <return description="return code of the executed script if any, for php scripts a false return" type="int">value is changed to 1, anything else to 0</return>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+    </parameter>
+  </method>
+  <method name="getPhpExecCommand" start="276" end="290" abstract="false" final="false" static="false" visibility="protected"/>
+  <method name="executeEventPhpScript" start="297" end="308" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="string" variable="$className"/>
+      <param type="string" variable="$methodName"/>
+      <param description="Event invoking the PHP callable" type="object" variable="$event">
+        <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+      </param>
+    </docblock>
+    <parameter name="className" byreference="false" type="{unknown}"/>
+    <parameter name="methodName" byreference="false" type="{unknown}"/>
+    <parameter name="event" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+    </parameter>
+  </method>
+  <method name="checkListenerExpectedEvent" start="315" end="387" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <param type="mixed" variable="$target"/>
+      <param type="object" variable="$event">
+        <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+      </param>
+      <return type="object">
+        <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+      </return>
+    </docblock>
+    <parameter name="target" byreference="false" type="{unknown}"/>
+    <parameter name="event" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+    </parameter>
+    <inline>
+      <comment value="BC support" line="348"/>
+    </inline>
+  </method>
+  <method name="serializeCallback" start="389" end="404" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="cb" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addListener" start="413" end="416" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Add a listener for a particular event"/>
+      <param description="The event name - typically a constant" type="string" variable="$eventName"/>
+      <param description="A callable expecting an event argument" type="object" variable="$listener">
+        <type full="Composer\EventDispatcher\callable" namespace="Composer\EventDispatcher" name="callable"/>
+      </param>
+      <param description="A higher value represents a higher priority" type="int" variable="$priority"/>
+    </docblock>
+    <parameter name="eventName" byreference="false" type="{unknown}"/>
+    <parameter name="listener" byreference="false" type="{unknown}"/>
+    <parameter name="priority" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="addSubscriber" start="425" end="438" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Adds object methods as listeners for the events in getSubscribedEvents"/>
+      <see value="EventSubscriberInterface"/>
+      <param type="object" variable="$subscriber">
+        <type full="Composer\EventDispatcher\EventSubscriberInterface" namespace="Composer\EventDispatcher" name="EventSubscriberInterface"/>
+      </param>
+    </docblock>
+    <parameter name="subscriber" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\EventSubscriberInterface" namespace="Composer\EventDispatcher" name="EventSubscriberInterface"/>
+    </parameter>
+  </method>
+  <method name="getListeners" start="446" end="459" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Retrieves all listeners for a given event"/>
+      <param type="object" variable="$event">
+        <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+      </param>
+      <return description="All listeners: callables and scripts" type="array"/>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+    </parameter>
+  </method>
+  <method name="hasEventListeners" start="467" end="472" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if an event has listeners registered"/>
+      <param type="object" variable="$event">
+        <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+      </param>
+      <return type="object">
+        <type full="Composer\EventDispatcher\bool" namespace="Composer\EventDispatcher" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+    </parameter>
+  </method>
+  <method name="getScriptListeners" start="480" end="505" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Finds all listeners defined as scripts in the package"/>
+      <param description="Event object" type="object" variable="$event">
+        <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+      </param>
+      <return description="Listeners" type="array"/>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+    </parameter>
+  </method>
+  <method name="isPhpScript" start="513" end="516" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Checks if string given references a class path and method"/>
+      <param type="string" variable="$callable"/>
+      <return type="object">
+        <type full="Composer\EventDispatcher\bool" namespace="Composer\EventDispatcher" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="callable" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isComposerScript" start="524" end="527" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Checks if string given references a composer run-script"/>
+      <param type="string" variable="$callable"/>
+      <return type="object">
+        <type full="Composer\EventDispatcher\bool" namespace="Composer\EventDispatcher" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="callable" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="pushEvent" start="536" end="544" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Push an event to the stack of active event"/>
+      <param type="object" variable="$event">
+        <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+      </param>
+      <throws type="object">
+        <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+      <return type="object">
+        <type full="Composer\EventDispatcher\number" namespace="Composer\EventDispatcher" name="number"/>
+      </return>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="Composer\EventDispatcher\Event" namespace="Composer\EventDispatcher" name="Event"/>
+    </parameter>
+  </method>
+  <method name="popEvent" start="551" end="554" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Pops the active event from the stack"/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+  <method name="ensureBinDirIsInPath" start="556" end="572" abstract="false" final="false" static="false" visibility="private">
+    <inline>
+      <comment value="add the bin dir to the PATH to make local binaries of deps usable in scripts" line="563"/>
+    </inline>
+  </method>
+</class>

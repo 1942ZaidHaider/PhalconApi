@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\Operation\FindAndModifyFunctionalTest" namespace="MongoDB\Tests\Operation" name="FindAndModifyFunctionalTest" abstract="false" final="false" start="15" end="220">
+  <file path="../vendor/mongodb/mongodb/tests/Operation" file="FindAndModifyFunctionalTest.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/Operation/FindAndModifyFunctionalTest.php" size="7389" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="43e0d29027d66a04fa5fe79a5cb55e6c0ee9b7c7" relative="vendor/mongodb/mongodb/tests/Operation/FindAndModifyFunctionalTest.php"/>
+  <extends full="MongoDB\Tests\Operation\FunctionalTestCase" namespace="MongoDB\Tests\Operation" name="FunctionalTestCase"/>
+  <method name="testManagerReadConcernIsOmitted" start="20" end="39" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <see value="https://jira.mongodb.org/browse/PHPLIB-344"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testDefaultWriteConcernIsOmitted" start="41" end="57" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testHintOptionUnsupportedClientSideError" start="59" end="75" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testHintOptionAndUnacknowledgedWriteConcernUnsupportedClientSideError" start="77" end="93" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testSessionOption" start="95" end="111" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testBypassDocumentValidationSetWhenTrue" start="113" end="130" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testBypassDocumentValidationUnsetWhenFalse" start="132" end="148" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="testTypeMapOption" start="153" end="168" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <dataprovider value="provideTypeMapOptionsAndExpectedDocument"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="typeMap" byreference="false" nullable="true" type="array"/>
+    <parameter name="expectedDocument" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="provideTypeMapOptionsAndExpectedDocument" start="170" end="198" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="createFixtures" start="205" end="219" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create data fixtures."/>
+      <param type="integer" variable="$n"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="n" byreference="false" type="int"/>
+  </method>
+  <parent full="MongoDB\Tests\Operation\FunctionalTestCase" namespace="MongoDB\Tests\Operation" name="FunctionalTestCase">
+    <extends full="MongoDB\Tests\FunctionalTestCase" namespace="MongoDB\Tests" name="FunctionalTestCase"/>
+    <method name="setUp" start="14" end="19" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="tearDown" start="21" end="30" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="createDefaultReadConcern" start="32" end="35" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="createDefaultWriteConcern" start="37" end="40" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="createSession" start="42" end="45" abstract="false" final="false" static="false" visibility="protected"/>
+  </parent>
+  <parent full="MongoDB\Tests\FunctionalTestCase" namespace="MongoDB\Tests" name="FunctionalTestCase">
+    <extends full="MongoDB\Tests\TestCase" namespace="MongoDB\Tests" name="TestCase"/>
+    <member name="manager" visibility="protected" static="false" line="52">
+      <docblock>
+        <var type="object">
+          <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+        </var>
+      </docblock>
+    </member>
+    <method name="setUp" start="57" end="63" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="tearDown" start="65" end="70" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="createTestClient" start="72" end="79" abstract="false" final="false" static="true" visibility="public">
+      <return type="object" nullable="false">
+        <type full="MongoDB\Client" namespace="MongoDB" name="Client"/>
+      </return>
+      <parameter name="uri" byreference="false" nullable="true" type="string" default="NULL"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+      <parameter name="driverOptions" byreference="false" type="array" default=""/>
+    </method>
+    <method name="createTestManager" start="81" end="88" abstract="false" final="false" static="true" visibility="public">
+      <return type="object" nullable="false">
+        <type full="MongoDB\Driver\Manager" namespace="MongoDB\Driver" name="Manager"/>
+      </return>
+      <parameter name="uri" byreference="false" nullable="true" type="string" default="NULL"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+      <parameter name="driverOptions" byreference="false" type="array" default=""/>
+    </method>
+    <method name="getUri" start="90" end="149" abstract="false" final="false" static="true" visibility="public">
+      <return type="string" nullable="false"/>
+      <parameter name="allowMultipleMongoses" byreference="false" type="boolean" default="false"/>
+      <inline>
+        <comment value="Only modify URIs using the mongodb scheme" line="103"/>
+        <comment value="Re-append port to last host" line="119"/>
+      </inline>
+    </method>
+    <method name="assertCollectionCount" start="151" end="161" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+      <parameter name="namespace" byreference="false" type="{unknown}"/>
+      <parameter name="count" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="assertCollectionDoesNotExist" start="169" end="188" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Asserts that a collection with the given name does not exist on the server.">$databaseName defaults to TestCase::getDatabaseName() if unspecified.</description>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="collectionName" byreference="false" type="string"/>
+      <parameter name="databaseName" byreference="false" nullable="true" type="string" default="NULL"/>
+    </method>
+    <method name="assertCollectionExists" start="199" end="226" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Asserts that a collection with the given name exists on the server.">$databaseName defaults to TestCase::getDatabaseName() if unspecified.
+An optional $callback may be provided, which should take a CollectionInfo
+argument as its first and only parameter. If a CollectionInfo matching
+the given name is found, it will be passed to the callback, which may
+perform additional assertions.</description>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="collectionName" byreference="false" type="string"/>
+      <parameter name="databaseName" byreference="false" nullable="true" type="string" default="NULL"/>
+      <parameter name="callback" byreference="false" nullable="true" type="callable" default="NULL"/>
+    </method>
+    <method name="assertCommandSucceeded" start="228" end="234" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+      <parameter name="document" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="assertSameObjectId" start="236" end="241" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+      <parameter name="expectedObjectId" byreference="false" type="{unknown}"/>
+      <parameter name="actualObjectId" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="configureFailPoint" start="252" end="284" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Configure a fail point for the test.">The fail point will automatically be disabled during tearDown() to avoid
+affecting a subsequent test.</description>
+        <param description="configureFailPoint command document" type="object" variable="$command">
+          <type full="MongoDB\Tests\array|stdClass" namespace="MongoDB\Tests" name="array|stdClass"/>
+        </param>
+        <throws description="if $command is not a configureFailPoint command" type="object">
+          <type full="InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+        </throws>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="command" byreference="false" type="{unknown}"/>
+      <parameter name="server" byreference="false" nullable="true" type="object" default="NULL">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+      <inline>
+        <comment value="Record the fail point so it can be disabled during tearDown()" line="282"/>
+      </inline>
+    </method>
+    <method name="createCollection" start="295" end="301" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Creates the test collection with the specified options.">If the "writeConcern" option is not specified but is supported by the
+server, a majority write concern will be used. This is helpful for tests
+using transactions or secondary reads.</description>
+        <param type="array" variable="$options"/>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+    </method>
+    <method name="dropCollection" start="312" end="318" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Drops the test collection with the specified options.">If the "writeConcern" option is not specified but is supported by the
+server, a majority write concern will be used. This is helpful for tests
+using transactions or secondary reads.</description>
+        <param type="array" variable="$options"/>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+    </method>
+    <method name="getFeatureCompatibilityVersion" start="320" end="340" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="readPreference" byreference="false" nullable="true" type="object" default="NULL">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </parameter>
+    </method>
+    <method name="getPrimaryServer" start="342" end="345" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="getServerVersion" start="347" end="360" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="readPreference" byreference="false" nullable="true" type="object" default="NULL">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </parameter>
+    </method>
+    <method name="getServerStorageEngine" start="362" end="377" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="readPreference" byreference="false" nullable="true" type="object" default="NULL">
+        <type full="MongoDB\Driver\ReadPreference" namespace="MongoDB\Driver" name="ReadPreference"/>
+      </parameter>
+    </method>
+    <method name="isLoadBalanced" start="379" end="382" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="isReplicaSet" start="384" end="387" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="isMongos" start="389" end="392" abstract="false" final="false" static="false" visibility="protected"/>
+    <method name="isServerless" start="397" end="402" abstract="false" final="false" static="true" visibility="protected">
+      <docblock>
+        <description compact="Return whether serverless (i.e. proxy as mongos) is being utilized."/>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="isShardedCluster" start="404" end="418" abstract="false" final="false" static="false" visibility="protected">
+      <inline>
+        <comment value="Assume that load balancers are properly configured and front sharded clusters" line="412"/>
+      </inline>
+    </method>
+    <method name="isShardedClusterUsingReplicasets" start="420" end="445" abstract="false" final="false" static="false" visibility="protected">
+      <inline>
+        <comment value="Assume serverless is a sharded cluster using replica sets" line="422"/>
+        <comment value="Use regular expression to distinguish between standalone or replicaset:" line="439"/>
+        <comment xmlns="http://xml.phpdox.net/src" value="Without a replicaset: &quot;host&quot; : &quot;localhost:4100&quot;" line="440"/>
+        <comment xmlns="http://xml.phpdox.net/src" value="With a replicaset: &quot;host&quot; : &quot;dec6d8a7-9bc1-4c0e-960c-615f860b956f/localhost:4400,localhost:4401&quot;" line="441"/>
+      </inline>
+    </method>
+    <method name="skipIfChangeStreamIsNotSupported" start="447" end="464" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="skipIfCausalConsistencyIsNotSupported" start="466" end="487" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="skipIfClientSideEncryptionIsNotSupported" start="489" end="498" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="skipIfGeoHaystackIndexIsNotSupported" start="500" end="505" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+    <method name="skipIfTransactionsAreNotSupported" start="507" end="532" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+    </method>
+  </parent>
+  <parent full="MongoDB\Tests\TestCase" namespace="MongoDB\Tests" name="TestCase">
+    <extends full="PHPUnit\Framework\TestCase" namespace="PHPUnit\Framework" name="TestCase" unresolved="true"/>
+    <method name="getUri" start="41" end="44" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Return the connection URI."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="assertMatchesDocument" start="55" end="78" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Asserts that a document has expected values for some fields.">Only fields in the expected document will be checked. The actual document
+may contain additional fields.</description>
+        <param type="object" variable="$expectedDocument">
+          <type full="MongoDB\Tests\array|object" namespace="MongoDB\Tests" name="array|object"/>
+        </param>
+        <param type="object" variable="$actualDocument">
+          <type full="MongoDB\Tests\array|object" namespace="MongoDB\Tests" name="array|object"/>
+        </param>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="expectedDocument" byreference="false" type="{unknown}"/>
+      <parameter name="actualDocument" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="Avoid unsetting fields while we're iterating on the ArrayObject to" line="62"/>
+        <comment xmlns="http://xml.phpdox.net/src" value="* work around https://bugs.php.net/bug.php?id=70246" line="63"/>
+      </inline>
+    </method>
+    <method name="assertSameDocument" start="89" end="95" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Asserts that a document has expected values for all fields.">The actual document will be compared directly with the expected document
+and may not contain extra fields.</description>
+        <param type="object" variable="$expectedDocument">
+          <type full="MongoDB\Tests\array|object" namespace="MongoDB\Tests" name="array|object"/>
+        </param>
+        <param type="object" variable="$actualDocument">
+          <type full="MongoDB\Tests\array|object" namespace="MongoDB\Tests" name="array|object"/>
+        </param>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="expectedDocument" byreference="false" type="{unknown}"/>
+      <parameter name="actualDocument" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="assertSameDocuments" start="97" end="115" abstract="false" final="false" static="false" visibility="public">
+      <return type="void" nullable="false"/>
+      <parameter name="expectedDocuments" byreference="false" type="array"/>
+      <parameter name="actualDocuments" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="dataDescription" start="120" end="125" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Compatibility method as PHPUnit 9 no longer includes this method."/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="provideInvalidArrayValues" start="127" end="130" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="provideInvalidDocumentValues" start="132" end="135" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="assertDeprecated" start="137" end="152" abstract="false" final="false" static="false" visibility="protected">
+      <return type="void" nullable="false"/>
+      <parameter name="execution" byreference="false" type="callable"/>
+    </method>
+    <method name="getCollectionName" start="159" end="164" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return the test collection name."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="getDatabaseName" start="171" end="174" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return the test database name."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="getInvalidArrayValues" start="183" end="186" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid array values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidBooleanValues" start="195" end="198" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid boolean values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidDocumentValues" start="207" end="210" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid document values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidIntegerValues" start="219" end="222" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid integer values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidReadConcernValues" start="231" end="234" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid ReadPreference values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidReadPreferenceValues" start="243" end="246" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid ReadPreference values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidSessionValues" start="255" end="258" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid Session values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidStringValues" start="267" end="270" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid string values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getInvalidWriteConcernValues" start="279" end="282" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return a list of invalid WriteConcern values."/>
+        <param type="boolean" variable="$includeNull"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="includeNull" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="getNamespace" start="289" end="292" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Return the test namespace."/>
+        <return type="string"/>
+      </docblock>
+      <return type="string" nullable="false"/>
+    </method>
+    <method name="wrapValuesForDataProvider" start="300" end="305" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Wrap a list of values for use as a single-argument data provider."/>
+        <param description="List of values" type="array" variable="$values"/>
+        <return type="array"/>
+      </docblock>
+      <return type="array" nullable="false"/>
+      <parameter name="values" byreference="false" type="array"/>
+    </method>
+  </parent>
+</class>

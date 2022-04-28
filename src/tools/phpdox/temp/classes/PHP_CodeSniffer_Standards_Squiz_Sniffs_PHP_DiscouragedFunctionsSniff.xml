@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\DiscouragedFunctionsSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="DiscouragedFunctionsSniff" abstract="false" final="false" start="14" end="38">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Standards/Squiz/Sniffs/PHP" file="DiscouragedFunctionsSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Standards/Squiz/Sniffs/PHP/DiscouragedFunctionsSniff.php" size="1010" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="3d38a237c96f7ebb818fbfe2c299777eb8160bc3" relative="vendor/squizlabs/php_codesniffer/src/Standards/Squiz/Sniffs/PHP/DiscouragedFunctionsSniff.php"/>
+  <extends full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="ForbiddenFunctionsSniff"/>
+  <member name="forbiddenFunctions" default="" type="array" visibility="public" static="false" line="25">
+    <docblock>
+      <description compact="A list of forbidden functions with their alternatives.">The value is NULL if no alternative exists. IE, the
+function should just not be used.</description>
+      <var description="string|null&gt;" type="object">
+        <type full="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\array&lt;string" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="error" default="false" type="boolean" visibility="public" static="false" line="36">
+    <docblock>
+      <description compact="If true, an error will be thrown; otherwise a warning."/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <parent full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="ForbiddenFunctionsSniff">
+    <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+    <member name="forbiddenFunctions" default="" type="array" visibility="public" static="false" line="29">
+      <docblock>
+        <description compact="A list of forbidden functions with their alternatives.">The value is NULL if no alternative exists. IE, the
+function should just not be used.</description>
+        <var description="string|null&gt;" type="object">
+          <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\array&lt;string" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="array&lt;string"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="forbiddenFunctionNames" default="" type="array" visibility="protected" static="false" line="39">
+      <docblock>
+        <description compact="A cache of forbidden function names, for faster lookups."/>
+        <var type="array" of="object">
+          <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\string" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="string"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="patternMatch" default="false" type="boolean" visibility="protected" static="false" line="46">
+      <docblock>
+        <description compact="If true, forbidden functions will be considered regular expressions."/>
+        <var type="boolean"/>
+      </docblock>
+    </member>
+    <member name="error" default="true" type="boolean" visibility="public" static="false" line="53">
+      <docblock>
+        <description compact="If true, an error will be thrown; otherwise a warning."/>
+        <var type="boolean"/>
+      </docblock>
+    </member>
+    <method name="register" start="61" end="106" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns an array of tokens this test wants to listen for."/>
+        <return type="array"/>
+      </docblock>
+      <inline>
+        <comment value="Everyone has had a chance to figure out what forbidden functions" line="63"/>
+        <comment value="they want to check for, so now we can cache out the list." line="64"/>
+        <comment value="If we are not pattern matching, we need to work out what" line="75"/>
+        <comment value="tokens to listen for." line="76"/>
+      </inline>
+    </method>
+    <method name="process" start="118" end="193" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Processes this test, when one of its tokens is encountered."/>
+        <param description="The file being scanned." type="object" variable="$phpcsFile">
+          <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+        </param>
+        <param description="The position of the current token in" type="int" variable="$stackPtr">the stack passed in $tokens.</param>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\void" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="void"/>
+        </return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="If function call is directly preceded by a NS_SEPARATOR it points to the" line="140"/>
+        <comment value="global namespace, so we should still catch it." line="141"/>
+        <comment value="end if" line="189"/>
+      </inline>
+    </method>
+    <method name="addError" start="207" end="237" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Generates the error or warning for this sniff."/>
+        <param description="The file being scanned." type="object" variable="$phpcsFile">
+          <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+        </param>
+        <param description="The position of the forbidden function" type="int" variable="$stackPtr">in the token array.</param>
+        <param description="The name of the forbidden function." type="string" variable="$function"/>
+        <param description="The pattern used for the match." type="string" variable="$pattern"/>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\void" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\PHP" name="void"/>
+        </return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="{unknown}"/>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+      <parameter name="function" byreference="false" type="{unknown}"/>
+      <parameter name="pattern" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+  </parent>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Util\Common" namespace="PHP_CodeSniffer\Util" name="Common" abstract="false" final="false" start="12" end="570">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Util" file="Common.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Util/Common.php" size="16321" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="731b55994eb47168ac5f2f27766e9f321118070d" relative="vendor/squizlabs/php_codesniffer/src/Util/Common.php"/>
+  <member name="allowedTypes" default="" type="array" visibility="public" static="true" line="20">
+    <docblock>
+      <description compact="An array of variable types for param/var we will check."/>
+      <var type="array" of="object">
+        <type full="PHP_CodeSniffer\Util\string" namespace="PHP_CodeSniffer\Util" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="isPharFile" start="40" end="48" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Return TRUE if the path is a PHAR file."/>
+      <param description="The path to use." type="string" variable="$path"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isReadable" start="61" end="76" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Checks if a file is readable.">Addresses PHP bug related to reading files from network drives on Windows.
+e.g. when using WSL2.</description>
+      <param description="The path to the file." type="string" variable="$path"/>
+      <return type="boolean"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="realpath" start="88" end="129" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="CodeSniffer alternative for realpath.">Allows for PHAR support.</description>
+      <param description="The path to use." type="string" variable="$path"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Support the path replacement of ~ with the user's home directory." line="90"/>
+      <comment value="Check for process substitution." line="98"/>
+      <comment value="No extra work needed if this is not a phar file." line="103"/>
+      <comment value="Before trying to break down the file path," line="108"/>
+      <comment value="check if it exists first because it will mostly not" line="109"/>
+      <comment value="change after running the below code." line="110"/>
+    </inline>
+  </method>
+  <method name="stripBasepath" start="141" end="159" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Removes a base path from the front of a file path."/>
+      <param description="The path of the file." type="string" variable="$path"/>
+      <param description="The base path to remove. This should not end" type="string" variable="$basepath">with a directory separator.</param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="basepath" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="detectLineEndings" start="169" end="180" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Detects the EOL character being used in a string."/>
+      <param description="The contents to check." type="string" variable="$contents"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="contents" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isStdinATTY" start="188" end="239" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Check if STDIN is a TTY."/>
+      <return type="boolean"/>
+    </docblock>
+    <inline>
+      <comment value="The check is slow (especially calling `tty`) so we static" line="190"/>
+      <comment value="cache the result." line="191"/>
+      <comment value="If PHP has the POSIX extensions we will use them." line="202"/>
+      <comment value="Next try is detecting whether we have `tty` installed and use that." line="208"/>
+      <comment value="Finally we will use fstat.  The solution borrowed from" line="224"/>
+      <comment value="https://stackoverflow.com/questions/11327367/detect-if-a-php-script-is-being-run-interactively-or-not" line="225"/>
+      <comment value="This doesn't work on Mingw/Cygwin/... using Mintty but they" line="226"/>
+      <comment value="have `tty` installed." line="227"/>
+    </inline>
+  </method>
+  <method name="escapeshellcmd" start="249" end="261" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Escape a path to a system command."/>
+      <param description="The path to the system command." type="string" variable="$cmd"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="cmd" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="prepareForOutput" start="276" end="310" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Prepares token content for output to screen.">Replaces invisible characters so they are visible. On non-Windows
+operating systems it will also colour the invisible characters.</description>
+      <param description="The content to prepare." type="string" variable="$content"/>
+      <param description="A list of characters to leave invisible." type="array" variable="$exclude" of="object">Can contain \r, \n, \t and a space.<type full="PHP_CodeSniffer\Util\string" namespace="PHP_CodeSniffer\Util" name="string"/></param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="content" byreference="false" type="{unknown}"/>
+    <parameter name="exclude" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="end if" line="306"/>
+    </inline>
+  </method>
+  <method name="isCamelCaps" start="333" end="395" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns true if the specified string is in the camel caps format."/>
+      <param description="The string the verify." type="string" variable="$string"/>
+      <param description="If true, check to see if the string is in the" type="boolean" variable="$classFormat">class format. Class format strings must start
+                            with a capital letter and contain no
+                            underscores.</param>
+      <param description="If true, the first character in the string" type="boolean" variable="$public">must be an a-z character. If false, the
+                            character must be an underscore. This
+                            argument is only applicable if $classFormat
+                            is false.</param>
+      <param description="If true, the string must not have two capital" type="boolean" variable="$strict">letters next to each other. If false, a
+                            relaxed camel caps policy is used to allow
+                            for acronyms.</param>
+      <return type="boolean"/>
+    </docblock>
+    <parameter name="string" byreference="false" type="{unknown}"/>
+    <parameter name="classFormat" byreference="false" type="boolean" default="false"/>
+    <parameter name="public" byreference="false" type="boolean" default="true"/>
+    <parameter name="strict" byreference="false" type="boolean" default="true"/>
+    <inline>
+      <comment value="Check the first character first." line="339"/>
+      <comment value="Check that the name only contains legal characters." line="361"/>
+      <comment value="end if" line="391"/>
+    </inline>
+  </method>
+  <method name="isUnderscoreName" start="405" end="433" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns true if the specified string is in the underscore caps format."/>
+      <param description="The string to verify." type="string" variable="$string"/>
+      <return type="boolean"/>
+    </docblock>
+    <parameter name="string" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="If there are space in the name, it can't be valid." line="407"/>
+    </inline>
+  </method>
+  <method name="suggestType" start="446" end="507" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns a valid variable type for param/var tags.">If type is not one of the standard types, it must be a custom type.
+Returns the correct type name suggestion if type name is invalid.</description>
+      <param description="The variable type to process." type="string" variable="$varType"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="varType" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="end if" line="505"/>
+    </inline>
+  </method>
+  <method name="getSniffCode" start="517" end="536" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Given a sniff class name, returns the code for the sniff."/>
+      <param description="The fully qualified sniff class name." type="string" variable="$sniffClass"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="sniffClass" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="cleanSniffClass" start="546" end="567" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Removes project-specific information from a sniff class name."/>
+      <param description="The fully qualified sniff class name." type="string" variable="$sniffClass"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="sniffClass" byreference="false" type="{unknown}"/>
+  </method>
+</class>

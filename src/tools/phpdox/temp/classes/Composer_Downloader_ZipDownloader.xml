@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Downloader\ZipDownloader" namespace="Composer\Downloader" name="ZipDownloader" abstract="false" final="false" start="30" end="230">
+  <file path="../vendor/composer/composer/src/Composer/Downloader" file="ZipDownloader.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Downloader/ZipDownloader.php" size="8661" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="6d562a5653914ee8f9cf4cd61cc8659acce980c1" relative="vendor/composer/composer/src/Composer/Downloader/ZipDownloader.php"/>
+  <docblock>
+    <description/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <extends full="Composer\Downloader\ArchiveDownloader" namespace="Composer\Downloader" name="ArchiveDownloader"/>
+  <member name="hasSystemUnzip" visibility="protected" static="true" line="32"/>
+  <member name="hasZipArchive" visibility="private" static="true" line="33"/>
+  <member name="isWindows" visibility="private" static="true" line="34"/>
+  <member name="process" visibility="protected" static="false" line="36"/>
+  <member name="zipArchiveObject" visibility="private" static="false" line="37"/>
+  <constructor name="__construct" start="39" end="43" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="io" byreference="false" type="object">
+      <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+    </parameter>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Composer\Config" namespace="Composer" name="Config"/>
+    </parameter>
+    <parameter name="eventDispatcher" byreference="false" type="object" default="NULL">
+      <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+    </parameter>
+    <parameter name="cache" byreference="false" type="object" default="NULL">
+      <type full="Composer\Cache" namespace="Composer" name="Cache"/>
+    </parameter>
+    <parameter name="process" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\ProcessExecutor" namespace="Composer\Util" name="ProcessExecutor"/>
+    </parameter>
+    <parameter name="rfs" byreference="false" type="object" default="NULL">
+      <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+    </parameter>
+  </constructor>
+  <method name="download" start="48" end="78" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritDoc}"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="output" byreference="false" type="boolean" default="true"/>
+  </method>
+  <method name="extractWithSystemUnzip" start="88" end="126" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="extract $file to $path with &quot;unzip&quot; command"/>
+      <param description="File to extract" type="string" variable="$file"/>
+      <param description="Path where to extract file" type="string" variable="$path"/>
+      <param description="If true it is called as a fallback and should throw an exception" type="object" variable="$isLastChance">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </param>
+      <return description="Success status" type="object">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="isLastChance" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="When called after a ZipArchive failed, perhaps there is some files to overwrite" line="102"/>
+    </inline>
+  </method>
+  <method name="extractWithZipArchive" start="136" end="180" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="extract $file to $path with ZipArchive"/>
+      <param description="File to extract" type="string" variable="$file"/>
+      <param description="Path where to extract file" type="string" variable="$path"/>
+      <param description="If true it is called as a fallback and should throw an exception" type="object" variable="$isLastChance">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </param>
+      <return description="Success status" type="object">
+        <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <parameter name="isLastChance" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="extract" start="188" end="196" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="extract $file to $path"/>
+      <param description="File to extract" type="string" variable="$file"/>
+      <param description="Path where to extract file" type="string" variable="$path"/>
+    </docblock>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Each extract calls its alternative if not available or fails" line="190"/>
+    </inline>
+  </method>
+  <method name="getErrorMessage" start="205" end="229" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Give a meaningful error message to the user."/>
+      <param type="int" variable="$retval"/>
+      <param type="string" variable="$file"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="retval" byreference="false" type="{unknown}"/>
+    <parameter name="file" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="Composer\Downloader\ArchiveDownloader" namespace="Composer\Downloader" name="ArchiveDownloader">
+    <extends full="Composer\Downloader\FileDownloader" namespace="Composer\Downloader" name="FileDownloader"/>
+    <method name="download" start="33" end="98" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritDoc}"/>
+        <throws type="object">
+          <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+        </throws>
+        <throws type="object">
+          <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+        </throws>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+      <parameter name="output" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="getFileName" start="103" end="106" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="extract" start="116" end="116" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Extract file to directory"/>
+        <param description="Extracted file" type="string" variable="$file"/>
+        <param description="Directory" type="string" variable="$path"/>
+        <throws description="If can not extract downloaded file to path" type="object">
+          <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+        </throws>
+      </docblock>
+      <parameter name="file" byreference="false" type="{unknown}"/>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+  <parent full="Composer\Downloader\FileDownloader" namespace="Composer\Downloader" name="FileDownloader">
+    <implements full="Composer\Downloader\DownloaderInterface" namespace="Composer\Downloader" name="DownloaderInterface"/>
+    <implements full="Composer\Downloader\ChangeReportInterface" namespace="Composer\Downloader" name="ChangeReportInterface"/>
+    <member name="io" visibility="protected" static="false" line="40"/>
+    <member name="config" visibility="protected" static="false" line="41"/>
+    <member name="rfs" visibility="protected" static="false" line="42"/>
+    <member name="filesystem" visibility="protected" static="false" line="43"/>
+    <member name="cache" visibility="protected" static="false" line="44"/>
+    <member name="outputProgress" default="true" type="boolean" visibility="protected" static="false" line="45"/>
+    <constructor name="__construct" start="59" end="71" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Constructor."/>
+        <param description="The IO instance" type="object" variable="$io">
+          <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+        </param>
+        <param description="The config" type="object" variable="$config">
+          <type full="Composer\Config" namespace="Composer" name="Config"/>
+        </param>
+        <param description="The event dispatcher" type="object" variable="$eventDispatcher">
+          <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+        </param>
+        <param description="Optional cache instance" type="object" variable="$cache">
+          <type full="Composer\Cache" namespace="Composer" name="Cache"/>
+        </param>
+        <param description="The remote filesystem" type="object" variable="$rfs">
+          <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+        </param>
+        <param description="The filesystem" type="object" variable="$filesystem">
+          <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+        </param>
+      </docblock>
+      <parameter name="io" byreference="false" type="object">
+        <type full="Composer\IO\IOInterface" namespace="Composer\IO" name="IOInterface"/>
+      </parameter>
+      <parameter name="config" byreference="false" type="object">
+        <type full="Composer\Config" namespace="Composer" name="Config"/>
+      </parameter>
+      <parameter name="eventDispatcher" byreference="false" type="object" default="NULL">
+        <type full="Composer\EventDispatcher\EventDispatcher" namespace="Composer\EventDispatcher" name="EventDispatcher"/>
+      </parameter>
+      <parameter name="cache" byreference="false" type="object" default="NULL">
+        <type full="Composer\Cache" namespace="Composer" name="Cache"/>
+      </parameter>
+      <parameter name="rfs" byreference="false" type="object" default="NULL">
+        <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+      </parameter>
+      <parameter name="filesystem" byreference="false" type="object" default="NULL">
+        <type full="Composer\Util\Filesystem" namespace="Composer\Util" name="Filesystem"/>
+      </parameter>
+    </constructor>
+    <method name="getInstallationSource" start="76" end="79" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritDoc}"/>
+      </docblock>
+    </method>
+    <method name="download" start="84" end="119" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritDoc}"/>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+      <parameter name="output" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="doDownload" start="121" end="192" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+      <parameter name="url" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="setOutputProgress" start="197" end="202" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritDoc}"/>
+      </docblock>
+      <parameter name="outputProgress" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="clearLastCacheWrite" start="204" end="210" abstract="false" final="false" static="false" visibility="protected">
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+    </method>
+    <method name="update" start="215" end="228" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritDoc}"/>
+      </docblock>
+      <parameter name="initial" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="target" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="remove" start="233" end="241" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritDoc}"/>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+      <parameter name="output" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="getFileName" start="250" end="253" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Gets file name for specific package"/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="download path" type="string" variable="$path"/>
+        <return description="file name" type="string"/>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="processUrl" start="263" end="274" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Process the download url"/>
+        <param description="package the url is coming from" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="download url" type="string" variable="$url"/>
+        <throws description="If any problem with the url" type="object">
+          <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+        </throws>
+        <return description="url" type="string"/>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="url" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getLocalChanges" start="291" end="321" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritDoc}"/>
+        <throws type="object">
+          <type full="\RuntimeException" namespace="" name="RuntimeException"/>
+        </throws>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="targetDir" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+  <interface full="Composer\Downloader\DownloaderInterface" namespace="Composer\Downloader" name="DownloaderInterface">
+    <method name="getInstallationSource" start="30" end="30" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns installation source (either source or dist)."/>
+        <return description="&quot;source&quot; or &quot;dist&quot;" type="string"/>
+      </docblock>
+    </method>
+    <method name="download" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Downloads specific package into specific folder."/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="download path" type="string" variable="$path"/>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="update" start="47" end="47" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Updates specific package in specific folder from initial to target version."/>
+        <param description="initial package" type="object" variable="$initial">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="updated package" type="object" variable="$target">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="download path" type="string" variable="$path"/>
+      </docblock>
+      <parameter name="initial" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="target" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="remove" start="55" end="55" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Removes specific package from specific folder."/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="download path" type="string" variable="$path"/>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="setOutputProgress" start="63" end="63" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets whether to output download progress information or not"/>
+        <param type="object" variable="$outputProgress">
+          <type full="Composer\Downloader\bool" namespace="Composer\Downloader" name="bool"/>
+        </param>
+        <return type="object">
+          <type full="Composer\Downloader\DownloaderInterface" namespace="Composer\Downloader" name="DownloaderInterface"/>
+        </return>
+      </docblock>
+      <parameter name="outputProgress" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+  <interface full="Composer\Downloader\ChangeReportInterface" namespace="Composer\Downloader" name="ChangeReportInterface">
+    <method name="getLocalChanges" start="31" end="31" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks for changes to the local copy"/>
+        <param description="package instance" type="object" variable="$package">
+          <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+        </param>
+        <param description="package directory" type="string" variable="$path"/>
+        <return description="changes or null" type="object">
+          <type full="Composer\Downloader\string|null" namespace="Composer\Downloader" name="string|null"/>
+        </return>
+      </docblock>
+      <parameter name="package" byreference="false" type="object">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </parameter>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

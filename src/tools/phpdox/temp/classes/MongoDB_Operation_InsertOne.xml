@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Operation\InsertOne" namespace="MongoDB\Operation" name="InsertOne" abstract="false" final="false" start="40" end="165">
+  <file path="../vendor/mongodb/mongodb/src/Operation" file="InsertOne.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/Operation/InsertOne.php" size="5595" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="9253e620ff2468caf70c51ad9756d7667b4a2164" relative="vendor/mongodb/mongodb/src/Operation/InsertOne.php"/>
+  <docblock>
+    <description compact="Operation for inserting a single document with the insert command."/>
+    <api/>
+    <see value="\MongoDB\Collection::insertOne()"/>
+    <see value="http://docs.mongodb.org/manual/reference/command/insert/"/>
+  </docblock>
+  <implements full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable"/>
+  <member name="databaseName" visibility="private" static="false" line="43">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="collectionName" visibility="private" static="false" line="46">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="document" visibility="private" static="false" line="49">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Operation\array|object" namespace="MongoDB\Operation" name="array|object"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="options" visibility="private" static="false" line="52">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="72" end="102" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructs an insert command.">Supported options:
+
+ * bypassDocumentValidation (boolean): If true, allows the write to
+   circumvent document level validation.
+
+ * session (MongoDB\Driver\Session): Client session.
+
+ * writeConcern (MongoDB\Driver\WriteConcern): Write concern.</description>
+      <param description="Database name" type="string" variable="$databaseName"/>
+      <param description="Collection name" type="string" variable="$collectionName"/>
+      <param description="Document to insert" type="object" variable="$document">
+        <type full="MongoDB\Operation\array|object" namespace="MongoDB\Operation" name="array|object"/>
+      </param>
+      <param description="Command options" type="array" variable="$options"/>
+      <throws description="for parameter/option parsing errors" type="object">
+        <type full="MongoDB\Exception\InvalidArgumentException" namespace="MongoDB\Exception" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="databaseName" byreference="false" type="{unknown}"/>
+    <parameter name="collectionName" byreference="false" type="{unknown}"/>
+    <parameter name="document" byreference="false" type="{unknown}"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="execute" start="113" end="126" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Execute the operation."/>
+      <see value="Executable::execute()"/>
+      <param type="object" variable="$server">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </param>
+      <return type="object">
+        <type full="MongoDB\InsertOneResult" namespace="MongoDB" name="InsertOneResult"/>
+      </return>
+      <throws description="if write concern is used and unsupported" type="object">
+        <type full="MongoDB\Exception\UnsupportedException" namespace="MongoDB\Exception" name="UnsupportedException"/>
+      </throws>
+      <throws description="for other driver errors (e.g. connection errors)" type="object">
+        <type full="MongoDB\Driver\Exception\RuntimeException" namespace="MongoDB\Driver\Exception" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <parameter name="server" byreference="false" type="object">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </parameter>
+  </method>
+  <method name="createBulkWriteOptions" start="134" end="143" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create options for constructing the bulk write."/>
+      <see value="https://www.php.net/manual/en/mongodb-driver-bulkwrite.construct.php"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="createExecuteOptions" start="151" end="164" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create options for executing the bulk write."/>
+      <see value="http://php.net/manual/en/mongodb-driver-server.executebulkwrite.php"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <interface full="MongoDB\Operation\Executable" namespace="MongoDB\Operation" name="Executable">
+    <method name="execute" start="38" end="38" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Execute the operation."/>
+        <param type="object" variable="$server">
+          <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+        </param>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="server" byreference="false" type="object">
+        <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+      </parameter>
+    </method>
+  </interface>
+</class>

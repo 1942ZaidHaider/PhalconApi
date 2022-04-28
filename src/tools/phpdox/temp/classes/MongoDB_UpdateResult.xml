@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\UpdateResult" namespace="MongoDB" name="UpdateResult" abstract="false" final="false" start="26" end="138">
+  <file path="../vendor/mongodb/mongodb/src" file="UpdateResult.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/src/UpdateResult.php" size="4154" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="ba37575a79af8376b56e885a532efb56063b3dc2" relative="vendor/mongodb/mongodb/src/UpdateResult.php"/>
+  <docblock>
+    <description compact="Result class for an update operation."/>
+  </docblock>
+  <member name="writeResult" visibility="private" static="false" line="29">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Driver\WriteResult" namespace="MongoDB\Driver" name="WriteResult"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="isAcknowledged" visibility="private" static="false" line="32">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="34" end="38" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="writeResult" byreference="false" type="object">
+      <type full="MongoDB\Driver\WriteResult" namespace="MongoDB\Driver" name="WriteResult"/>
+    </parameter>
+  </constructor>
+  <method name="getMatchedCount" start="49" end="56" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the number of documents that were matched by the filter.">This method should only be called if the write was acknowledged.</description>
+      <see value="UpdateResult::isAcknowledged()"/>
+      <return type="integer"/>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getModifiedCount" start="70" end="77" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the number of documents that were modified.">This value is undefined (i.e. null) if the write executed as a legacy
+operation instead of command.
+
+This method should only be called if the write was acknowledged.</description>
+      <see value="UpdateResult::isAcknowledged()"/>
+      <return type="object">
+        <type full="MongoDB\integer|null" namespace="MongoDB" name="integer|null"/>
+      </return>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getUpsertedCount" start="88" end="95" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the number of documents that were upserted.">This method should only be called if the write was acknowledged.</description>
+      <see value="UpdateResult::isAcknowledged()"/>
+      <return type="integer"/>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="getUpsertedId" start="112" end="123" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return the ID of the document inserted by an upsert operation.">If the document had an ID prior to upserting (i.e. the server did not
+need to generate an ID), this will contain its "_id". Any
+server-generated ID will be a MongoDB\BSON\ObjectId instance.
+
+This value is undefined (i.e. null) if an upsert did not take place.
+
+This method should only be called if the write was acknowledged.</description>
+      <see value="UpdateResult::isAcknowledged()"/>
+      <return type="object">
+        <type full="MongoDB\mixed|null" namespace="MongoDB" name="mixed|null"/>
+      </return>
+      <throws description="is the write result is unacknowledged" type="object">
+        <type full="MongoDB\Exception\BadMethodCallException" namespace="MongoDB\Exception" name="BadMethodCallException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="isAcknowledged" start="134" end="137" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return whether this update was acknowledged by the server.">If the update was not acknowledged, other fields from the WriteResult
+(e.g. matchedCount) will be undefined and their getter methods should not
+be invoked.</description>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+</class>

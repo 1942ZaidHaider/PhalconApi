@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\UnifiedSpecTests\UnifiedTestCase" namespace="MongoDB\Tests\UnifiedSpecTests" name="UnifiedTestCase" abstract="false" final="true" start="26" end="112">
+  <file path="../vendor/mongodb/mongodb/tests/UnifiedSpecTests" file="UnifiedTestCase.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/UnifiedSpecTests/UnifiedTestCase.php" size="3626" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="2e17a6ca7a6fdc0a39cf30e3318a9abcbecb9ad8" relative="vendor/mongodb/mongodb/tests/UnifiedSpecTests/UnifiedTestCase.php"/>
+  <docblock>
+    <description compact="Unified test case model class.">This model corresponds to a single test case (i.e. element in "tests" array)
+within a JSON object conforming to the unified test format's JSON schema.
+This test case may be executed by UnifiedTestRunner::run().</description>
+    <see value="https://github.com/mongodb/specifications/blob/master/source/unified-test-format/unified-test-format.rst"/>
+  </docblock>
+  <implements full="IteratorAggregate" namespace="" name="IteratorAggregate"/>
+  <member name="test" visibility="private" static="false" line="29">
+    <docblock>
+      <var type="object">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="schemaVersion" visibility="private" static="false" line="32">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="runOnRequirements" visibility="private" static="false" line="35">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\array|null" namespace="MongoDB\Tests\UnifiedSpecTests" name="array|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="createEntities" visibility="private" static="false" line="38">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\array|null" namespace="MongoDB\Tests\UnifiedSpecTests" name="array|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="initialData" visibility="private" static="false" line="41">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\array|null" namespace="MongoDB\Tests\UnifiedSpecTests" name="array|null"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="43" end="50" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="schemaVersion" byreference="false" type="string"/>
+    <parameter name="runOnRequirements" byreference="false" nullable="true" type="array" default="NULL"/>
+    <parameter name="createEntities" byreference="false" nullable="true" type="array" default="NULL"/>
+    <parameter name="initialData" byreference="false" nullable="true" type="array" default="NULL"/>
+  </constructor>
+  <method name="getIterator" start="61" end="68" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return this object as arguments for UnifiedTestRunner::doTestCase().">This allows the UnifiedTest object to be used directly with the argument
+unpacking operator (i.e. "...").</description>
+      <see value="https://www.php.net/manual/en/iteratoraggregate.getiterator.php"/>
+      <see value="https://www.php.net/manual/en/functions.arguments.php#functions.variable-arg-list"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Traversable" namespace="" name="Traversable"/>
+    </return>
+  </method>
+  <method name="fromFile" start="73" end="80" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Yields UnifiedTestCase objects for a JSON file."/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Generator" namespace="" name="Generator"/>
+    </return>
+    <parameter name="filename" byreference="false" type="string"/>
+    <inline>
+      <comment value="Decode the file through the driver's extended JSON parser to ensure" line="75"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* proper handling of special types." line="76"/>
+    </inline>
+  </method>
+  <method name="fromJSON" start="88" end="111" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Yields UnifiedTestCase objects for parsed JSON.">The top-level and test-level "description" fields will be concatenated
+and used as the key for each yielded value.</description>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Generator" namespace="" name="Generator"/>
+    </return>
+    <parameter name="json" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <inline>
+      <comment value="Assertions in data providers do not count towards test assertions" line="97"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* but failures will interrupt the test suite with a warning." line="98"/>
+    </inline>
+  </method>
+  <interface full="IteratorAggregate" namespace="" name="IteratorAggregate">
+    <extends full="Traversable" namespace="" name="Traversable"/>
+    <method name="getIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Retrieve an external iterator"/>
+      <return type="Traversable"/>
+    </docblock>
+  </method>
+  </interface>
+</class>

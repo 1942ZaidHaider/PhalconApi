@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="ObjectCalisthenics\Sniffs\CodeAnalysis\OneObjectOperatorPerLineSniff" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="OneObjectOperatorPerLineSniff" abstract="false" final="true" start="10" end="185">
+  <file path="../vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/Sniffs/CodeAnalysis" file="OneObjectOperatorPerLineSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/Sniffs/CodeAnalysis/OneObjectOperatorPerLineSniff.php" size="5242" time="2020-09-08T10:18:44+00:00" unixtime="1599560324" sha1="554c2bf101b9724bff8bf7b68444345138253308" relative="vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/Sniffs/CodeAnalysis/OneObjectOperatorPerLineSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <constant type="string" name="ERROR_MESSAGE" value="'Only one object operator per line.'">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </constant>
+  <constant type="string" name="METHOD" value="'method'">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </constant>
+  <constant type="string" name="PROPERTY" value="'property'">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </constant>
+  <member name="variablesHoldingAFluentInterface" default="" type="array" visibility="public" static="false" line="30">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\CodeAnalysis\string" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="methodsStartingAFluentInterface" default="" type="array" visibility="public" static="false" line="35">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\CodeAnalysis\string" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="methodsEndingAFluentInterface" default="" type="array" visibility="public" static="false" line="40">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\CodeAnalysis\string" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="position" visibility="private" static="false" line="42"/>
+  <member name="variableName" visibility="private" static="false" line="44"/>
+  <member name="callerTokens" default="" type="array" visibility="private" static="false" line="49">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\CodeAnalysis\mixed" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="mixed"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="tokens" default="" type="array" visibility="private" static="false" line="54">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\CodeAnalysis\mixed" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="mixed"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="file" visibility="private" static="false" line="56"/>
+  <method name="register" start="61" end="64" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="ObjectCalisthenics\Sniffs\CodeAnalysis\int" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+  </method>
+  <method name="process" start="69" end="84" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="int" variable="$position"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="file" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="position" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="ignoreWhitespace" start="86" end="95" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+    <parameter name="start" byreference="false" type="int"/>
+  </method>
+  <method name="handleObjectOperators" start="97" end="115" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="pointer" byreference="false" type="int"/>
+    <parameter name="isOwnCall" byreference="false" type="bool"/>
+  </method>
+  <method name="getTokenType" start="120" end="127" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$token" of="object">
+        <type full="ObjectCalisthenics\Sniffs\CodeAnalysis\mixed" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="mixed"/>
+      </param>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="token" byreference="false" type="array"/>
+  </method>
+  <method name="handleTwoObjectOperators" start="129" end="134" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="isOwnCall" byreference="false" type="bool"/>
+  </method>
+  <method name="handleExcludedFluentInterfaces" start="139" end="159" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="array" variable="$tmpToken" of="object">
+        <type full="ObjectCalisthenics\Sniffs\CodeAnalysis\mixed" namespace="ObjectCalisthenics\Sniffs\CodeAnalysis" name="mixed"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="tmpToken" byreference="false" type="array"/>
+    <parameter name="tmpTokenType" byreference="false" type="string"/>
+    <parameter name="isOwnCall" byreference="false" type="bool"/>
+  </method>
+  <method name="movePointerToNextObject" start="161" end="171" abstract="false" final="false" static="false" visibility="private">
+    <return type="int" nullable="false"/>
+    <parameter name="pointer" byreference="false" type="int"/>
+    <inline>
+      <comment value="Ignore &quot;(&quot; ... &quot;)&quot; in a method call by moving pointer after close parenthesis token" line="165"/>
+    </inline>
+  </method>
+  <method name="isInFluentInterfaceMode" start="173" end="184" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

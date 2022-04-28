@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Console\Command\ListFilesCommand" namespace="PhpCsFixer\Console\Command" name="ListFilesCommand" abstract="false" final="true" start="30" end="99">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Console/Command" file="ListFilesCommand.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Console/Command/ListFilesCommand.php" size="2471" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="ee7b92fb87e86c762ebb294e2728b925effe4772" relative="vendor/friendsofphp/php-cs-fixer/src/Console/Command/ListFilesCommand.php"/>
+  <docblock>
+    <description/>
+    <author value="Markus Staab &lt;markus.staab@redaxo.org&gt;"/>
+    <internal/>
+  </docblock>
+  <extends full="Symfony\Component\Console\Command\Command" namespace="Symfony\Component\Console\Command" name="Command"/>
+  <member name="defaultName" default="'list-files'" type="string" visibility="protected" static="true" line="35">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="defaultConfig" visibility="private" static="false" line="40">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\ConfigInterface" namespace="PhpCsFixer" name="ConfigInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="toolInfo" visibility="private" static="false" line="45">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\ToolInfoInterface" namespace="PhpCsFixer" name="ToolInfoInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="47" end="53" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="toolInfo" byreference="false" type="object">
+      <type full="PhpCsFixer\ToolInfoInterface" namespace="PhpCsFixer" name="ToolInfoInterface"/>
+    </parameter>
+  </constructor>
+  <method name="configure" start="58" end="68" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+  </method>
+  <method name="execute" start="70" end="98" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="input" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+    </parameter>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+  </method>
+  <parent full="Symfony\Component\Console\Command\Command" namespace="Symfony\Component\Console\Command" name="Command">
+    <constant type="{unknown}" name="SUCCESS" value="0"/>
+    <constant type="{unknown}" name="FAILURE" value="1"/>
+    <constant type="{unknown}" name="INVALID" value="2"/>
+    <member name="defaultName" visibility="protected" static="true" line="43">
+      <docblock>
+        <description/>
+        <var description="The default command name" type="object">
+          <type full="Symfony\Component\Console\Command\string|null" namespace="Symfony\Component\Console\Command" name="string|null"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="defaultDescription" visibility="protected" static="true" line="48">
+      <docblock>
+        <description/>
+        <var description="The default command description" type="object">
+          <type full="Symfony\Component\Console\Command\string|null" namespace="Symfony\Component\Console\Command" name="string|null"/>
+        </var>
+      </docblock>
+    </member>
+    <method name="getDefaultName" start="68" end="79" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\string|null" namespace="Symfony\Component\Console\Command" name="string|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getDefaultDescription" start="81" end="92" abstract="false" final="false" static="true" visibility="public">
+      <return type="string" nullable="true"/>
+    </method>
+    <constructor name="__construct" start="99" end="123" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param description="The name of the command; passing null means it must be set in configure()" type="object" variable="$name">
+          <type full="Symfony\Component\Console\Command\string|null" namespace="Symfony\Component\Console\Command" name="string|null"/>
+        </param>
+        <throws description="When the command name is empty" type="object">
+          <type full="Symfony\Component\Console\Exception\LogicException" namespace="Symfony\Component\Console\Exception" name="LogicException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string" default="NULL"/>
+    </constructor>
+    <method name="ignoreValidationErrors" start="130" end="133" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Ignores validation errors.">This is mainly useful for the help command.</description>
+      </docblock>
+    </method>
+    <method name="setApplication" start="135" end="145" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="application" byreference="false" type="object" default="NULL">
+        <type full="Symfony\Component\Console\Application" namespace="Symfony\Component\Console" name="Application"/>
+      </parameter>
+    </method>
+    <method name="setHelperSet" start="147" end="150" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="helperSet" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Helper\HelperSet" namespace="Symfony\Component\Console\Helper" name="HelperSet"/>
+      </parameter>
+    </method>
+    <method name="getHelperSet" start="157" end="160" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the helper set."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\HelperSet|null" namespace="Symfony\Component\Console\Command" name="HelperSet|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getApplication" start="167" end="170" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the application instance for this command."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\Application|null" namespace="Symfony\Component\Console\Command" name="Application|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="isEnabled" start="180" end="183" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Checks whether the command is enabled or not in the current environment.">Override this to check for x or y and return false if the command cannot
+run properly under the current conditions.</description>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\bool" namespace="Symfony\Component\Console\Command" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="configure" start="188" end="190" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Configures the current command."/>
+      </docblock>
+    </method>
+    <method name="execute" start="206" end="209" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Executes the current command.">This method is not abstract because you can use this class
+as a concrete class. In this case, instead of defining the
+execute() method, you set the code to execute by passing
+a Closure to the setCode() method.</description>
+        <return description="0 if everything went fine, or an exit code" type="int"/>
+        <throws description="When this abstract method is not implemented" type="object">
+          <type full="Symfony\Component\Console\Exception\LogicException" namespace="Symfony\Component\Console\Exception" name="LogicException"/>
+        </throws>
+        <see value="setCode()"/>
+      </docblock>
+      <parameter name="input" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+      </parameter>
+      <parameter name="output" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+      </parameter>
+    </method>
+    <method name="interact" start="218" end="220" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Interacts with the user.">This method is executed before the InputDefinition is validated.
+This means that this is the only place where the command can
+interactively ask for values of missing required arguments.</description>
+      </docblock>
+      <parameter name="input" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+      </parameter>
+      <parameter name="output" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+      </parameter>
+    </method>
+    <method name="initialize" start="232" end="234" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Initializes the command after the input has been bound and before the input is validated.">This is mainly useful when a lot of commands extends one main command
+where some things need to be initialized based on the input arguments and options.</description>
+        <see value="InputInterface::bind()"/>
+        <see value="InputInterface::validate()"/>
+      </docblock>
+      <parameter name="input" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+      </parameter>
+      <parameter name="output" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+      </parameter>
+    </method>
+    <method name="run" start="250" end="306" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Runs the command.">The code to execute is either defined directly with the
+setCode() method or by overriding the execute() method
+in a sub-class.</description>
+        <return description="The command exit code" type="int"/>
+        <throws description="When binding input fails. Bypass this by calling {@link ignoreValidationErrors()}." type="object">
+          <type full="\Exception" namespace="" name="Exception"/>
+        </throws>
+        <see value="setCode()"/>
+        <see value="execute()"/>
+      </docblock>
+      <parameter name="input" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+      </parameter>
+      <parameter name="output" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+      </parameter>
+      <inline>
+        <comment value="add the application arguments and options" line="252"/>
+        <comment value="bind the input against the command specific arguments/options" line="255"/>
+        <comment value="The command name argument is often omitted when a command is executed directly with its run() method." line="286"/>
+        <comment value="It would fail the validation if we didn't make sure the command argument is present," line="287"/>
+        <comment value="since it's required by the application." line="288"/>
+      </inline>
+    </method>
+    <method name="complete" start="311" end="313" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds suggestions to $suggestions for the current completion input (e.g. option or argument)."/>
+      </docblock>
+      <return type="void" nullable="false"/>
+      <parameter name="input" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Completion\CompletionInput" namespace="Symfony\Component\Console\Completion" name="CompletionInput"/>
+      </parameter>
+      <parameter name="suggestions" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Completion\CompletionSuggestions" namespace="Symfony\Component\Console\Completion" name="CompletionSuggestions"/>
+      </parameter>
+    </method>
+    <method name="setCode" start="329" end="348" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the code to execute when running this command.">If this method is used, it overrides the code defined
+in the execute() method.</description>
+        <param description="A callable(InputInterface $input, OutputInterface $output)" type="object" variable="$code">
+          <type full="Symfony\Component\Console\Command\callable" namespace="Symfony\Component\Console\Command" name="callable"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+        <throws type="object">
+          <type full="Symfony\Component\Console\Exception\InvalidArgumentException" namespace="Symfony\Component\Console\Exception" name="InvalidArgumentException"/>
+        </throws>
+        <see value="execute()"/>
+      </docblock>
+      <parameter name="code" byreference="false" type="callable"/>
+    </method>
+    <method name="mergeApplicationDefinition" start="359" end="375" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Merges the application definition with the command definition.">This method is not part of public API and should not be used directly.</description>
+        <param description="Whether to merge or not the Application definition arguments to Command definition arguments" type="object" variable="$mergeArgs">
+          <type full="Symfony\Component\Console\Command\bool" namespace="Symfony\Component\Console\Command" name="bool"/>
+        </param>
+        <internal/>
+      </docblock>
+      <parameter name="mergeArgs" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="setDefinition" start="384" end="395" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets an array of argument and option instances."/>
+        <param description="An array of argument and option instances or a definition instance" type="object" variable="$definition">
+          <type full="Symfony\Component\Console\Command\array|InputDefinition" namespace="Symfony\Component\Console\Command" name="array|InputDefinition"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="definition" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getDefinition" start="402" end="405" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the InputDefinition attached to this Command."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Input\InputDefinition" namespace="Symfony\Component\Console\Input" name="InputDefinition"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getNativeDefinition" start="417" end="424" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the InputDefinition to be used to create representations of this Command.">Can be overridden to provide the original command representation when it would otherwise
+be changed by merging with the application InputDefinition.
+
+This method is not part of public API and should not be used directly.</description>
+        <return type="object">
+          <type full="Symfony\Component\Console\Input\InputDefinition" namespace="Symfony\Component\Console\Input" name="InputDefinition"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="addArgument" start="436" end="444" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds an argument."/>
+        <param description="The argument mode: InputArgument::REQUIRED or InputArgument::OPTIONAL" type="object" variable="$mode">
+          <type full="Symfony\Component\Console\Command\int|null" namespace="Symfony\Component\Console\Command" name="int|null"/>
+        </param>
+        <param description="The default value (for InputArgument::OPTIONAL mode only)" type="mixed" variable="$default"/>
+        <throws description="When argument mode is not valid" type="object">
+          <type full="Symfony\Component\Console\Exception\InvalidArgumentException" namespace="Symfony\Component\Console\Exception" name="InvalidArgumentException"/>
+        </throws>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+      <parameter name="mode" byreference="false" type="int" default="NULL"/>
+      <parameter name="description" byreference="false" type="string" default="''"/>
+      <parameter name="default" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="addOption" start="457" end="465" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds an option."/>
+        <param description="The shortcuts, can be null, a string of shortcuts delimited by | or an array of shortcuts" type="object" variable="$shortcut">
+          <type full="Symfony\Component\Console\Command\string|array|null" namespace="Symfony\Component\Console\Command" name="string|array|null"/>
+        </param>
+        <param description="The option mode: One of the InputOption::VALUE_* constants" type="object" variable="$mode">
+          <type full="Symfony\Component\Console\Command\int|null" namespace="Symfony\Component\Console\Command" name="int|null"/>
+        </param>
+        <param description="The default value (must be null for InputOption::VALUE_NONE)" type="mixed" variable="$default"/>
+        <throws description="If option mode is invalid or incompatible" type="object">
+          <type full="Symfony\Component\Console\Exception\InvalidArgumentException" namespace="Symfony\Component\Console\Exception" name="InvalidArgumentException"/>
+        </throws>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+      <parameter name="shortcut" byreference="false" type="{unknown}" default="NULL"/>
+      <parameter name="mode" byreference="false" type="int" default="NULL"/>
+      <parameter name="description" byreference="false" type="string" default="''"/>
+      <parameter name="default" byreference="false" type="{unknown}" default="NULL"/>
+    </method>
+    <method name="setName" start="479" end="486" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the name of the command.">This method can set both the namespace and the name if
+you separate them by a colon (:)
+
+    $command-&gt;setName('foo:bar');</description>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+        <throws description="When the name is invalid" type="object">
+          <type full="Symfony\Component\Console\Exception\InvalidArgumentException" namespace="Symfony\Component\Console\Exception" name="InvalidArgumentException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+    </method>
+    <method name="setProcessTitle" start="496" end="501" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the process title of the command.">This feature should be used only when creating a long process command,
+like a daemon.</description>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="title" byreference="false" type="string"/>
+    </method>
+    <method name="getName" start="508" end="511" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the command name."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\string|null" namespace="Symfony\Component\Console\Command" name="string|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="setHidden" start="521" end="526" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <param description="Whether or not the command should be hidden from the list of commands" type="object" variable="$hidden">The default value will be true in Symfony 6.0<type full="Symfony\Component\Console\Command\bool" namespace="Symfony\Component\Console\Command" name="bool"/></param>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+        <final value="since Symfony 5.1"/>
+      </docblock>
+      <parameter name="hidden" byreference="false" type="bool"/>
+    </method>
+    <method name="isHidden" start="531" end="534" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return description="whether the command should be publicly shown or not" type="object">
+          <type full="Symfony\Component\Console\Command\bool" namespace="Symfony\Component\Console\Command" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="setDescription" start="541" end="546" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the description for the command."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="description" byreference="false" type="string"/>
+    </method>
+    <method name="getDescription" start="553" end="556" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the description for the command."/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="setHelp" start="563" end="568" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the help for the command."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="help" byreference="false" type="string"/>
+    </method>
+    <method name="getHelp" start="575" end="578" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the help for the command."/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="getProcessedHelp" start="586" end="601" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the processed help for the command replacing the %command.name% and %command.full_name% patterns with the real values dynamically."/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="setAliases" start="612" end="624" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets the aliases for the command."/>
+        <param description="An array of aliases for the command" type="array" variable="$aliases" of="object">
+          <type full="Symfony\Component\Console\Command\string" namespace="Symfony\Component\Console\Command" name="string"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+        <throws description="When an alias is invalid" type="object">
+          <type full="Symfony\Component\Console\Exception\InvalidArgumentException" namespace="Symfony\Component\Console\Exception" name="InvalidArgumentException"/>
+        </throws>
+      </docblock>
+      <parameter name="aliases" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Command\iterable" namespace="Symfony\Component\Console\Command" name="iterable"/>
+      </parameter>
+    </method>
+    <method name="getAliases" start="631" end="634" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the aliases for the command."/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="getSynopsis" start="643" end="652" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns the synopsis for the command."/>
+        <param description="Whether to show the short version of the synopsis (with options folded) or not" type="object" variable="$short">
+          <type full="Symfony\Component\Console\Command\bool" namespace="Symfony\Component\Console\Command" name="bool"/>
+        </param>
+        <return type="string"/>
+      </docblock>
+      <parameter name="short" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="addUsage" start="659" end="668" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Add a command usage example, it'll be prefixed with the command name."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Command\$this" namespace="Symfony\Component\Console\Command" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="usage" byreference="false" type="string"/>
+    </method>
+    <method name="getUsages" start="675" end="678" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns alternative usages of the command."/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="getHelper" start="688" end="695" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets a helper instance by name."/>
+        <return type="mixed"/>
+        <throws description="if no HelperSet is defined" type="object">
+          <type full="Symfony\Component\Console\Exception\LogicException" namespace="Symfony\Component\Console\Exception" name="LogicException"/>
+        </throws>
+        <throws description="if the helper is not defined" type="object">
+          <type full="Symfony\Component\Console\Exception\InvalidArgumentException" namespace="Symfony\Component\Console\Exception" name="InvalidArgumentException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+    </method>
+  </parent>
+</class>

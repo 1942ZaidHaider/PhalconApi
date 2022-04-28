@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Filters\ExactMatch" namespace="PHP_CodeSniffer\Filters" name="ExactMatch" abstract="true" final="false" start="16" end="108">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Filters" file="ExactMatch.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Filters/ExactMatch.php" size="2594" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="ab35d91dc4f29c8d985165229923cfde7ec382a7" relative="vendor/squizlabs/php_codesniffer/src/Filters/ExactMatch.php"/>
+  <extends full="PHP_CodeSniffer\Filters\Filter" namespace="PHP_CodeSniffer\Filters" name="Filter"/>
+  <member name="blacklist" default="NULL" visibility="private" static="false" line="24">
+    <docblock>
+      <description compact="A list of files to exclude."/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="whitelist" default="NULL" visibility="private" static="false" line="33">
+    <docblock>
+      <description compact="A list of files to include.">If the whitelist is empty, only files in the blacklist will be excluded.</description>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <method name="accept" start="43" end="71" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check whether the current element of the iterator is acceptable.">If a file is both blacklisted and whitelisted, it will be deemed unacceptable.</description>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Filters\bool" namespace="PHP_CodeSniffer\Filters" name="bool"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="If file is both blacklisted and whitelisted, the blacklist takes precedence." line="59"/>
+    </inline>
+  </method>
+  <method name="getChildren" start="82" end="89" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Returns an iterator for the current entry.">Ensures that the blacklist and whitelist are preserved so they don't have
+to be generated each time.</description>
+      <return type="object">
+        <type full="\RecursiveIterator" namespace="" name="RecursiveIterator"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getBlacklist" start="97" end="97" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Get a list of blacklisted file paths."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="getWhitelist" start="105" end="105" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Get a list of whitelisted file paths."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <extenders>
+    <extender full="PHP_CodeSniffer\Filters\GitStaged" namespace="PHP_CodeSniffer\Filters" name="GitStaged"/>
+    <extender full="PHP_CodeSniffer\Filters\GitModified" namespace="PHP_CodeSniffer\Filters" name="GitModified"/>
+  </extenders>
+  <parent full="PHP_CodeSniffer\Filters\Filter" namespace="PHP_CodeSniffer\Filters" name="Filter">
+    <extends full="RecursiveFilterIterator" namespace="" name="RecursiveFilterIterator"/>
+    <member name="basedir" default="NULL" visibility="protected" static="false" line="25">
+      <docblock>
+        <description compact="The top-level path we are filtering."/>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <member name="config" default="NULL" visibility="protected" static="false" line="32">
+      <docblock>
+        <description compact="The config data for the run."/>
+        <var type="object">
+          <type full="\PHP_CodeSniffer\Config" namespace="\PHP_CodeSniffer" name="Config"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="ruleset" default="NULL" visibility="protected" static="false" line="39">
+      <docblock>
+        <description compact="The ruleset used for the run."/>
+        <var type="object">
+          <type full="\PHP_CodeSniffer\Ruleset" namespace="\PHP_CodeSniffer" name="Ruleset"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="ignoreDirPatterns" default="NULL" visibility="protected" static="false" line="46">
+      <docblock>
+        <description compact="A list of ignore patterns that apply to directories only."/>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <member name="ignoreFilePatterns" default="NULL" visibility="protected" static="false" line="53">
+      <docblock>
+        <description compact="A list of ignore patterns that apply to files only."/>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <member name="acceptedPaths" default="" type="array" visibility="protected" static="false" line="62">
+      <docblock>
+        <description compact="A list of file paths we've already accepted.">Used to ensure we aren't following circular symlinks.</description>
+        <var type="array"/>
+      </docblock>
+    </member>
+    <constructor name="__construct" start="75" end="82" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Constructs a filter."/>
+        <param description="The iterator we are using to get file paths." type="object" variable="$iterator">
+          <type full="\RecursiveIterator" namespace="" name="RecursiveIterator"/>
+        </param>
+        <param description="The top-level path we are filtering." type="string" variable="$basedir"/>
+        <param description="The config data for the run." type="object" variable="$config">
+          <type full="\PHP_CodeSniffer\Config" namespace="\PHP_CodeSniffer" name="Config"/>
+        </param>
+        <param description="The ruleset used for the run." type="object" variable="$ruleset">
+          <type full="\PHP_CodeSniffer\Ruleset" namespace="\PHP_CodeSniffer" name="Ruleset"/>
+        </param>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Filters\void" namespace="PHP_CodeSniffer\Filters" name="void"/>
+        </return>
+      </docblock>
+      <parameter name="iterator" byreference="false" type="{unknown}"/>
+      <parameter name="basedir" byreference="false" type="{unknown}"/>
+      <parameter name="config" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Config" namespace="PHP_CodeSniffer" name="Config"/>
+      </parameter>
+      <parameter name="ruleset" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Ruleset" namespace="PHP_CodeSniffer" name="Ruleset"/>
+      </parameter>
+    </constructor>
+    <method name="accept" start="94" end="124" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="getChildren" start="136" end="152" abstract="false" final="false" static="false" visibility="public">
+      <inline>
+        <comment value="Set the ignore patterns so we don't have to generate them again." line="146"/>
+      </inline>
+    </method>
+    <method name="shouldProcessFile" start="164" end="191" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Checks filtering rules to see if a file should be checked.">Checks both file extension filters and path ignore filters.</description>
+        <param description="The path to the file being checked." type="string" variable="$path"/>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Filters\bool" namespace="PHP_CodeSniffer\Filters" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="Check that the file's extension is one we are checking." line="166"/>
+        <comment value="We are strict about checking the extension and we don't" line="167"/>
+        <comment value="let files through with no extension or that start with a dot." line="168"/>
+        <comment value="Checking multi-part file extensions, so need to create a" line="175"/>
+        <comment value="complete extension list and make sure one is allowed." line="176"/>
+      </inline>
+    </method>
+    <method name="shouldIgnorePath" start="201" end="282" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Checks filtering rules to see if a path should be ignored."/>
+        <param description="The path to the file or directory being checked." type="string" variable="$path"/>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Filters\bool" namespace="PHP_CodeSniffer\Filters" name="bool"/>
+        </return>
+      </docblock>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="end if" line="232"/>
+        <comment value="end foreach" line="278"/>
+      </inline>
+    </method>
+  </parent>
+  <parent full="RecursiveFilterIterator" namespace="" name="RecursiveFilterIterator">
+    <implements full="OuterIterator" namespace="" name="OuterIterator"/>
+    <constructor name="__construct" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Create a RecursiveFilterIterator from a RecursiveIterator"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="iterator" optional="false" byreference="false" type="object" class="RecursiveIterator"/>
+  </constructor>
+    <method name="getChildren" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Return the inner iterator's children contained in a RecursiveFilterIterator"/>
+      <return type="RecursiveFilterIterator"/>
+    </docblock>
+  </method>
+    <method name="hasChildren" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Check whether the inner iterator's current element has children"/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+    <method name="accept" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+    <constructor name="__construct" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="iterator" optional="false" byreference="false" type="object" class="Iterator"/>
+  </constructor>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="getInnerIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="Iterator"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+  </parent>
+  <interface full="OuterIterator" namespace="" name="OuterIterator">
+    <extends full="Iterator" namespace="" name="Iterator"/>
+    <method name="getInnerIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Returns the inner iterator for the current entry"/>
+      <return type="Iterator"/>
+    </docblock>
+  </method>
+    <method name="current" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="key" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="scalar"/>
+    </docblock>
+  </method>
+    <method name="next" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="rewind" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="void"/>
+    </docblock>
+  </method>
+    <method name="valid" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact=""/>
+      <return type="bool"/>
+    </docblock>
+  </method>
+  </interface>
+</class>

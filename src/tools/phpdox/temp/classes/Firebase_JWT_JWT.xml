@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Firebase\JWT\JWT" namespace="Firebase\JWT" name="JWT" abstract="false" final="false" start="29" end="630">
+  <file path="../vendor/firebase/php-jwt/src" file="JWT.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/firebase/php-jwt/src/JWT.php" size="22250" time="2022-04-21T14:37:18+00:00" unixtime="1650551838" sha1="61992bed9286f0af592a3a6cf799bd0f78de59bf" relative="vendor/firebase/php-jwt/src/JWT.php"/>
+  <docblock>
+    <description compact="JSON Web Token implementation, based on this spec: https://tools.ietf.org/html/rfc7519">PHP version 5</description>
+    <category value="Authentication"/>
+    <package value="Authentication_JWT"/>
+    <author value="Neuman Vong &lt;neuman@twilio.com&gt;"/>
+    <author value="Anant Narayanan &lt;anant@php.net&gt;"/>
+    <license name="http://opensource.org/licenses/BSD-3-Clause 3-clause BSD"/>
+    <link value="https://github.com/firebase/php-jwt"/>
+  </docblock>
+  <constant type="integer" name="ASN1_INTEGER" value="0x02"/>
+  <constant type="integer" name="ASN1_SEQUENCE" value="0x10"/>
+  <constant type="integer" name="ASN1_BIT_STRING" value="0x03"/>
+  <member name="leeway" default="0" type="integer" visibility="public" static="true" line="42">
+    <docblock>
+      <description compact="When checking nbf, iat or expiration times, we want to provide some extra leeway time to account for clock skew."/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="timestamp" default="NULL" visibility="public" static="true" line="51">
+    <docblock>
+      <description compact="Allow the current timestamp to be specified.">Useful for fixing a value within unit testing.
+Will default to PHP time() value if null.</description>
+      <var type="object">
+        <type full="Firebase\JWT\?int" namespace="Firebase\JWT" name="?int"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="supported_algs" default="" type="array" visibility="public" static="true" line="56">
+    <docblock>
+      <description/>
+      <var description="string[]&gt;" type="object">
+        <type full="Firebase\JWT\array&lt;string" namespace="Firebase\JWT" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="decode" start="91" end="167" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Decodes a JWT string into a PHP object."/>
+      <param description="The JWT" type="string" variable="$jwt"/>
+      <param description="Key&gt; $keyOrKeyArray  The Key or associative array of key IDs (kid) to Key objects." type="object">If the algorithm used is asymmetric, this is the public key
+                                              Each Key object contains an algorithm and matching key.
+                                              Supported algorithms are 'ES384','ES256', 'HS256', 'HS384',
+                                              'HS512', 'RS256', 'RS384', and 'RS512'<type full="Firebase\JWT\Key|array&lt;string" namespace="Firebase\JWT" name="Key|array&lt;string"/></param>
+      <return description="The JWT's payload as a PHP object" type="object">
+        <type full="stdClass" namespace="" name="stdClass"/>
+      </return>
+      <throws description="Provided key/key-array was empty" type="object">
+        <type full="InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <throws description="Provided JWT is malformed" type="object">
+        <type full="DomainException" namespace="" name="DomainException"/>
+      </throws>
+      <throws description="Provided JWT was invalid" type="object">
+        <type full="UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+      <throws description="Provided JWT was invalid because the signature verification failed" type="object">
+        <type full="Firebase\JWT\SignatureInvalidException" namespace="Firebase\JWT" name="SignatureInvalidException"/>
+      </throws>
+      <throws description="Provided JWT is trying to be used before it's eligible as defined by 'nbf'" type="object">
+        <type full="Firebase\JWT\BeforeValidException" namespace="Firebase\JWT" name="BeforeValidException"/>
+      </throws>
+      <throws description="Provided JWT is trying to be used before it's been created as defined by 'iat'" type="object">
+        <type full="Firebase\JWT\BeforeValidException" namespace="Firebase\JWT" name="BeforeValidException"/>
+      </throws>
+      <throws description="Provided JWT has since expired, as defined by the 'exp' claim" type="object">
+        <type full="Firebase\JWT\ExpiredException" namespace="Firebase\JWT" name="ExpiredException"/>
+      </throws>
+      <uses value="jsonDecode"/>
+      <uses value="urlsafeB64Decode"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </return>
+    <parameter name="jwt" byreference="false" type="string"/>
+    <parameter name="keyOrKeyArray" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Validate JWT" line="95"/>
+      <comment value="Check the algorithm" line="131"/>
+      <comment value="Check the nbf if it is defined. This is the time that the" line="144"/>
+      <comment value="token can actually be used. If it's not yet that time, abort." line="145"/>
+      <comment value="Check that this token has been created before 'now'. This prevents" line="152"/>
+      <comment value="using tokens that have been created for later use (and haven't" line="153"/>
+      <comment value="correctly used the nbf claim)." line="154"/>
+      <comment value="Check if this token has expired." line="161"/>
+    </inline>
+  </method>
+  <method name="encode" start="184" end="207" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Converts and signs a PHP object or array into a JWT string."/>
+      <param description="PHP array" type="object" variable="$payload">
+        <type full="Firebase\JWT\array&lt;mixed&gt;" namespace="Firebase\JWT" name="array&lt;mixed&gt;"/>
+      </param>
+      <param description="The secret key." type="object" variable="$key">
+        <type full="Firebase\JWT\string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate" namespace="Firebase\JWT" name="string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate"/>
+      </param>
+      <param description="Supported algorithms are 'ES384','ES256', 'HS256', 'HS384'," type="string" variable="$alg">'HS512', 'RS256', 'RS384', and 'RS512'</param>
+      <param type="string" variable="$keyId"/>
+      <param description="string&gt; $head    An array with header elements to attach" type="object">
+        <type full="Firebase\JWT\array&lt;string" namespace="Firebase\JWT" name="array&lt;string"/>
+      </param>
+      <return description="A signed JWT" type="string"/>
+      <uses value="jsonEncode"/>
+      <uses value="urlsafeB64Encode"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="payload" byreference="false" type="array"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="alg" byreference="false" type="string"/>
+    <parameter name="keyId" byreference="false" type="string" default="NULL"/>
+    <parameter name="head" byreference="false" type="array" default="NULL"/>
+  </method>
+  <method name="sign" start="221" end="266" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Sign a string with a given key and algorithm."/>
+      <param description="The message to sign" type="string" variable="$msg"/>
+      <param description="The secret key." type="object" variable="$key">
+        <type full="Firebase\JWT\string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate" namespace="Firebase\JWT" name="string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate"/>
+      </param>
+      <param description="Supported algorithms are 'ES384','ES256', 'HS256', 'HS384'," type="string" variable="$alg">'HS512', 'RS256', 'RS384', and 'RS512'</param>
+      <return description="An encrypted message" type="string"/>
+      <throws description="Unsupported algorithm or bad key was specified" type="object">
+        <type full="DomainException" namespace="" name="DomainException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="msg" byreference="false" type="string"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="alg" byreference="false" type="string"/>
+  </method>
+  <method name="verify" start="281" end="327" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Verify a signature with the message, key and method. Not all methods are symmetric, so we must have a separate verify and sign method."/>
+      <param description="The original message (header and body)" type="string" variable="$msg"/>
+      <param description="The original signature" type="string" variable="$signature"/>
+      <param description="For HS*, a string key works. for RS*, must be an instance of OpenSSLAsymmetricKey" type="object" variable="$keyMaterial">
+        <type full="Firebase\JWT\string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate" namespace="Firebase\JWT" name="string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate"/>
+      </param>
+      <param description="The algorithm" type="string" variable="$alg"/>
+      <return type="object">
+        <type full="Firebase\JWT\bool" namespace="Firebase\JWT" name="bool"/>
+      </return>
+      <throws description="Invalid Algorithm, bad key, or OpenSSL failure" type="object">
+        <type full="DomainException" namespace="" name="DomainException"/>
+      </throws>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="msg" byreference="false" type="string"/>
+    <parameter name="signature" byreference="false" type="string"/>
+    <parameter name="keyMaterial" byreference="false" type="{unknown}"/>
+    <parameter name="alg" byreference="false" type="string"/>
+  </method>
+  <method name="jsonDecode" start="338" end="348" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Decode a JSON string into a PHP object."/>
+      <param description="JSON string" type="string" variable="$input"/>
+      <return description="The decoded JSON string" type="mixed"/>
+      <throws description="Provided string was invalid JSON" type="object">
+        <type full="DomainException" namespace="" name="DomainException"/>
+      </throws>
+    </docblock>
+    <parameter name="input" byreference="false" type="string"/>
+  </method>
+  <method name="jsonEncode" start="359" end="376" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Encode a PHP array into a JSON string."/>
+      <param description="A PHP array" type="object" variable="$input">
+        <type full="Firebase\JWT\array&lt;mixed&gt;" namespace="Firebase\JWT" name="array&lt;mixed&gt;"/>
+      </param>
+      <return description="JSON representation of the PHP array" type="string"/>
+      <throws description="Provided object could not be encoded to valid JSON" type="object">
+        <type full="DomainException" namespace="" name="DomainException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="input" byreference="false" type="array"/>
+  </method>
+  <method name="urlsafeB64Decode" start="387" end="395" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Decode a string with URL-safe Base64."/>
+      <param description="A Base64 encoded string" type="string" variable="$input"/>
+      <return description="A decoded string" type="string"/>
+      <throws description="invalid base64 characters" type="object">
+        <type full="InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="input" byreference="false" type="string"/>
+  </method>
+  <method name="urlsafeB64Encode" start="404" end="407" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Encode a string with URL-safe Base64."/>
+      <param description="The string you want encoded" type="string" variable="$input"/>
+      <return description="The base64 encode of what you passed in" type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="input" byreference="false" type="string"/>
+  </method>
+  <method name="getKey" start="420" end="444" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Determine if an algorithm has been provided for each Key"/>
+      <param description="Key&gt; $keyOrKeyArray" type="object">
+        <type full="Firebase\JWT\Key|array&lt;string" namespace="Firebase\JWT" name="Key|array&lt;string"/>
+      </param>
+      <param type="object" variable="$kid">
+        <type full="Firebase\JWT\string|null" namespace="Firebase\JWT" name="string|null"/>
+      </param>
+      <throws type="object">
+        <type full="UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+      <return type="object">
+        <type full="Firebase\JWT\Key" namespace="Firebase\JWT" name="Key"/>
+      </return>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Firebase\JWT\Key" namespace="Firebase\JWT" name="Key"/>
+    </return>
+    <parameter name="keyOrKeyArray" byreference="false" type="{unknown}"/>
+    <parameter name="kid" byreference="false" nullable="true" type="string"/>
+  </method>
+  <method name="constantTimeEquals" start="451" end="465" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The string of known length to compare against" type="string" variable="$left"/>
+      <param description="The user-supplied string" type="string" variable="$right"/>
+      <return type="object">
+        <type full="Firebase\JWT\bool" namespace="Firebase\JWT" name="bool"/>
+      </return>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="left" byreference="false" type="string"/>
+    <parameter name="right" byreference="false" type="string"/>
+  </method>
+  <method name="handleJsonError" start="476" end="490" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Helper method to create a JSON error."/>
+      <param description="An error number from json_last_error()" type="int" variable="$errno"/>
+      <throws type="object">
+        <type full="DomainException" namespace="" name="DomainException"/>
+      </throws>
+      <return type="object">
+        <type full="Firebase\JWT\void" namespace="Firebase\JWT" name="void"/>
+      </return>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="errno" byreference="false" type="int"/>
+  </method>
+  <method name="safeStrlen" start="499" end="505" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Get the number of bytes in cryptographic strings."/>
+      <param type="string" variable="$str"/>
+      <return type="int"/>
+    </docblock>
+    <return type="int" nullable="false"/>
+    <parameter name="str" byreference="false" type="string"/>
+  </method>
+  <method name="signatureToDER" start="513" end="537" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Convert an ECDSA signature to an ASN.1 DER sequence"/>
+      <param description="The ECDSA signature to convert" type="string" variable="$sig"/>
+      <return description="The encoded DER object" type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="sig" byreference="false" type="string"/>
+    <inline>
+      <comment value="Separate the signature into r-value and s-value" line="515"/>
+      <comment value="Trim leading zeros" line="519"/>
+      <comment value="Convert r-value and s-value from unsigned big-endian integers to" line="523"/>
+      <comment value="signed two's complement" line="524"/>
+    </inline>
+  </method>
+  <method name="encodeDER" start="547" end="561" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Encodes a value into a DER object."/>
+      <param description="DER tag" type="int" variable="$type"/>
+      <param description="the value to encode" type="string" variable="$value"/>
+      <return description="the encoded object" type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="type" byreference="false" type="int"/>
+    <parameter name="value" byreference="false" type="string"/>
+    <inline>
+      <comment value="Type" line="554"/>
+      <comment value="Length" line="557"/>
+    </inline>
+  </method>
+  <method name="signatureFromDER" start="571" end="588" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Encodes signature from a DER object."/>
+      <param description="binary signature in DER format" type="string" variable="$der"/>
+      <param description="the number of bits in the key" type="int" variable="$keySize"/>
+      <return description="the signature" type="string"/>
+    </docblock>
+    <return type="string" nullable="false"/>
+    <parameter name="der" byreference="false" type="string"/>
+    <parameter name="keySize" byreference="false" type="int"/>
+    <inline>
+      <comment value="OpenSSL returns the ECDSA signatures as a binary ASN.1 DER SEQUENCE" line="573"/>
+      <comment value="Convert r-value and s-value from signed two's compliment to unsigned" line="578"/>
+      <comment value="big-endian integers" line="579"/>
+      <comment value="Pad out r and s so that they are $keySize bits long" line="583"/>
+    </inline>
+  </method>
+  <method name="readDER" start="599" end="629" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description compact="Reads binary DER-encoded data and decodes into a single object"/>
+      <param description="the binary data in DER format" type="string" variable="$der"/>
+      <param description="the offset of the data stream containing the object" type="int" variable="$offset">to decode</param>
+      <return description="string|null} the new offset and the decoded object" type="object">
+        <type full="Firebase\JWT\array{int" namespace="Firebase\JWT" name="array{int"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="der" byreference="false" type="string"/>
+    <parameter name="offset" byreference="false" type="integer" default="0"/>
+    <inline>
+      <comment value="Length" line="606"/>
+      <comment value="Value" line="616"/>
+    </inline>
+  </method>
+</class>

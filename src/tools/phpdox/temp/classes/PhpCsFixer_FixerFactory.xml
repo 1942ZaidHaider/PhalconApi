@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\FixerFactory" namespace="PhpCsFixer" name="FixerFactory" abstract="false" final="true" start="36" end="246">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src" file="FixerFactory.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/FixerFactory.php" size="6897" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="fe2c340092c302b630e80d135de348a86a904feb" relative="vendor/friendsofphp/php-cs-fixer/src/FixerFactory.php"/>
+  <docblock>
+    <description compact="Class provides a way to create a group of fixers.">Fixers may be registered (made the factory aware of them) by
+registering a custom fixer and default, built in fixers.
+Then, one can attach Config instance to fixer instances.
+
+Finally factory creates a ready to use group of fixers.</description>
+    <author value="Dariusz Rumiński &lt;dariusz.ruminski@gmail.com&gt;"/>
+    <internal/>
+  </docblock>
+  <member name="nameValidator" visibility="private" static="false" line="41">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\FixerNameValidator" namespace="PhpCsFixer" name="FixerNameValidator"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="fixers" default="" type="array" visibility="private" static="false" line="46">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="PhpCsFixer\FixerInterface" namespace="PhpCsFixer" name="FixerInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="fixersByName" default="" type="array" visibility="private" static="false" line="51">
+    <docblock>
+      <description/>
+      <var description="Associative array of fixers with names as keys" type="array" of="object">
+        <type full="PhpCsFixer\FixerInterface" namespace="PhpCsFixer" name="FixerInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="53" end="56" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="setWhitespacesConfig" start="58" end="67" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="config" byreference="false" type="object">
+      <type full="PhpCsFixer\WhitespacesFixerConfig" namespace="PhpCsFixer" name="WhitespacesFixerConfig"/>
+    </parameter>
+  </method>
+  <method name="getFixers" start="72" end="77" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="PhpCsFixer\FixerInterface" namespace="PhpCsFixer" name="FixerInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="registerBuiltInFixers" start="82" end="104" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="PhpCsFixer\$this" namespace="PhpCsFixer" name="$this"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="registerCustomFixers" start="111" end="118" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="array" variable="$fixers" of="object">
+        <type full="PhpCsFixer\FixerInterface" namespace="PhpCsFixer" name="FixerInterface"/>
+      </param>
+      <return type="object">
+        <type full="PhpCsFixer\$this" namespace="PhpCsFixer" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="fixers" byreference="false" type="array"/>
+  </method>
+  <method name="registerFixer" start="125" end="141" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$isCustom">
+        <type full="PhpCsFixer\bool" namespace="PhpCsFixer" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="PhpCsFixer\$this" namespace="PhpCsFixer" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="fixer" byreference="false" type="object">
+      <type full="PhpCsFixer\Fixer\FixerInterface" namespace="PhpCsFixer\Fixer" name="FixerInterface"/>
+    </parameter>
+    <parameter name="isCustom" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="useRuleSet" start="148" end="192" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Apply RuleSet on fixers to filter out all unwanted fixers."/>
+      <return type="object">
+        <type full="PhpCsFixer\$this" namespace="PhpCsFixer" name="$this"/>
+      </return>
+    </docblock>
+    <parameter name="ruleSet" byreference="false" type="object">
+      <type full="PhpCsFixer\RuleSet\RuleSetInterface" namespace="PhpCsFixer\RuleSet" name="RuleSetInterface"/>
+    </parameter>
+  </method>
+  <method name="hasRule" start="201" end="204" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if fixer exists."/>
+      <param type="string" variable="$name"/>
+      <return type="object">
+        <type full="PhpCsFixer\bool" namespace="PhpCsFixer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getFixersConflicts" start="209" end="219" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="PhpCsFixer\null|string" namespace="PhpCsFixer" name="null|string"/>
+      </return>
+    </docblock>
+    <parameter name="fixer" byreference="false" type="object">
+      <type full="PhpCsFixer\Fixer\FixerInterface" namespace="PhpCsFixer\Fixer" name="FixerInterface"/>
+    </parameter>
+  </method>
+  <method name="generateConflictMessage" start="226" end="245" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param description="string[]&gt; $fixerConflicts" type="object">
+        <type full="PhpCsFixer\array&lt;string" namespace="PhpCsFixer" name="array&lt;string"/>
+      </param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="fixerConflicts" byreference="false" type="array"/>
+  </method>
+</class>

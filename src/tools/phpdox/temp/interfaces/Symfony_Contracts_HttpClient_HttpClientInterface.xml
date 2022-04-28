@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface" abstract="false" final="false" start="26" end="95">
+  <file path="../vendor/symfony/http-client-contracts" file="HttpClientInterface.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client-contracts/HttpClientInterface.php" size="5869" time="2022-03-13T20:07:29+00:00" unixtime="1647202049" sha1="1c7795bd514c76989ebb3525306044fcf60952dd" relative="vendor/symfony/http-client-contracts/HttpClientInterface.php"/>
+  <docblock>
+    <description compact="Provides flexible methods for requesting HTTP resources synchronously or asynchronously."/>
+    <see value="HttpClientTestCase for a reference test suite"/>
+    <method value="static withOptions(array $options) Returns a new instance of the client with new default options"/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <constant type="{unknown}" name="OPTIONS_DEFAULTS" value=""/>
+  <method name="request" start="86" end="86" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Requests an HTTP resource.">Responses MUST be lazy, but their status code MUST be
+checked even if none of their public methods are called.
+
+Implementations are not required to support all options described above; they can also
+support more custom options; but in any case, they MUST throw a TransportExceptionInterface
+when an unsupported option is passed.</description>
+      <throws description="When an unsupported option is passed" type="object">
+        <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+      </throws>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </return>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="url" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="stream" start="94" end="94" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Yields responses chunk by chunk as they complete."/>
+      <param description="ResponseInterface&gt; $responses One or more responses created by the current HTTP client" type="object">
+        <type full="Symfony\Contracts\HttpClient\ResponseInterface|iterable&lt;array-key" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface|iterable&lt;array-key"/>
+      </param>
+      <param description="The idle timeout before yielding timeout chunks" type="object" variable="$timeout">
+        <type full="Symfony\Contracts\HttpClient\float|null" namespace="Symfony\Contracts\HttpClient" name="float|null"/>
+      </param>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseStreamInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseStreamInterface"/>
+    </return>
+    <parameter name="responses" byreference="false" type="{unknown}"/>
+    <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+  </method>
+  <implementors>
+    <class full="Symfony\Component\HttpClient\AmpHttpClient" namespace="Symfony\Component\HttpClient" name="AmpHttpClient"/>
+    <class full="Symfony\Component\HttpClient\ScopingHttpClient" namespace="Symfony\Component\HttpClient" name="ScopingHttpClient"/>
+    <class full="Symfony\Component\HttpClient\MockHttpClient" namespace="Symfony\Component\HttpClient" name="MockHttpClient"/>
+    <class full="Symfony\Component\HttpClient\CachingHttpClient" namespace="Symfony\Component\HttpClient" name="CachingHttpClient"/>
+    <class full="Symfony\Component\HttpClient\NoPrivateNetworkHttpClient" namespace="Symfony\Component\HttpClient" name="NoPrivateNetworkHttpClient"/>
+    <class full="Symfony\Component\HttpClient\RetryableHttpClient" namespace="Symfony\Component\HttpClient" name="RetryableHttpClient"/>
+    <class full="Symfony\Component\HttpClient\CurlHttpClient" namespace="Symfony\Component\HttpClient" name="CurlHttpClient"/>
+    <class full="Symfony\Component\HttpClient\TraceableHttpClient" namespace="Symfony\Component\HttpClient" name="TraceableHttpClient"/>
+    <class full="Symfony\Component\HttpClient\NativeHttpClient" namespace="Symfony\Component\HttpClient" name="NativeHttpClient"/>
+  </implementors>
+</interface>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\AmpHttpClient" namespace="Symfony\Component\HttpClient" name="AmpHttpClient" abstract="false" final="true" start="40" end="176">
+  <file path="../vendor/symfony/http-client" file="AmpHttpClient.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/AmpHttpClient.php" size="7257" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="38ac1f6279eaaeef34ae9fca0fcf9665360b841f" relative="vendor/symfony/http-client/AmpHttpClient.php"/>
+  <docblock>
+    <description compact="A portable implementation of the HttpClientInterface contracts based on Amp's HTTP client."/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <implements full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+  <implements full="Psr\Log\LoggerAwareInterface" namespace="Psr\Log" name="LoggerAwareInterface"/>
+  <implements full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface"/>
+  <uses full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait" start="42" end="42"/>
+  <uses full="Psr\Log\LoggerAwareTrait" namespace="Psr\Log" name="LoggerAwareTrait" start="43" end="43"/>
+  <member name="defaultOptions" default="" type="{unknown}" constant="self::OPTIONS_DEFAULTS" visibility="private" static="false" line="45"/>
+  <member name="emptyDefaults" default="" type="{unknown}" constant="self::OPTIONS_DEFAULTS" visibility="private" static="true" line="46"/>
+  <member name="multi" visibility="private" static="false" line="49">
+    <docblock>
+      <var type="object">
+        <type full="Symfony\Component\HttpClient\Internal\AmpClientState" namespace="Symfony\Component\HttpClient\Internal" name="AmpClientState"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="60" end="69" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="Default requests' options" type="array" variable="$defaultOptions"/>
+      <param description="A callable that builds a {@see DelegateHttpClient} from a {@see PooledHttpClient};" type="object" variable="$clientConfigurator">passing null builds an <see xmlns="http://xml.phpdox.net/src" value="InterceptedHttpClient"/> with 2 retries on failures
+<type full="Symfony\Component\HttpClient\callable" namespace="Symfony\Component\HttpClient" name="callable"/></param>
+      <param description="The maximum number of connections to a single host" type="int" variable="$maxHostConnections"/>
+      <param description="The maximum number of pushed responses to accept in the queue" type="int" variable="$maxPendingPushes"/>
+      <see value="HttpClientInterface::OPTIONS_DEFAULTS for available options"/>
+    </docblock>
+    <parameter name="defaultOptions" byreference="false" type="array" default=""/>
+    <parameter name="clientConfigurator" byreference="false" type="callable" default="NULL"/>
+    <parameter name="maxHostConnections" byreference="false" type="integer" default="6"/>
+    <parameter name="maxPendingPushes" byreference="false" type="integer" default="50"/>
+  </constructor>
+  <method name="request" start="76" end="144" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <see value="HttpClientInterface::OPTIONS_DEFAULTS for available options {@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </return>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="url" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="stream" start="149" end="158" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseStreamInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseStreamInterface"/>
+    </return>
+    <parameter name="responses" byreference="false" type="{unknown}"/>
+    <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+  </method>
+  <method name="reset" start="160" end="175" abstract="false" final="false" static="false" visibility="public"/>
+  <interface full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface">
+    <constant type="{unknown}" name="OPTIONS_DEFAULTS" value=""/>
+    <method name="request" start="86" end="86" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Requests an HTTP resource.">Responses MUST be lazy, but their status code MUST be
+checked even if none of their public methods are called.
+
+Implementations are not required to support all options described above; they can also
+support more custom options; but in any case, they MUST throw a TransportExceptionInterface
+when an unsupported option is passed.</description>
+        <throws description="When an unsupported option is passed" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+      </return>
+      <parameter name="method" byreference="false" type="string"/>
+      <parameter name="url" byreference="false" type="string"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+    </method>
+    <method name="stream" start="94" end="94" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Yields responses chunk by chunk as they complete."/>
+        <param description="ResponseInterface&gt; $responses One or more responses created by the current HTTP client" type="object">
+          <type full="Symfony\Contracts\HttpClient\ResponseInterface|iterable&lt;array-key" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface|iterable&lt;array-key"/>
+        </param>
+        <param description="The idle timeout before yielding timeout chunks" type="object" variable="$timeout">
+          <type full="Symfony\Contracts\HttpClient\float|null" namespace="Symfony\Contracts\HttpClient" name="float|null"/>
+        </param>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Contracts\HttpClient\ResponseStreamInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseStreamInterface"/>
+      </return>
+      <parameter name="responses" byreference="false" type="{unknown}"/>
+      <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+    </method>
+  </interface>
+  <interface full="Psr\Log\LoggerAwareInterface" namespace="Psr\Log" name="LoggerAwareInterface">
+    <method name="setLogger" start="17" end="17" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets a logger instance on the object."/>
+        <param type="object" variable="$logger">
+          <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+        </param>
+        <return type="object">
+          <type full="Psr\Log\void" namespace="Psr\Log" name="void"/>
+        </return>
+      </docblock>
+      <parameter name="logger" byreference="false" type="object">
+        <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+      </parameter>
+    </method>
+  </interface>
+  <interface full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface">
+    <method name="reset" start="29" end="29" abstract="false" final="false" static="false" visibility="public"/>
+  </interface>
+  <trait full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait">
+    <method name="withOptions" start="31" end="37" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait"/>
+      </return>
+      <parameter name="options" byreference="false" type="array"/>
+    </method>
+  </trait>
+  <trait full="Psr\Log\LoggerAwareTrait" namespace="Psr\Log" name="LoggerAwareTrait">
+    <member name="logger" visibility="protected" static="false" line="15">
+      <docblock>
+        <description compact="The logger instance."/>
+        <var type="object">
+          <type full="Psr\Log\LoggerInterface|null" namespace="Psr\Log" name="LoggerInterface|null"/>
+        </var>
+      </docblock>
+    </member>
+    <method name="setLogger" start="22" end="25" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sets a logger."/>
+        <param type="object" variable="$logger">
+          <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+        </param>
+      </docblock>
+      <parameter name="logger" byreference="false" type="object">
+        <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+      </parameter>
+    </method>
+  </trait>
+</class>

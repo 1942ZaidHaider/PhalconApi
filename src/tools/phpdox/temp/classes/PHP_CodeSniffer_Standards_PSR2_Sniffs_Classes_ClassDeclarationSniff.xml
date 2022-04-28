@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes" name="ClassDeclarationSniff" abstract="false" final="false" start="16" end="528">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Standards/PSR2/Sniffs/Classes" file="ClassDeclarationSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Standards/PSR2/Sniffs/Classes/ClassDeclarationSniff.php" size="22858" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="9debf4245e934afc064392926e41641105c2083d" relative="vendor/squizlabs/php_codesniffer/src/Standards/PSR2/Sniffs/Classes/ClassDeclarationSniff.php"/>
+  <extends full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes\ClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes" name="ClassDeclarationSniff"/>
+  <member name="indent" default="4" type="integer" visibility="public" static="false" line="24">
+    <docblock>
+      <description compact="The number of spaces code should be indented."/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <method name="process" start="36" end="50" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes this test, when one of its tokens is encountered."/>
+      <param description="The file being scanned." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token" type="int" variable="$stackPtr">in the stack passed in $tokens.</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\void" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="We want all the errors from the PEAR standard, plus some of our own." line="38"/>
+      <comment value="Just in case." line="41"/>
+    </inline>
+  </method>
+  <method name="processOpen" start="62" end="466" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes the opening section of a class declaration."/>
+      <param description="The file being scanned." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token" type="int" variable="$stackPtr">in the stack passed in $tokens.</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\void" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check alignment of the keyword and braces." line="67"/>
+      <comment value="end if" line="105"/>
+      <comment value="We'll need the indent of the class/interface declaration for later." line="107"/>
+      <comment value="end if" line="163"/>
+      <comment value="Check after the class/interface name." line="165"/>
+      <comment value="Check positions of the extends and implements keywords." line="187"/>
+      <comment value="end foreach" line="249"/>
+      <comment value="Check each of the extends/implements class names. If the extends/implements" line="251"/>
+      <comment value="keyword is the last content on the line, it means we need to check for" line="252"/>
+      <comment value="the multi-line format, so we do not include the class names" line="253"/>
+      <comment value="from the extends/implements list in the following check." line="254"/>
+      <comment value="Note that classes can only extend one other class, so they can't use a" line="255"/>
+      <comment value="multi-line extends format, whereas an interface can extend multiple" line="256"/>
+      <comment value="other interfaces, and so uses a multi-line extends format." line="257"/>
+      <comment value="end foreach" line="464"/>
+    </inline>
+  </method>
+  <method name="processClose" start="478" end="525" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes the closing section of a class declaration."/>
+      <param description="The file being scanned." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token" type="int" variable="$stackPtr">in the stack passed in $tokens.</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\void" namespace="PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check that the closing brace comes right after the code body." line="482"/>
+      <comment value="end if" line="504"/>
+    </inline>
+  </method>
+  <parent full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes\ClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes" name="ClassDeclarationSniff">
+    <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+    <method name="register" start="24" end="32" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Returns an array of tokens this test wants to listen for."/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="process" start="44" end="146" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Processes this test, when one of its tokens is encountered."/>
+        <param description="The file being scanned." type="object" variable="$phpcsFile">
+          <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+        </param>
+        <param description="The position of the current token in the" type="integer" variable="$stackPtr">stack passed in $tokens.</param>
+        <return type="object">
+          <type full="PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes\void" namespace="PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes" name="void"/>
+        </return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="end if" line="100"/>
+        <comment value="end if" line="144"/>
+      </inline>
+    </method>
+  </parent>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+  <extenders>
+    <extender full="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes" name="ClassDeclarationSniff"/>
+    <extender full="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes\AnonClassDeclarationSniff" namespace="PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes" name="AnonClassDeclarationSniff"/>
+  </extenders>
+</class>

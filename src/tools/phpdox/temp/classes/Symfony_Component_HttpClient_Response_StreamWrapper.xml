@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\Response\StreamWrapper" namespace="Symfony\Component\HttpClient\Response" name="StreamWrapper" abstract="false" final="false" start="23" end="304">
+  <file path="../vendor/symfony/http-client/Response" file="StreamWrapper.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/Response/StreamWrapper.php" size="9081" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="784a2b1ba48e2f1b765da2b05a6f4089f3df772c" relative="vendor/symfony/http-client/Response/StreamWrapper.php"/>
+  <docblock>
+    <description compact="Allows turning ResponseInterface instances to PHP streams."/>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <member name="context" visibility="public" static="false" line="26">
+    <docblock>
+      <var type="object">
+        <type full="Symfony\Component\HttpClient\Response\resource|string|null" namespace="Symfony\Component\HttpClient\Response" name="resource|string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="client" visibility="private" static="false" line="29">
+    <docblock>
+      <var type="object">
+        <type full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="response" visibility="private" static="false" line="32">
+    <docblock>
+      <var type="object">
+        <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="content" visibility="private" static="false" line="35">
+    <docblock>
+      <var type="object">
+        <type full="Symfony\Component\HttpClient\Response\resource|null" namespace="Symfony\Component\HttpClient\Response" name="resource|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="handle" visibility="private" static="false" line="38">
+    <docblock>
+      <var type="object">
+        <type full="Symfony\Component\HttpClient\Response\resource|null" namespace="Symfony\Component\HttpClient\Response" name="resource|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="blocking" default="true" type="boolean" visibility="private" static="false" line="40"/>
+  <member name="timeout" visibility="private" static="false" line="41"/>
+  <member name="eof" default="false" type="boolean" visibility="private" static="false" line="42"/>
+  <member name="offset" default="0" type="integer" visibility="private" static="false" line="43"/>
+  <method name="createResource" start="50" end="78" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Creates a PHP stream resource from a ResponseInterface."/>
+      <return type="resource"/>
+    </docblock>
+    <parameter name="response" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </parameter>
+    <parameter name="client" byreference="false" type="object" default="NULL">
+      <type full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+    </parameter>
+  </method>
+  <method name="getResponse" start="80" end="83" abstract="false" final="false" static="false" visibility="public">
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </return>
+  </method>
+  <method name="bindHandles" start="90" end="94" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The resource handle that should be monitored when" type="object" variable="$handle">stream_select() is used on the created stream<type full="Symfony\Component\HttpClient\Response\resource|callable|null" namespace="Symfony\Component\HttpClient\Response" name="resource|callable|null"/></param>
+      <param description="The seekable resource where the response body is buffered" type="object" variable="$content">
+        <type full="Symfony\Component\HttpClient\Response\resource|null" namespace="Symfony\Component\HttpClient\Response" name="resource|null"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="handle" byreference="true" type="{unknown}"/>
+    <parameter name="content" byreference="true" type="{unknown}"/>
+  </method>
+  <method name="stream_open" start="96" end="120" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="path" byreference="false" type="string"/>
+    <parameter name="mode" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="int"/>
+  </method>
+  <method name="stream_read" start="122" end="192" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="count" byreference="false" type="int"/>
+  </method>
+  <method name="stream_set_option" start="194" end="205" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="option" byreference="false" type="int"/>
+    <parameter name="arg1" byreference="false" type="int"/>
+    <parameter name="arg2" byreference="false" nullable="true" type="int"/>
+  </method>
+  <method name="stream_tell" start="207" end="210" abstract="false" final="false" static="false" visibility="public">
+    <return type="int" nullable="false"/>
+  </method>
+  <method name="stream_eof" start="212" end="215" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="stream_seek" start="217" end="262" abstract="false" final="false" static="false" visibility="public">
+    <return type="bool" nullable="false"/>
+    <parameter name="offset" byreference="false" type="int"/>
+    <parameter name="whence" byreference="false" type="{unknown}" default="" constant="SEEK_SET"/>
+  </method>
+  <method name="stream_cast" start="264" end="273" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="castAs" byreference="false" type="int"/>
+  </method>
+  <method name="stream_stat" start="275" end="299" abstract="false" final="false" static="false" visibility="public">
+    <return type="array" nullable="false"/>
+  </method>
+  <constructor name="__construct" start="301" end="303" abstract="false" final="false" static="false" visibility="private"/>
+</class>

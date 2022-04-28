@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Doctrine\Common\Lexer\AbstractLexer" namespace="Doctrine\Common\Lexer" name="AbstractLexer" abstract="true" final="false" start="24" end="337">
+  <file path="../vendor/doctrine/lexer/lib/Doctrine/Common/Lexer" file="AbstractLexer.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php" size="7684" time="2022-02-28T11:07:21+00:00" unixtime="1646046441" sha1="a4643dffe465272794522bd3927473d3b745ffb3" relative="vendor/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php"/>
+  <docblock>
+    <description compact="Base class for writing simple lexers, i.e. for creating small DSLs."/>
+    <psalm value="-type Token = array{value: int|string, type:string|int|null, position:int}"/>
+  </docblock>
+  <member name="input" visibility="private" static="false" line="31">
+    <docblock>
+      <description compact="Lexer original input string."/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="tokens" default="" type="array" visibility="private" static="false" line="45">
+    <docblock>
+      <description compact="Array of scanned tokens.">Each token is an associative array containing three items:
+ - 'value'    : the string value of the token in the input string
+ - 'type'     : the type of the token (identifier, numeric, string, input
+                parameter, none)
+ - 'position' : the position of the token in the input string</description>
+      <var type="array" of="object">
+        <type full="Doctrine\Common\Lexer\mixed[]" namespace="Doctrine\Common\Lexer" name="mixed[]"/>
+      </var>
+      <psalm value="-var list&lt;Token&gt;"/>
+    </docblock>
+  </member>
+  <member name="position" default="0" type="integer" visibility="private" static="false" line="52">
+    <docblock>
+      <description compact="Current lexer position in input string."/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="peek" default="0" type="integer" visibility="private" static="false" line="59">
+    <docblock>
+      <description compact="Current peek of current lexer position."/>
+      <var type="int"/>
+    </docblock>
+  </member>
+  <member name="lookahead" visibility="public" static="false" line="67">
+    <docblock>
+      <description compact="The next token in the input."/>
+      <var type="array" of="object">
+        <type full="Doctrine\Common\Lexer\mixed[]|nu" namespace="Doctrine\Common\Lexer" name="mixed[]|nu"/>
+      </var>
+      <psalm value="-var Token|null"/>
+    </docblock>
+  </member>
+  <member name="token" visibility="public" static="false" line="75">
+    <docblock>
+      <description compact="The last matched/seen token."/>
+      <var type="array" of="object">
+        <type full="Doctrine\Common\Lexer\mixed[]|nu" namespace="Doctrine\Common\Lexer" name="mixed[]|nu"/>
+      </var>
+      <psalm value="-var Token|null"/>
+    </docblock>
+  </member>
+  <member name="regex" visibility="private" static="false" line="82">
+    <docblock>
+      <description compact="Composed regex for input parsing."/>
+      <var type="object">
+        <type full="Doctrine\Common\Lexer\string|null" namespace="Doctrine\Common\Lexer" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="setInput" start="94" end="101" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Sets the input data to be tokenized.">The Lexer is immediately reset and the new input tokenized.
+Any unprocessed tokens from any previous input are lost.</description>
+      <param description="The input to be tokenized." type="string" variable="$input"/>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\void" namespace="Doctrine\Common\Lexer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="reset" start="108" end="114" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Resets the lexer."/>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\void" namespace="Doctrine\Common\Lexer" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="resetPeek" start="121" end="124" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Resets the peek pointer to 0."/>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\void" namespace="Doctrine\Common\Lexer" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="resetPosition" start="133" end="136" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Resets the lexer position on the input to the given position."/>
+      <param description="Position to place the lexical scanner." type="int" variable="$position"/>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\void" namespace="Doctrine\Common\Lexer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="position" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="getInputUntilPosition" start="145" end="148" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Retrieve the original lexer's input until a given position."/>
+      <param type="int" variable="$position"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="position" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isNextToken" start="157" end="160" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks whether a given token matches the current lookahead."/>
+      <param type="object" variable="$type">
+        <type full="Doctrine\Common\Lexer\int|string" namespace="Doctrine\Common\Lexer" name="int|string"/>
+      </param>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\bool" namespace="Doctrine\Common\Lexer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="type" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isNextTokenAny" start="169" end="172" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks whether any of the given tokens matches the current lookahead."/>
+      <param type="object" variable="$types">
+        <type full="Doctrine\Common\Lexer\list&lt;int|string&gt;" namespace="Doctrine\Common\Lexer" name="list&lt;int|string&gt;"/>
+      </param>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\bool" namespace="Doctrine\Common\Lexer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="types" byreference="false" type="array"/>
+  </method>
+  <method name="moveNext" start="179" end="187" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Moves to the next token in the input string."/>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\bool" namespace="Doctrine\Common\Lexer" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="skipUntil" start="196" end="201" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Tells the lexer to skip input tokens until it sees a token with the given value."/>
+      <param description="The token type to skip until." type="string" variable="$type"/>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\void" namespace="Doctrine\Common\Lexer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="type" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isA" start="211" end="214" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if given value is identical to the given token."/>
+      <param type="mixed" variable="$value"/>
+      <param type="object" variable="$token">
+        <type full="Doctrine\Common\Lexer\int|string" namespace="Doctrine\Common\Lexer" name="int|string"/>
+      </param>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\bool" namespace="Doctrine\Common\Lexer" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <parameter name="token" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="peek" start="222" end="229" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Moves the lookahead token forward."/>
+      <return description="The next token or NULL if there are no more tokens ahead." type="array" of="object">
+        <type full="Doctrine\Common\Lexer\mixed[]|nu" namespace="Doctrine\Common\Lexer" name="mixed[]|nu"/>
+      </return>
+      <psalm value="-return Token|null"/>
+    </docblock>
+  </method>
+  <method name="glimpse" start="237" end="243" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Peeks at the next token, returns it and immediately resets the peek."/>
+      <return description="The next token or NULL if there are no more tokens ahead." type="array" of="object">
+        <type full="Doctrine\Common\Lexer\mixed[]|nu" namespace="Doctrine\Common\Lexer" name="mixed[]|nu"/>
+      </return>
+      <psalm value="-return Token|null"/>
+    </docblock>
+  </method>
+  <method name="scan" start="252" end="281" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Scans the input string for tokens."/>
+      <param description="A query string." type="string" variable="$input"/>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\void" namespace="Doctrine\Common\Lexer" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="input" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getLiteral" start="290" end="303" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the literal for a given token."/>
+      <param type="object" variable="$token">
+        <type full="Doctrine\Common\Lexer\int|string" namespace="Doctrine\Common\Lexer" name="int|string"/>
+      </param>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\int|string" namespace="Doctrine\Common\Lexer" name="int|string"/>
+      </return>
+    </docblock>
+    <parameter name="token" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getModifiers" start="310" end="313" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Regex modifiers"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getCatchablePatterns" start="320" end="320" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Lexical catchable patterns."/>
+      <return type="array" of="object">
+        <type full="Doctrine\Common\Lexer\string" namespace="Doctrine\Common\Lexer" name="string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getNonCatchablePatterns" start="327" end="327" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Lexical non-catchable patterns."/>
+      <return type="array" of="object">
+        <type full="Doctrine\Common\Lexer\string" namespace="Doctrine\Common\Lexer" name="string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getType" start="336" end="336" abstract="true" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Retrieve token type. Also processes the token value if necessary."/>
+      <param type="string" variable="$value"/>
+      <return type="object">
+        <type full="Doctrine\Common\Lexer\int|string|null" namespace="Doctrine\Common\Lexer" name="int|string|null"/>
+      </return>
+    </docblock>
+    <parameter name="value" byreference="true" type="{unknown}"/>
+  </method>
+  <extenders>
+    <extender full="Doctrine\Common\Annotations\DocLexer" namespace="Doctrine\Common\Annotations" name="DocLexer"/>
+  </extenders>
+</class>

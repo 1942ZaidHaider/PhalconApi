@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\HttpClient\CachingHttpClient" namespace="Symfony\Component\HttpClient" name="CachingHttpClient" abstract="false" final="false" start="34" end="152">
+  <file path="../vendor/symfony/http-client" file="CachingHttpClient.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/http-client/CachingHttpClient.php" size="5570" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="d0a9e5d3f9d2b95f69a87a291e9e4decceb07368" relative="vendor/symfony/http-client/CachingHttpClient.php"/>
+  <docblock>
+    <description compact="Adds caching on top of an HTTP client.">The implementation buffers responses in memory and doesn't stream directly from the network.
+You can disable/enable this layer by setting option "no_cache" under "extra" to true/false.
+By default, caching is enabled unless the "buffer" option is set to false.</description>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <implements full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+  <implements full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface"/>
+  <uses full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait" start="36" end="36"/>
+  <member name="client" visibility="private" static="false" line="38"/>
+  <member name="cache" visibility="private" static="false" line="39"/>
+  <member name="defaultOptions" default="" type="{unknown}" constant="self::OPTIONS_DEFAULTS" visibility="private" static="false" line="40"/>
+  <constructor name="__construct" start="42" end="65" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="client" byreference="false" type="object">
+      <type full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface"/>
+    </parameter>
+    <parameter name="store" byreference="false" type="object">
+      <type full="Symfony\Component\HttpKernel\HttpCache\StoreInterface" namespace="Symfony\Component\HttpKernel\HttpCache" name="StoreInterface"/>
+    </parameter>
+    <parameter name="defaultOptions" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="request" start="70" end="108" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+    </return>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="url" byreference="false" type="string"/>
+    <parameter name="options" byreference="false" type="array" default=""/>
+  </method>
+  <method name="stream" start="113" end="144" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <return type="object" nullable="false">
+      <type full="Symfony\Contracts\HttpClient\ResponseStreamInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseStreamInterface"/>
+    </return>
+    <parameter name="responses" byreference="false" type="{unknown}"/>
+    <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+  </method>
+  <method name="reset" start="146" end="151" abstract="false" final="false" static="false" visibility="public"/>
+  <interface full="Symfony\Contracts\HttpClient\HttpClientInterface" namespace="Symfony\Contracts\HttpClient" name="HttpClientInterface">
+    <constant type="{unknown}" name="OPTIONS_DEFAULTS" value=""/>
+    <method name="request" start="86" end="86" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Requests an HTTP resource.">Responses MUST be lazy, but their status code MUST be
+checked even if none of their public methods are called.
+
+Implementations are not required to support all options described above; they can also
+support more custom options; but in any case, they MUST throw a TransportExceptionInterface
+when an unsupported option is passed.</description>
+        <throws description="When an unsupported option is passed" type="object">
+          <type full="Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface" namespace="Symfony\Contracts\HttpClient\Exception" name="TransportExceptionInterface"/>
+        </throws>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Contracts\HttpClient\ResponseInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface"/>
+      </return>
+      <parameter name="method" byreference="false" type="string"/>
+      <parameter name="url" byreference="false" type="string"/>
+      <parameter name="options" byreference="false" type="array" default=""/>
+    </method>
+    <method name="stream" start="94" end="94" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Yields responses chunk by chunk as they complete."/>
+        <param description="ResponseInterface&gt; $responses One or more responses created by the current HTTP client" type="object">
+          <type full="Symfony\Contracts\HttpClient\ResponseInterface|iterable&lt;array-key" namespace="Symfony\Contracts\HttpClient" name="ResponseInterface|iterable&lt;array-key"/>
+        </param>
+        <param description="The idle timeout before yielding timeout chunks" type="object" variable="$timeout">
+          <type full="Symfony\Contracts\HttpClient\float|null" namespace="Symfony\Contracts\HttpClient" name="float|null"/>
+        </param>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Contracts\HttpClient\ResponseStreamInterface" namespace="Symfony\Contracts\HttpClient" name="ResponseStreamInterface"/>
+      </return>
+      <parameter name="responses" byreference="false" type="{unknown}"/>
+      <parameter name="timeout" byreference="false" type="float" default="NULL"/>
+    </method>
+  </interface>
+  <interface full="Symfony\Contracts\Service\ResetInterface" namespace="Symfony\Contracts\Service" name="ResetInterface">
+    <method name="reset" start="29" end="29" abstract="false" final="false" static="false" visibility="public"/>
+  </interface>
+  <trait full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait">
+    <method name="withOptions" start="31" end="37" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="object" nullable="false">
+        <type full="Symfony\Component\HttpClient\HttpClientTrait" namespace="Symfony\Component\HttpClient" name="HttpClientTrait"/>
+      </return>
+      <parameter name="options" byreference="false" type="array"/>
+    </method>
+  </trait>
+</class>

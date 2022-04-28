@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="JsonSchema\Uri\Retrievers\PredefinedArray" namespace="JsonSchema\Uri\Retrievers" name="PredefinedArray" abstract="false" final="false" start="19" end="56">
+  <file path="../vendor/justinrainbow/json-schema/src/JsonSchema/Uri/Retrievers" file="PredefinedArray.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/justinrainbow/json-schema/src/JsonSchema/Uri/Retrievers/PredefinedArray.php" size="1300" time="2022-04-13T08:02:27+00:00" unixtime="1649836947" sha1="d95be5cfed3b86d335cf539bab3fbf32ddcb8edb" relative="vendor/justinrainbow/json-schema/src/JsonSchema/Uri/Retrievers/PredefinedArray.php"/>
+  <docblock>
+    <description compact="URI retrieved based on a predefined array of schemas"/>
+    <example value="$retriever = new PredefinedArray(array( 'http://acme.com/schemas/person#'  =&gt; '{ ... }', 'http://acme.com/schemas/address#' =&gt; '{ ... }', ))  $schema = $retriever-&gt;retrieve('http://acme.com/schemas/person#');"/>
+  </docblock>
+  <extends full="JsonSchema\Uri\Retrievers\AbstractRetriever" namespace="JsonSchema\Uri\Retrievers" name="AbstractRetriever"/>
+  <member name="schemas" visibility="private" static="false" line="26">
+    <docblock>
+      <description compact="Contains schemas as URI =&gt; JSON"/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="34" end="38" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructor"/>
+      <param type="array" variable="$schemas"/>
+      <param type="string" variable="$contentType"/>
+    </docblock>
+    <parameter name="schemas" byreference="false" type="array"/>
+    <parameter name="contentType" byreference="false" type="{unknown}" default="" constant="Validator::SCHEMA_MEDIA_TYPE"/>
+  </constructor>
+  <method name="retrieve" start="45" end="55" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+      <see value="\JsonSchema\Uri\Retrievers\UriRetrieverInterface::retrieve()"/>
+    </docblock>
+    <parameter name="uri" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="JsonSchema\Uri\Retrievers\AbstractRetriever" namespace="JsonSchema\Uri\Retrievers" name="AbstractRetriever">
+    <implements full="JsonSchema\Uri\Retrievers\UriRetrieverInterface" namespace="JsonSchema\Uri\Retrievers" name="UriRetrieverInterface"/>
+    <member name="contentType" visibility="protected" static="false" line="23">
+      <docblock>
+        <description compact="Media content type"/>
+        <var type="string"/>
+      </docblock>
+    </member>
+    <method name="getContentType" start="30" end="33" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+        <see value="\JsonSchema\Uri\Retrievers\UriRetrieverInterface::getContentType()"/>
+      </docblock>
+    </method>
+  </parent>
+  <interface full="JsonSchema\Uri\Retrievers\UriRetrieverInterface" namespace="JsonSchema\Uri\Retrievers" name="UriRetrieverInterface">
+    <method name="retrieve" start="28" end="28" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Retrieve a schema from the specified URI"/>
+        <param description="URI that resolves to a JSON schema" type="string" variable="$uri"/>
+        <throws type="object">
+          <type full="\JsonSchema\Exception\ResourceNotFoundException" namespace="\JsonSchema\Exception" name="ResourceNotFoundException"/>
+        </throws>
+        <return description="string|null" type="mixed"/>
+      </docblock>
+      <parameter name="uri" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getContentType" start="35" end="35" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get media content type"/>
+        <return type="string"/>
+      </docblock>
+    </method>
+  </interface>
+</class>

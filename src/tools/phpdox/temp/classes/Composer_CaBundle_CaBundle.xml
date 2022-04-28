@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\CaBundle\CaBundle" namespace="Composer\CaBundle" name="CaBundle" abstract="false" final="false" start="21" end="431">
+  <file path="../vendor/composer/ca-bundle/src" file="CaBundle.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/ca-bundle/src/CaBundle.php" size="17627" time="2021-10-28T20:44:15+00:00" unixtime="1635453855" sha1="27c355bb84e3b876d815848883cf4f2d5ba426fb" relative="vendor/composer/ca-bundle/src/CaBundle.php"/>
+  <docblock>
+    <description/>
+    <author value="Chris Smith &lt;chris@cs278.org&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+  </docblock>
+  <member name="caPath" visibility="private" static="true" line="24">
+    <docblock>
+      <var type="object">
+        <type full="Composer\CaBundle\string|null" namespace="Composer\CaBundle" name="string|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="caFileValidity" default="" type="array" visibility="private" static="true" line="26">
+    <docblock>
+      <var description="bool&gt;" type="object">
+        <type full="Composer\CaBundle\array&lt;string" namespace="Composer\CaBundle" name="array&lt;string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="useOpensslParse" visibility="private" static="true" line="28">
+    <docblock>
+      <var type="object">
+        <type full="Composer\CaBundle\bool|null" namespace="Composer\CaBundle" name="bool|null"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="getSystemCaRootBundlePath" start="67" end="117" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the system CA bundle path, or a path to the bundled one">This method was adapted from Sslurp.
+https://github.com/EvanDotPro/Sslurp
+
+(c) Evan Coury &lt;me@evancoury.com&gt;
+
+For the full copyright and license information, please see below:
+
+Copyright (c) 2013, Evan Coury
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</description>
+      <param description="optional logger for information about which CA files were loaded" type="object" variable="$logger">
+        <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+      </param>
+      <return description="path to a CA bundle file or directory" type="string"/>
+    </docblock>
+    <parameter name="logger" byreference="false" type="object" default="NULL">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+    <inline>
+      <comment value="If SSL_CERT_FILE env variable points to a valid certificate/bundle, use that." line="74"/>
+      <comment value="This mimics how OpenSSL uses the SSL_CERT_FILE env variable." line="75"/>
+      <comment value="If SSL_CERT_DIR env variable points to a valid certificate/bundle, use that." line="78"/>
+      <comment value="This mimics how OpenSSL uses the SSL_CERT_FILE env variable." line="79"/>
+      <comment value="Bundled CA file, last resort" line="116"/>
+    </inline>
+  </method>
+  <method name="getBundledCaBundlePath" start="126" end="151" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the path to the bundled CA file">In case you don't want to trust the user or the system, you can use this directly</description>
+      <return description="path to a CA bundle file" type="string"/>
+    </docblock>
+    <inline>
+      <comment value="cURL does not understand 'phar://' paths" line="130"/>
+      <comment value="see https://github.com/composer/ca-bundle/issues/10" line="131"/>
+    </inline>
+  </method>
+  <method name="validateCaFile" start="161" end="200" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Validates a CA file using opensl_x509_parse only if it is safe to use"/>
+      <param type="string" variable="$filename"/>
+      <param description="optional logger for information about which CA files were loaded" type="object" variable="$logger">
+        <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+      </param>
+      <return type="object">
+        <type full="Composer\CaBundle\bool" namespace="Composer\CaBundle" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="filename" byreference="false" type="{unknown}"/>
+    <parameter name="logger" byreference="false" type="object" default="NULL">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+    <inline>
+      <comment value="assume the CA is valid if php is vulnerable to" line="171"/>
+      <comment value="https://www.sektioneins.de/advisories/advisory-012013-php-openssl_x509_parse-memory-corruption-vulnerability.html" line="172"/>
+    </inline>
+  </method>
+  <method name="isOpensslParseSafe" start="210" end="306" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Test if it is safe to use the PHP function openssl_x509_parse().">This checks if OpenSSL extensions is vulnerable to remote code execution
+via the exploit documented as CVE-2013-6420.</description>
+      <return type="object">
+        <type full="Composer\CaBundle\bool" namespace="Composer\CaBundle" name="bool"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="Vulnerable:" line="220"/>
+      <comment value="PHP 5.3.0 - PHP 5.3.27" line="221"/>
+      <comment value="PHP 5.4.0 - PHP 5.4.22" line="222"/>
+      <comment value="PHP 5.5.0 - PHP 5.5.6" line="223"/>
+      <comment value="Hard coded list of PHP distributions with the fix backported." line="248"/>
+      <comment value="Symfony Process component is missing so we assume it is unsafe at this point" line="257"/>
+      <comment value="This is where things get crazy, because distros backport security" line="262"/>
+      <comment value="fixes the chances are on NIX systems the fix has been applied but" line="263"/>
+      <comment value="it's not possible to verify that from the PHP version." line="264"/>
+      <comment value="To verify exec a new PHP process and run the issue testcase with" line="266"/>
+      <comment value="known safe input that replicates the bug." line="267"/>
+      <comment value="Based on testcase in https://github.com/php/php-src/commit/c1224573c773b6845e83505f717fbf820fc18415" line="269"/>
+      <comment value="changes in https://github.com/php/php-src/commit/76a7fd893b7d6101300cc656058704a73254d593" line="270"/>
+    </inline>
+  </method>
+  <method name="reset" start="312" end="317" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Resets the static caches"/>
+      <return type="object">
+        <type full="Composer\CaBundle\void" namespace="Composer\CaBundle" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getEnvVariable" start="323" end="334" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$name"/>
+      <return type="object">
+        <type full="Composer\CaBundle\string|false" namespace="Composer\CaBundle" name="string|false"/>
+      </return>
+    </docblock>
+    <parameter name="name" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="caFileUsable" start="341" end="347" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$certFile">
+        <type full="Composer\CaBundle\string|false" namespace="Composer\CaBundle" name="string|false"/>
+      </param>
+      <param type="object" variable="$logger">
+        <type full="Composer\CaBundle\LoggerInterface|null" namespace="Composer\CaBundle" name="LoggerInterface|null"/>
+      </param>
+      <return type="object">
+        <type full="Composer\CaBundle\bool" namespace="Composer\CaBundle" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="certFile" byreference="false" type="{unknown}"/>
+    <parameter name="logger" byreference="false" type="object" default="NULL">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+  </method>
+  <method name="caDirUsable" start="354" end="360" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="object" variable="$certDir">
+        <type full="Composer\CaBundle\string|false" namespace="Composer\CaBundle" name="string|false"/>
+      </param>
+      <param type="object" variable="$logger">
+        <type full="Composer\CaBundle\LoggerInterface|null" namespace="Composer\CaBundle" name="LoggerInterface|null"/>
+      </param>
+      <return type="object">
+        <type full="Composer\CaBundle\bool" namespace="Composer\CaBundle" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="certDir" byreference="false" type="{unknown}"/>
+    <parameter name="logger" byreference="false" type="object" default="NULL">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+  </method>
+  <method name="isFile" start="367" end="375" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$certFile"/>
+      <param type="object" variable="$logger">
+        <type full="Composer\CaBundle\LoggerInterface|null" namespace="Composer\CaBundle" name="LoggerInterface|null"/>
+      </param>
+      <return type="object">
+        <type full="Composer\CaBundle\bool" namespace="Composer\CaBundle" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="certFile" byreference="false" type="{unknown}"/>
+    <parameter name="logger" byreference="false" type="object" default="NULL">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+  </method>
+  <method name="isDir" start="382" end="390" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$certDir"/>
+      <param type="object" variable="$logger">
+        <type full="Composer\CaBundle\LoggerInterface|null" namespace="Composer\CaBundle" name="LoggerInterface|null"/>
+      </param>
+      <return type="object">
+        <type full="Composer\CaBundle\bool" namespace="Composer\CaBundle" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="certDir" byreference="false" type="{unknown}"/>
+    <parameter name="logger" byreference="false" type="object" default="NULL">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+  </method>
+  <method name="isReadable" start="397" end="405" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$certFileOrDir"/>
+      <param type="object" variable="$logger">
+        <type full="Composer\CaBundle\LoggerInterface|null" namespace="Composer\CaBundle" name="LoggerInterface|null"/>
+      </param>
+      <return type="object">
+        <type full="Composer\CaBundle\bool" namespace="Composer\CaBundle" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="certFileOrDir" byreference="false" type="{unknown}"/>
+    <parameter name="logger" byreference="false" type="object" default="NULL">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+  </method>
+  <method name="glob" start="412" end="430" abstract="false" final="false" static="true" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$pattern"/>
+      <param type="object" variable="$logger">
+        <type full="Composer\CaBundle\LoggerInterface|null" namespace="Composer\CaBundle" name="LoggerInterface|null"/>
+      </param>
+      <return type="object">
+        <type full="Composer\CaBundle\bool" namespace="Composer\CaBundle" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="pattern" byreference="false" type="{unknown}"/>
+    <parameter name="logger" byreference="false" type="object" default="NULL">
+      <type full="Psr\Log\LoggerInterface" namespace="Psr\Log" name="LoggerInterface"/>
+    </parameter>
+  </method>
+</class>

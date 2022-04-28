@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Stopwatch\StopwatchEvent" namespace="Symfony\Component\Stopwatch" name="StopwatchEvent" abstract="false" final="false" start="19" end="258">
+  <file path="../vendor/symfony/stopwatch" file="StopwatchEvent.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/stopwatch/StopwatchEvent.php" size="5636" time="2022-02-18T16:06:09+00:00" unixtime="1645200369" sha1="fb94120deaf518e4b02e069c12e35268de8fe676" relative="vendor/symfony/stopwatch/StopwatchEvent.php"/>
+  <docblock>
+    <description compact="Represents an Event managed by Stopwatch."/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+  </docblock>
+  <member name="periods" default="" type="array" visibility="private" static="false" line="24">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchPeriod" namespace="Symfony\Component\Stopwatch" name="StopwatchPeriod"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="origin" visibility="private" static="false" line="29">
+    <docblock>
+      <description/>
+      <var type="float"/>
+    </docblock>
+  </member>
+  <member name="category" visibility="private" static="false" line="34">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="morePrecision" visibility="private" static="false" line="39">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Symfony\Component\Stopwatch\bool" namespace="Symfony\Component\Stopwatch" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="started" default="" type="array" visibility="private" static="false" line="44">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\float" namespace="Symfony\Component\Stopwatch" name="float"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="name" visibility="private" static="false" line="49">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="59" end="65" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="The origin time in milliseconds" type="float" variable="$origin"/>
+      <param description="The event category or null to use the default" type="object" variable="$category">
+        <type full="Symfony\Component\Stopwatch\string|null" namespace="Symfony\Component\Stopwatch" name="string|null"/>
+      </param>
+      <param description="If true, time is stored as float to keep the original microsecond precision" type="object" variable="$morePrecision">
+        <type full="Symfony\Component\Stopwatch\bool" namespace="Symfony\Component\Stopwatch" name="bool"/>
+      </param>
+      <param description="The event name or null to define the name as default" type="object" variable="$name">
+        <type full="Symfony\Component\Stopwatch\string|null" namespace="Symfony\Component\Stopwatch" name="string|null"/>
+      </param>
+      <throws description="When the raw time is not valid" type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="origin" byreference="false" type="float"/>
+    <parameter name="category" byreference="false" type="string" default="NULL"/>
+    <parameter name="morePrecision" byreference="false" type="boolean" default="false"/>
+    <parameter name="name" byreference="false" type="string" default="NULL"/>
+  </constructor>
+  <method name="getCategory" start="72" end="75" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the category."/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="getOrigin" start="82" end="85" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the origin in milliseconds."/>
+      <return type="float"/>
+    </docblock>
+  </method>
+  <method name="start" start="92" end="97" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Starts a new event period."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\$this" namespace="Symfony\Component\Stopwatch" name="$this"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="stop" start="106" end="115" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stops the last started event period."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\$this" namespace="Symfony\Component\Stopwatch" name="$this"/>
+      </return>
+      <throws description="When stop() is called without a matching call to start()" type="object">
+        <type full="\LogicException" namespace="" name="LogicException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="isStarted" start="122" end="125" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Checks if the event was started."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\bool" namespace="Symfony\Component\Stopwatch" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="lap" start="132" end="135" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stops the current period and then starts a new one."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\$this" namespace="Symfony\Component\Stopwatch" name="$this"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="ensureStopped" start="140" end="145" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Stops all non already stopped periods."/>
+    </docblock>
+  </method>
+  <method name="getPeriods" start="152" end="155" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets all event periods."/>
+      <return type="array" of="object">
+        <type full="Symfony\Component\Stopwatch\StopwatchPeriod" namespace="Symfony\Component\Stopwatch" name="StopwatchPeriod"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getStartTime" start="162" end="173" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the relative time of the start of the first period in milliseconds."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\int|float" namespace="Symfony\Component\Stopwatch" name="int|float"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getEndTime" start="180" end="185" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the relative time of the end of the last period in milliseconds."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\int|float" namespace="Symfony\Component\Stopwatch" name="int|float"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getDuration" start="192" end="207" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the duration of the events in milliseconds (including all periods)."/>
+      <return type="object">
+        <type full="Symfony\Component\Stopwatch\int|float" namespace="Symfony\Component\Stopwatch" name="int|float"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getMemory" start="214" end="224" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the max memory usage of all periods in bytes."/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  <method name="getNow" start="231" end="234" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Return the current time relative to origin in milliseconds."/>
+      <return type="float"/>
+    </docblock>
+  </method>
+  <method name="formatTime" start="241" end="244" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Formats a time."/>
+      <throws description="When the raw time is not valid" type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <return type="float" nullable="false"/>
+    <parameter name="time" byreference="false" type="float"/>
+  </method>
+  <method name="getName" start="249" end="252" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Gets the event name."/>
+    </docblock>
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="__toString" start="254" end="257" abstract="false" final="false" static="false" visibility="public">
+    <return type="string" nullable="false"/>
+  </method>
+</class>

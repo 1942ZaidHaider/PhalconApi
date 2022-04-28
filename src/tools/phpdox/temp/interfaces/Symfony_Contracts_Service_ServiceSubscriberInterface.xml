@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://xml.phpdox.net/src" full="Symfony\Contracts\Service\ServiceSubscriberInterface" namespace="Symfony\Contracts\Service" name="ServiceSubscriberInterface" abstract="false" final="false" start="29" end="53">
+  <file path="../vendor/symfony/service-contracts" file="ServiceSubscriberInterface.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/service-contracts/ServiceSubscriberInterface.php" size="2249" time="2021-04-01T10:43:52+00:00" unixtime="1617273832" sha1="2e1bea28c559a3b2e793609824e9350a9355a403" relative="vendor/symfony/service-contracts/ServiceSubscriberInterface.php"/>
+  <docblock>
+    <description compact="A ServiceSubscriber exposes its dependencies via the static {@link getSubscribedServices} method.">The getSubscribedServices method returns an array of service types required by such instances,
+optionally keyed by the service names used internally. Service types that start with an interrogation
+mark "?" are optional, while the other ones are mandatory service dependencies.
+
+The injected service locators SHOULD NOT allow access to any other services not specified by the method.
+
+It is expected that ServiceSubscriber instances consume PSR-11-based service locators internally.
+This interface does not dictate any injection method for these service locators, although constructor
+injection is recommended.</description>
+    <author value="Nicolas Grekas &lt;p@tchwork.com&gt;"/>
+  </docblock>
+  <method name="getSubscribedServices" start="52" end="52" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns an array of service types required by such instances, optionally keyed by the service names used internally.">For mandatory dependencies:
+
+ * ['logger' =&gt; 'Psr\Log\LoggerInterface'] means the objects use the "logger" name
+   internally to fetch a service which must implement Psr\Log\LoggerInterface.
+ * ['loggers' =&gt; 'Psr\Log\LoggerInterface[]'] means the objects use the "loggers" name
+   internally to fetch an iterable of Psr\Log\LoggerInterface instances.
+ * ['Psr\Log\LoggerInterface'] is a shortcut for
+ * ['Psr\Log\LoggerInterface' =&gt; 'Psr\Log\LoggerInterface']
+
+otherwise:
+
+ * ['logger' =&gt; '?Psr\Log\LoggerInterface'] denotes an optional dependency
+ * ['loggers' =&gt; '?Psr\Log\LoggerInterface[]'] denotes an optional iterable dependency
+ * ['?Psr\Log\LoggerInterface'] is a shortcut for
+ * ['Psr\Log\LoggerInterface' =&gt; '?Psr\Log\LoggerInterface']</description>
+      <return description="The required service types, optionally keyed by service names" type="array" of="object">
+        <type full="Symfony\Contracts\Service\string" namespace="Symfony\Contracts\Service" name="string"/>
+      </return>
+    </docblock>
+  </method>
+</interface>

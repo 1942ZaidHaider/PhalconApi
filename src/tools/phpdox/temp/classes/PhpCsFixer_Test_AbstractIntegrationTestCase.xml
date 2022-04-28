@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Test\AbstractIntegrationTestCase" namespace="PhpCsFixer\Test" name="AbstractIntegrationTestCase" abstract="true" final="false" start="23" end="36">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Test" file="AbstractIntegrationTestCase.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Test/AbstractIntegrationTestCase.php" size="1026" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="c77242fa0b482548712e238b9fccb82b4b5384c9" relative="vendor/friendsofphp/php-cs-fixer/src/Test/AbstractIntegrationTestCase.php"/>
+  <docblock>
+    <description/>
+    <todo value="3.0 While removing, remove loading `tests/Test` from `autoload` section of `composer.json`."/>
+    <deprecated value="since v2.4"/>
+  </docblock>
+  <extends full="PhpCsFixer\Tests\Test\AbstractIntegrationTestCase" namespace="PhpCsFixer\Tests\Test" name="AbstractIntegrationTestCase"/>
+  <constructor name="__construct" start="25" end="35" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="name" byreference="false" type="{unknown}" default="NULL"/>
+    <parameter name="data" byreference="false" type="array" default=""/>
+    <parameter name="dataName" byreference="false" type="string" default="''"/>
+  </constructor>
+  <parent full="PhpCsFixer\Tests\Test\AbstractIntegrationTestCase" namespace="PhpCsFixer\Tests\Test" name="AbstractIntegrationTestCase">
+    <extends full="PhpCsFixer\Tests\TestCase" namespace="PhpCsFixer\Tests" name="TestCase"/>
+    <uses full="PhpCsFixer\Tests\Test\IsIdenticalConstraint" namespace="PhpCsFixer\Tests\Test" name="IsIdenticalConstraint"/>
+    <member name="linter" visibility="protected" static="false" line="71">
+      <docblock>
+        <description/>
+        <var type="object">
+          <type full="PhpCsFixer\Tests\Test\null|LinterInterface" namespace="PhpCsFixer\Tests\Test" name="null|LinterInterface"/>
+        </var>
+      </docblock>
+    </member>
+    <method name="doSetUpBeforeClass" start="78" end="94" abstract="false" final="false" static="true" visibility="public"/>
+    <method name="doTearDownAfterClass" start="96" end="104" abstract="false" final="false" static="true" visibility="public"/>
+    <method name="doSetUp" start="106" end="116" abstract="false" final="false" static="false" visibility="protected">
+      <inline>
+        <todo value="remove at 3.0 together with env var itself" line="112"/>
+      </inline>
+    </method>
+    <method name="doTearDown" start="118" end="126" abstract="false" final="false" static="false" visibility="protected">
+      <inline>
+        <todo value="remove at 3.0" line="124"/>
+      </inline>
+    </method>
+    <method name="testIntegration" start="134" end="137" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <dataprovider value="provideIntegrationCases"/>
+        <see value="doTest()"/>
+        <large/>
+      </docblock>
+      <parameter name="case" byreference="false" type="object">
+        <type full="PhpCsFixer\Tests\Test\IntegrationCase" namespace="PhpCsFixer\Tests\Test" name="IntegrationCase"/>
+      </parameter>
+    </method>
+    <method name="provideIntegrationCases" start="144" end="168" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Creates test data by parsing '.test' files."/>
+        <return type="array" of="object">
+          <type full="PhpCsFixer\Tests\Test\IntegrationCase[]" namespace="PhpCsFixer\Tests\Test" name="IntegrationCase[]"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="createIntegrationCaseFactory" start="173" end="176" abstract="false" final="false" static="true" visibility="protected">
+      <docblock>
+        <description/>
+        <return type="object">
+          <type full="PhpCsFixer\Tests\Test\IntegrationCaseFactoryInterface" namespace="PhpCsFixer\Tests\Test" name="IntegrationCaseFactoryInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getFixturesDir" start="183" end="186" abstract="false" final="false" static="true" visibility="protected">
+      <docblock>
+        <description compact="Returns the full path to directory which contains the tests."/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="getTempFile" start="193" end="196" abstract="false" final="false" static="true" visibility="protected">
+      <docblock>
+        <description compact="Returns the full path to the temporary file where the test will write to."/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="doTest" start="205" end="315" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Applies the given fixers on the input and checks the result.">It will write the input to a temp file. The file will be fixed by a Fixer instance
+configured with the given fixers. The result is compared with the expected output.
+It checks if no errors were reported during the fixing.</description>
+      </docblock>
+      <parameter name="case" byreference="false" type="object">
+        <type full="PhpCsFixer\Tests\Test\IntegrationCase" namespace="PhpCsFixer\Tests\Test" name="IntegrationCase"/>
+      </parameter>
+      <inline>
+        <comment value="run the test again with the `expected` part, this should always stay the same" line="302"/>
+      </inline>
+    </method>
+    <method name="assertRevertedOrderFixing" start="321" end="340" abstract="false" final="false" static="true" visibility="protected">
+      <docblock>
+        <description/>
+        <param type="string" variable="$fixedInputCode"/>
+        <param type="string" variable="$fixedInputCodeWithReversedFixers"/>
+      </docblock>
+      <parameter name="case" byreference="false" type="object">
+        <type full="PhpCsFixer\Tests\Test\IntegrationCase" namespace="PhpCsFixer\Tests\Test" name="IntegrationCase"/>
+      </parameter>
+      <parameter name="fixedInputCode" byreference="false" type="{unknown}"/>
+      <parameter name="fixedInputCodeWithReversedFixers" byreference="false" type="{unknown}"/>
+      <inline>
+        <comment value="If output is different depends on rules order - we need to verify that the rules are ordered by priority." line="323"/>
+        <comment value="If not, any order is valid." line="324"/>
+      </inline>
+    </method>
+  </parent>
+  <parent full="PhpCsFixer\Tests\TestCase" namespace="PhpCsFixer\Tests" name="TestCase">
+    <extends full="LegacyPHPUnit\TestCase" namespace="LegacyPHPUnit" name="TestCase" unresolved="true"/>
+  </parent>
+  <trait full="PhpCsFixer\Tests\Test\IsIdenticalConstraint" namespace="PhpCsFixer\Tests\Test" name="IsIdenticalConstraint"/>
+</class>

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Nette\Utils\Arrays" namespace="Nette\Utils" name="Arrays" abstract="false" final="false" start="19" end="454">
+  <file path="../vendor/nette/utils/src/Utils" file="Arrays.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/nette/utils/src/Utils/Arrays.php" size="10839" time="2022-01-24T11:29:14+00:00" unixtime="1643023754" sha1="8cb62807c397098c279f36b41bb78845c97b8541" relative="vendor/nette/utils/src/Utils/Arrays.php"/>
+  <docblock>
+    <description compact="Array tools library."/>
+  </docblock>
+  <uses full="Nette\StaticClass" namespace="Nette" name="StaticClass" start="21" end="21"/>
+  <method name="get" start="32" end="47" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns item from array. If it does not exist, it throws an exception, unless a default value is set."/>
+      <template value="T"/>
+      <param type="object" variable="$array">
+        <type full="Nette\Utils\array&lt;T&gt;" namespace="Nette\Utils" name="array&lt;T&gt;"/>
+      </param>
+      <param type="array" variable="$key" of="object">
+        <type full="Nette\Utils\array-key|array-key" namespace="Nette\Utils" name="array-key|array-key"/>
+      </param>
+      <param type="object" variable="$default">
+        <type full="Nette\Utils\?T" namespace="Nette\Utils" name="?T"/>
+      </param>
+      <return type="object">
+        <type full="Nette\Utils\?T" namespace="Nette\Utils" name="?T"/>
+      </return>
+      <throws description="if item does not exist and default value is not provided" type="object">
+        <type full="Nette\Utils\Nette\InvalidArgumentException" namespace="Nette\Utils\Nette" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="array" byreference="false" type="array"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="default" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="getRef" start="58" end="69" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns reference to array item. If the index does not exist, new one is created with value null."/>
+      <template value="T"/>
+      <param type="object" variable="$array">
+        <type full="Nette\Utils\array&lt;T&gt;" namespace="Nette\Utils" name="array&lt;T&gt;"/>
+      </param>
+      <param type="array" variable="$key" of="object">
+        <type full="Nette\Utils\array-key|array-key" namespace="Nette\Utils" name="array-key|array-key"/>
+      </param>
+      <return type="object">
+        <type full="Nette\Utils\?T" namespace="Nette\Utils" name="?T"/>
+      </return>
+      <throws description="if traversed item is not an array" type="object">
+        <type full="Nette\Utils\Nette\InvalidArgumentException" namespace="Nette\Utils\Nette" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="array" byreference="true" type="array"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="mergeTree" start="82" end="92" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Recursively merges two fields. It is useful, for example, for merging tree structures. It behaves as the + operator for array, ie. it adds a key/value pair from the second array to the first one and retains the value from the first array in the case of a key collision."/>
+      <template value="T1"/>
+      <template value="T2"/>
+      <param type="object" variable="$array1">
+        <type full="Nette\Utils\array&lt;T1&gt;" namespace="Nette\Utils" name="array&lt;T1&gt;"/>
+      </param>
+      <param type="object" variable="$array2">
+        <type full="Nette\Utils\array&lt;T2&gt;" namespace="Nette\Utils" name="array&lt;T2&gt;"/>
+      </param>
+      <return type="object">
+        <type full="Nette\Utils\array&lt;T1|T2&gt;" namespace="Nette\Utils" name="array&lt;T1|T2&gt;"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="array1" byreference="false" type="array"/>
+    <parameter name="array2" byreference="false" type="array"/>
+  </method>
+  <method name="getKeyOffset" start="100" end="103" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns zero-indexed position of given array key. Returns null if key is not found."/>
+      <param type="object" variable="$key">
+        <type full="Nette\Utils\array-key" namespace="Nette\Utils" name="array-key"/>
+      </param>
+      <return description="offset if it is found, null otherwise" type="object">
+        <type full="Nette\Utils\int|null" namespace="Nette\Utils" name="int|null"/>
+      </return>
+    </docblock>
+    <return type="int" nullable="true"/>
+    <parameter name="array" byreference="false" type="array"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="searchKey" start="109" end="112" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description/>
+      <deprecated value="use  getKeyOffset()"/>
+    </docblock>
+    <return type="int" nullable="true"/>
+    <parameter name="array" byreference="false" type="array"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="contains" start="119" end="122" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Tests an array for the presence of value."/>
+      <param type="mixed" variable="$value"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="array" byreference="false" type="array"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="first" start="131" end="134" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the first item from the array or null if array is empty."/>
+      <template value="T"/>
+      <param type="object" variable="$array">
+        <type full="Nette\Utils\array&lt;T&gt;" namespace="Nette\Utils" name="array&lt;T&gt;"/>
+      </param>
+      <return type="object">
+        <type full="Nette\Utils\?T" namespace="Nette\Utils" name="?T"/>
+      </return>
+    </docblock>
+    <parameter name="array" byreference="false" type="array"/>
+  </method>
+  <method name="last" start="143" end="146" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the last item from the array or null if array is empty."/>
+      <template value="T"/>
+      <param type="object" variable="$array">
+        <type full="Nette\Utils\array&lt;T&gt;" namespace="Nette\Utils" name="array&lt;T&gt;"/>
+      </param>
+      <return type="object">
+        <type full="Nette\Utils\?T" namespace="Nette\Utils" name="?T"/>
+      </return>
+    </docblock>
+    <parameter name="array" byreference="false" type="array"/>
+  </method>
+  <method name="insertBefore" start="154" end="160" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Inserts the contents of the $inserted array into the $array immediately after the $key.">If $key is null (or does not exist), it is inserted at the beginning.</description>
+      <param type="object" variable="$key">
+        <type full="Nette\Utils\array-key|null" namespace="Nette\Utils" name="array-key|null"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="array" byreference="true" type="array"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="inserted" byreference="false" type="array"/>
+  </method>
+  <method name="insertAfter" start="168" end="177" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Inserts the contents of the $inserted array into the $array before the $key.">If $key is null (or does not exist), it is inserted at the end.</description>
+      <param type="object" variable="$key">
+        <type full="Nette\Utils\array-key|null" namespace="Nette\Utils" name="array-key|null"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="array" byreference="true" type="array"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="inserted" byreference="false" type="array"/>
+  </method>
+  <method name="renameKey" start="185" end="198" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Renames key in array."/>
+      <param type="object" variable="$oldKey">
+        <type full="Nette\Utils\array-key" namespace="Nette\Utils" name="array-key"/>
+      </param>
+      <param type="object" variable="$newKey">
+        <type full="Nette\Utils\array-key" namespace="Nette\Utils" name="array-key"/>
+      </param>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="array" byreference="true" type="array"/>
+    <parameter name="oldKey" byreference="false" type="{unknown}"/>
+    <parameter name="newKey" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="grep" start="206" end="209" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns only those array items, which matches a regular expression $pattern."/>
+      <param type="array" variable="$array" of="object">
+        <type full="Nette\Utils\string" namespace="Nette\Utils" name="string"/>
+      </param>
+      <return type="array" of="object">
+        <type full="Nette\Utils\string" namespace="Nette\Utils" name="string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="array" byreference="false" type="array"/>
+    <parameter name="pattern" byreference="false" type="string"/>
+    <parameter name="flags" byreference="false" type="integer" default="0"/>
+  </method>
+  <method name="flatten" start="215" end="223" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Transforms multidimensional array to flat array."/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="array" byreference="false" type="array"/>
+    <parameter name="preserveKeys" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="isList" start="230" end="236" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Checks if the array is indexed in ascending order of numeric keys from zero, a.k.a list."/>
+      <param type="mixed" variable="$value"/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="associate" start="244" end="291" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Reformats table to associative tree. Path looks like 'field|field[]field-&gt;field=field'."/>
+      <param type="array" variable="$path" of="object">
+        <type full="Nette\Utils\string|string" namespace="Nette\Utils" name="string|string"/>
+      </param>
+      <return type="object">
+        <type full="Nette\Utils\array|\stdClass" namespace="Nette\Utils\array|" name="stdClass"/>
+      </return>
+    </docblock>
+    <parameter name="array" byreference="false" type="array"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="normalize" start="298" end="306" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Normalizes array to associative array. Replace numeric keys with their values, the new value will be $filling."/>
+      <param type="mixed" variable="$filling"/>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="array" byreference="false" type="array"/>
+    <parameter name="filling" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="pick" start="319" end="332" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns and removes the value of an item from an array. If it does not exist, it throws an exception, or returns $default, if provided."/>
+      <template value="T"/>
+      <param type="object" variable="$array">
+        <type full="Nette\Utils\array&lt;T&gt;" namespace="Nette\Utils" name="array&lt;T&gt;"/>
+      </param>
+      <param type="object" variable="$key">
+        <type full="Nette\Utils\array-key" namespace="Nette\Utils" name="array-key"/>
+      </param>
+      <param type="object" variable="$default">
+        <type full="Nette\Utils\?T" namespace="Nette\Utils" name="?T"/>
+      </param>
+      <return type="object">
+        <type full="Nette\Utils\?T" namespace="Nette\Utils" name="?T"/>
+      </return>
+      <throws description="if item does not exist and default value is not provided" type="object">
+        <type full="Nette\Utils\Nette\InvalidArgumentException" namespace="Nette\Utils\Nette" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="array" byreference="true" type="array"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="default" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="some" start="339" end="348" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Tests whether at least one element in the array passes the test implemented by the provided callback with signature `function ($value, $key, array $array): bool`."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="array" byreference="false" type="object">
+      <type full="Nette\Utils\iterable" namespace="Nette\Utils" name="iterable"/>
+    </parameter>
+    <parameter name="callback" byreference="false" type="callable"/>
+  </method>
+  <method name="every" start="355" end="364" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Tests whether all elements in the array pass the test implemented by the provided function, which has the signature `function ($value, $key, array $array): bool`."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="array" byreference="false" type="object">
+      <type full="Nette\Utils\iterable" namespace="Nette\Utils" name="iterable"/>
+    </parameter>
+    <parameter name="callback" byreference="false" type="callable"/>
+  </method>
+  <method name="map" start="371" end="379" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Calls $callback on all elements in the array and returns the array of return values.">The callback has the signature `function ($value, $key, array $array): bool`.</description>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="array" byreference="false" type="object">
+      <type full="Nette\Utils\iterable" namespace="Nette\Utils" name="iterable"/>
+    </parameter>
+    <parameter name="callback" byreference="false" type="callable"/>
+  </method>
+  <method name="invoke" start="386" end="394" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Invokes all callbacks and returns array of results."/>
+      <param type="array" variable="$callbacks" of="object">
+        <type full="Nette\Utils\callable" namespace="Nette\Utils" name="callable"/>
+      </param>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="callbacks" byreference="false" type="object">
+      <type full="Nette\Utils\iterable" namespace="Nette\Utils" name="iterable"/>
+    </parameter>
+    <parameter name="args" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="invokeMethod" start="401" end="409" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Invokes method on every object in an array and returns array of results."/>
+      <param type="array" variable="$objects" of="object">
+        <type full="Nette\Utils\object" namespace="Nette\Utils" name="object"/>
+      </param>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="objects" byreference="false" type="object">
+      <type full="Nette\Utils\iterable" namespace="Nette\Utils" name="iterable"/>
+    </parameter>
+    <parameter name="method" byreference="false" type="string"/>
+    <parameter name="args" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="toObject" start="418" end="425" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Copies the elements of the $array array to the $object object and then returns it."/>
+      <template value="T of object"/>
+      <param type="object" variable="$object">
+        <type full="Nette\Utils\T" namespace="Nette\Utils" name="T"/>
+      </param>
+      <return type="object">
+        <type full="Nette\Utils\T" namespace="Nette\Utils" name="T"/>
+      </return>
+    </docblock>
+    <parameter name="array" byreference="false" type="object">
+      <type full="Nette\Utils\iterable" namespace="Nette\Utils" name="iterable"/>
+    </parameter>
+    <parameter name="object" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="toKey" start="433" end="436" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Converts value to array key."/>
+      <param type="mixed" variable="$value"/>
+      <return type="object">
+        <type full="Nette\Utils\array-key" namespace="Nette\Utils" name="array-key"/>
+      </return>
+    </docblock>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="wrap" start="445" end="453" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns copy of the $array where every item is converted to string and prefixed by $prefix and suffixed by $suffix."/>
+      <param type="array" variable="$array" of="object">
+        <type full="Nette\Utils\string" namespace="Nette\Utils" name="string"/>
+      </param>
+      <return type="array" of="object">
+        <type full="Nette\Utils\string" namespace="Nette\Utils" name="string"/>
+      </return>
+    </docblock>
+    <return type="array" nullable="false"/>
+    <parameter name="array" byreference="false" type="array"/>
+    <parameter name="prefix" byreference="false" type="string" default="''"/>
+    <parameter name="suffix" byreference="false" type="string" default="''"/>
+  </method>
+  <trait full="Nette\StaticClass" namespace="Nette" name="StaticClass">
+    <constructor name="__construct" start="22" end="25" abstract="false" final="true" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return type="object">
+          <type full="Nette\never" namespace="Nette" name="never"/>
+        </return>
+        <throws type="object">
+          <type full="\Error" namespace="" name="Error"/>
+        </throws>
+      </docblock>
+    </constructor>
+    <method name="__callStatic" start="33" end="36" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Call to undefined static method."/>
+        <return type="object">
+          <type full="Nette\void" namespace="Nette" name="void"/>
+        </return>
+        <throws type="object">
+          <type full="Nette\MemberAccessException" namespace="Nette" name="MemberAccessException"/>
+        </throws>
+      </docblock>
+      <parameter name="name" byreference="false" type="string"/>
+      <parameter name="args" byreference="false" type="array"/>
+    </method>
+  </trait>
+</class>

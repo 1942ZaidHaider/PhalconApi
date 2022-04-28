@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\UnifiedSpecTests\UnifiedTestRunner" namespace="MongoDB\Tests\UnifiedSpecTests" name="UnifiedTestRunner" abstract="false" final="true" start="45" end="480">
+  <file path="../vendor/mongodb/mongodb/tests/UnifiedSpecTests" file="UnifiedTestRunner.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/UnifiedSpecTests/UnifiedTestRunner.php" size="16340" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="40a93df513a2045e6017bcd7553e4c3c072c503a" relative="vendor/mongodb/mongodb/tests/UnifiedSpecTests/UnifiedTestRunner.php"/>
+  <docblock>
+    <description compact="Unified test runner."/>
+    <see value="https://github.com/mongodb/specifications/blob/master/source/unified-test-format/unified-test-format.rst"/>
+  </docblock>
+  <constant type="string" name="ATLAS_TLD" value="'mongodb.net'"/>
+  <constant type="integer" name="SERVER_ERROR_INTERRUPTED" value="11601"/>
+  <constant type="integer" name="SERVER_ERROR_UNAUTHORIZED" value="13"/>
+  <constant type="string" name="MIN_SCHEMA_VERSION" value="'1.0'"/>
+  <constant type="string" name="MAX_SCHEMA_VERSION" value="'1.5'"/>
+  <member name="internalClient" visibility="private" static="false" line="56">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\MongoDB\Client" namespace="MongoDB\Tests\UnifiedSpecTests\MongoDB" name="Client"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="internalClientUri" visibility="private" static="false" line="59">
+    <docblock>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="allowKillAllSessions" default="true" type="boolean" visibility="private" static="false" line="62">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\bool" namespace="MongoDB\Tests\UnifiedSpecTests" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="entityMap" visibility="private" static="false" line="65">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\EntityMap" namespace="MongoDB\Tests\UnifiedSpecTests" name="EntityMap"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="entityMapObserver" visibility="private" static="false" line="68">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\callable(EntityMap):void" namespace="MongoDB\Tests\UnifiedSpecTests" name="callable(EntityMap):void"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="failPointObserver" visibility="private" static="false" line="71">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\UnifiedSpecTests\FailPointObserver" namespace="MongoDB\Tests\UnifiedSpecTests" name="FailPointObserver"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="73" end="84" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="internalClientUri" byreference="false" type="string"/>
+    <inline>
+      <comment value="Atlas prohibits killAllSessions. Inspect the connection string to" line="78"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="determine if we should avoid calling killAllSessions(). This does" line="79"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* mean that lingering transactions could block test execution." line="80"/>
+    </inline>
+  </constructor>
+  <method name="run" start="86" end="114" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="test" byreference="false" type="object">
+      <type full="MongoDB\Tests\UnifiedSpecTests\UnifiedTestCase" namespace="MongoDB\Tests\UnifiedSpecTests" name="UnifiedTestCase"/>
+    </parameter>
+  </method>
+  <method name="setEntityMapObserver" start="123" end="126" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Defines a callable to receive the EntityMap after each test.">This function is primarily used by the Atlas testing workload executor.</description>
+      <param type="object" variable="$entityMapObserver">
+        <type full="MongoDB\Tests\UnifiedSpecTests\callable(EntityMap):void" namespace="MongoDB\Tests\UnifiedSpecTests" name="callable(EntityMap):void"/>
+      </param>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="entityMapObserver" byreference="false" type="callable"/>
+  </method>
+  <method name="doSetUp" start="128" end="138" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <inline>
+      <comment value="The transactions spec advises calling killAllSessions only at the" line="130"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="start of the test suite and after failed tests; however, the &quot;unpin" line="131"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="after transient error within a transaction&quot; pinning test causes the" line="132"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* subsequent transaction test to block." line="133"/>
+    </inline>
+  </method>
+  <method name="doTearDown" start="140" end="155" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="hasFailed" byreference="false" type="bool"/>
+    <inline>
+      <comment value="Manually invoking garbage collection since each test is prone to" line="151"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="create cycles (perhaps due to EntityMap), which can leak and prevent" line="152"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* sessions from being released back into the pool." line="153"/>
+    </inline>
+  </method>
+  <method name="doTestCase" start="157" end="218" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="test" byreference="false" type="object">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </parameter>
+    <parameter name="schemaVersion" byreference="false" type="string"/>
+    <parameter name="runOnRequirements" byreference="false" nullable="true" type="array" default="NULL"/>
+    <parameter name="createEntities" byreference="false" nullable="true" type="array" default="NULL"/>
+    <parameter name="initialData" byreference="false" nullable="true" type="array" default="NULL"/>
+    <inline>
+      <comment value="Give Context unmodified URI so it can enforce useMultipleMongoses" line="181"/>
+      <comment value="If an EntityMap observer has been configured, assign the Context's" line="184"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="EntityMap to a class property so it can later be accessed from run()," line="185"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* irrespective of whether this test succeeds or fails." line="186"/>
+    </inline>
+  </method>
+  <method name="checkRunOnRequirements" start="227" end="258" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Checks server version and topology requirements.">Arguments for RunOnRequirement::isSatisfied() will be cached internally.</description>
+      <throws description="unless one or more runOnRequirements are met" type="object">
+        <type full="PHPUnit\Framework\SkippedTest" namespace="PHPUnit\Framework" name="SkippedTest"/>
+      </throws>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="runOnRequirements" byreference="false" type="array"/>
+    <inline>
+      <todo value="Add server parameter requirements?" line="251"/>
+    </inline>
+  </method>
+  <method name="getPrimaryServer" start="260" end="265" abstract="false" final="false" static="false" visibility="private">
+    <return type="object" nullable="false">
+      <type full="MongoDB\Driver\Server" namespace="MongoDB\Driver" name="Server"/>
+    </return>
+  </method>
+  <method name="getServerParameters" start="267" end="283" abstract="false" final="false" static="false" visibility="private">
+    <return type="object" nullable="false">
+      <type full="stdClass" namespace="" name="stdClass"/>
+    </return>
+  </method>
+  <method name="getServerVersion" start="285" end="295" abstract="false" final="false" static="false" visibility="private">
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="getTopology" start="302" end="322" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Return the topology type."/>
+      <throws description="if topology is neither single nor RS nor sharded" type="object">
+        <type full="UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+    </docblock>
+    <return type="string" nullable="false"/>
+  </method>
+  <method name="isAuthenticated" start="331" end="341" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Return whether the connection is authenticated.">Note: if the connectionStatus command is not portable for serverless, it
+may be necessary to rewrite this to instead inspect the connection string
+or consult an environment variable, as is done in libmongoc.</description>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isServerless" start="346" end="351" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Return whether serverless (i.e. proxy as mongos) is being utilized."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+  </method>
+  <method name="isSchemaVersionSupported" start="356" end="359" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Checks is a test format schema version is supported."/>
+    </docblock>
+    <return type="bool" nullable="false"/>
+    <parameter name="schemaVersion" byreference="false" type="string"/>
+  </method>
+  <method name="isShardedClusterUsingReplicasets" start="361" end="376" abstract="false" final="false" static="false" visibility="private">
+    <return type="bool" nullable="false"/>
+    <inline>
+      <comment value="Use regular expression to distinguish between standalone or replicaset:" line="370"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="Without a replicaset: &quot;host&quot; : &quot;localhost:4100&quot;" line="371"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="With a replicaset: &quot;host&quot; : &quot;dec6d8a7-9bc1-4c0e-960c-615f860b956f/localhost:4400,localhost:4401&quot;" line="372"/>
+    </inline>
+  </method>
+  <method name="killAllSessions" start="387" end="418" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Kill all sessions on the cluster.">This will clean up any open transactions that may remain from a
+previously failed test. For sharded clusters, this command will be run
+on all mongos nodes.
+
+This method is a NOP if allowKillAllSessions is false.</description>
+    </docblock>
+    <return type="void" nullable="false"/>
+  </method>
+  <method name="assertOutcome" start="420" end="429" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="outcome" byreference="false" type="array"/>
+  </method>
+  <method name="prepareInitialData" start="431" end="440" abstract="false" final="false" static="false" visibility="private">
+    <return type="void" nullable="false"/>
+    <parameter name="initialData" byreference="false" type="array"/>
+  </method>
+  <method name="preventStaleDbVersionError" start="447" end="479" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Work around potential error executing distinct on sharded clusters."/>
+      <see value="https://github.com/mongodb/specifications/blob/master/source/transactions/tests/README.rst#why-do-tests-that-run-distinct-sometimes-fail-with-staledbversion"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="operations" byreference="false" type="array"/>
+    <parameter name="context" byreference="false" type="object">
+      <type full="MongoDB\Tests\UnifiedSpecTests\Context" namespace="MongoDB\Tests\UnifiedSpecTests" name="Context"/>
+    </parameter>
+  </method>
+</class>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Linter\ProcessLinter" namespace="PhpCsFixer\Linter" name="ProcessLinter" abstract="false" final="true" start="28" end="171">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src/Linter" file="ProcessLinter.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Linter/ProcessLinter.php" size="4641" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="cfd1f59a61c8d7488aa767dfc4bbce810fdad9de" relative="vendor/friendsofphp/php-cs-fixer/src/Linter/ProcessLinter.php"/>
+  <docblock>
+    <description compact="Handle PHP code linting using separated process of `php -l _file_`."/>
+    <author value="Dariusz Rumiński &lt;dariusz.ruminski@gmail.com&gt;"/>
+    <internal/>
+  </docblock>
+  <implements full="PhpCsFixer\Linter\LinterInterface" namespace="PhpCsFixer\Linter" name="LinterInterface"/>
+  <member name="fileRemoval" visibility="private" static="false" line="33">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\FileRemoval" namespace="PhpCsFixer" name="FileRemoval"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="processBuilder" visibility="private" static="false" line="38">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="PhpCsFixer\Linter\ProcessLinterProcessBuilder" namespace="PhpCsFixer\Linter" name="ProcessLinterProcessBuilder"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="temporaryFile" visibility="private" static="false" line="45">
+    <docblock>
+      <description compact="Temporary file for code linting."/>
+      <var type="object">
+        <type full="PhpCsFixer\Linter\null|string" namespace="PhpCsFixer\Linter" name="null|string"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="50" end="77" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="PHP executable, null for autodetection" type="object" variable="$executable">
+        <type full="PhpCsFixer\Linter\null|string" namespace="PhpCsFixer\Linter" name="null|string"/>
+      </param>
+    </docblock>
+    <parameter name="executable" byreference="false" type="{unknown}" default="NULL"/>
+  </constructor>
+  <destructor name="__destruct" start="79" end="84" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="__sleep" start="92" end="95" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="This class is not intended to be serialized, and cannot be deserialized (see __wakeup method)."/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="__wakeup" start="103" end="106" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Disable the deserialization of the class to prevent attacker executing code by leveraging the __destruct method."/>
+      <see value="https://owasp.org/www-community/vulnerabilities/PHP_Object_Injection"/>
+    </docblock>
+  </method>
+  <method name="isAsync" start="111" end="114" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+  </method>
+  <method name="lintFile" start="119" end="122" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="lintSource" start="127" end="130" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="{@inheritdoc}"/>
+    </docblock>
+    <parameter name="source" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="createProcessForFile" start="137" end="149" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param description="path to file" type="string" variable="$path"/>
+      <return type="object">
+        <type full="Symfony\Component\Process\Process" namespace="Symfony\Component\Process" name="Process"/>
+      </return>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="in case php://stdin" line="139"/>
+    </inline>
+  </method>
+  <method name="createProcessForSource" start="158" end="170" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Create process that lint PHP code."/>
+      <param description="code" type="string" variable="$source"/>
+      <return type="object">
+        <type full="Symfony\Component\Process\Process" namespace="Symfony\Component\Process" name="Process"/>
+      </return>
+    </docblock>
+    <parameter name="source" byreference="false" type="{unknown}"/>
+  </method>
+  <interface full="PhpCsFixer\Linter\LinterInterface" namespace="PhpCsFixer\Linter" name="LinterInterface">
+    <method name="isAsync" start="25" end="25" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description/>
+        <return type="object">
+          <type full="PhpCsFixer\Linter\bool" namespace="PhpCsFixer\Linter" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="lintFile" start="34" end="34" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Lint PHP file."/>
+        <param type="string" variable="$path"/>
+        <return type="object">
+          <type full="PhpCsFixer\Linter\LintingResultInterface" namespace="PhpCsFixer\Linter" name="LintingResultInterface"/>
+        </return>
+      </docblock>
+      <parameter name="path" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="lintSource" start="43" end="43" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Lint PHP code."/>
+        <param type="string" variable="$source"/>
+        <return type="object">
+          <type full="PhpCsFixer\Linter\LintingResultInterface" namespace="PhpCsFixer\Linter" name="LintingResultInterface"/>
+        </return>
+      </docblock>
+      <parameter name="source" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

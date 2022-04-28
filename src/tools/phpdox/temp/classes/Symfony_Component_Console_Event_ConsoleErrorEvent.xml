@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Symfony\Component\Console\Event\ConsoleErrorEvent" namespace="Symfony\Component\Console\Event" name="ConsoleErrorEvent" abstract="false" final="true" start="23" end="58">
+  <file path="../vendor/symfony/console/Event" file="ConsoleErrorEvent.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/symfony/console/Event/ConsoleErrorEvent.php" size="1497" time="2022-04-12T16:02:29+00:00" unixtime="1649779349" sha1="2cf84445372f2c89d06913b90a7f794b5dc805b6" relative="vendor/symfony/console/Event/ConsoleErrorEvent.php"/>
+  <docblock>
+    <description compact="Allows to handle throwables thrown while running a command."/>
+    <author value="Wouter de Jong &lt;wouter@wouterj.nl&gt;"/>
+  </docblock>
+  <extends full="Symfony\Component\Console\Event\ConsoleEvent" namespace="Symfony\Component\Console\Event" name="ConsoleEvent"/>
+  <member name="error" visibility="private" static="false" line="25"/>
+  <member name="exitCode" visibility="private" static="false" line="26"/>
+  <constructor name="__construct" start="28" end="33" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="input" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+    </parameter>
+    <parameter name="output" byreference="false" type="object">
+      <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+    </parameter>
+    <parameter name="error" byreference="false" type="object">
+      <type full="Throwable" namespace="" name="Throwable"/>
+    </parameter>
+    <parameter name="command" byreference="false" type="object" default="NULL">
+      <type full="Symfony\Component\Console\Command\Command" namespace="Symfony\Component\Console\Command" name="Command"/>
+    </parameter>
+  </constructor>
+  <method name="getError" start="35" end="38" abstract="false" final="false" static="false" visibility="public">
+    <return type="object" nullable="false">
+      <type full="Throwable" namespace="" name="Throwable"/>
+    </return>
+  </method>
+  <method name="setError" start="40" end="43" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="error" byreference="false" type="object">
+      <type full="Throwable" namespace="" name="Throwable"/>
+    </parameter>
+  </method>
+  <method name="setExitCode" start="45" end="52" abstract="false" final="false" static="false" visibility="public">
+    <return type="void" nullable="false"/>
+    <parameter name="exitCode" byreference="false" type="int"/>
+  </method>
+  <method name="getExitCode" start="54" end="57" abstract="false" final="false" static="false" visibility="public">
+    <return type="int" nullable="false"/>
+  </method>
+  <parent full="Symfony\Component\Console\Event\ConsoleEvent" namespace="Symfony\Component\Console\Event" name="ConsoleEvent">
+    <extends full="Symfony\Contracts\EventDispatcher\Event" namespace="Symfony\Contracts\EventDispatcher" name="Event"/>
+    <member name="command" visibility="protected" static="false" line="26"/>
+    <constructor name="__construct" start="31" end="36" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="command" byreference="false" nullable="true" type="object">
+        <type full="Symfony\Component\Console\Command\Command" namespace="Symfony\Component\Console\Command" name="Command"/>
+      </parameter>
+      <parameter name="input" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+      </parameter>
+      <parameter name="output" byreference="false" type="object">
+        <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+      </parameter>
+    </constructor>
+    <method name="getCommand" start="43" end="46" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the command that is executed."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Event\Command|null" namespace="Symfony\Component\Console\Event" name="Command|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getInput" start="53" end="56" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the input instance."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Input\InputInterface" namespace="Symfony\Component\Console\Input" name="InputInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getOutput" start="63" end="66" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Gets the output instance."/>
+        <return type="object">
+          <type full="Symfony\Component\Console\Output\OutputInterface" namespace="Symfony\Component\Console\Output" name="OutputInterface"/>
+        </return>
+      </docblock>
+    </method>
+  </parent>
+  <parent full="Symfony\Contracts\EventDispatcher\Event" namespace="Symfony\Contracts\EventDispatcher" name="Event">
+    <implements full="Psr\EventDispatcher\StoppableEventInterface" namespace="Psr\EventDispatcher" name="StoppableEventInterface"/>
+    <method name="isPropagationStopped" start="38" end="41" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="{@inheritdoc}"/>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+    <method name="stopPropagation" start="50" end="53" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Stops the propagation of the event to further event listeners.">If multiple event listeners are connected to the same event, no
+further event listener will be triggered once any trigger calls
+stopPropagation().</description>
+      </docblock>
+      <return type="void" nullable="false"/>
+    </method>
+  </parent>
+  <interface full="Psr\EventDispatcher\StoppableEventInterface" namespace="Psr\EventDispatcher" name="StoppableEventInterface">
+    <method name="isPropagationStopped" start="25" end="25" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Is propagation stopped?">This will typically only be used by the Dispatcher to determine if the
+previous listener halted propagation.</description>
+        <return type="object">True if the Event is complete and no further listeners should be called.
+  False to continue calling listeners.<type full="Psr\EventDispatcher\bool" namespace="Psr\EventDispatcher" name="bool"/></return>
+      </docblock>
+      <return type="bool" nullable="false"/>
+    </method>
+  </interface>
+</class>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\OpeningFunctionBraceKernighanRitchieSniff" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions" name="OpeningFunctionBraceKernighanRitchieSniff" abstract="false" final="false" start="16" end="184">
+  <file path="../vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/Functions" file="OpeningFunctionBraceKernighanRitchieSniff.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/Functions/OpeningFunctionBraceKernighanRitchieSniff.php" size="6767" time="2021-12-12T21:44:58+00:00" unixtime="1639345498" sha1="3ed899ccc7984eb6984fd0da4c87b13b86cb0257" relative="vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/Functions/OpeningFunctionBraceKernighanRitchieSniff.php"/>
+  <implements full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff"/>
+  <member name="checkFunctions" default="true" type="boolean" visibility="public" static="false" line="24">
+    <docblock>
+      <description compact="Should this sniff check function braces?"/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="checkClosures" default="false" type="boolean" visibility="public" static="false" line="31">
+    <docblock>
+      <description compact="Should this sniff check closure braces?"/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <method name="register" start="39" end="46" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Registers the tokens that this sniff wants to listen for."/>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\void" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="process" start="58" end="181" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Processes this test, when one of its tokens is encountered."/>
+      <param description="The file being scanned." type="object" variable="$phpcsFile">
+        <type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/>
+      </param>
+      <param description="The position of the current token in the" type="int" variable="$stackPtr">stack passed in $tokens.</param>
+      <return type="object">
+        <type full="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\void" namespace="PHP_CodeSniffer\Standards\Generic\Sniffs\Functions" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="phpcsFile" byreference="false" type="object">
+      <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+    </parameter>
+    <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Find the end of the function declaration." line="84"/>
+      <comment value="end if" line="127"/>
+      <comment value="Only continue checking if the opening brace looks good." line="147"/>
+      <comment value="We are looking for tabs, even if they have been replaced, because" line="152"/>
+      <comment value="we enforce a space here." line="153"/>
+    </inline>
+  </method>
+  <interface full="PHP_CodeSniffer\Sniffs\Sniff" namespace="PHP_CodeSniffer\Sniffs" name="Sniff">
+    <method name="register" start="40" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Registers the tokens that this sniff wants to listen for.">An example return value for a sniff that wants to listen for whitespace
+and any comments would be:
+
+&lt;code&gt;
+   return array(
+           T_WHITESPACE,
+           T_DOC_COMMENT,
+           T_COMMENT,
+          );
+&lt;/code&gt;</description>
+        <return type="array" of="object">
+          <type full="PHP_CodeSniffer\Sniffs\mixed" namespace="PHP_CodeSniffer\Sniffs" name="mixed"/>
+        </return>
+        <see value="Tokens.php"/>
+      </docblock>
+    </method>
+    <method name="process" start="77" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Called when one of the token types that this sniff is listening for is found.">The stackPtr variable indicates where in the stack the token was found.
+A sniff can acquire information this token, along with all the other
+tokens within the stack by first acquiring the token stack:
+
+&lt;code&gt;
+   $tokens = $phpcsFile-&gt;getTokens();
+   echo 'Encountered a '.$tokens[$stackPtr]['type'].' token';
+   echo 'token information: ';
+   print_r($tokens[$stackPtr]);
+&lt;/code&gt;
+
+If the sniff discovers an anomaly in the code, they can raise an error
+by calling addError() on the \PHP_CodeSniffer\Files\File object, specifying an error
+message and the position of the offending token:
+
+&lt;code&gt;
+   $phpcsFile-&gt;addError('Encountered an error', $stackPtr);
+&lt;/code&gt;</description>
+        <param description="The PHP_CodeSniffer file where the" type="object" variable="$phpcsFile">token was found.<type full="\PHP_CodeSniffer\Files\File" namespace="\PHP_CodeSniffer\Files" name="File"/></param>
+        <param description="The position in the PHP_CodeSniffer" type="int" variable="$stackPtr">file's token stack where the token
+                                              was found.</param>
+        <return description="Optionally returns a stack pointer. The sniff will not be" type="object">called again on the current file until the returned stack
+                 pointer is reached. Return (count($tokens) + 1) to skip
+                 the rest of the file.<type full="PHP_CodeSniffer\Sniffs\void|int" namespace="PHP_CodeSniffer\Sniffs" name="void|int"/></return>
+      </docblock>
+      <parameter name="phpcsFile" byreference="false" type="object">
+        <type full="PHP_CodeSniffer\Files\File" namespace="PHP_CodeSniffer\Files" name="File"/>
+      </parameter>
+      <parameter name="stackPtr" byreference="false" type="{unknown}"/>
+    </method>
+  </interface>
+</class>

@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Autoload\ClassLoader" namespace="Composer\Autoload" name="ClassLoader" abstract="false" final="false" start="43" end="558">
+  <file path="../vendor/composer" file="ClassLoader.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/ClassLoader.php" size="16068" time="2022-04-28T08:08:12+00:00" unixtime="1651133292" sha1="d4a058aaad78183c3f2e53b04c63beb617c3f6db" relative="vendor/composer/ClassLoader.php"/>
+  <docblock>
+    <description compact="ClassLoader implements a PSR-0, PSR-4 and classmap class loader.">$loader = new \Composer\Autoload\ClassLoader();
+
+    // register classes with namespaces
+    $loader-&gt;add('Symfony\Component', __DIR__.'/component');
+    $loader-&gt;add('Symfony',           __DIR__.'/framework');
+
+    // activate the autoloader
+    $loader-&gt;register();
+
+    // to enable searching the include path (eg. for PEAR packages)
+    $loader-&gt;setUseIncludePath(true);
+
+In this example, if you try to use a class in the Symfony\Component
+namespace or one of its children (Symfony\Component\Console for instance),
+the autoloader will first look for the class under the component/
+directory, and it will then fallback to the framework/ directory if not
+found before giving up.
+
+This class is loosely based on the Symfony UniversalClassLoader.</description>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+    <author value="Jordi Boggiano &lt;j.boggiano@seld.be&gt;"/>
+    <see value="https://www.php-fig.org/psr/psr-0/"/>
+    <see value="https://www.php-fig.org/psr/psr-4/"/>
+  </docblock>
+  <member name="vendorDir" visibility="private" static="false" line="46">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Autoload\?string" namespace="Composer\Autoload" name="?string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="prefixLengthsPsr4" default="" type="array" visibility="private" static="false" line="53">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Autoload\array" namespace="Composer\Autoload" name="array"/>
+      </var>
+      <psalm value="-var array&lt;string, array&lt;string, int&gt;&gt;"/>
+    </docblock>
+  </member>
+  <member name="prefixDirsPsr4" default="" type="array" visibility="private" static="false" line="58">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Autoload\array" namespace="Composer\Autoload" name="array"/>
+      </var>
+      <psalm value="-var array&lt;string, array&lt;int, string&gt;&gt;"/>
+    </docblock>
+  </member>
+  <member name="fallbackDirsPsr4" default="" type="array" visibility="private" static="false" line="63">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Autoload\array" namespace="Composer\Autoload" name="array"/>
+      </var>
+      <psalm value="-var array&lt;string, string&gt;"/>
+    </docblock>
+  </member>
+  <member name="prefixesPsr0" default="" type="array" visibility="private" static="false" line="70">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Autoload\array" namespace="Composer\Autoload" name="array"/>
+      </var>
+      <psalm value="-var array&lt;string, array&lt;string, string[]&gt;&gt;"/>
+    </docblock>
+  </member>
+  <member name="fallbackDirsPsr0" default="" type="array" visibility="private" static="false" line="75">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Autoload\array" namespace="Composer\Autoload" name="array"/>
+      </var>
+      <psalm value="-var array&lt;string, string&gt;"/>
+    </docblock>
+  </member>
+  <member name="useIncludePath" default="false" type="boolean" visibility="private" static="false" line="78">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="classMap" default="" type="array" visibility="private" static="false" line="84">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Autoload\string" namespace="Composer\Autoload" name="string"/>
+      </var>
+      <psalm value="-var array&lt;string, string&gt;"/>
+    </docblock>
+  </member>
+  <member name="classMapAuthoritative" default="false" type="boolean" visibility="private" static="false" line="87">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="missingClasses" default="" type="array" visibility="private" static="false" line="93">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </var>
+      <psalm value="-var array&lt;string, bool&gt;"/>
+    </docblock>
+  </member>
+  <member name="apcuPrefix" visibility="private" static="false" line="96">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Autoload\?string" namespace="Composer\Autoload" name="?string"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="registeredLoaders" default="" type="array" visibility="private" static="true" line="101">
+    <docblock>
+      <description/>
+      <var type="array" of="object">
+        <type full="Composer\Autoload\self" namespace="Composer\Autoload" name="self"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="106" end="109" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param type="object" variable="$vendorDir">
+        <type full="Composer\Autoload\?string" namespace="Composer\Autoload" name="?string"/>
+      </param>
+    </docblock>
+    <parameter name="vendorDir" byreference="false" type="{unknown}" default="NULL"/>
+  </constructor>
+  <method name="getPrefixes" start="114" end="121" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="Composer\Autoload\string" namespace="Composer\Autoload" name="string"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getPrefixesPsr4" start="127" end="130" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="Composer\Autoload\array" namespace="Composer\Autoload" name="array"/>
+      </return>
+      <psalm value="-return array&lt;string, array&lt;int, string&gt;&gt;"/>
+    </docblock>
+  </method>
+  <method name="getFallbackDirs" start="136" end="139" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="Composer\Autoload\array" namespace="Composer\Autoload" name="array"/>
+      </return>
+      <psalm value="-return array&lt;string, string&gt;"/>
+    </docblock>
+  </method>
+  <method name="getFallbackDirsPsr4" start="145" end="148" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="array" of="object">
+        <type full="Composer\Autoload\array" namespace="Composer\Autoload" name="array"/>
+      </return>
+      <psalm value="-return array&lt;string, string&gt;"/>
+    </docblock>
+  </method>
+  <method name="getClassMap" start="154" end="157" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return description="Array of classname =&gt; path" type="array" of="object">
+        <type full="Composer\Autoload\string" namespace="Composer\Autoload" name="string"/>
+      </return>
+      <psalm value="-return array&lt;string, string&gt;"/>
+    </docblock>
+  </method>
+  <method name="addClassMap" start="165" end="172" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <param description="Class to filename map" type="array" variable="$classMap" of="object">
+        <type full="Composer\Autoload\string" namespace="Composer\Autoload" name="string"/>
+      </param>
+      <psalm value="-param array&lt;string, string&gt; $classMap"/>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="classMap" byreference="false" type="array"/>
+  </method>
+  <method name="add" start="184" end="219" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Registers a set of PSR-0 directories for a given prefix, either appending or prepending to the ones previously set for this prefix."/>
+      <param description="The prefix" type="string" variable="$prefix"/>
+      <param description="The PSR-0 root directories" type="array" variable="$paths" of="object">
+        <type full="Composer\Autoload\string[]|stri" namespace="Composer\Autoload" name="string[]|stri"/>
+      </param>
+      <param description="Whether to prepend the directories" type="object" variable="$prepend">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="prefix" byreference="false" type="{unknown}"/>
+    <parameter name="paths" byreference="false" type="{unknown}"/>
+    <parameter name="prepend" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="addPsr4" start="233" end="269" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Registers a set of PSR-4 directories for a given namespace, either appending or prepending to the ones previously set for this namespace."/>
+      <param description="The prefix/namespace, with trailing '\\'" type="string" variable="$prefix"/>
+      <param description="The PSR-4 base directories" type="array" variable="$paths" of="object">
+        <type full="Composer\Autoload\string[]|stri" namespace="Composer\Autoload" name="string[]|stri"/>
+      </param>
+      <param description="Whether to prepend the directories" type="object" variable="$prepend">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </param>
+      <throws type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="prefix" byreference="false" type="{unknown}"/>
+    <parameter name="paths" byreference="false" type="{unknown}"/>
+    <parameter name="prepend" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="set" start="280" end="287" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Registers a set of PSR-0 directories for a given prefix, replacing any others previously set for this prefix."/>
+      <param description="The prefix" type="string" variable="$prefix"/>
+      <param description="The PSR-0 base directories" type="array" variable="$paths" of="object">
+        <type full="Composer\Autoload\string[]|stri" namespace="Composer\Autoload" name="string[]|stri"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="prefix" byreference="false" type="{unknown}"/>
+    <parameter name="paths" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setPsr4" start="300" end="312" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Registers a set of PSR-4 directories for a given namespace, replacing any others previously set for this namespace."/>
+      <param description="The prefix/namespace, with trailing '\\'" type="string" variable="$prefix"/>
+      <param description="The PSR-4 base directories" type="array" variable="$paths" of="object">
+        <type full="Composer\Autoload\string[]|stri" namespace="Composer\Autoload" name="string[]|stri"/>
+      </param>
+      <throws type="object">
+        <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="prefix" byreference="false" type="{unknown}"/>
+    <parameter name="paths" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="setUseIncludePath" start="321" end="324" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Turns on searching the include path for class files."/>
+      <param type="object" variable="$useIncludePath">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="useIncludePath" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getUseIncludePath" start="332" end="335" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Can be used to check if the autoloader uses the include path to check for classes."/>
+      <return type="object">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setClassMapAuthoritative" start="345" end="348" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Turns off searching the prefix and fallback directories for classes that have not been registered with the class map."/>
+      <param type="object" variable="$classMapAuthoritative">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="classMapAuthoritative" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isClassMapAuthoritative" start="355" end="358" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Should class lookup fail if not found in the current class map?"/>
+      <return type="object">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setApcuPrefix" start="367" end="370" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="APCu prefix to use to cache found/not-found classes, if the extension is enabled."/>
+      <param type="object" variable="$apcuPrefix">
+        <type full="Composer\Autoload\string|null" namespace="Composer\Autoload" name="string|null"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="apcuPrefix" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getApcuPrefix" start="377" end="380" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="The APCu prefix in use, or null if APCu caching is not enabled."/>
+      <return type="object">
+        <type full="Composer\Autoload\string|null" namespace="Composer\Autoload" name="string|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="register" start="389" end="403" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Registers this instance as an autoloader."/>
+      <param description="Whether to prepend the autoloader or not" type="object" variable="$prepend">
+        <type full="Composer\Autoload\bool" namespace="Composer\Autoload" name="bool"/>
+      </param>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="prepend" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="unregister" start="410" end="417" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Unregisters this instance as an autoloader."/>
+      <return type="object">
+        <type full="Composer\Autoload\void" namespace="Composer\Autoload" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="loadClass" start="425" end="434" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Loads the given class or interface."/>
+      <param description="The name of the class" type="string" variable="$class"/>
+      <return description="True if loaded, null otherwise" type="object">
+        <type full="Composer\Autoload\true|null" namespace="Composer\Autoload" name="true|null"/>
+      </return>
+    </docblock>
+    <parameter name="class" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="findFile" start="443" end="476" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Finds the path to the file where the class is defined."/>
+      <param description="The name of the class" type="string" variable="$class"/>
+      <return description="The path if found, false otherwise" type="object">
+        <type full="Composer\Autoload\string|false" namespace="Composer\Autoload" name="string|false"/>
+      </return>
+    </docblock>
+    <parameter name="class" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="class map lookup" line="445"/>
+      <comment value="Search for Hack files if we are running on HHVM" line="461"/>
+    </inline>
+  </method>
+  <method name="getRegisteredLoaders" start="483" end="486" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Returns the currently registered loaders indexed by their corresponding vendor directories."/>
+      <return type="array" of="object">
+        <type full="Composer\Autoload\self" namespace="Composer\Autoload" name="self"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="findFileWithExtension" start="493" end="557" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$class"/>
+      <param type="string" variable="$ext"/>
+      <return type="object">
+        <type full="Composer\Autoload\string|false" namespace="Composer\Autoload" name="string|false"/>
+      </return>
+    </docblock>
+    <parameter name="class" byreference="false" type="{unknown}"/>
+    <parameter name="ext" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="PSR-4 lookup" line="495"/>
+      <comment value="PSR-4 fallback dirs" line="515"/>
+      <comment value="PSR-0 lookup" line="522"/>
+      <comment value="PSR-0 fallback dirs" line="544"/>
+      <comment value="PSR-0 include paths." line="551"/>
+    </inline>
+  </method>
+</class>

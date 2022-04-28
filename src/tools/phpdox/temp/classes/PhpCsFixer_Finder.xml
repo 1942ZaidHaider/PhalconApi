@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="PhpCsFixer\Finder" namespace="PhpCsFixer" name="Finder" abstract="false" final="false" start="21" end="33">
+  <file path="../vendor/friendsofphp/php-cs-fixer/src" file="Finder.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/friendsofphp/php-cs-fixer/src/Finder.php" size="680" time="2021-11-15T17:17:55+00:00" unixtime="1636996675" sha1="2d3abda63471d729be1224c9e4175456bf4b517f" relative="vendor/friendsofphp/php-cs-fixer/src/Finder.php"/>
+  <docblock>
+    <description/>
+    <author value="Fabien Potencier &lt;fabien@symfony.com&gt;"/>
+    <author value="Dariusz Rumiński &lt;dariusz.ruminski@gmail.com&gt;"/>
+  </docblock>
+  <extends full="Symfony\Component\Finder\Finder" namespace="Symfony\Component\Finder" name="Finder"/>
+  <constructor name="__construct" start="23" end="32" abstract="false" final="false" static="false" visibility="public"/>
+  <parent full="Symfony\Component\Finder\Finder" namespace="Symfony\Component\Finder" name="Finder">
+    <implements full="IteratorAggregate" namespace="" name="IteratorAggregate"/>
+    <implements full="Countable" namespace="" name="Countable"/>
+    <constant type="{unknown}" name="IGNORE_VCS_FILES" value="1"/>
+    <constant type="{unknown}" name="IGNORE_DOT_FILES" value="2"/>
+    <constant type="{unknown}" name="IGNORE_VCS_IGNORED_FILES" value="4"/>
+    <constructor name="__construct" start="70" end="73" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="create" start="80" end="83" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Creates a new Finder."/>
+        <return resolution="static" type="object">
+          <type full="PhpCsFixer\Finder" namespace="PhpCsFixer" name="Finder"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="directories" start="90" end="95" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Restricts the matching to directories only."/>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="files" start="102" end="107" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Restricts the matching to files only."/>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="depth" start="125" end="132" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds tests for the directory depth.">Usage:
+
+    $finder-&gt;depth('&gt; 1') // the Finder will start matching at level 1.
+    $finder-&gt;depth('&lt; 3') // the Finder will descend at most 3 levels of directories below the starting point.
+    $finder-&gt;depth(['&gt;= 1', '&lt; 3'])</description>
+        <param description="The depth level expression or an array of depth levels" type="array" variable="$levels" of="object">
+          <type full="Symfony\Component\Finder\string|int|string[]|int" namespace="Symfony\Component\Finder" name="string|int|string[]|int"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="DepthRangeFilterIterator"/>
+        <see value="NumberComparator"/>
+      </docblock>
+      <parameter name="levels" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="date" start="153" end="160" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds tests for file dates (last modified).">The date must be something that strtotime() is able to parse:
+
+    $finder-&gt;date('since yesterday');
+    $finder-&gt;date('until 2 days ago');
+    $finder-&gt;date('&gt; now - 2 hours');
+    $finder-&gt;date('&gt;= 2005-10-15');
+    $finder-&gt;date(['&gt;= 2005-10-15', '&lt;= 2006-05-27']);</description>
+        <param description="A date range string or an array of date ranges" type="array" variable="$dates" of="object">
+          <type full="Symfony\Component\Finder\string|string" namespace="Symfony\Component\Finder" name="string|string"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="strtotime"/>
+        <see value="DateRangeFilterIterator"/>
+        <see value="DateComparator"/>
+      </docblock>
+      <parameter name="dates" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="name" start="178" end="183" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds rules that files must match.">You can use patterns (delimited with / sign), globs or simple strings.
+
+    $finder-&gt;name('*.php')
+    $finder-&gt;name('/\.php$/') // same as above
+    $finder-&gt;name('test.php')
+    $finder-&gt;name(['test.py', 'test.php'])</description>
+        <param description="A pattern (a regexp, a glob, or a string) or an array of patterns" type="array" variable="$patterns" of="object">
+          <type full="Symfony\Component\Finder\string|string" namespace="Symfony\Component\Finder" name="string|string"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="FilenameFilterIterator"/>
+      </docblock>
+      <parameter name="patterns" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="notName" start="194" end="199" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds rules that files must not match."/>
+        <param description="A pattern (a regexp, a glob, or a string) or an array of patterns" type="array" variable="$patterns" of="object">
+          <type full="Symfony\Component\Finder\string|string" namespace="Symfony\Component\Finder" name="string|string"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="FilenameFilterIterator"/>
+      </docblock>
+      <parameter name="patterns" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="contains" start="216" end="221" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds tests that file contents must match.">Strings or PCRE patterns can be used:
+
+    $finder-&gt;contains('Lorem ipsum')
+    $finder-&gt;contains('/Lorem ipsum/i')
+    $finder-&gt;contains(['dolor', '/ipsum/i'])</description>
+        <param description="A pattern (string or regexp) or an array of patterns" type="array" variable="$patterns" of="object">
+          <type full="Symfony\Component\Finder\string|string" namespace="Symfony\Component\Finder" name="string|string"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="FilecontentFilterIterator"/>
+      </docblock>
+      <parameter name="patterns" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="notContains" start="238" end="243" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds tests that file contents must not match.">Strings or PCRE patterns can be used:
+
+    $finder-&gt;notContains('Lorem ipsum')
+    $finder-&gt;notContains('/Lorem ipsum/i')
+    $finder-&gt;notContains(['lorem', '/dolor/i'])</description>
+        <param description="A pattern (string or regexp) or an array of patterns" type="array" variable="$patterns" of="object">
+          <type full="Symfony\Component\Finder\string|string" namespace="Symfony\Component\Finder" name="string|string"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="FilecontentFilterIterator"/>
+      </docblock>
+      <parameter name="patterns" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="path" start="262" end="267" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds rules that filenames must match.">You can use patterns (delimited with / sign) or simple strings.
+
+    $finder-&gt;path('some/special/dir')
+    $finder-&gt;path('/some\/special\/dir/') // same as above
+    $finder-&gt;path(['some dir', 'another/dir'])
+
+Use only / as dirname separator.</description>
+        <param description="A pattern (a regexp or a string) or an array of patterns" type="array" variable="$patterns" of="object">
+          <type full="Symfony\Component\Finder\string|string" namespace="Symfony\Component\Finder" name="string|string"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="FilenameFilterIterator"/>
+      </docblock>
+      <parameter name="patterns" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="notPath" start="286" end="291" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds rules that filenames must not match.">You can use patterns (delimited with / sign) or simple strings.
+
+    $finder-&gt;notPath('some/special/dir')
+    $finder-&gt;notPath('/some\/special\/dir/') // same as above
+    $finder-&gt;notPath(['some/file.txt', 'another/file.log'])
+
+Use only / as dirname separator.</description>
+        <param description="A pattern (a regexp or a string) or an array of patterns" type="array" variable="$patterns" of="object">
+          <type full="Symfony\Component\Finder\string|string" namespace="Symfony\Component\Finder" name="string|string"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="FilenameFilterIterator"/>
+      </docblock>
+      <parameter name="patterns" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="size" start="308" end="315" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Adds tests for file sizes.">$finder-&gt;size('&gt; 10K');
+    $finder-&gt;size('&lt;= 1Ki');
+    $finder-&gt;size(4);
+    $finder-&gt;size(['&gt; 10K', '&lt; 20K'])</description>
+        <param description="A size range string or an integer or an array of size ranges" type="array" variable="$sizes" of="object">
+          <type full="Symfony\Component\Finder\string|int|string[]|int" namespace="Symfony\Component\Finder" name="string|int|string[]|int"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="SizeRangeFilterIterator"/>
+        <see value="NumberComparator"/>
+      </docblock>
+      <parameter name="sizes" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="exclude" start="330" end="335" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Excludes directories.">Directories passed as argument must be relative to the ones defined with the `in()` method. For example:
+
+    $finder-&gt;in(__DIR__)-&gt;exclude('ruby');</description>
+        <param description="A directory path or an array of directories" type="object" variable="$dirs">
+          <type full="Symfony\Component\Finder\string|array" namespace="Symfony\Component\Finder" name="string|array"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="ExcludeDirectoryFilterIterator"/>
+      </docblock>
+      <parameter name="dirs" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="ignoreDotFiles" start="346" end="355" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Excludes &quot;hidden&quot; directories and files (starting with a dot).">This option is enabled by default.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="ExcludeDirectoryFilterIterator"/>
+      </docblock>
+      <parameter name="ignoreDotFiles" byreference="false" type="bool"/>
+    </method>
+    <method name="ignoreVCS" start="366" end="375" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Forces the finder to ignore version control directories.">This option is enabled by default.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="ExcludeDirectoryFilterIterator"/>
+      </docblock>
+      <parameter name="ignoreVCS" byreference="false" type="bool"/>
+    </method>
+    <method name="ignoreVCSIgnored" start="384" end="393" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Forces Finder to obey .gitignore and ignore files based on rules listed there.">This option is disabled by default.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="ignoreVCSIgnored" byreference="false" type="bool"/>
+    </method>
+    <method name="addVCSPattern" start="402" end="409" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Adds VCS patterns."/>
+        <see value="ignoreVCS()"/>
+        <param description="VCS patterns to ignore" type="array" variable="$pattern" of="object">
+          <type full="Symfony\Component\Finder\string|string" namespace="Symfony\Component\Finder" name="string|string"/>
+        </param>
+      </docblock>
+      <parameter name="pattern" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="sort" start="422" end="427" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sorts files and directories by an anonymous function.">The anonymous function receives two \SplFileInfo instances to compare.
+
+This can be slow as all the matching files and directories must be retrieved for comparison.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="SortableIterator"/>
+      </docblock>
+      <parameter name="closure" byreference="false" type="object">
+        <type full="Closure" namespace="" name="Closure"/>
+      </parameter>
+    </method>
+    <method name="sortByName" start="438" end="443" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sorts files and directories by name.">This can be slow as all the matching files and directories must be retrieved for comparison.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="SortableIterator"/>
+      </docblock>
+      <parameter name="useNaturalSort" byreference="false" type="boolean" default="false"/>
+    </method>
+    <method name="sortByType" start="454" end="459" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sorts files and directories by type (directories before files), then by name.">This can be slow as all the matching files and directories must be retrieved for comparison.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="SortableIterator"/>
+      </docblock>
+    </method>
+    <method name="sortByAccessedTime" start="472" end="477" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sorts files and directories by the last accessed time.">This is the time that the file was last accessed, read or written to.
+
+This can be slow as all the matching files and directories must be retrieved for comparison.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="SortableIterator"/>
+      </docblock>
+    </method>
+    <method name="reverseSorting" start="484" end="489" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Reverses the sorting."/>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="sortByChangedTime" start="504" end="509" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sorts files and directories by the last inode changed time.">This is the time that the inode information was last modified (permissions, owner, group or other metadata).
+
+On Windows, since inode is not available, changed time is actually the file creation time.
+
+This can be slow as all the matching files and directories must be retrieved for comparison.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="SortableIterator"/>
+      </docblock>
+    </method>
+    <method name="sortByModifiedTime" start="522" end="527" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Sorts files and directories by the last modified time.">This is the last time the actual contents of the file were last modified.
+
+This can be slow as all the matching files and directories must be retrieved for comparison.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="SortableIterator"/>
+      </docblock>
+    </method>
+    <method name="filter" start="539" end="544" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Filters the iterator with an anonymous function.">The anonymous function receives a \SplFileInfo and must return false
+to remove files.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <see value="CustomFilterIterator"/>
+      </docblock>
+      <parameter name="closure" byreference="false" type="object">
+        <type full="Closure" namespace="" name="Closure"/>
+      </parameter>
+    </method>
+    <method name="followLinks" start="551" end="556" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Forces the following of symlinks."/>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="ignoreUnreadableDirs" start="565" end="570" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Tells finder to ignore unreadable directories.">By default, scanning unreadable directories content throws an AccessDeniedException.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+      </docblock>
+      <parameter name="ignore" byreference="false" type="boolean" default="true"/>
+    </method>
+    <method name="in" start="581" end="599" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Searches files and directories which match defined rules."/>
+        <param description="A directory path or an array of directories" type="array" variable="$dirs" of="object">
+          <type full="Symfony\Component\Finder\string|string" namespace="Symfony\Component\Finder" name="string|string"/>
+        </param>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <throws description="if one of the directories does not exist" type="object">
+          <type full="Symfony\Component\Finder\Exception\DirectoryNotFoundException" namespace="Symfony\Component\Finder\Exception" name="DirectoryNotFoundException"/>
+        </throws>
+      </docblock>
+      <parameter name="dirs" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getIterator" start="611" end="643" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="append" start="654" end="672" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Appends an existing set of files/directories to the finder.">The set can be another Finder, an Iterator, an IteratorAggregate, or even a plain array.</description>
+        <return type="object">
+          <type full="Symfony\Component\Finder\$this" namespace="Symfony\Component\Finder" name="$this"/>
+        </return>
+        <throws description="when the given argument is not iterable" type="object">
+          <type full="\InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+        </throws>
+      </docblock>
+      <parameter name="iterator" byreference="false" type="object">
+        <type full="Symfony\Component\Finder\iterable" namespace="Symfony\Component\Finder" name="iterable"/>
+      </parameter>
+    </method>
+    <method name="hasResults" start="679" end="686" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Check if any results were found."/>
+        <return type="object">
+          <type full="Symfony\Component\Finder\bool" namespace="Symfony\Component\Finder" name="bool"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="count" start="694" end="697" abstract="false" final="false" static="false" visibility="public"/>
+  </parent>
+  <interface full="IteratorAggregate" namespace="" name="IteratorAggregate">
+    <extends full="Traversable" namespace="" name="Traversable"/>
+    <method name="getIterator" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Retrieve an external iterator"/>
+      <return type="Traversable"/>
+    </docblock>
+  </method>
+  </interface>
+  <interface full="Countable" namespace="" name="Countable">
+    <method name="count" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Count elements of an object"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  </interface>
+</class>

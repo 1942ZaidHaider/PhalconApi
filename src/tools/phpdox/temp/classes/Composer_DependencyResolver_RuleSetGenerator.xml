@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\DependencyResolver\RuleSetGenerator" namespace="Composer\DependencyResolver" name="RuleSetGenerator" abstract="false" final="false" start="22" end="394">
+  <file path="../vendor/composer/composer/src/Composer/DependencyResolver" file="RuleSetGenerator.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/DependencyResolver/RuleSetGenerator.php" size="14632" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="2e822e9edb7c73e363302cd6641142e043c033dc" relative="vendor/composer/composer/src/Composer/DependencyResolver/RuleSetGenerator.php"/>
+  <docblock>
+    <description/>
+    <author value="Nils Adermann &lt;naderman@naderman.de&gt;"/>
+  </docblock>
+  <member name="policy" visibility="protected" static="false" line="24"/>
+  <member name="pool" visibility="protected" static="false" line="25"/>
+  <member name="rules" visibility="protected" static="false" line="26"/>
+  <member name="jobs" visibility="protected" static="false" line="27"/>
+  <member name="installedMap" visibility="protected" static="false" line="28"/>
+  <member name="allowListedMap" visibility="protected" static="false" line="29"/>
+  <member name="addedMap" visibility="protected" static="false" line="30"/>
+  <member name="conflictAddedMap" visibility="protected" static="false" line="31"/>
+  <member name="addedPackages" visibility="protected" static="false" line="32"/>
+  <member name="addedPackagesByNames" visibility="protected" static="false" line="33"/>
+  <constructor name="__construct" start="35" end="39" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="policy" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\PolicyInterface" namespace="Composer\DependencyResolver" name="PolicyInterface"/>
+    </parameter>
+    <parameter name="pool" byreference="false" type="object">
+      <type full="Composer\DependencyResolver\Pool" namespace="Composer\DependencyResolver" name="Pool"/>
+    </parameter>
+  </constructor>
+  <method name="createRequireRule" start="55" end="68" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Creates a new rule for the requirements of a package">This rule is of the form (-A|B|C), where B and C are the providers of
+one requirement of the package A.</description>
+      <param description="The package with a requirement" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="The providers of the requirement" type="array" variable="$providers"/>
+      <param description="A RULE_* constant describing the" type="int" variable="$reason">reason for generating this rule</param>
+      <param description="Any data, e.g. the requirement name," type="mixed" variable="$reasonData">that goes with the reason</param>
+      <return description="The generated rule or null if tautological" type="object">
+        <type full="Composer\DependencyResolver\Rule|null" namespace="Composer\DependencyResolver" name="Rule|null"/>
+      </return>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="providers" byreference="false" type="array"/>
+    <parameter name="reason" byreference="false" type="{unknown}"/>
+    <parameter name="reasonData" byreference="false" type="{unknown}" default="NULL"/>
+  </method>
+  <method name="createInstallOneOfRule" start="82" end="90" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Creates a rule to install at least one of a set of packages">The rule is (A|B|C) with A, B and C different packages. If the given
+set of packages is empty an impossible rule is generated.</description>
+      <param description="The set of packages to choose from" type="array" variable="$packages"/>
+      <param description="A RULE_* constant describing the reason for" type="int" variable="$reason">generating this rule</param>
+      <param description="The job this rule was created from" type="array" variable="$job"/>
+      <return description="The generated rule" type="object">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </return>
+    </docblock>
+    <parameter name="packages" byreference="false" type="array"/>
+    <parameter name="reason" byreference="false" type="{unknown}"/>
+    <parameter name="job" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="createRemoveRule" start="103" end="106" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Creates a rule to remove a package">The rule for a package A is (-A).</description>
+      <param description="The package to be removed" type="object" variable="$package">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="A RULE_* constant describing the" type="int" variable="$reason">reason for generating this rule</param>
+      <param description="The job this rule was created from" type="array" variable="$job"/>
+      <return description="The generated rule" type="object">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </return>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="reason" byreference="false" type="{unknown}"/>
+    <parameter name="job" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="createRule2Literals" start="122" end="130" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Creates a rule for two conflicting packages">The rule for conflicting packages A and B is (-A|-B). A is called the issuer
+and B the provider.</description>
+      <param description="The package declaring the conflict" type="object" variable="$issuer">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="The package causing the conflict" type="object" variable="$provider">
+        <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+      </param>
+      <param description="A RULE_* constant describing the" type="int" variable="$reason">reason for generating this rule</param>
+      <param description="Any data, e.g. the package name, that" type="mixed" variable="$reasonData">goes with the reason</param>
+      <return description="The generated rule" type="object">
+        <type full="Composer\DependencyResolver\Rule|null" namespace="Composer\DependencyResolver" name="Rule|null"/>
+      </return>
+    </docblock>
+    <parameter name="issuer" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="provider" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="reason" byreference="false" type="{unknown}"/>
+    <parameter name="reasonData" byreference="false" type="{unknown}" default="NULL"/>
+    <inline>
+      <comment value="ignore self conflict" line="124"/>
+    </inline>
+  </method>
+  <method name="addRule" start="141" end="148" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Adds a rule unless it duplicates an existing one of any type">To be able to directly pass in the result of one of the rule creation
+methods null is allowed which will not insert a rule.</description>
+      <param description="A TYPE_* constant defining the rule type" type="int" variable="$type"/>
+      <param description="The rule about to be added" type="object" variable="$newRule">
+        <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+      </param>
+    </docblock>
+    <parameter name="type" byreference="false" type="{unknown}"/>
+    <parameter name="newRule" byreference="false" type="object" default="NULL">
+      <type full="Composer\DependencyResolver\Rule" namespace="Composer\DependencyResolver" name="Rule"/>
+    </parameter>
+  </method>
+  <method name="allowListFromPackage" start="150" end="154" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <inline>
+      <comment value="call original method for BC" line="152"/>
+    </inline>
+  </method>
+  <method name="whitelistFromPackage" start="159" end="192" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <deprecated value="use whitelistFromPackage instead"/>
+    </docblock>
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+  </method>
+  <method name="addRulesForPackage" start="194" end="243" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="package" byreference="false" type="object">
+      <type full="Composer\Package\PackageInterface" namespace="Composer\Package" name="PackageInterface"/>
+    </parameter>
+    <parameter name="ignorePlatformReqs" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="addConflictRules" start="245" end="290" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="ignorePlatformReqs" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="obsoleteImpossibleForAlias" start="292" end="304" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="package" byreference="false" type="{unknown}"/>
+    <parameter name="provider" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="allowListFromJobs" start="306" end="310" abstract="false" final="false" static="false" visibility="protected">
+    <inline>
+      <comment value="call original method for BC" line="308"/>
+    </inline>
+  </method>
+  <method name="whitelistFromJobs" start="315" end="327" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description/>
+      <deprecated value="use allowListFromJobs instead"/>
+    </docblock>
+  </method>
+  <method name="addRulesForJobs" start="329" end="361" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="ignorePlatformReqs" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getRulesFor" start="363" end="393" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="jobs" byreference="false" type="{unknown}"/>
+    <parameter name="installedMap" byreference="false" type="{unknown}"/>
+    <parameter name="ignorePlatformReqs" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <comment value="Remove references to packages" line="389"/>
+    </inline>
+  </method>
+</class>

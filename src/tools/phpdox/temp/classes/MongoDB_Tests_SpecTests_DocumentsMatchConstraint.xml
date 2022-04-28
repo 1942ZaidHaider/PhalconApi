@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="MongoDB\Tests\SpecTests\DocumentsMatchConstraint" namespace="MongoDB\Tests\SpecTests" name="DocumentsMatchConstraint" abstract="false" final="false" start="52" end="481">
+  <file path="../vendor/mongodb/mongodb/tests/SpecTests" file="DocumentsMatchConstraint.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/mongodb/mongodb/tests/SpecTests/DocumentsMatchConstraint.php" size="15659" time="2022-03-23T20:18:39+00:00" unixtime="1648066719" sha1="f5f0e9efb6d7f12843917660449a7467775a4988" relative="vendor/mongodb/mongodb/tests/SpecTests/DocumentsMatchConstraint.php"/>
+  <docblock>
+    <description compact="Constraint that checks if one document matches another.">The expected value is passed in the constructor.</description>
+  </docblock>
+  <extends full="PHPUnit\Framework\Constraint\Constraint" namespace="PHPUnit\Framework\Constraint" name="Constraint" unresolved="true"/>
+  <uses full="Symfony\Bridge\PhpUnit\ConstraintTrait" namespace="Symfony\Bridge\PhpUnit" name="ConstraintTrait" start="54" end="54" unresolved="true"/>
+  <member name="ignoreExtraKeysInRoot" default="false" type="boolean" visibility="private" static="false" line="57">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="ignoreExtraKeysInEmbedded" default="false" type="boolean" visibility="private" static="false" line="60">
+    <docblock>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="placeholders" default="" type="array" visibility="private" static="false" line="63">
+    <docblock>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="sortKeys" default="false" type="boolean" visibility="private" static="false" line="74">
+    <docblock>
+      <description compact="TODO: This is not currently used, but was preserved from the design of TestCase::assertMatchesDocument(), which would sort keys and then compare documents as JSON strings. If the TODO item in matches() is implemented to make document comparisons more efficient, we may consider supporting this option."/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="value" visibility="private" static="false" line="77">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\BSONArray|BSONDocument" namespace="MongoDB\Tests\SpecTests" name="BSONArray|BSONDocument"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="lastFailure" visibility="private" static="false" line="80">
+    <docblock>
+      <var type="object">
+        <type full="MongoDB\Tests\SpecTests\ComparisonFailure|null" namespace="MongoDB\Tests\SpecTests" name="ComparisonFailure|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="comparatorFactory" visibility="private" static="false" line="83">
+    <docblock>
+      <var type="object">
+        <type full="SebastianBergmann\Comparator\Factory" namespace="SebastianBergmann\Comparator" name="Factory"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="93" end="100" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Creates a new constraint."/>
+      <param type="object" variable="$value">
+        <type full="MongoDB\Tests\SpecTests\array|object" namespace="MongoDB\Tests\SpecTests" name="array|object"/>
+      </param>
+      <param description="If true, ignore extra keys within the root document" type="boolean" variable="$ignoreExtraKeysInRoot"/>
+      <param description="If true, ignore extra keys within embedded documents" type="boolean" variable="$ignoreExtraKeysInEmbedded"/>
+      <param description="Placeholders for any value" type="array" variable="$placeholders"/>
+    </docblock>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <parameter name="ignoreExtraKeysInRoot" byreference="false" type="boolean" default="false"/>
+    <parameter name="ignoreExtraKeysInEmbedded" byreference="false" type="boolean" default="false"/>
+    <parameter name="placeholders" byreference="false" type="array" default=""/>
+  </constructor>
+  <method name="doEvaluate" start="102" end="137" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="other" byreference="false" type="{unknown}"/>
+    <parameter name="description" byreference="false" type="string" default="''"/>
+    <parameter name="returnResult" byreference="false" type="boolean" default="false"/>
+    <inline>
+      <todo value="If ignoreExtraKeys and sortKeys are both false, then we may be" line="104"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="able to skip preparation, convert both documents to extended JSON," line="105"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="and compare strings." line="106"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="If ignoreExtraKeys is false and sortKeys is true, we still be able to" line="107"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="compare JSON strings but will still require preparation to sort keys" line="108"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* in all documents and sub-documents." line="109"/>
+    </inline>
+  </method>
+  <method name="assertBSONType" start="143" end="278" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description/>
+      <param type="string" variable="$expectedType"/>
+      <param type="mixed" variable="$actualValue"/>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="expectedType" byreference="false" type="string"/>
+    <parameter name="actualValue" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="assertEquals" start="289" end="383" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Compares two documents recursively."/>
+      <param type="object" variable="$expected">
+        <type full="ArrayObject" namespace="" name="ArrayObject"/>
+      </param>
+      <param type="object" variable="$actual">
+        <type full="ArrayObject" namespace="" name="ArrayObject"/>
+      </param>
+      <param type="boolean" variable="$ignoreExtraKeys"/>
+      <param type="string" variable="$keyPrefix"/>
+      <throws description="if the documents do not match" type="object">
+        <type full="RuntimeException" namespace="" name="RuntimeException"/>
+      </throws>
+    </docblock>
+    <return type="void" nullable="false"/>
+    <parameter name="expected" byreference="false" type="object">
+      <type full="ArrayObject" namespace="" name="ArrayObject"/>
+    </parameter>
+    <parameter name="actual" byreference="false" type="object">
+      <type full="ArrayObject" namespace="" name="ArrayObject"/>
+    </parameter>
+    <parameter name="ignoreExtraKeys" byreference="false" type="bool"/>
+    <parameter name="keyPrefix" byreference="false" type="string" default="''"/>
+  </method>
+  <method name="doAdditionalFailureDescription" start="385" end="392" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="other" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="doFailureDescription" start="394" end="397" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="other" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="doMatches" start="399" end="417" abstract="false" final="false" static="false" visibility="private">
+    <parameter name="other" byreference="false" type="{unknown}"/>
+    <inline>
+      <todo value="If ignoreExtraKeys and sortKeys are both false, then we may be" line="401"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="able to skip preparation, convert both documents to extended JSON," line="402"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="and compare strings." line="403"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="If ignoreExtraKeys is false and sortKeys is true, we still be able to" line="404"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="compare JSON strings but will still require preparation to sort keys" line="405"/>
+      <comment xmlns="http://xml.phpdox.net/src" value="* in all documents and sub-documents." line="406"/>
+    </inline>
+  </method>
+  <method name="doToString" start="419" end="422" abstract="false" final="false" static="false" visibility="private"/>
+  <method name="prepareBSON" start="437" end="480" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Prepare a BSON document or array for comparison.">The argument will be converted to a BSONArray or BSONDocument based on
+its type and keys. Keys within documents will optionally be sorted. Each
+value within the array or document will then be prepared recursively.</description>
+      <param type="object" variable="$bson">
+        <type full="MongoDB\Tests\SpecTests\array|object" namespace="MongoDB\Tests\SpecTests" name="array|object"/>
+      </param>
+      <param description="If true, ensure an array value is converted to a document" type="boolean" variable="$isRoot"/>
+      <param type="boolean" variable="$sortKeys"/>
+      <return type="object">
+        <type full="MongoDB\Tests\SpecTests\BSONDocument|BSONArray" namespace="MongoDB\Tests\SpecTests" name="BSONDocument|BSONArray"/>
+      </return>
+      <throws description="if $bson is not an array or object" type="object">
+        <type full="InvalidArgumentException" namespace="" name="InvalidArgumentException"/>
+      </throws>
+    </docblock>
+    <parameter name="bson" byreference="false" type="{unknown}"/>
+    <parameter name="isRoot" byreference="false" type="bool"/>
+    <parameter name="sortKeys" byreference="false" type="boolean" default="false"/>
+  </method>
+</class>

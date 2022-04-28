@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Composer\Repository\Pear\BaseChannelReader" namespace="Composer\Repository\Pear" name="BaseChannelReader" abstract="true" final="false" start="24" end="82">
+  <file path="../vendor/composer/composer/src/Composer/Repository/Pear" file="BaseChannelReader.php" realpath="/home/cedcoss/gits/Phalcon/PhalconApi/src/vendor/composer/composer/src/Composer/Repository/Pear/BaseChannelReader.php" size="2527" time="2022-04-13T14:39:56+00:00" unixtime="1649860796" sha1="2632325b235e72d5b25002c87a39a2ad896041bd" relative="vendor/composer/composer/src/Composer/Repository/Pear/BaseChannelReader.php"/>
+  <docblock>
+    <description compact="Base PEAR Channel reader.">Provides xml namespaces and red</description>
+    <author value="Alexey Prilipko &lt;palex@farpost.com&gt;"/>
+  </docblock>
+  <constant type="{unknown}" name="CHANNEL_NS" value="'http://pear.php.net/channel-1.0'">
+    <docblock>
+      <description compact="PEAR REST Interface namespaces"/>
+    </docblock>
+  </constant>
+  <constant type="{unknown}" name="ALL_CATEGORIES_NS" value="'http://pear.php.net/dtd/rest.allcategories'"/>
+  <constant type="{unknown}" name="CATEGORY_PACKAGES_INFO_NS" value="'http://pear.php.net/dtd/rest.categorypackageinfo'"/>
+  <constant type="{unknown}" name="ALL_PACKAGES_NS" value="'http://pear.php.net/dtd/rest.allpackages'"/>
+  <constant type="{unknown}" name="ALL_RELEASES_NS" value="'http://pear.php.net/dtd/rest.allreleases'"/>
+  <constant type="{unknown}" name="PACKAGE_INFO_NS" value="'http://pear.php.net/dtd/rest.package'"/>
+  <member name="rfs" visibility="private" static="false" line="37">
+    <docblock>
+      <var type="object">
+        <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="39" end="42" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="rfs" byreference="false" type="object">
+      <type full="Composer\Util\RemoteFilesystem" namespace="Composer\Util" name="RemoteFilesystem"/>
+    </parameter>
+  </constructor>
+  <method name="requestContent" start="52" end="61" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Read content from remote filesystem."/>
+      <param description="server" type="string" variable="$origin"/>
+      <param description="relative path to content" type="string" variable="$path"/>
+      <throws type="object">
+        <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+      <return type="object">
+        <type full="\SimpleXMLElement" namespace="" name="SimpleXMLElement"/>
+      </return>
+    </docblock>
+    <parameter name="origin" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="requestXml" start="71" end="81" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Read xml content from remote filesystem"/>
+      <param description="server" type="string" variable="$origin"/>
+      <param description="relative path to content" type="string" variable="$path"/>
+      <throws type="object">
+        <type full="\UnexpectedValueException" namespace="" name="UnexpectedValueException"/>
+      </throws>
+      <return type="object">
+        <type full="\SimpleXMLElement" namespace="" name="SimpleXMLElement"/>
+      </return>
+    </docblock>
+    <parameter name="origin" byreference="false" type="{unknown}"/>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="http://components.ez.no/p/packages.xml is malformed. to read it we must ignore parsing errors." line="73"/>
+    </inline>
+  </method>
+  <extenders>
+    <extender full="Composer\Repository\Pear\ChannelRest10Reader" namespace="Composer\Repository\Pear" name="ChannelRest10Reader"/>
+    <extender full="Composer\Repository\Pear\ChannelRest11Reader" namespace="Composer\Repository\Pear" name="ChannelRest11Reader"/>
+    <extender full="Composer\Repository\Pear\ChannelReader" namespace="Composer\Repository\Pear" name="ChannelReader"/>
+  </extenders>
+</class>
