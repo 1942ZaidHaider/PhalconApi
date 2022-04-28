@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Controller;
+use Phalcon\Http\Cookie;
 
 /**
  * Index Controller
@@ -24,9 +25,12 @@ class IndexController extends Controller
                 case "login":
                     $resp = $this->mongo->users->findOne(['email' => $post['email'], 'password' => $post['password']]);
                     if ($resp) {
-                        $this->session->email = $post['email'];
-                        $callback = urlencode('http://'.$this->ip.'/frontend/index/callback');
-                        return $this->response->redirect("/api/register?callback=$callback");
+                        $callback = 'http://' . $this->ip . '/frontend/index/callback';
+                        $data=[
+                            "callback"=>$callback,
+                            "email" => $post["email"]
+                        ];
+                        return $this->response->redirect("/api/register?" . http_build_query($data));
                     } else {
                         $this->view->message = "<p class='alert alert-danger'>Invalid credentials or email not registered</p>";
                     }
@@ -46,6 +50,7 @@ class IndexController extends Controller
     public function callbackAction()
     {
         $this->session->token = $this->request->getQuery("access_token");
+        $this->session->email = $this->request->getQuery("email");
         return $this->response->redirect("/frontend/product");
     }
 }

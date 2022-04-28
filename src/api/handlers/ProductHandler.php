@@ -51,6 +51,8 @@ class ProductHandler extends Controller
     {
         if ($this->request->isPost()) {
             $post =  $this->escaper->escapeArray($this->request->getPost());
+            $post["stock"]=intval($post["stock"]);
+            $post["price"]=intval($post["price"]);
             $response = $this->table->updateOne(["_id"=>new ObjectId($id)],['$set'=>$post],['upsert'=>true]);
             if ($response->getModifiedCount()) {
                 $response = $this->table->findOne(["_id"=>new ObjectId($id)]);

@@ -92,6 +92,17 @@ $container->set(
     }
 );
 
+use Phalcon\Http\Response\Cookies;
+
+$container->set(
+    'cookies',
+    function () {
+        $cookies = new Cookies();
+        $cookies->useEncryption(false);
+        return $cookies;
+    }
+);
+
 // $response = $application->handle(
 //     str_replace("/frontend/", "/", $_SERVER["REQUEST_URI"])
 // );
@@ -105,4 +116,6 @@ try {
     $response->send();
 } catch (\Exception $e) {
     echo 'Exception: ', $e->getMessage();
+    echo '<br>: ', $e->getFile();
+    echo '<br>: ', $e->getLine();
 }

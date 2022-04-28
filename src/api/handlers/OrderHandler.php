@@ -38,6 +38,7 @@ class OrderHandler extends Controller
         ) {
             $post = $this->escaper->escapeArray($this->request->getPost());
             $post['status'] = 'paid';
+            $post['qty'] = intval($post['qty']);
             $response = $this->table->insertOne($post);
             if ($response->getInsertedCount()) {
                 $order=$this->table->findOne(["_id" => new ObjectId($response->getInsertedId())]);

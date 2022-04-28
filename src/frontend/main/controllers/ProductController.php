@@ -19,7 +19,6 @@ class ProductController extends Controller
      */
     public function indexAction()
     {
-
         $this->view->products = $this->table->find()->toArray();
     }
 
@@ -30,11 +29,11 @@ class ProductController extends Controller
      */
     public function updateAction()
     {
-        if($this->request->isPost()){
-            $post=$this->request->getPost();
-            $data=json_decode($post['data'],1);
-            $data["_id"]=new ObjectId($data["_id"]['$oid']);
-            $response=$this->table->updateOne(["_id"=>$data["_id"]],['$set'=>$data]);
+        if ($this->request->isPost()) {
+            $post = $this->request->getPost();
+            $data = json_decode($post['data'], 1);
+            $data["_id"] = new ObjectId($data["_id"]['$oid']);
+            $response = $this->table->updateOne(["_id" => $data["_id"]], ['$set' => $data]);
         }
         return json_encode($response);
     }
@@ -45,11 +44,11 @@ class ProductController extends Controller
      */
     public function addAction()
     {
-        if($this->request->isPost()){
-            $post=$this->request->getPost();
-            $data=json_decode($post['data'],1);
-            $data["_id"]=new ObjectId($data["_id"]['$oid']);
-            $response=$this->table->insertOne($data);
+        if ($this->request->isPost()) {
+            $post = $this->request->getPost();
+            $data = json_decode($post['data'], 1);
+            $data["_id"] = new ObjectId($data["_id"]['$oid']);
+            $response = $this->table->insertOne($data);
         }
         return json_encode($response);
     }
@@ -69,12 +68,12 @@ class ProductController extends Controller
         $url = "http://$ip/api/products/get?access_token=$token&page=1&per_page=1000";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $data = json_decode(curl_exec($curl),1);
+        $data = json_decode(curl_exec($curl), 1);
         curl_close($curl);
         //
         //Fixing _id of the received data 
         //
-        foreach ($data as $k=>$x) {
+        foreach ($data as $k => $x) {
             $data[$k]['_id'] = new ObjectId($x['_id']['$oid']);
         }
         $this->table->insertMany($data);
@@ -103,6 +102,7 @@ class ProductController extends Controller
             "qty" => 1,
             "email" => $this->session->email
         ];
+        print_r($_SESSION);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         $data = curl_exec($curl);
         curl_close($curl);

@@ -49,7 +49,11 @@ class AuthHandler extends Controller
                 "email" => $post['email'],
             ];
             $token = JWT::encode($payload, $key, 'HS256');
-            return $this->response->redirect($post['callback'] . "?access_token=" . $token);
+            $data = [
+                "access_token" => $token,
+                "email" => $post['email']
+            ];
+            return $this->response->redirect($post['callback'] . "?" . http_build_query($data));
         } else {
             $this->response->setStatusCode(400, 'Missing data');
             return "missing data";
@@ -63,14 +67,17 @@ class AuthHandler extends Controller
     public function register()
     {
         $callbackUrl = $this->request->getQuery("callback");
+        $email = $this->request->getQuery("email") ?? "";
         if (!$callbackUrl) {
             $this->response->setStatusCode(400, "Missing Data");
             $this->response->setContent("Missing callback url");
             return $this->response->send();
         } else {
-            $callbackUrl=$this->escaper->escape($callbackUrl);
+            $callbackUrl = $this->escaper->escape($callbackUrl);
+            $email = $this->escaper->escape($email);
             $data = [
                 "callback" => $callbackUrl,
+                "email" => $email
             ];
             return $this->view->render('register', $data);
         }
